@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+    <views>
+        <view>
+            <ID>183</ID>
+            <post_content>[wpv-filter-meta-html]
+[wpv-layout-meta-html]
+</post_content>
+            <post_title>Bulletin Accordion</post_title>
+            <post_name>183</post_name>
+            <post_excerpt></post_excerpt>
+            <post_type>view</post_type>
+            <post_status>publish</post_status>
+            <meta>
+                <_wpv_settings>
+                    <pagination>
+                        <preload_images>1</preload_images>
+                        <cache_pages>1</cache_pages>
+                        <preload_pages>1</preload_pages>
+                        <mode>paged</mode>
+                        <page_selector_control_type>drop_down</page_selector_control_type>
+                        <spinner>default</spinner>
+                        <spinner_image>http://interoccupy.net/testhub/wp-content/plugins/wp-views/embedded/res/img/ajax-loader.gif</spinner_image>
+                        <spinner_image_uploaded></spinner_image_uploaded>
+                        <state>disable</state>
+                    </pagination>
+                    <rollover>
+                        <preload_images>1</preload_images>
+                        <posts_per_page>1</posts_per_page>
+                        <speed>5</speed>
+                        <effect>fade</effect>
+                    </rollover>
+                    <taxonomy_hide_empty>1</taxonomy_hide_empty>
+                    <taxonomy_include_non_empty_decendants>1</taxonomy_include_non_empty_decendants>
+                    <taxonomy_pad_counts>0</taxonomy_pad_counts>
+                    <post_type_dont_include_current_page>1</post_type_dont_include_current_page>
+                    <view-query-mode>normal</view-query-mode>
+                    <query_type>
+                        <state>posts</state>
+                    </query_type>
+                    <orderby>post_date</orderby>
+                    <order>DESC</order>
+                    <limit>-1</limit>
+                    <offset>0</offset>
+                    <taxonomy_orderby>name</taxonomy_orderby>
+                    <taxonomy_order>DESC</taxonomy_order>
+                    <taxonomy_limit>-1</taxonomy_limit>
+                    <taxonomy_offset>0</taxonomy_offset>
+                    <posts_per_page>10</posts_per_page>
+                    <ajax_pagination>
+                        <style>fade</style>
+                        <state>disable</state>
+                    </ajax_pagination>
+                    <filter_meta_html>[wpv-filter-start hide=&quot;true&quot;]
+[wpv-filter-submit name=&quot;Apply&quot; hide=&quot;true&quot;]
+[wpv-filter-end]</filter_meta_html>
+                    <generated_filter_meta_html>[wpv-filter-start hide=&quot;false&quot;]
+[wpv-filter-controls][/wpv-filter-controls]
+[wpv-filter-end]</generated_filter_meta_html>
+                    <post_types>
+                        <post_type>bulletin</post_type>
+                    </post_types>
+                    <taxonomy_types>
+                        <taxonomy_type>category</taxonomy_type>
+                    </taxonomy_types>
+                </_wpv_settings>
+                <_wpv_layout_settings>
+                    <style>unformatted</style>
+                    <table_cols>2</table_cols>
+                    <include_field_names>on</include_field_names>
+                    <additional_js></additional_js>
+                    <layout_meta_html>[wpv-layout-start]
+[accordion auto_height=&quot;false&quot; ui_theme=&quot;ui-smoothness&quot; collapsible=&quot;1&quot; active=&quot;0&quot;]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      [accordion_panel title=&quot;[wpv-post-title]&quot;]&lt;div class=&quot;metabar&quot;&gt;Posted [wpv-post-date] by [wpv-post-author] • &lt;a href=&quot;[wpv-post-url]&quot;&gt;permalink&lt;/a&gt;&lt;/div&gt;[wpv-post-body view_template=&quot;None&quot;][wpv-post-comments][/accordion_panel]
+   &lt;/wpv-loop&gt;
+[/accordion] 
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]</layout_meta_html>
+                    <generated_layout_meta_html>[wpv-layout-start]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      
+   &lt;/wpv-loop&gt;
+
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]
+</generated_layout_meta_html>
+                </_wpv_layout_settings>
+            </meta>
+        </view>
+        <view>
+            <ID>13</ID>
+            <post_content>[wpv-filter-meta-html]
+[wpv-layout-meta-html]</post_content>
+            <post_title>Minutes Accordian</post_title>
+            <post_name>minutes-accordian</post_name>
+            <post_excerpt></post_excerpt>
+            <post_type>view</post_type>
+            <post_status>publish</post_status>
+            <meta>
+                <_wpv_settings>
+                    <pagination>
+                        <preload_images>1</preload_images>
+                        <cache_pages>1</cache_pages>
+                        <preload_pages>1</preload_pages>
+                        <mode>paged</mode>
+                        <page_selector_control_type>drop_down</page_selector_control_type>
+                        <spinner>default</spinner>
+                        <spinner_image>http://interoccupy.net/testhub/wp-content/plugins/wp-views/embedded/res/img/ajax-loader.gif</spinner_image>
+                        <spinner_image_uploaded></spinner_image_uploaded>
+                        <state>disable</state>
+                    </pagination>
+                    <rollover>
+                        <preload_images>1</preload_images>
+                        <posts_per_page>4</posts_per_page>
+                        <speed>5</speed>
+                        <effect>fade</effect>
+                    </rollover>
+                    <taxonomy_hide_empty>1</taxonomy_hide_empty>
+                    <taxonomy_include_non_empty_decendants>1</taxonomy_include_non_empty_decendants>
+                    <taxonomy_pad_counts>0</taxonomy_pad_counts>
+                    <post_type_dont_include_current_page>1</post_type_dont_include_current_page>
+                    <view-query-mode>normal</view-query-mode>
+                    <query_type>
+                        <state>posts</state>
+                    </query_type>
+                    <orderby>post_date</orderby>
+                    <order>DESC</order>
+                    <limit>-1</limit>
+                    <offset>0</offset>
+                    <taxonomy_orderby>name</taxonomy_orderby>
+                    <taxonomy_order>DESC</taxonomy_order>
+                    <taxonomy_limit>-1</taxonomy_limit>
+                    <taxonomy_offset>0</taxonomy_offset>
+                    <posts_per_page>10</posts_per_page>
+                    <ajax_pagination>
+                        <style>fade</style>
+                        <state>disable</state>
+                    </ajax_pagination>
+                    <filter_meta_html>[wpv-filter-start hide=&quot;true&quot;]
+[wpv-filter-submit name=&quot;Apply&quot; hide=&quot;true&quot;]
+[wpv-filter-end]</filter_meta_html>
+                    <generated_filter_meta_html>[wpv-filter-start hide=&quot;true&quot;]
+[wpv-filter-submit name=&quot;Apply&quot; hide=&quot;true&quot;]
+[wpv-filter-end]</generated_filter_meta_html>
+                    <post_types>
+                        <post_type>minutes</post_type>
+                    </post_types>
+                    <taxonomy_types>
+                        <taxonomy_type>category</taxonomy_type>
+                    </taxonomy_types>
+                </_wpv_settings>
+                <_wpv_layout_settings>
+                    <style>unformatted</style>
+                    <table_cols>2</table_cols>
+                    <include_field_names>on</include_field_names>
+                    <fields>
+                        <prefix_0></prefix_0>
+                        <name_0>wpv-post-title</name_0>
+                        <types_field_name_0></types_field_name_0>
+                        <types_field_data_0></types_field_data_0>
+                        <row_title_0>Title</row_title_0>
+                        <suffix_0></suffix_0>
+                        <prefix_1></prefix_1>
+                        <name_1>wpv-post-body</name_1>
+                        <types_field_name_1></types_field_name_1>
+                        <types_field_data_1></types_field_data_1>
+                        <row_title_1>Body</row_title_1>
+                        <suffix_1></suffix_1>
+                        <prefix_2></prefix_2>
+                        <name_2>wpv-post-date</name_2>
+                        <types_field_name_2></types_field_name_2>
+                        <types_field_data_2></types_field_data_2>
+                        <row_title_2>Date</row_title_2>
+                        <suffix_2></suffix_2>
+                        <prefix_3></prefix_3>
+                        <name_3>wpv-post-url</name_3>
+                        <types_field_name_3></types_field_name_3>
+                        <types_field_data_3></types_field_data_3>
+                        <row_title_3>URL</row_title_3>
+                        <suffix_3></suffix_3>
+                        <prefix_4></prefix_4>
+                        <name_4>wpv-post-author</name_4>
+                        <types_field_name_4></types_field_name_4>
+                        <types_field_data_4></types_field_data_4>
+                        <row_title_4>Author</row_title_4>
+                        <suffix_4></suffix_4>
+                    </fields>
+                    <additional_js></additional_js>
+                    <layout_meta_html>[wpv-layout-start]
+[accordion auto_height=&quot;false&quot; ui_theme=&quot;ui-smoothness&quot; collapsible=&quot;1&quot; active=&quot;0&quot;]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      [accordion_panel title=&quot;[wpv-post-title]&quot;]&lt;div class=&quot;metabar&quot;&gt;Posted [wpv-post-date] by [wpv-post-author] • &lt;a href=&quot;[wpv-post-url]&quot;&gt;permalink&lt;/a&gt;&lt;/div&gt;[wpv-post-body view_template=&quot;None&quot;][wpv-post-comments][/accordion_panel]
+   &lt;/wpv-loop&gt;
+[/accordion] 
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]</layout_meta_html>
+                    <generated_layout_meta_html>[wpv-layout-start]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      [wpv-post-title][wpv-post-body view_template=&quot;None&quot;][wpv-post-date][wpv-post-url][wpv-post-author]
+   &lt;/wpv-loop&gt;
+
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]
+</generated_layout_meta_html>
+                </_wpv_layout_settings>
+            </meta>
+        </view>
+        <view>
+            <ID>14</ID>
+            <post_content>[wpv-filter-meta-html]
+[wpv-layout-meta-html]</post_content>
+            <post_title>Updates Accordian</post_title>
+            <post_name>updates-accordian</post_name>
+            <post_excerpt></post_excerpt>
+            <post_type>view</post_type>
+            <post_status>publish</post_status>
+            <meta>
+                <_wpv_settings>
+                    <pagination>
+                        <preload_images>1</preload_images>
+                        <cache_pages>1</cache_pages>
+                        <preload_pages>1</preload_pages>
+                        <mode>paged</mode>
+                        <page_selector_control_type>drop_down</page_selector_control_type>
+                        <spinner>default</spinner>
+                        <spinner_image>http://interoccupy.net/testhub/wp-content/plugins/wp-views/embedded/res/img/ajax-loader.gif</spinner_image>
+                        <spinner_image_uploaded></spinner_image_uploaded>
+                        <state>disable</state>
+                    </pagination>
+                    <rollover>
+                        <preload_images>1</preload_images>
+                        <posts_per_page>4</posts_per_page>
+                        <speed>5</speed>
+                        <effect>fade</effect>
+                    </rollover>
+                    <taxonomy_hide_empty>1</taxonomy_hide_empty>
+                    <taxonomy_include_non_empty_decendants>1</taxonomy_include_non_empty_decendants>
+                    <taxonomy_pad_counts>0</taxonomy_pad_counts>
+                    <post_type_dont_include_current_page>1</post_type_dont_include_current_page>
+                    <view-query-mode>normal</view-query-mode>
+                    <query_type>
+                        <state>posts</state>
+                    </query_type>
+                    <orderby>post_date</orderby>
+                    <order>DESC</order>
+                    <limit>-1</limit>
+                    <offset>0</offset>
+                    <taxonomy_orderby>name</taxonomy_orderby>
+                    <taxonomy_order>DESC</taxonomy_order>
+                    <taxonomy_limit>-1</taxonomy_limit>
+                    <taxonomy_offset>0</taxonomy_offset>
+                    <posts_per_page>10</posts_per_page>
+                    <ajax_pagination>
+                        <style>fade</style>
+                        <state>disable</state>
+                    </ajax_pagination>
+                    <filter_meta_html>[wpv-filter-start hide=&quot;true&quot;]
+[wpv-filter-submit name=&quot;Apply&quot; hide=&quot;true&quot;]
+[wpv-filter-end]</filter_meta_html>
+                    <generated_filter_meta_html>[wpv-filter-start hide=&quot;true&quot;]
+[wpv-filter-submit name=&quot;Apply&quot; hide=&quot;true&quot;]
+[wpv-filter-end]</generated_filter_meta_html>
+                    <post_types>
+                        <post_type>post</post_type>
+                    </post_types>
+                    <taxonomy_types>
+                        <taxonomy_type>category</taxonomy_type>
+                    </taxonomy_types>
+                </_wpv_settings>
+                <_wpv_layout_settings>
+                    <style>unformatted</style>
+                    <table_cols>2</table_cols>
+                    <include_field_names>on</include_field_names>
+                    <fields>
+                        <prefix_0></prefix_0>
+                        <name_0>wpv-post-title</name_0>
+                        <types_field_name_0></types_field_name_0>
+                        <types_field_data_0></types_field_data_0>
+                        <row_title_0>Title</row_title_0>
+                        <suffix_0></suffix_0>
+                        <prefix_1></prefix_1>
+                        <name_1>wpv-post-body</name_1>
+                        <types_field_name_1></types_field_name_1>
+                        <types_field_data_1></types_field_data_1>
+                        <row_title_1>Body</row_title_1>
+                        <suffix_1></suffix_1>
+                        <prefix_2></prefix_2>
+                        <name_2>wpv-post-date</name_2>
+                        <types_field_name_2></types_field_name_2>
+                        <types_field_data_2></types_field_data_2>
+                        <row_title_2>Date</row_title_2>
+                        <suffix_2></suffix_2>
+                        <prefix_3></prefix_3>
+                        <name_3>wpv-post-url</name_3>
+                        <types_field_name_3></types_field_name_3>
+                        <types_field_data_3></types_field_data_3>
+                        <row_title_3>URL</row_title_3>
+                        <suffix_3></suffix_3>
+                        <prefix_4></prefix_4>
+                        <name_4>wpv-post-author</name_4>
+                        <types_field_name_4></types_field_name_4>
+                        <types_field_data_4></types_field_data_4>
+                        <row_title_4>Author</row_title_4>
+                        <suffix_4></suffix_4>
+                    </fields>
+                    <additional_js></additional_js>
+                    <layout_meta_html>[wpv-layout-start]
+[accordion auto_height=&quot;false&quot; ui_theme=&quot;ui-smoothness&quot; collapsible=&quot;1&quot; active=&quot;0&quot;]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      [accordion_panel title=&quot;[wpv-post-title]&quot;]&lt;div class=&quot;metabar&quot;&gt;Posted [wpv-post-date] by [wpv-post-author] • &lt;a href=&quot;[wpv-post-url]&quot;&gt;permalink&lt;/a&gt;&lt;/div&gt;[wpv-post-body view_template=&quot;None&quot;][wpv-post-comments][/accordion_panel]
+   &lt;/wpv-loop&gt;
+[/accordion] 
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]</layout_meta_html>
+                    <generated_layout_meta_html>[wpv-layout-start]
+&lt;!-- wpv-loop-start --&gt;
+   &lt;wpv-loop&gt;
+      [wpv-post-title][wpv-post-body view_template=&quot;None&quot;][wpv-post-date][wpv-post-url][wpv-post-author]
+   &lt;/wpv-loop&gt;
+
+&lt;!-- wpv-loop-end --&gt;
+[wpv-no-posts-found][wpml-string context=&quot;wpv-views&quot;]&lt;strong&gt;No posts found&lt;/strong&gt;[/wpml-string][/wpv-no-posts-found]
+[wpv-layout-end]
+</generated_layout_meta_html>
+                </_wpv_layout_settings>
+            </meta>
+        </view>
+    </views>
+</views>

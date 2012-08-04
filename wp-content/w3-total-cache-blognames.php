@@ -1,0 +1,1 @@
+<?php return array('bankjustice', 'worldnonukes', 'testhub', 'globalnoise', 'ourconferenceny', 'occupyhomes', 'occupypolice', 'womenoccupy', 'interocc');
