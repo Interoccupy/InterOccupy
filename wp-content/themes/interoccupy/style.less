@@ -67,6 +67,7 @@ body.page-id-23 #features { background:@offwhite url('@{plChildRoot}/images/feat
 input[type="submit"], .submit, input[type="button"], .button, input[type="reset"], .reset { background:@yellow; font-family: @plHeaderFont; text-transform: uppercase; color:@black; }
 
 section#sb_universal { margin-top:0px; }
+section#sb_universal .widget-pad { padding-top:0px; }
 section#sb_secondary { margin-top:4px; margin-bottom:-20px;}
 #sb_secondary .accordion-inner { max-height:300px; overflow: auto; }
 #sb_secondary .accordion-heading .accordion-toggle { font-family: "League Gothic"; font-size:30px; text-transform: uppercase; padding:15px; }
@@ -74,14 +75,15 @@ section#sb_secondary { margin-top:4px; margin-bottom:-20px;}
 section#postloop { margin-bottom:0; }
 .section-sb_secondary h3.widget-title { font-size:34px; color:@black; margin-bottom:10px; padding:0; border-bottom:1px solid @lightgray; }
 #text-4 .widget-pad { height:820px; overflow: auto; border-bottom:1px solid @lightgray;  }
-h3.widget-title { font-size:34px; border-bottom:none; margin-bottom:0; color:@black; margin-bottom:10px; padding:0; border-bottom:1px solid @lightgray; }
+h3.widget-title, h2.nlposts-ulist-wtitle { font-size:34px; border-bottom:none; margin-bottom:0; color:@black; margin-bottom:10px; padding:0; border-bottom:1px solid @lightgray; }
 #column-main #wdg_specialrecentposts-2 { width:60%; float:left; border:1px solid @lightgray; }
 #column-main #left-column { height:700px; overflow: auto; display:block; }
 #column-main #wdg_specialrecentposts-3, #text-5 { width:37%; float:right; border:1px solid @lightgray; }
-#column-main #text-5 .textwidget { height:750px; overflow: auto; }
+.home .nlposts-widget { display:block; float:right; width:35%; border:1px solid @lightgray; padding:10px; }
+#column-main #text-5 .textwidget, .nlposts-widget { height:750px; overflow: auto; }
 .widget .srp-widget-singlepost { padding-top:0; }
 .widget ul { margin-left:0; }
-h4.srp-post-title, h4.network-posts-title { text-transform: none; font-family: @plHeaderFont !important; font-size:16px; font-weight: bold;  }
+h4.srp-post-title, h3.nlposts-ulist-title { text-transform: none; font-family: @plHeaderFont !important; font-size:16px; font-weight: bold;  }
 #network-latest-posts h4.srp-post-title { font-size:14px; }
 .srp-widget-date { font-size:11px; font-style: italic; }
 .srp-widget-excerpt { font-size:13px; }
@@ -111,6 +113,7 @@ h3.ai1ec-date-title { font-family: @plHeaderFont !important; letter-spacing:0; }
 div.srp-widget-container a { margin-top:5px; }
 
 .gform_wrapper input[type="text"], .gform_wrapper input[type="url"], .gform_wrapper input[type="email"], .gform_wrapper input[type="tel"], .gform_wrapper input[type="number"], .gform_wrapper input[type="password"] { font-size:15px; padding:4px; }
+.gform_wrapper .description, .gform_wrapper .gfield_description, .gform_wrapper .gsection_description, .gform_wrapper .instruction { font-size:.75em; line-height:1.2em; font-style:italic; color:#303030; }
 
 /* iPhone [portrait + landscape] */
 @media only screen and (max-device-width: 480px) {

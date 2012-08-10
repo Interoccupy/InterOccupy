@@ -21,3 +21,10 @@ function add_fonts() {
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<?php
 }
+
+function exclude_category( $query ) {
+    if (is_home()) {
+        $query->set( 'cat', '-361' );
+    }
+}
+//add_action( 'pre_get_posts', 'exclude_category' );
