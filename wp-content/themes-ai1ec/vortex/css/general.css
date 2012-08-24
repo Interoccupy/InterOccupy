@@ -1675,16 +1675,57 @@ li[class*=" icon-"].icon-large:before {
   padding: 0 !important;
 }
 .ai1ec-agenda-widget-view .ai1ec-date {
+  border-top: 1px solid #e5e5e5 !important;
+  background: rgba(242, 242, 242, 0.8);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), color-stop(1em, #f2f2f2), to(rgba(242, 242, 242, 0)));
+  background: -webkit-linear-gradient(#f2f2f2, #f2f2f2 1em, rgba(242, 242, 242, 0));
+  background: -moz-linear-gradient(top, #f2f2f2, #f2f2f2 1em, rgba(242, 242, 242, 0));
+  background: -ms-linear-gradient(#f2f2f2, #f2f2f2 1em, rgba(242, 242, 242, 0));
+  background: -o-linear-gradient(#f2f2f2, #f2f2f2 1em, rgba(242, 242, 242, 0));
+  background: linear-gradient(#f2f2f2, #f2f2f2 1em, rgba(242, 242, 242, 0));
+  background-repeat: no-repeat;
   margin: 0 !important;
   overflow: hidden;
   padding: 0 !important;
 }
+.ai1ec-agenda-widget-view .ai1ec-date.ai1ec-today {
+  border-top: 1px solid #f0f0aa !important;
+  background: rgba(244, 244, 191, 0.8);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4bf), color-stop(1em, #f4f4bf), to(rgba(244, 244, 191, 0)));
+  background: -webkit-linear-gradient(#f4f4bf, #f4f4bf 1em, rgba(244, 244, 191, 0));
+  background: -moz-linear-gradient(top, #f4f4bf, #f4f4bf 1em, rgba(244, 244, 191, 0));
+  background: -ms-linear-gradient(#f4f4bf, #f4f4bf 1em, rgba(244, 244, 191, 0));
+  background: -o-linear-gradient(#f4f4bf, #f4f4bf 1em, rgba(244, 244, 191, 0));
+  background: linear-gradient(#f4f4bf, #f4f4bf 1em, rgba(244, 244, 191, 0));
+  background-repeat: no-repeat;
+}
 .ai1ec-agenda-widget-view h3.ai1ec-date-title {
-  font-size: 1.3em;
+  border: 2px solid #8ba5c0;
+  -webkit-border-radius: 0 0 0.5em 0.5em;
+  -moz-border-radius: 0 0 0.5em 0.5em;
+  border-radius: 0 0 0.5em 0.5em;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+  color: #525252;
+  float: left;
+  font-size: 1em;
   font-weight: normal;
+  background-color: #f9f9f9;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(1em, #ffffff), to(#e0e0e0));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff 1em, #e0e0e0);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 1em, #e0e0e0);
+  background-image: -ms-linear-gradient(#ffffff, #ffffff 1em, #e0e0e0);
+  background-image: -o-linear-gradient(#ffffff, #ffffff 1em, #e0e0e0);
+  background-image: linear-gradient(#ffffff, #ffffff 1em, #e0e0e0);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e0e0e0', GradientType=0);
   line-height: 1.1em;
+  margin: 0 0.5em 0.5em !important;
   padding: 0 !important;
+  text-align: center;
   text-shadow: 0 1px 0 #ffffff;
+  width: 3.5em;
 }
 .ai1ec-agenda-widget-view .ai1ec-month {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -1723,6 +1764,11 @@ li[class*=" icon-"].icon-large:before {
 .ai1ec-agenda-widget-view .ai1ec-event a {
   color: #507295;
   display: block;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  border-radius: 0.4em;
   padding: 0.2em 0.4em !important;
   text-decoration: none !important;
 }

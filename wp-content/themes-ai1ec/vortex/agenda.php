@@ -35,9 +35,9 @@
 		<?php foreach( $dates as $timestamp => $date_info ): ?>
 			<li class="ai1ec-date <?php if( isset( $date_info['today'] ) && $date_info['today'] ) echo 'ai1ec-today' ?>">
 				<h3 class="ai1ec-date-title">
-					<?php echo date_i18n( 'l', $timestamp, true ) ?>,
-					<?php echo date_i18n( 'F', $timestamp, true ) ?>
-					<?php echo date_i18n( 'j', $timestamp, true ) ?>
+					<div class="ai1ec-month"><?php echo date_i18n( 'M', $timestamp, true ) ?></div>
+					<div class="ai1ec-day"><?php echo date_i18n( 'j', $timestamp, true ) ?></div>
+					<div class="ai1ec-weekday"><?php echo date_i18n( 'D', $timestamp, true ) ?></div>
 					<?php if ( $show_year_in_agenda_dates ): ?>
 						<div class="ai1ec-year"><?php echo date_i18n( 'Y', $timestamp, true ) ?></div>
 					<?php endif; ?>

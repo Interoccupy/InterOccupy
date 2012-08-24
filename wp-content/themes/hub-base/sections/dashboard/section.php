@@ -26,6 +26,7 @@ class InteroccHubDash extends PageLinesSection {
 		$tabs .= '[pl_tabtitle active="yes" number="1"]Info[/pl_tabtitle]';
 		$tabs .= '[pl_tabtitle number="2"]Updates[/pl_tabtitle]';
 		$tabs .= '[pl_tabtitle number="3"]Minutes[/pl_tabtitle]';
+		if (is_user_logged_in()) { $tabs .= '[pl_tabtitle number="5"]Bulletin[/pl_tabtitle]'; }
 		if ( of_get_option ( 'hub-wiki' ) ) $tabs .= '[pl_tabtitle number="4"]Wiki[/pl_tabtitle]';
 		if (( of_get_option('social-tab')) == 1 ) $tabs .= '[pl_tabtitle number="6"]Social[/pl_tabtitle]';
 		$tabs .= '[/pl_tabtitlesection]';
@@ -44,9 +45,14 @@ class InteroccHubDash extends PageLinesSection {
 		$tabs .= '[/pl_tabcontent]';
 		$tabs .= '[pl_tabcontent number="3"]';
 		$tabs .= render_view(array("id"=>"13"));
-		
-		//$tabs .= render_view(array("id"=>"183"));
 		$tabs .= '[/pl_tabcontent]';
+		
+		if (is_user_logged_in()) { 
+			$tabs .= '[pl_tabcontent number="5"]';
+			$tabs .= render_view(array("id"=>"183"));
+			$tabs .= '[/pl_tabcontent]';
+		}
+		
 		if ( of_get_option ( 'hub-wiki' ) ) { 
 			$tabs .= '[pl_tabcontent number="4"]';
 			$tabs .= '<blockquote>The information here is from the Occupy.net wiki.  Use the wiki to document everything pertaining to your Hub.  Wikis are a powerful way to share content and document the processes for the work you are engaged in.</blockquote>';

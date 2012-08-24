@@ -13,13 +13,17 @@ function wpv_header_shortcode($atts, $value){
         shortcode_atts( array(), $atts )
     );
 
+    if (isset($atts['name']) && strpos($atts['name'], 'types-field-')) {
+        $atts['name'] = strtolower($atts['name']);
+    }
+    
     global $WP_Views;
     $view_settings = $WP_Views->get_view_settings();
     
     //'wpv_column_sort_id'
     $order_class = 'wpv-header-no-sort';
     
-    if ($atts['name'] != 'post-body') {
+    if ($view_settings['view-query-mode'] == 'normal' && $atts['name'] != 'post-body') {
 
         if (isset($_GET['wpv_column_sort_id']) && $_GET['wpv_column_sort_id'] == $atts['name']) {
             

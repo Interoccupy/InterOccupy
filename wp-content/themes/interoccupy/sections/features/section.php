@@ -503,42 +503,40 @@ class PageLinesFeatures2 extends PageLinesSection {
 	<div id="signup-feature">
 		<h3>Stay Informed</h3>
 		<em>Sign up for the Interoccupy Newsletter<br>enter email:</em>
-		<form  action="http://crm.interoccupy.net/civicrm/profile/create?gid=10&amp;reset=1" method="post" name="Edit" id="Edit" >
-		<div><input name="postURL" type="hidden" value="http://interoccupy.net/full-registration" />
-			<input name="cancelURL" type="hidden" value="http://crm.interoccupy.net/civicrm/profile?reset=1&amp;gid=11" />
-			<input name="add_to_group" type="hidden" value="4" />
-			<input name="_qf_default" type="hidden" value="Edit:cancel" />
+<form  action="http://crm.interoccupy.net/civicrm/profile/create?gid=10&amp;reset=1" method="post" name="Edit" id="Edit" >
+
+<div>
+	<input name="postURL" type="hidden" value="http://interoccupy.net/full-registration" />
+	<input name="add_to_group" type="hidden" value="2" />
+	<input name="_qf_default" type="hidden" value="Edit:cancel" />
+</div>
+
+<script type="text/javascript" src="http://crm.interoccupy.net/sites/all/modules/civicrm/js/Common.js"></script>
+
+<div id="crm-container" lang="en" xml:lang="en">
+
+	<div class="form-layout-compressed">
+		<div class="edit-value content">
+			<input maxlength="64" size="30" name="email-3" type="text" id="email-3" class="form-text big required" />
 		</div>
+		<div class="clear"></div>
+	</div>
+</div><!-- end form-layout-compressed for last profile --> 
+<div class="crm-submit-buttons">
 	
-		<script type="text/javascript" src="http://crm.interoccupy.net/sites/all/modules/civicrm/js/Common.js"></script>
+	<span class="crm-button crm-button-type-next crm-button_qf_Edit_next"><input class="form-submit default button" accesskey="S" name="_qf_Edit_next" value="Submit" type="submit" id="_qf_Edit_next" /></span>
 
-    	<div id="crm-container" lang="en" xml:lang="en">
-	    	<div class="form-layout-compressed">
-	    		<div id="editrow-email-3" class="crm-section editrow_email-3-section form-item">
-	    			<div class="edit-value content"><input maxlength="64" size="38" name="email-3" type="text" id="email-3" class="form-text big required" />
-	    			</div>
-	    			<div class="clear"></div>
-	    		</div>
-	    	</div><!-- end form-layout-compressed for last profile --> 
-	    	<div class="crm-submit-buttons">
-	    	<span class="crm-button crm-button-type-next crm-button_qf_Edit_next"><input class="button form-submit default" accesskey="S" name="_qf_Edit_next" value="Submit" type="submit" id="_qf_Edit_next" /></span>
-            </div>
-        </div> 
-		<script type="text/javascript">
-		    
-		cj(document).ready(function(){ 
-			cj('#selector tr:even').addClass('odd-row ');
-			cj('#selector tr:odd ').addClass('even-row');
-		});
-		
-		</script>
-		</form>
+</div> 
+<script type="text/javascript">
+jQuery('#_qf_Edit_next').click(function() {
+var emailURL = jQuery('input[name=postURL]').val()
+emailURL += '?'
+emailURL += jQuery('#email-3').serialize()
+jQuery('input[name=postURL]').val(emailURL)
+});
+</script>
 
-		<script type="text/javascript" >
-		cj( function( ) {
-		    cj("#Edit").validate({ 'errorClass': 'crm-error'});
-		});
-		</script>
+</form>
 	</div>
 <!-- End signup Form -->
 

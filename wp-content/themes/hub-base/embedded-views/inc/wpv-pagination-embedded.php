@@ -22,11 +22,12 @@ function wpv_pager_defaults($view_settings, $view_id=null) {
             'style' => 'fade',
         ),
         'rollover' => array(
-            'posts_per_page' => 4,
+            'posts_per_page' => 1,
             'speed' => 5,
             'effect' => 'fade',
             'preload_images' => 1,
             'include_page_selector' => 0,
+            'include_prev_next_page_controls' => 0,
         ),
     );
     $view_settings = wpv_parse_args_recursive($view_settings, $defaults);
@@ -129,8 +130,15 @@ function wpv_pager_prev_page_shortcode($atts, $value) {
     global $WP_Views;
 
     $page = $WP_Views->get_current_page_number();
+    $view_settings = $WP_Views->get_view_settings();
+    $display = false;
+    if ($view_settings['pagination']['mode'] == 'rollover') {
+        $display = true;
+    } else if ($page > 1) {
+        $display = true;
+    }
 
-    if ($page > 1) {
+    if ($display) {
 
         $page--;
 
@@ -138,15 +146,36 @@ function wpv_pager_prev_page_shortcode($atts, $value) {
 
         // TODO remove
 //        return '<a href="#" onclick="return wpv_pager_click_' . $WP_Views->get_view_count() . '(\'' . $page. '\')">' . $value . '</a>';
-        $view_settings = $WP_Views->get_view_settings();
+        
         $ajax = $view_settings['ajax_pagination'][0] == 'enable' ? 'true' : 'false';
         $effect = isset($view_settings['ajax_pagination']['style']) ? $view_settings['ajax_pagination']['style'] : 'fade';
+        $stop_rollover = 'false';
+        if ($view_settings['pagination']['mode'] == 'rollover') {
+            $ajax = 'true';
+            $effect = $view_settings['rollover']['effect'];
+            $stop_rollover = 'true';
+            if ($effect == 'slideleft') {
+                $effect = 'slideright';
+            }
+            
+            if ($effect == 'slidedown') {
+                $effect = 'slideup';
+            }
+            
+        }
         $cache_pages = $view_settings['pagination']['cache_pages'];
         $preload_pages = $view_settings['pagination']['preload_pages'];
         $spinner = $view_settings['pagination']['spinner'];
         $spinner_image = $view_settings['pagination']['spinner_image'];
         $callback_next = $view_settings['pagination']['callback_next'];
-        return '<a href="#" class="wpv-filter-previous-link" onclick="return wpv_pagination_replace_view(' . $WP_Views->get_view_count() . ',' . $page . ', ' . $ajax . ', \'' . $effect . '\', ' . $WP_Views->get_max_pages() . ', ' . $cache_pages . ', ' . $preload_pages . ', \'' . $spinner . '\', \'' . $spinner_image . '\', \'' . $callback_next . '\', false)">' . $value . '</a>';
+
+        if ($page <= 0) {
+            $page = $WP_Views->get_max_pages();
+        } else if ($page > $WP_Views->get_max_pages()) {
+            $page = 1;
+        }
+
+        return '<a href="#" class="wpv-filter-previous-link" onclick="return wpv_pagination_replace_view(' . $WP_Views->get_view_count() . ',' . $page . ', ' . $ajax . ', \'' . $effect . '\', ' . $WP_Views->get_max_pages() . ', ' . $cache_pages . ', ' . $preload_pages . ', \'' . $spinner . '\', \'' . $spinner_image . '\', \'' . $callback_next . '\', ' . $stop_rollover . ')">' . $value . '</a>';
     } else {
         return '';
     }
@@ -172,8 +201,15 @@ function wpv_pager_next_page_shortcode($atts, $value) {
     global $WP_Views;
 
     $page = $WP_Views->get_current_page_number();
+    $view_settings = $WP_Views->get_view_settings();
+    $display = false;
+    if ($view_settings['pagination']['mode'] == 'rollover') {
+        $display = true;
+    } else if ($page < $WP_Views->get_max_pages()) {
+        $display = true;
+    }
 
-    if ($page < $WP_Views->get_max_pages()) {
+    if ($display) {
 
         $page++;
 
@@ -181,15 +217,36 @@ function wpv_pager_next_page_shortcode($atts, $value) {
 
         // TODO remove
 //        return '<a href="#" onclick="return wpv_pager_click_' . $WP_Views->get_view_count() . '(\'' . $page. '\')">' . $value . '</a>';
-        $view_settings = $WP_Views->get_view_settings();
+
         $ajax = $view_settings['ajax_pagination'][0] == 'enable' ? 'true' : 'false';
         $effect = isset($view_settings['ajax_pagination']['style']) ? $view_settings['ajax_pagination']['style'] : 'fade';
+        $stop_rollover = 'false';
+        if ($view_settings['pagination']['mode'] == 'rollover') {
+            $ajax = 'true';
+            $effect = $view_settings['rollover']['effect'];
+            $stop_rollover = 'true';
+            if ($effect == 'slideright') {
+                $effect = 'slideleft';
+            }
+
+            if ($effect == 'slideup') {
+                $effect = 'slidedown';
+            }
+            
+        }
         $cache_pages = $view_settings['pagination']['cache_pages'];
         $preload_pages = $view_settings['pagination']['preload_pages'];
         $spinner = $view_settings['pagination']['spinner'];
         $spinner_image = $view_settings['pagination']['spinner_image'];
         $callback_next = $view_settings['pagination']['callback_next'];
-        return '<a href="#" class="wpv-filter-next-link" onclick="return wpv_pagination_replace_view(' . $WP_Views->get_view_count() . ',' . $page . ', ' . $ajax . ', \'' . $effect . '\',' . $WP_Views->get_max_pages() . ', ' . $cache_pages . ', ' . $preload_pages . ', \'' . $spinner . '\', \'' . $spinner_image . '\', \'' . $callback_next . '\', false)">' . $value . '</a>';
+        
+        if ($page <= 0) {
+            $page = $WP_Views->get_max_pages();
+        } else if ($page > $WP_Views->get_max_pages()) {
+            $page = 1;
+        }
+        
+        return '<a href="#" class="wpv-filter-next-link" onclick="return wpv_pagination_replace_view(' . $WP_Views->get_view_count() . ',' . $page . ', ' . $ajax . ', \'' . $effect . '\',' . $WP_Views->get_max_pages() . ', ' . $cache_pages . ', ' . $preload_pages . ', \'' . $spinner . '\', \'' . $spinner_image . '\', \'' . $callback_next . '\', ' . $stop_rollover . ')">' . $value . '</a>';
     } else {
         return '';
     }
@@ -409,10 +466,10 @@ function wpv_ajax_get_page($post_data) {
 
     $_GET['wpv_paged'] = $post_data['page'];
     $_GET['wpv_view_count'] = $post_data['view_number'];
-    if (isset($post_data['wpv_column_sort_id'])) {
+    if (isset($post_data['wpv_column_sort_id']) && $post_data['wpv_column_sort_id'] != 'undefined') {
         $_GET['wpv_column_sort_id'] = $post_data['wpv_column_sort_id'];
     }
-    if (isset($post_data['wpv_column_sort_dir'])) {
+    if (isset($post_data['wpv_column_sort_dir']) && $post_data['wpv_column_sort_dir'] != 'undefined') {
         $_GET['wpv_column_sort_dir'] = $post_data['wpv_column_sort_dir'];
     }
     
@@ -431,18 +488,18 @@ function wpv_ajax_get_page($post_data) {
 
     if ($post_data['wpv_view_widget_id'] == 0) {
         // set the view count so we return the right view number after rendering.
-        $WP_Views->set_view_count(intval($post_data['view_number']) - 1);
+        $WP_Views->set_view_count(intval($post_data['view_number']) - 1, null);
 
         echo $WP_Views->short_tag_wpv_view($view_data);
         //echo wpv_do_shortcode($post->post_content);
     } else {
         
         // set the view count so we return the right view number after rendering.
-        $WP_Views->set_view_count(intval($post_data['view_number']) - 1);
+        $WP_Views->set_view_count(intval($post_data['view_number']), $post_data['wpv_view_widget_id']);
         
         $widget = new WPV_Widget();
         
-        $ars = array('before_widget' => '',
+        $args = array('before_widget' => '',
                      'before_title' => '',
                      'after_title' => '',
                      'after_widget' => '');

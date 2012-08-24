@@ -20,8 +20,10 @@ class WP_Views{
         $this->current_page = array();
         
         $this->post_query = null;
+		$this->post_query_stack = array();
         
         $this->view_count = 0;
+        $this->set_view_counts = array();
 		
 		$this->taxonomy_data = array();
 		
@@ -32,10 +34,11 @@ class WP_Views{
         $this->widget_view_id = 0;
 		
 		$this->variables = array();
+
+		$this->rendering_views_form_in_progress = false;
         
         add_filter('icl_cf_translate_state', array($this, 'custom_field_translate_state'), 10, 2);
 
-        
     }
     
 
@@ -44,11 +47,6 @@ class WP_Views{
     }
 
     function init(){
-		
-	    $views = $this->get_views();
-		foreach($views as $view) {
-			$params = $this->get_view_shortcode_params($view->ID);
-		}
 		
         $this->wpv_register_type_view();
         
@@ -66,6 +64,10 @@ class WP_Views{
         add_action('wp_ajax_wpv_get_taxonomy_term_check', 'wpv_get_taxonomy_term_check');
         add_action('wp_ajax_wpv_get_taxonomy_term_summary', 'wpv_ajax_get_taxonomy_term_summary');
         add_action('wp_ajax_wpv_get_post_relationship_info', 'wpv_ajax_wpv_get_post_relationship_info');
+        add_action('wp_ajax_wpv_view_form_popup', 'wpv_ajax_wpv_view_form_popup');
+		add_action('wp_ajax_wpv_insert_form_shortcode', 'wp_ajax_wpv_insert_form_shortcode');
+		add_action('wp_ajax_wpv_get_show_hidden_custom_fields', array($this, 'wpv_get_show_hidden_custom_fields'));
+		add_action('wp_ajax_wpv_format_date', array($this, 'wpv_format_date'));
         
         if(is_admin()){
 
@@ -104,10 +106,18 @@ class WP_Views{
 
             wp_enqueue_script( 'views-pagination-script' , WPV_URL_EMBEDDED . '/res/js/wpv-pagination-embedded.js', array('jquery'), WPV_VERSION);
             wp_enqueue_style( 'views-pagination-style', WPV_URL_EMBEDDED . '/res/css/wpv-pagination.css', array(), WPV_VERSION);
+            
+			wp_enqueue_script( 'date-picker-script' , WPV_URL_EMBEDDED . '/res/js/jquery.ui.datepicker.min.js', array('jquery-ui-core', 'jquery'), WPV_VERSION);
+			wp_enqueue_style( 'date-picker-style' , WPV_URL_EMBEDDED . '/res/css/datepicker.css', array(), WPV_VERSION);
+			wp_enqueue_script( 'wpv-date-front-end-script' , WPV_URL_EMBEDDED . '/res/js/wpv-date-front-end-control.js', array('jquery'), WPV_VERSION);
+
+            add_action('wp_head', 'wpv_add_front_end_js');
+			
         }        
         
          /*shorttags*/
         add_shortcode( 'wpv-view', array($this, 'short_tag_wpv_view') );
+        add_shortcode( 'wpv-form-view', array($this, 'short_tag_wpv_view_form') );
         
         add_action('wp_print_styles', array($this, 'add_render_css'));
 
@@ -213,6 +223,7 @@ class WP_Views{
     
     function widgets_init(){
         register_widget('WPV_Widget');
+        register_widget('WPV_Widget_filter');
     }
     
     function register_CCK_type($type) {
@@ -384,6 +395,86 @@ class WP_Views{
         
     }
     
+    /**
+     * Process the view shortcode
+     *
+     * eg. [wpv-form-view name='my-view' target_id='xx']
+     *
+     */
+    
+    function short_tag_wpv_view_form($atts){
+        global $wpdb;
+        
+        global $wplogger;
+        $wplogger->log($atts);
+        
+        extract(
+            shortcode_atts( array(
+                'id'    => false,
+                'name'  => false,
+				'target_id' => ''
+            ), $atts )
+        );
+        
+        if(empty($id) && !empty($name)){
+            // lookup by post name first
+            $id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='view' AND post_name=%s", $name));
+            if (!$id) {
+                // try the post title
+                $id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='view' AND post_title=%s", $name));
+            }
+        }
+        
+        if(empty($id)){
+            return sprintf('<!- %s ->', __('View not found', 'wpv-views'));
+        }
+		
+		$this->rendering_views_form_in_progress = true;
+		
+		$out = '';
+		
+        $view_settings = $this->get_view_settings($id);
+	    if (isset($view_settings['filter_meta_html'])) {
+
+			$url = get_permalink($target_id);
+	        $out .= '<form action="' . $url . '" method="GET" class="wpv-filter-form"' . ">\n";
+			
+			// add hidden inputs for any url parameters.
+			// We need these for when the form is submitted.
+			$url_query = parse_url($url, PHP_URL_QUERY);
+			if ($url_query != '') {
+				$query_parts = explode('&', $url_query);
+				foreach($query_parts as $param) {
+					$item = explode('=', $param);
+					if (strpos($item[0], 'wpv_') !== 0) {
+						$out .= '<input id="wpv_param_' . $item[0] . '" type="hidden" name="' . $item[0] . '" value="' . $item[1] . '">' . "\n";
+					}
+				}
+			}
+			
+			$meta_html = $view_settings['filter_meta_html'];
+			
+            if(preg_match('#\\[wpv-filter-controls\\](.*?)\\[\/wpv-filter-controls\\]#is', $meta_html, $matches)) {
+				
+				$out .= wpv_do_shortcode($matches[0]);
+			
+			}
+			
+			$out .= '</form>';
+			
+		}
+		
+		$this->rendering_views_form_in_progress = false;
+
+        
+        return $out;
+        
+    }
+	
+	function rendering_views_form() {
+		return $this->rendering_views_form_in_progress;
+	}
+    
     function get_current_page() {
         return end($this->current_page);
     }
@@ -411,11 +502,19 @@ class WP_Views{
      */
     
     function get_view_count() {
-        return $this->view_count;
+		if (isset($this->set_view_counts[$this->current_view])) {
+			return $this->set_view_counts[$this->current_view];
+		} else {
+			return $this->view_count;
+		}
     }
 
-    function set_view_count($count) {
-        return $this->view_count = $count;
+    function set_view_count($count, $view_id) {
+		if ($view_id) {
+			$this->set_view_counts[$view_id] = $count;
+		} else {
+			$this->view_count = $count;
+		}
     }
     
     /**
@@ -437,6 +536,12 @@ class WP_Views{
             if (!empty($settings) && is_array($settings)) {
                 $view_settings[$view_id] = wpv_parse_args_recursive($settings, $view_settings[$view_id]);
             }
+			
+			// PATCH - v1.1 - add the default view mode to normal (not archive)
+			if (!isset($view_settings[$view_id]['view-query-mode'])) {
+				$view_settings[$view_id]['view-query-mode'] = 'normal';
+			}
+			
         }
 
         return $view_settings[$view_id];
@@ -473,8 +578,14 @@ class WP_Views{
         array_push($this->current_page, isset($post) ? clone $post : null);
         
         array_push($this->view_ids, $this->current_view);
+		
+        if (function_exists('icl_object_id')) {
+            $id = icl_object_id($id, 'view', true);
+        }
         $this->current_view = $id;
 		
+		array_push($this->post_query_stack, $this->post_query);
+        
 		// save original taxonomy term if any
 		$tmp_parent_taxonomy = $this->parent_taxonomy;
 		if (isset($this->taxonomy_data['term'])) {
@@ -497,6 +608,9 @@ class WP_Views{
         }
         
         array_pop($this->current_page);
+		
+		$this->post_query = array_pop($this->post_query_stack);
+        
         
         return $out;
     }
@@ -512,12 +626,7 @@ class WP_Views{
         global $wplogger;
         
         static $processed_views = array();
-        
-        if (function_exists('icl_object_id')) {
-            $view_id = icl_object_id($view_id, 'view', true);
-        }
 
-        
         // increment the view count.
         $this->view_count++;
         
@@ -534,7 +643,7 @@ class WP_Views{
         }
         */
 
-        $view_caller_id = isset($post) ? get_the_ID() : 0; // post or widget
+        $view_caller_id = (isset($post) && isset($post->ID)) ? get_the_ID() : 0; // post or widget
         
         if(!isset($processed_views[$view_caller_id][$hash]) || 0 === $view_caller_id){
             
@@ -579,8 +688,20 @@ class WP_Views{
                     $item_indexes = $this->_get_item_indexes($tmpl);
                 
 					if ($view_settings['query_type'][0] == 'posts') {
-						// get the posts using the query settings for this view.    
-						$this->post_query = wpv_filter_get_posts($view_id);
+						// get the posts using the query settings for this view.
+						
+						// check for an archive loop
+						global $WPV_view_archive_loop;
+						$archive_query = null;
+						if (isset($WPV_view_archive_loop)) {
+							$archive_query = $WPV_view_archive_loop->get_archive_loop_query();
+						}
+						
+						if ($archive_query) {
+							$this->post_query = $archive_query;
+						} else {
+							$this->post_query = wpv_filter_get_posts($view_id);
+						}
 						$items = $this->post_query->posts;
 
                         $wplogger->log('Found '. count($items) . ' posts');
@@ -698,7 +819,7 @@ class WP_Views{
             }
             
         }
-        
+    
         return $out;
     }
     
@@ -802,36 +923,13 @@ class WP_Views{
         
         if ($post->post_type == 'view') {
                 
-            // Disable the visual editor.
-            add_filter( 'wp_default_editor', create_function('', 'return "html";') );
-            echo '<style type="text/css">#editor-toolbar #edButtonPreview, #quicktags {display: none;}</style>';
-
-            // Simulate a click to the HTML button to get it to show the
-            // control buttons.
-            ?>
-            <script type="text/javascript">
-                jQuery(document).ready(function($){
-                    if (jQuery('#edButtonHTML').length != 0) {
-                        jQuery('#edButtonHTML').trigger('click');
-                    }
-                    if (jQuery('#content-html').length != 0) {
-                        jQuery('#content-html').trigger('click');
-                        jQuery('#content-tmce').hide();
-                        jQuery('#content_parent').hide();
-                    }
-                });
-            </script>
-            <?php
-
-            
-                
             add_short_codes_to_js(array('post'), $this->editor_addon);
         }
         
         if ($post->post_type != 'view' && $post->post_type != 'view-template') {
             
             // add tool bar to other edit pages so they can insert the view shortcodes.
-            add_short_codes_to_js(array('view', 'wpml'), $this->editor_addon, 'add-basics');
+            add_short_codes_to_js(array('view', 'view-form', 'wpml'), $this->editor_addon, 'add-basics');
         }
         
     }
@@ -849,6 +947,23 @@ class WP_Views{
         ));        
         return $views;
     }
+
+	function get_view_titles() {
+        global $wpdb;
+        
+        static $views_available = null;
+		
+		if ($views_available === null) {
+
+			$views_available = array();			
+			$views = $wpdb->get_results("SELECT ID, post_title, post_name FROM {$wpdb->posts} WHERE post_type='view'");
+			foreach ($views as $view) {
+				$views_available[$view->ID] = $view->post_title;
+			}
+		}
+		return $views_available;
+	}
+        
 
     /**
      * Add css required when editing a view
@@ -916,7 +1031,7 @@ class WP_Views{
      * returns an array
      */
     
-    function get_meta_keys() {
+    function get_meta_keys($include_hidden = false) {
         global $wpdb;
         static $cf_keys = null;
         
@@ -944,17 +1059,29 @@ class WP_Views{
                                         '_icl_translation', '_thumbnail_id', '_views_template', '_wpml_media_duplicate', '_wpml_media_featured',
                                         '_top_nav_excluded', '_cms_nav_minihome',
                                         'wpml_media_duplicate_of', 'wpml_media_lang', 'wpml_media_processed',
-                                        '_wpv_settings');
+                                        '_wpv_settings', '_wpv_layout_settings', '_wpv_view_sync',
+										'_wpv_view_template_fields', '_wpv_view_template_mode' );
             
             $cf_keys = array_diff($cf_keys, $cf_keys_exceptions);
             
-            // exclude hidden fields (starting with an underscore)
-            foreach ($cf_keys as $index => $field) {
-                if (strpos($field, '_') === 0) {
-                    unset($cf_keys[$index]);
-                }
-            }
-            
+			if (!$include_hidden) {
+				
+				$options = $this->get_options();
+				if (isset($options['wpv_show_hidden_fields'])) {
+					$include_these_hidden = explode(',', $options['wpv_show_hidden_fields']);
+				} else {
+					$include_these_hidden = array();
+				}
+				// exclude hidden fields (starting with an underscore)
+				foreach ($cf_keys as $index => $field) {
+					if (strpos($field, '_') === 0) {
+						if (!in_array($field, $include_these_hidden)) {
+							unset($cf_keys[$index]);
+						}
+					}
+				}
+			}
+			
             if ( $cf_keys ) {
                 natcasesort($cf_keys);
             }
@@ -1098,6 +1225,15 @@ jQuery(document).ready(function(){
             $settings['parent_id'] = $parent_name;
         }
         
+        if (isset($settings['post_relationship_id']) && $settings['post_relationship_id'] != '') {
+            $parent_name = $wpdb->get_var("SELECT post_name FROM {$wpdb->posts} WHERE ID = " . $settings['post_relationship_id']);
+            $settings['post_relationship_id'] = $parent_name;
+        }
+        
+        if (isset($settings['post_relationship_mode'][0])) {
+            $settings['post_relationship_mode'] = $settings['post_relationship_mode'][0];
+        }
+        
         if (isset($settings['parent_mode'])) {
             $settings['parent_mode'] = $settings['parent_mode'][0];
         }
@@ -1116,7 +1252,11 @@ jQuery(document).ready(function(){
                 }
                 $settings[$save_name]['__key'] = 'cat';
             }
-        
+            // Use this to check attribute-url-format
+            $attribute_url_format = 'taxonomy-' . $category->name . '-attribute-url-format';
+            if (isset($settings[$attribute_url_format][0])) {
+                $settings[$attribute_url_format] = $settings[$attribute_url_format][0];
+            }
         }
         
         if(isset($settings['pagination'][0])) {
@@ -1155,6 +1295,22 @@ jQuery(document).ready(function(){
             $settings['taxonomy_terms']['__key'] = 'taxonomy_term';
         }
 
+		// fix filter control settings so arrays get output correctly.
+		$filter_control_settings = array('filter_controls_enable',
+										 'filter_controls_param',
+										 'filter_controls_mode',
+										 'filter_controls_field_name',
+										 'filter_controls_label',
+										 'filter_controls_type',
+										 'filter_controls_values'
+										 );
+		
+		foreach($filter_control_settings as $filter_control) {
+			if (isset($settings[$filter_control])) {
+				$settings[$filter_control]['__key'] = $filter_control;
+			}							
+		}
+	
         return $settings;
     }
 
@@ -1211,9 +1367,18 @@ jQuery(document).ready(function(){
             $parent_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE post_name = '{$settings['parent_id']}'");
             $settings['parent_id'] = $parent_id;
         }
-
+ 
         if (isset($settings['parent_mode'])) {
             $settings['parent_mode'] = array($settings['parent_mode']);
+        }
+        
+        if (isset($settings['post_relationship_mode'])) {
+            $settings['post_relationship_mode'] = array($settings['post_relationship_mode']);
+        }
+        
+        if (isset($settings['post_relationship_id'])) {
+            $parent_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE post_name = '{$settings['post_relationship_id']}'");
+            $settings['post_relationship_id'] = $parent_id;
         }
         
 	    $taxonomies = get_taxonomies('', 'objects');
@@ -1234,6 +1399,12 @@ jQuery(document).ready(function(){
                         $settings[$save_name][$key] = $term->term_id;
                     }
                 }
+            }
+            
+            // Use this to check attribute-url-format
+            $attribute_url_format = 'taxonomy-' . $category->name . '-attribute-url-format';
+            if (isset($settings[$attribute_url_format])) {
+                $settings[$attribute_url_format] = array($settings[$attribute_url_format]);
             }
         
         }        
@@ -1276,6 +1447,21 @@ jQuery(document).ready(function(){
             }
         }
         
+		// fix filter control settings
+		$filter_control_settings = array('filter_controls_enable',
+										 'filter_controls_param',
+										 'filter_controls_mode',
+										 'filter_controls_field_name',
+										 'filter_controls_label',
+										 'filter_controls_type',
+										 'filter_controls_values'
+										 );
+		
+		foreach($filter_control_settings as $filter_control) {
+			if (isset($settings[$filter_control][$filter_control])) {
+				$settings[$filter_control] = $settings[$filter_control][$filter_control];
+			}							
+		}
         
         return $settings;
     }
@@ -1466,6 +1652,57 @@ jQuery(document).ready(function(){
 		$params = array_merge($params, wpv_get_taxonomy_view_params($settings));
 		
 		return $params;
+	}
+	
+	function hide_view_template_author() {
+		
+	}
+	
+	/**
+	 * See if a view has any enbabled from controls
+	 *
+	 */
+	
+	function does_view_have_form_controls($view_id) {
+		$view_settings = $this->get_view_settings($view_id);
+		
+		if (isset($view_settings['filter_controls_enable']) && is_array($view_settings['filter_controls_enable'])) {
+			foreach($view_settings['filter_controls_enable'] as $enable) {
+				if ($enable) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	/**
+	 *	See if a view is used for an archive
+	 *
+	 */
+	
+	function is_archive_view($view_id) {
+		$view_settings = $this->get_view_settings($view_id);
+
+		return $view_settings['view-query-mode'] == 'archive';
+	}
+	
+	function wpv_format_date() {
+
+		$date_format = $_POST['date-format'];
+		if ($date_format == '') {
+			$date_format = get_option('date_format');
+		}
+		
+		$date = $_POST['date'];
+		$date = mktime(0, 0, 0, substr($date, 2, 2), substr($date, 0, 2), substr($date, 4, 4));
+		
+		echo json_encode(array('display' => date($date_format, intval($date)),
+							   'timestamp' => $date));
+		die();
+		
+		
 	}
 	
 }

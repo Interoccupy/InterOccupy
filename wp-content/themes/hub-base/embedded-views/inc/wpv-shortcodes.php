@@ -31,6 +31,9 @@ $wpv_shortcodes['wpv-taxonomy-slug'] = array('wpv-taxonomy-slug', __('Taxonomy s
 $wpv_shortcodes['wpv-taxonomy-description'] = array('wpv-taxonomy-description', __('Taxonomy description', 'wpv-views'), 'wpv_shortcode_wpv_tax_description');
 $wpv_shortcodes['wpv-taxonomy-post-count'] = array('wpv-taxonomy-post-count', __('Taxonomy post count', 'wpv-views'), 'wpv_shortcode_wpv_tax_items_count');
 
+// $wpv_shortcodes['wpv-control'] = array('wpv-control', __('Filter control', 'wpv-views'), 'wpv_shortcode_wpv_control');
+
+
 // register the short codes
 foreach ($wpv_shortcodes as $shortcode) {
     if (function_exists($shortcode[2])) {
@@ -178,7 +181,7 @@ function wpv_shortcode_wpv_post_body($atts){
         $post->view_template_override = $atts['view_template'];
     }
     
-    if(!empty($post) && $post->post_type != 'view' && $post->post_type != 'view-template'){
+    if(!empty($post) && isset($post->post_type) && $post->post_type != 'view' && $post->post_type != 'view-template'){
         $wpautop_was_removed = $WPV_templates->is_wpautop_removed();
         if ($wpautop_was_removed) {
             $WPV_templates->restore_wpautop('');
@@ -484,6 +487,8 @@ function wpv_shortcode_wpv_post_edit_link($atts){
 	}
 	return $out;
 }
+
+
 
 
 /**
@@ -893,9 +898,27 @@ function add_short_codes_to_js($types, $editor, $call_back = null){
         $view_available = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type='view' AND post_status in ('publish')");
         foreach($view_available as $view) {
 
-            $editor->add_insert_shortcode_menu($view->post_title, 'wpv-view name="' . $view->post_title . '"', __('View', 'wpv-views'));
+            if (!$WP_Views->is_archive_view($view->ID)) {
+                $editor->add_insert_shortcode_menu($view->post_title, 'wpv-view name="' . $view->post_title . '"', __('View', 'wpv-views'));
 
-            $index += 1;
+                $index += 1;
+            }
+        }
+    }
+    
+    if (in_array('view-form', $types)) {
+        // we need to add the available views.
+        $view_available = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type='view' AND post_status in ('publish')");
+        foreach($view_available as $view) {
+            
+            if ($WP_Views->does_view_have_form_controls($view->ID) && !$WP_Views->is_archive_view($view->ID)) {
+                $editor->add_insert_shortcode_menu($view->post_title,
+                                                    'wpv-form-view name="' . $view->post_title . '"',
+                                                    __('View Form', 'wpv-views'),
+                                                    'wpv_insert_view_form_popup(' . $view->ID . ')');
+
+                $index += 1;
+                }
         }
     }
     
@@ -969,10 +992,6 @@ function add_short_codes_to_js($types, $editor, $call_back = null){
     }
     
     
-    
-    if ($editor) {
-//        $editor->render_js();
-    }
     
     return $index;
 }
