@@ -50,7 +50,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 	<div class="registered_error"><p><?php printf(__('Please, <a href="%s">set your API key</a> to enable one-click downloads and installation.', 'wpmudev'), $this->dashboard_url); ?></p></div>
 <?php } ?>
 
-<div style="display:none" id="_installed-placeholder"><span href="#" class="button"><i class="icon-ok icon-large"></i><?php echo (is_multisite() || $page_type == 'theme') ? __('INSTALLED', 'wpmudev') : __('INSTALLED & ACTIVATED', 'wpmudev'); ?></span></div>
+<div style="display:none" id="_installed-placeholder"><span href="#" class="button"><i class="icon-ok icon-large"></i><?php echo (is_multisite() || $page_type == 'theme' || defined('WPMUDEV_NO_AUTOACTIVATE')) ? __('INSTALLED', 'wpmudev') : __('INSTALLED & ACTIVATED', 'wpmudev'); ?></span></div>
 <div style="display:none" id="_install_error-placeholder">
 	<span href="#" class="button error"> 
 		<span class="tooltip">
@@ -112,7 +112,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 			$action_class = '';
 			if ('plugin' == $project['type']) {			
 				$action_class = $this->_can_auto_download_project($project['type'])
-					? ((is_multisite() && is_network_admin()) ? 'install_plugin' : 'install_and_activate_plugin')
+					? (((is_multisite() && is_network_admin()) || defined('WPMUDEV_NO_AUTOACTIVATE')) ? 'install_plugin' : 'install_and_activate_plugin')
 					: ($this->_install_message_is_hidden() ? '' : 'install_setup')
 				;
 			} else {

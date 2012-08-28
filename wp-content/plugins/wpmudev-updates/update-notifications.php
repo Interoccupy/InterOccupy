@@ -4,7 +4,7 @@ Plugin Name: WPMU DEV Dashboard
 Plugin URI: http://premium.wpmudev.org/project/wpmu-dev-dashboard/
 Description: Notifies the Admin or Super Admin of available updates for WPMU DEV plugins and themes, new releases, and special member only offers. Allows auto-upgrades and browsing and auto-install of supported themes/plugins. Required to be installed to use WPMU DEV products.
 Author: Aaron Edwards (Incsub)
-Version: 3.1.3
+Version: 3.1.5
 Author URI: http://premium.wpmudev.org/
 Text Domain: wpmudev
 Domain Path: /includes/languages/
@@ -35,7 +35,7 @@ class WPMUDEV_Update_Notifications {
 	//---Config---------------------------------------------------------------//
 	//------------------------------------------------------------------------//
 
-	var $version = '3.1.3';
+	var $version = '3.1.5';
 
 	var $server_url = 'http://premium.wpmudev.org/wdp-un.php';
 
@@ -353,7 +353,7 @@ class WPMUDEV_Update_Notifications {
 					unset($data);
 					$data = $this->get_id_plugin( "$plugins_root/$plugin_file" );
 
-					if ( $data['id'] ) {
+					if ( isset($data['id']) && !empty($data['id']) ) {
 						$projects[$data['id']]['type'] = 'plugin';
 						$projects[$data['id']]['version'] = $data['version'];
 						$projects[$data['id']]['filename'] = $plugin_file;
@@ -378,7 +378,7 @@ class WPMUDEV_Update_Notifications {
 						unset($data);
 						$data = $this->get_id_plugin( "$mu_plugins_root/$file" );
 
-						if ( $data['id'] ) {
+						if ( isset($data['id']) && !empty($data['id']) ) {
 							$projects[$data['id']]['type'] = 'mu-plugin';
 							$projects[$data['id']]['version'] = $data['version'];
 							$projects[$data['id']]['filename'] = $file;
@@ -417,7 +417,7 @@ class WPMUDEV_Update_Notifications {
 					unset($data);
 					$data = $this->get_id_plugin( "$content_plugins_root/$content_plugin_file" );
 
-					if ( $data['id'] ) {
+					if ( isset($data['id']) && !empty($data['id']) ) {
 						$projects[$data['id']]['type'] = 'drop-in';
 						$projects[$data['id']]['version'] = $data['version'];
 						$projects[$data['id']]['filename'] = $content_plugin_file;
@@ -430,12 +430,13 @@ class WPMUDEV_Update_Notifications {
 		//themes directory
 		//----------------------------------------------------------------------------------//
 		$themes_root = WP_CONTENT_DIR . '/themes';
-		if( empty($themes_root) ) {
+		if ( empty($themes_root) ) {
 			$themes_root = ABSPATH . 'wp-content/themes';
 		}
 
 		$themes_dir = @opendir($themes_root);
 		$themes_files = array();
+		$local_themes = array();
 		if ( $themes_dir ) {
 			while (($file = readdir( $themes_dir ) ) !== false ) {
 				if ( substr($file, 0, 1) == '.' )
@@ -471,18 +472,28 @@ class WPMUDEV_Update_Notifications {
 					unset($data);
 					$data = $this->get_id_plugin( "$themes_root/$themes_file" );
 
-					if ( $data['id'] ) {
+					if ( isset($data['id']) && !empty($data['id']) ) {
 						$projects[$data['id']]['type'] = 'theme';
+						//if ( !isset($projects[$data['id']]['version']) || version_compare($projects[$data['id']]['version'], $data['version'], '>=') ) //TODO for themepack to show updates if one is lower
 						$projects[$data['id']]['version'] = $data['version'];
 						$projects[$data['id']]['filename'] = substr( $themes_file, 0, strpos( $themes_file, '/' ) );
+						
+						//keep record of all themes for 133 themepack
+						$local_themes[$themes_file]['id'] = $data['id'];
+						$local_themes[$themes_file]['filename'] = substr( $themes_file, 0, strpos( $themes_file, '/' ) );
 					}
 				}
 			}
 		}
-
+		update_site_option('wdp_un_local_themes', $local_themes);
+		
 		//----------------------------------------------------------------------------------//
 
 		return $projects;
+	}
+	
+	function get_local_themes() {
+		return get_site_option('wdp_un_local_themes');
 	}
 
 	function schedule_refresh_local_projects() {
@@ -814,7 +825,19 @@ class WPMUDEV_Update_Notifications {
 	function filter_plugin_rows() {
 		if ( !current_user_can( 'update_plugins' ) )
 			return;
+		
+		global $local_themes;
+		
+		if (!$local_themes) {
+			$local_themes = $this->get_local_themes();
+		}
 
+		if ( is_array($local_themes) && count($local_themes) ) {
+			foreach ( $local_themes as $id => $plugin ) {
+				remove_all_actions( 'after_theme_row_' . $plugin['filename'] );
+			}
+		}
+		
 		$updates = get_site_option('wdp_un_updates_available');
 		if ( is_array($updates) && count($updates) ) {
 			foreach ( $updates as $id => $plugin ) {
@@ -860,8 +883,25 @@ class WPMUDEV_Update_Notifications {
 	}
 
 	function filter_theme_count( $value ) {
+		
+		global $local_themes;
+
+		if (!$local_themes) {
+			$local_themes = $this->get_local_themes();
+		}
 
 		$updates = get_site_option('wdp_un_updates_available');
+
+		if ( is_array($local_themes) && count($local_themes) ) {
+			foreach ( $local_themes as $id => $plugin ) {
+				if (isset($updates[$plugin['id']]) && isset($updates[$plugin['id']]['new_version'])) {
+					$value->response[$plugin['filename']]['new_version'] = $updates[$plugin['id']]['new_version'];
+				} else if (isset($value) && isset($value->response) && isset($plugin['filename']) && isset($value->response[$plugin['filename']])) {
+					unset($value->response[$plugin['filename']]);
+				}
+			}
+		}
+
 		if ( is_array($updates) && count($updates) ) {
 			$api_key = $this->get_apikey();
 			foreach ( $updates as $id => $plugin ) {

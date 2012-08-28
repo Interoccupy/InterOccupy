@@ -4,7 +4,7 @@ Plugin Name: Site Categories
 Plugin URI: 
 Description: 
 Author: Paul Menard (Incsub)
-Version: 1.0.1
+Version: 1.0.3
 Author URI: http://premium.wpmudev.org/
 WDP ID: 679160
 Text Domain: site-categories
@@ -79,7 +79,7 @@ class SiteCategories {
 	 */
 	function __construct() {
 		
-		$this->_settings['VERSION'] 				= '1.0.0';
+		$this->_settings['VERSION'] 				= '1.0.2';
 		$this->_settings['MENU_URL'] 				= 'options-general.php?page=site_categories';
 		$this->_settings['PLUGIN_URL']				= WP_CONTENT_URL . "/plugins/". basename( dirname(__FILE__) );
 		$this->_settings['PLUGIN_BASE_DIR']			= dirname(__FILE__);
@@ -446,10 +446,14 @@ class SiteCategories {
 			$terms = array($term_id);
 		}
 
-		$sql_str = "SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ( ". implode(',', $terms) ." )" ;
+		//$sql_str = "SELECT object_id FROM ". $wpdb->prefix ."term_relationships WHERE term_taxonomy_id IN ( ". implode(',', $terms) ." )" ;
 		//echo "sql_str=[". $sql_str ."]<br />";
-		$term_sites = $wpdb->get_col( $wpdb->prepare( $sql_str ) );
+		//$term_sites = $wpdb->get_col( $wpdb->prepare( $sql_str ) );
 		//echo "term_sites<pre>"; print_r($term_sites); echo "</pre>";
+		
+		$term_sites = get_objects_in_term( $terms, SITE_CATEGORIES_TAXONOMY);
+		//echo "term_sites<pre>"; print_r($term_sites); echo "</pre>";
+		
 		
 		if ($term_sites) {
 			$sites = array();
@@ -493,42 +497,64 @@ class SiteCategories {
 	function load_config() {
 		global $blog_id;
 		
-		$this->opts = get_blog_option( 1, $this->_settings['options_key'], false);
-		
-		if (!$this->opts) {
-			$this->opts = array(
-				'landing_page_id'		=>	0,
-				'landing_page_slug'		=>	'',
 
-				'sites'					=>	array(
-					'per_page'				=>	5,
-					'icon_show' 			=> 	1,
-					'icon_size'				=>	32,
-					'orderby' 				=> 	'name',
-					'order'					=>	'ASC',
-					'show_style'			=>	'ul',
-					'show_description'		=>	0,
-					'default_category' 		=> 	0,
-					'category_limit'		=>	10,
-					'signup_category_label'	=>	__('Site Categories', SITE_CATEGORIES_TAXONOMY)
-				),
+		$defaults = array(
+			'landing_page_id'			=>	0,
+			'landing_page_slug'			=>	'',
+
+			'sites'										=>	array(
+				'per_page'								=>	5,
+				'icon_show' 							=> 	1,
+				'icon_size'								=>	32,
+				'orderby' 								=> 	'name',
+				'order'									=>	'ASC',
+				'show_style'							=>	'ul',
+				'show_description'						=>	0,
+				'default_category' 						=> 	0,
+				'category_limit'						=>	10,
+				'signup_category_parent_selectable'		=> 1,
+				'signup_show'							=>	1,
+				'signup_category_required'				=>	1,
+				'signup_category_label'					=>	__('Site Categories', SITE_CATEGORIES_TAXONOMY),
+				'signup_description_required'			=>	1,
+				'signup_description_label'				=>	__('Site Description', SITE_CATEGORIES_TAXONOMY)
+			),
+			
+			'categories'					=>	array(
+				'per_page'					=>	5,
+				'hide_empty'				=>	0,
+				'show_description'			=>	0,
+				'show_description_children'	=>	0,
+				'show_counts'				=>	0,
+				'show_counts_children'		=>	0,
+				'icon_show'					=>	0,
+				'icon_show_children'		=>	0,
+				'icon_size'					=>	32,
+				'icon_size_children'		=>	32,
+				'show_style'				=>	'ul',
+				'grid_cols'					=>	3,
+				'grid_rows'					=>	3,
+				'orderby'					=>	'name',
+				'order'						=>	'ASC',
+			)
+		);
+
+		$this->opts = get_blog_option( 1, $this->_settings['options_key'], false);
+		if (!$this->opts) {
+			$this->opts = $defaults;
+		} else {
+			if (!isset($this->opts['sites']))
+				$this->opts['sites'] = $defaults['sites'];
+			else
+				$this->opts['sites'] = wp_parse_args( (array) $this->opts['sites'], $defaults['sites'] );
+
+			if (!isset($this->opts['categories']))
+				$this->opts['categories'] = $defaults['categories'];
+			else
+				$this->opts['categories'] = wp_parse_args( (array) $this->opts['categories'], $defaults['categories'] );
 				
-				'categories'			=>	array(
-					'per_page'				=>	5,
-					'hide_empty'			=>	0,
-					'show_counts'			=>	0,
-					'icon_show'				=>	0,
-					'icon_size'				=>	32,
-					'show_style'			=>	'ul',
-					'grid_cols'				=>	3,
-					'grid_rows'				=>	3,
-					'orderby'				=>	'name',
-					'order'					=>	'ASC',
-					'show_description'		=>	0					
-				)
-			);
-			update_site_option($this->_settings['options_key'], $this->opts);
-		}		
+			$this->opts = wp_parse_args( (array) $this->opts, $defaults ); 			
+		}
 	}
 	
 	/**
@@ -863,6 +889,12 @@ class SiteCategories {
 			$this->_pagehooks['site-categories-settings-main-site'], 
 			'normal', 'core');
 
+		add_meta_box('site-categories-settings-main-admin-display_selection-options-panel', 
+			__('Site Categories Selection Options', SITE_CATEGORIES_I18N_DOMAIN), 
+			array(&$this, 'settings_main_admin_display_selection_options_panel'), 
+			$this->_pagehooks['site-categories-settings-main-site'], 
+			'normal', 'core');
+
 		add_meta_box('site-categories-settings-main-categories-display-options-panel', 
 			__('Landing Page Categories Display Options', SITE_CATEGORIES_I18N_DOMAIN), 
 			array(&$this, 'settings_main_categories_display_options_panel'), 
@@ -939,65 +971,107 @@ class SiteCategories {
 		
 		$screen_help_text = array();
 		
-		$screen_help_text['site-categories-page-settings'] = '<p>' . __( 'This Settings panel controls various display options for the Landing page. This landing page is hosted only on the primary site and from the options on this page you can control the layout of the site categories items.', SITE_CATEGORIES_I18N_DOMAIN ) . '</p>';
+		/**
+		Left navigation list
+		*/
+		$screen_help_text['site-categories-help-overview'] = '<p>' . __( 'This Settings panel controls various display options for the Landing page. This landing page is hosted only on the primary site and from the options on this page you can control the layout of the site categories items.', SITE_CATEGORIES_I18N_DOMAIN ) . '</p>';
 
-		$screen_help_text['site-categories-page-settings'] .= "<ul>";
+		$screen_help_text['site-categories-help-overview'] .= "<ul>";
 
-		$screen_help_text['site-categories-page-settings'] .= '<li><strong>'. __('Landing Page Selection', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection lets you set the landing page to be used when displaying the Site Categories.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-overview'] .= '<li><strong>'. __('Landing Page Selection', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection lets you set the landing page to be used when displaying the Site Categories.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 
-		$screen_help_text['site-categories-page-settings'] .= '<li><strong>'. __('Landing Page Categories Display Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection controls the output of the Site Categories on the landing page. Here you can control the style, icons, number of categories per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-overview'] .= '<li><strong>'. __('Site Categories Selection Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection lets control how the Site Categories will be seen and selected by other site admin users.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 
-		$screen_help_text['site-categories-page-settings'] .= '<li><strong>'. __('Landing Page Sites Display Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection controls the output of the Sites on the landing page. Here you can control the style, icons, number of sites per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-		$screen_help_text['site-categories-page-settings'] .= "</ul>";
+		$screen_help_text['site-categories-help-overview'] .= '<li><strong>'. __('Landing Page Categories Display Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection controls the output of the Site Categories on the landing page. Here you can control the style, icons, number of categories per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 
-		$screen_help_text['site-categories-page-settings-landing'] = '<p>'. __('The Landing Page Selection lets you set the landing page to be used when displaying the Site Categories.', SITE_CATEGORIES_I18N_DOMAIN). '</p>';
-		$screen_help_text['site-categories-page-settings-landing'] .= '<ul>';
+		$screen_help_text['site-categories-help-overview'] .= '<li><strong>'. __('Landing Page Sites Display Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection controls the output of the Sites on the landing page. Here you can control the style, icons, number of sites per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 		
-		$screen_help_text['site-categories-page-settings-landing'] .= '<li><strong>'. __('Select Landing Page', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('Select the page to function as the site categories landing page. The landing page will be inserted automatically at the bottom of the page content.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
+		$screen_help_text['site-categories-help-overview'] .= '<li><strong>'. __('New Site Signup Form Options', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This Selection controls how the Site Categories options are display on the New Site Signup Form.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 		
-/*
-		$screen_help_text['site-categories-page-settings-landing'] .= '<li><strong>'. __('Default Category', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If the site admin does not set the site categories we use this to set a default site category. This works very similar to post categories. If you create a new post and do not mark it into any specific categories the default categories is automatically assigned.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
-*/
+		$screen_help_text['site-categories-help-overview'] .= "</ul>";
 
-		$screen_help_text['site-categories-page-settings-landing'] .= '<li><strong>'. __('Number of categories per site', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('This controls the number of categories a site can set. Within the site settings panel the admin will see a number of dropdowns for the Site Categories. The admin can set one or more of these to the available site categories.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
-		
-		$screen_help_text['site-categories-page-settings-landing'] .= '<li><strong>'. __('Pro Sites', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('If you have the', SITE_CATEGORIES_I18N_DOMAIN). ' <a href="http://premium.wpmudev.org/project/pro-sites/" target="_blank">'. __('Pro Sites', SITE_CATEGORIES_I18N_DOMAIN) .'</a> '. __('plugins installed you can assign a different number of Site Categories for each level.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
-		$screen_help_text['site-categories-page-settings-landing'] .= '</ul>';
-		
-		
-		$screen_help_text['site-categories-page-settings-landing-categories'] = '<p>'. __('This Selection controls the output of the Site Categories on the landing page. Here you can control the style, icons, number of categories per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</p>';
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<ul>';
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Display Style', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('The Display style is how the Site Categories are presented on the page. From the dropdown you can select a simple list or try more advanced display options like Grid or Accordion.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
 
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Categories per page', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This is the number of categories to show on a given page. If you have hundreds of site categories you probably would not want these all to show on a single page. That would be too much information for the user to digest. So you can set the number of categories to something manageable like 20, 50 or 100.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Order by', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('By default the displayed site categories will be ordered by Name. Using this option you can adjust the order to your liking.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-		
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Hide empty Categories', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If a site categories does not have any sites assigned to it you might want to hide it from the listing.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Show Counts', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('Similar to the hide empty this option lets you show the user just how many sites are associated with each site category.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-		
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Show Category Description', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('When you create the site categories you can provide a detailed description. This description can be shown as part of the display output. ', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-		
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Show Icons', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('As part of the site categories setup you can upload or select an image to represent the site category. Using this option will show those icons as part of the display output.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-		
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '<li><strong>'. __('Icon size', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If you chose to display site category icons you can control the size of these icons using this option.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-categories'] .= '</ul>';
+		/**
+		Landing Page Selection
+		*/
+		$screen_help_text['site-categories-help-settings-landing'] = '<p>'. __('The Landing Page Selection lets you set the landing page to be used when displaying the Site Categories.', SITE_CATEGORIES_I18N_DOMAIN). '</p>';
+		$screen_help_text['site-categories-help-settings-landing'] .= '<ul>';
 			
-		$screen_help_text['site-categories-page-settings-landing-sites'] = '<p>'. __('This Selection controls the output of the Sites on the landing page. Here you can control the style, icons, number of sites per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</p>';
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<ul>';
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<li><strong>'. __('Display Style', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('The Display style is how the Sites are presented on the page.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<li><strong>'. __('Sites per page', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This is the number of site to show on a given page. If you have hundreds of sites in a single category you probably would not want these all to show on a single page. That would be too much information for the user to digest. So you can set the number of sites to something manageable like 20, 50 or 100.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<li><strong>'. __('Show Site Description', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('On the Site Admin Settings page the admin can enter a description fro the site. This is similar to the Site Category description. If provided by the site is will be displayed as part of the page output.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
-
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<li><strong>'. __('Show Icons', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If the ', SITE_CATEGORIES_I18N_DOMAIN). '<a href="http://premium.wpmudev.org/project/avatars/" target="_blank">'. __('Avatars', SITE_CATEGORIES_I18N_DOMAIN) .'</a> '. __('plugins is installed you can show the Site icon as part of the display out.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-settings-landing'] .= '<li><strong>'. __('Select Landing Page', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('Select the page to function as the site categories landing page. The landing page will be inserted automatically at the bottom of the page content.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
+		$screen_help_text['site-categories-help-settings-landing'] .= '</ul>';
+	
+	
+		/**
+		Site Categories Selection Options
+		*/	
+		$screen_help_text['site-categories-help-settings-selection'] = '<p>'. __('This Selection lets control how the Site Categories will be seen and selected by other site admin users.', SITE_CATEGORIES_I18N_DOMAIN).'</p>';
+		$screen_help_text['site-categories-help-settings-selection'] .= '<ul>';
 		
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '<li><strong>'. __('Icon size', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If you chose to display site icons you can control the size of these icons using this option.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-settings-selection'] .= '<li><strong>'. __('Number of Categories per site', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __(' This option controls the number of dropdown selectors the site admin will see when creating a new site or under the Site Categories Settings option within an existing site.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
+
+		$screen_help_text['site-categories-help-settings-selection'] .= '<li><strong>'. __('Number of categories per site', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('This controls the number of categories a site can set. Within the site settings panel the admin will see a number of dropdowns for the Site Categories. The admin can set one or more of these to the available site categories.', SITE_CATEGORIES_I18N_DOMAIN). '</li>';
 		
-		$screen_help_text['site-categories-page-settings-landing-sites'] .= '</ul>';
+		$screen_help_text['site-categories-help-settings-selection'] .= '<li><strong>'. __('Pro Sites', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. sprintf(__('If you have the %1$sPro Sites%2$s plugins installed you can assign a different number of Site Categories for each level', SITE_CATEGORIES_I18N_DOMAIN), '<a href="http://premium.wpmudev.org/project/pro-sites/" target="_blank">', '</a>'). '</li>';
+
+			$screen_help_text['site-categories-help-settings-selection'] .= '<li><strong>'. __('Category parents selectable', SITE_CATEGORIES_I18N_DOMAIN). '</strong> - '. __('With this option to can force the selection of only child categories from the dropdown selectors. This is handy when displaying your Site Categories using the Grid layout.', SITE_CATEGORIES_I18N_DOMAIN) . '</li>';
+			
+		$screen_help_text['site-categories-help-settings-selection'] .= '</ul>';
+		
+		
+		/**
+		Landing Page Categories Display Options 
+		*/		
+		$screen_help_text['site-categories-help-settings-landing-categories'] = '<p>'. __('This Selection controls the output of the Site Categories on the landing page. Here you can control the style, icons, number of categories per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</p>';
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<ul>';
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Display Style', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('The Display style is how the Site Categories are presented on the page. From the dropdown you can select a simple list or try more advanced display options like Grid or Accordion.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Categories per page', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This is the number of categories to show on a given page. If you have hundreds of site categories you probably would not want these all to show on a single page. That would be too much information for the user to digest. So you can set the number of categories to something manageable like 20, 50 or 100.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Order by', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('By default the displayed site categories will be ordered by Name. Using this option you can adjust the order to your liking.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Hide empty Categories', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If a site categories does not have any sites assigned to it you might want to hide it from the listing.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Show Counts', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('Similar to the hide empty this option lets you show the user just how many sites are associated with each site category.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Show Category Description', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('When you create the site categories you can provide a detailed description. This description can be shown as part of the display output. ', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Show Icons', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('As part of the site categories setup you can upload or select an image to represent the site category. Using this option will show those icons as part of the display output.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '<li><strong>'. __('Icon size', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If you chose to display site category icons you can control the size of these icons using this option.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-categories'] .= '</ul>';
+
+
+		/**
+		Landing Page Sites Display Options 
+		*/			
+		$screen_help_text['site-categories-help-settings-landing-sites'] = '<p>'. __('This Selection controls the output of the Sites on the landing page. Here you can control the style, icons, number of sites per page, etc.', SITE_CATEGORIES_I18N_DOMAIN) .'</p>';
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<ul>';
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<li><strong>'. __('Display Style', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('The Display style is how the Sites are presented on the page.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<li><strong>'. __('Sites per page', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This is the number of site to show on a given page. If you have hundreds of sites in a single category you probably would not want these all to show on a single page. That would be too much information for the user to digest. So you can set the number of sites to something manageable like 20, 50 or 100.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<li><strong>'. __('Show Site Description', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('On the Site Admin Settings page the admin can enter a description for the site. This is similar to the Site Category description. If provided by the site is will be displayed as part of the page output.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<li><strong>'. __('Show Icons', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. sprintf(__('If the %1$sAvatars%2$s plugins is installed you can show the Site icon as part of the display output.', SITE_CATEGORIES_I18N_DOMAIN), 
+			'<a href="http://premium.wpmudev.org/project/avatars/" target="_blank">', '</a>'). '</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '<li><strong>'. __('Icon size', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('If you chose to display site icons you can control the size of these icons using this option.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		
+		$screen_help_text['site-categories-help-settings-landing-sites'] .= '</ul>';
+
+
+		/**
+		New Site Signup Form Options
+		*/
+		$screen_help_text['site-categories-help-signup-form'] = '<p>'. __('This Selection controls how the Site Categories options are display on the New Site Signup Form.', SITE_CATEGORIES_I18N_DOMAIN) .'</p>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<ul>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<li><strong>'. __('Show Site Categories section', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('With this option you can control the display of the Site Categories dropdowns and description on the New Site Signup Form.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<li><strong>'. __('Site Categories Selection Required', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('Allows you to force the new site admin to select Site Categories options. If set the admin is required to set ', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<li><strong>'. __('Label for Site Categories Dropdowns', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This option lets you use an alternate form label for the Site Categories dropdown selector. Maybe something more descriptive to the user.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<li><strong>'. __('Description is Required', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This option control if the Site Description textarea field is required on the form.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-signup-form'] .= '<li><strong>'. __('Label for Site Categories Description', SITE_CATEGORIES_I18N_DOMAIN) .'</strong> - '. __('This option lets you use an alternate form label for the Site Description field.', SITE_CATEGORIES_I18N_DOMAIN) .'</li>';
+		$screen_help_text['site-categories-help-signup-form'] .= '</ul>';
 
 
 		if ( version_compare( $wp_version, '3.3.0', '>' ) ) {
@@ -1005,32 +1079,47 @@ class SiteCategories {
 			if ((isset($_REQUEST['page'])) && ($_REQUEST['page'] == "bcat_settings")) {
 		
 				$screen->add_help_tab( array(
-					'id'		=> 'site-categories-page-settings',
+					'id'		=> 'site-categories-help-overview',
 					'title'		=> __('Settings Overview', SITE_CATEGORIES_I18N_DOMAIN ),
-					'content'	=>  $screen_help_text['site-categories-page-settings']
+					'content'	=>  $screen_help_text['site-categories-help-overview']
 			    	) 
 				);
 
 				$screen->add_help_tab( array(
-					'id'		=> 'site-categories-page-settings-landing',
+					'id'		=> 'site-categories-help-settings-landing',
 					'title'		=> __('Landing Page Selection', SITE_CATEGORIES_I18N_DOMAIN ),
-					'content'	=>  $screen_help_text['site-categories-page-settings-landing']
+					'content'	=>  $screen_help_text['site-categories-help-settings-landing']
+			    	) 
+				);
+
+				$screen->add_help_tab( array(
+					'id'		=> 'site-categories-help-settings-selection',
+					'title'		=> __('Site Categories Selection Options', SITE_CATEGORIES_I18N_DOMAIN ),
+					'content'	=>  $screen_help_text['site-categories-help-settings-selection']
 			    	) 
 				);
 				
 				$screen->add_help_tab( array(
-					'id'		=> 'site-categories-page-settings-landing-categories',
+					'id'		=> 'site-categories-help-settings-landing-categories',
 					'title'		=> __('Categories Display Options', SITE_CATEGORIES_I18N_DOMAIN ),
-					'content'	=>  $screen_help_text['site-categories-page-settings-landing-categories']
+					'content'	=>  $screen_help_text['site-categories-help-settings-landing-categories']
 			    	) 
 				);
 
 				$screen->add_help_tab( array(
-					'id'		=> 'site-categories-page-settings-landing-sites',
+					'id'		=> 'site-categories-help-settings-landing-sites',
 					'title'		=> __('Sites Display Options', SITE_CATEGORIES_I18N_DOMAIN ),
-					'content'	=>  $screen_help_text['site-categories-page-settings-landing-sites']
+					'content'	=>  $screen_help_text['site-categories-help-settings-landing-sites']
 			    	) 
 				);
+
+				$screen->add_help_tab( array(
+					'id'		=> 'site-categories-help-signup-form',
+					'title'		=> __('New Site Signup Form Options', SITE_CATEGORIES_I18N_DOMAIN ),
+					'content'	=>  $screen_help_text['site-categories-help-signup-form']
+			    	) 
+				);
+				
 			}			
 		} 
 	}
@@ -1170,6 +1259,12 @@ class SiteCategories {
 	 */
 	function settings_main_categories_display_options_panel() {
 
+		if (($this->opts['categories']['show_style'] != "accordion") && ($this->opts['categories']['show_style'] != "grid")) { 
+			$display_grid_accordion_options = "display: none;";
+		} else {
+			$display_grid_accordion_options = "";
+		}
+
 		?>
 		<table class="form-table">
 		<tr class="form-field" >
@@ -1190,25 +1285,26 @@ class SiteCategories {
 			</td>
 		</tr>
 
-		<tr class="form-field" >
+		<tr class="form-field site-categories-non-grid-options" <?php if ($this->opts['categories']['show_style'] == "grid") { echo ' style="display: none" '; } ?>>
 			<th scope="row">
 				<label for="site-categories-per-page"><?php _e('Categories per page', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<div id="site-categories-non-grid-options" <?php if ($this->opts['categories']['show_style'] == "grid") { echo ' style="display: none" '; } ?>>
+				<input type="text" id="site-categories-per-page" name="bcat[categories][per_page]" 
+					value="<?php echo $this->opts['categories']['per_page']; ?>" />
+			</td>
+		</tr>
 
-					<input type="text" id="site-categories-per-page" name="bcat[categories][per_page]" 
-						value="<?php echo $this->opts['categories']['per_page']; ?>" />
-				</div>
-				<div id="site-categories-grid-options" <?php if ($this->opts['categories']['show_style'] != "grid") { echo ' style="display: none" '; } ?>>
-					<p><?php _e('Grid Options', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
-					<input type="text" class='' size="5" style="width: 50px" id="site-categories-show-style-grid-cols" name="bcat[categories][grid_cols]" 
-						value="<?php echo intval($this->opts['categories']['grid_cols']); ?>" /> <label for="site-categories-show-style-grid-cols"><?php _e('Number of Columns', SITE_CATEGORIES_I18N_DOMAIN); ?></label><br />
-					<input type="text" class='' size="5" style="width: 50px"  id="site-categories-show-style-grid-rows" name="bcat[categories][grid_rows]" 
-							value="<?php echo intval($this->opts['categories']['grid_rows']); ?>" /> <label for="site-categories-show-style-grid-rows"><?php _e('Number of Rows', SITE_CATEGORIES_I18N_DOMAIN); ?></label><br />
-
-				</div>
-				
+		<tr class="form-field site-categories-grid-options" <?php if ($this->opts['categories']['show_style'] != "grid") { echo ' style="display: none" '; } ?>>
+			<th scope="row">
+				<label for="site-categories-per-page"><?php _e('Categories per page', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+			</th>
+			<td>
+				<p><?php _e('Grid Options', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+				<input type="text" class='' size="5" style="width: 50px" id="site-categories-show-style-grid-cols" name="bcat[categories][grid_cols]" 
+					value="<?php echo intval($this->opts['categories']['grid_cols']); ?>" /> <label for="site-categories-show-style-grid-cols"><?php _e('Number of Columns', SITE_CATEGORIES_I18N_DOMAIN); ?></label><br />
+				<input type="text" class='' size="5" style="width: 50px"  id="site-categories-show-style-grid-rows" name="bcat[categories][grid_rows]" 
+						value="<?php echo intval($this->opts['categories']['grid_rows']); ?>" /> <label for="site-categories-show-style-grid-rows"><?php _e('Number of Rows', SITE_CATEGORIES_I18N_DOMAIN); ?></label><br />
 			</td>
 		</tr>
 
@@ -1255,9 +1351,33 @@ class SiteCategories {
 				<label for="site-categories-show-counts"><?php _e('Show counts', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="radio" name="bcat[categories][show_counts]" id="category-show-counts-yes" value="1" 
-				<?php if ($this->opts['categories']['show_counts'] == "1") { echo ' checked="checked" '; }?> /> <label for="category-show-counts-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br /><input type="radio" name="bcat[categories][show_counts]" id="category-show-counts-no" value="0" 
-				<?php if ($this->opts['categories']['show_counts'] == "0") { echo ' checked="checked" '; }?>/> <label for="category-show-counts-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				<div style="float: left; width: 100px;">
+
+					<p class="site-categories-accordion-options site-categories-grid-options" style="<?php echo $display_grid_accordion_options; ?>"><?php _e('Parents',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+				
+					<input type="radio" name="bcat[categories][show_counts]" id="category-show-counts-yes" value="1" 
+					<?php if ($this->opts['categories']['show_counts'] == "1") { echo ' checked="checked" '; }?> /> <label 
+					for="category-show-counts-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+					
+					<input type="radio" name="bcat[categories][show_counts]" id="category-show-counts-no" value="0" 
+					<?php if ($this->opts['categories']['show_counts'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-show-counts-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				</div>
+				
+				<div style="float: left; width: 100px; margin-left: 10px; <?php echo $display_grid_accordion_options; ?>" 
+						class="site-categories-accordion-options site-categories-grid-options">
+				
+					<p><?php _e('Children',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+				
+					<input type="radio" name="bcat[categories][show_counts_children]" id="category-show-counts-children-yes" value="1" 
+					<?php if ($this->opts['categories']['show_counts_children'] == "1") { echo ' checked="checked" '; }?> /> 
+					<label for="category-show-counts-children-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+					
+					<input type="radio" name="bcat[categories][show_counts_children]" id="category-show-counts-children-no" value="0" 
+					<?php if ($this->opts['categories']['show_counts_children'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-show-counts-children-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+
+				</div>
 				
 			</td>
 		</tr>
@@ -1267,8 +1387,34 @@ class SiteCategories {
 				<label for="site-categories-show-description"><?php _e('Show Category Description', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="radio" name="bcat[categories][show_description]" id="category-show-description-yes" value="1" 
-				<?php if ($this->opts['categories']['show_description'] == "1") { echo ' checked="checked" '; }?> /> <label for="category-show-description-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br /><input type="radio" name="bcat[categories][show_description]" id="category-show-description-no" value="0" <?php if ($this->opts['categories']['show_description'] == "0") { echo ' checked="checked" '; }?>/> <label for="category-show-description-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				<div style="float: left; width: 100px;">
+
+					<p class="site-categories-accordion-options site-categories-grid-options" style="<?php echo $display_grid_accordion_options; ?>"><?php _e('Parents',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+					<input type="radio" name="bcat[categories][show_description]" id="category-show-description-yes" value="1" 
+					<?php if ($this->opts['categories']['show_description'] == "1") { echo ' checked="checked" '; }?> /> <label 
+					for="category-show-description-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+					<input type="radio" name="bcat[categories][show_description]" id="category-show-description-no" value="0" <?php 
+					if ($this->opts['categories']['show_description'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-show-description-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+
+				</div>
+				
+				<div style="float: left; width: 100px; margin-left: 10px; <?php echo $display_grid_accordion_options; ?>" 
+					class="site-categories-accordion-options site-categories-grid-options">
+
+					<p><?php _e('Children',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+					<input type="radio" name="bcat[categories][show_description_children]" id="category-show-description-children-yes" value="1" 
+					<?php if ($this->opts['categories']['show_description_children'] == "1") { echo ' checked="checked" '; }?> /> <label 
+					for="category-show-description-children-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+					<input type="radio" name="bcat[categories][show_description_children]" id="category-show-description-children-no" value="0" <?php 
+					if ($this->opts['categories']['show_description_children'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-show-description-children-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+
+				</div>
+
 			</td>
 		</tr>
 
@@ -1277,10 +1423,33 @@ class SiteCategories {
 				<label for="site-categories-icons"><?php _e('Show icons', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="radio" name="bcat[categories][icon_show]" id="category-icons-show-yes" value="1" 
-				<?php if ($this->opts['categories']['icon_show'] == "1") { echo ' checked="checked" '; }?> /> <label for="category-icons-show-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br /><input type="radio" name="bcat[categories][icon_show]" id="category-icons-show-no" value="0" 
-				<?php if ($this->opts['categories']['icon_show'] == "0") { echo ' checked="checked" '; }?>/> <label for="category-icons-show-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				<div style="float: left; width: 100px;">
+
+					<p class="site-categories-accordion-options site-categories-grid-options" style="<?php echo $display_grid_accordion_options; ?>"><?php _e('Parents',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+					<input type="radio" name="bcat[categories][icon_show]" id="category-icons-show-yes" value="1" 
+					<?php if ($this->opts['categories']['icon_show'] == "1") { echo ' checked="checked" '; }?> /> <label 
+					for="category-icons-show-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+					
+					<input type="radio" name="bcat[categories][icon_show]" id="category-icons-show-no" value="0" 
+					<?php if ($this->opts['categories']['icon_show'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-icons-show-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+
+				</div>
+				<div style="float: left; width: 100px; margin-left: 10px; <?php echo $display_grid_accordion_options; ?>" 
+					class="site-categories-accordion-options site-categories-grid-options">
+
+					<p><?php _e('Children',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
 				
+					<input type="radio" name="bcat[categories][icon_show_children]" id="category-icons-show-children-yes" value="1" 
+					<?php if ($this->opts['categories']['icon_show_children'] == "1") { echo ' checked="checked" '; }?> /> <label 
+					for="category-icons-show-children-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+					
+					<input type="radio" name="bcat[categories][icon_show_children]" id="category-icons-show-children-no" value="0" 
+					<?php if ($this->opts['categories']['icon_show_children'] == "0") { echo ' checked="checked" '; }?>/> <label 
+					for="category-icons-show-children-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+
+				</div>
 			</td>
 		</tr>
 		<tr>
@@ -1288,9 +1457,24 @@ class SiteCategories {
 				<label for="site-categories-icons"><?php _e('Icon size', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="text" class='' size="5" name="bcat[categories][icon_size]" 
-					value="<?php echo intval($this->opts['categories']['icon_size']); ?>" />px  <?php _e('square', SITE_CATEGORIES_I18N_DOMAIN); ?>
-				<p class="description"><?php _e('default is 32px', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+				<div style="float: left; width: 100px;">
+
+					<p class="site-categories-accordion-options site-categories-grid-options" style="<?php echo $display_grid_accordion_options; ?>"><?php _e('Parents',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+					<input type="text" class='' size="5" name="bcat[categories][icon_size]" 
+						value="<?php echo intval($this->opts['categories']['icon_size']); ?>" />px  <?php _e('square', SITE_CATEGORIES_I18N_DOMAIN); ?>
+					<p class="description"><?php _e('default is 32px', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+				</div>
+				<div style="float: left; width: 100px; margin-left: 10px; <?php echo $display_grid_accordion_options; ?>" 
+					class="site-categories-accordion-options site-categories-grid-options">
+
+					<p ><?php _e('Children',  SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+					<input type="text" class='' size="5" name="bcat[categories][icon_size_children]" 
+						value="<?php echo intval($this->opts['categories']['icon_size_children']); ?>" />px  <?php _e('square', SITE_CATEGORIES_I18N_DOMAIN); ?>
+					<p class="description"><?php _e('default is 32px', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+				</div>
 			</td>
 		</tr>		
 
@@ -1395,7 +1579,12 @@ class SiteCategories {
 			</th>
 			<td>
 				<input type="radio" name="bcat[sites][show_description]" id="category-site-show-description-yes" value="1" 
-				<?php if ($this->opts['sites']['show_description'] == "1") { echo ' checked="checked" '; }?> /> <label for="category-site-show-description-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br /><input type="radio" name="bcat[sites][show_description]" id="category-site-show-description-no" value="0" <?php if ($this->opts['sites']['show_description'] == "0") { echo ' checked="checked" '; }?>/> <label for="category-site-show-description-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				<?php if ($this->opts['sites']['show_description'] == "1") { echo ' checked="checked" '; }?> /> <label 
+				for="category-site-show-description-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+				<input type="radio" name="bcat[sites][show_description]" id="category-site-show-description-no" value="0" 
+				<?php if ($this->opts['sites']['show_description'] == "0") { echo ' checked="checked" '; }?>/> <label 
+				for="category-site-show-description-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</td>
 		</tr>
 
@@ -1408,12 +1597,18 @@ class SiteCategories {
 					if (function_exists('get_blog_avatar')) {
 						?>
 						<input type="radio" name="bcat[sites][icon_show]" id="site-categories-show-sites-icons-show-yes" value="1" 
-						<?php if ($this->opts['sites']['icon_show'] == "1") { echo ' checked="checked" '; } ?>/> <label for="site-categories-show-sites-icons-show-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br /><input type="radio" name="bcat[sites][icon_show]" id="site-categories-show-sites-icons-show-no" value="0" 
-						<?php if ($this->opts['sites']['icon_show'] == "0") { echo ' checked="checked" '; } ?> /> <label for="site-categories-show-sites-icons-show-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>						
+						<?php if ($this->opts['sites']['icon_show'] == "1") { echo ' checked="checked" '; } ?>/> <label 
+							for="site-categories-show-sites-icons-show-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+						
+						<input type="radio" name="bcat[sites][icon_show]" id="site-categories-show-sites-icons-show-no" value="0" 
+						<?php if ($this->opts['sites']['icon_show'] == "0") { echo ' checked="checked" '; } ?> /> <label 
+							for="site-categories-show-sites-icons-show-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>						
 						<?php
 					} else {
-						?><p><?php echo __('Site icons requires the install of the', SITE_CATEGORIES_I18N_DOMAIN) .' <a href="http://premium.wpmudev.org/project/avatars/" target="_blank">'. __('Avatars', SITE_CATEGORIES_I18N_DOMAIN) .'</a> '. __('plugins', SITE_CATEGORIES_I18N_DOMAIN) ?></p><?php
-					}				
+						?><p><?php echo sprintf(__('Install the %1$sAvatars%2$s plugin to show Site icons.', SITE_CATEGORIES_I18N_DOMAIN),  
+							'<a href="http://premium.wpmudev.org/project/avatars/" target="_blank">', 
+							'</a>'); ?></p><?php
+					}
 				?>
 
 			</td>
@@ -1445,18 +1640,7 @@ class SiteCategories {
 	function settings_main_sites_signup_form_options_panel() {
 
 		//echo "opts<pre>"; print_r($this->opts); echo "</pre>";
-		
-		if (!isset($this->opts['sites']['signup_category_label']))
-			$this->opts['sites']['signup_category_label'] = __('Site Categories', SITE_CATEGORIES_I18N_DOMAIN);
 
-		if (!isset($this->opts['sites']['signup_category_minimum'])) {
-			$this->opts['sites']['signup_category_minimum'] = 1;
-		}
-
-		if (!isset($this->opts['sites']['signup_description_label']))
-			$this->opts['sites']['signup_description_label'] = __('Site Description ', SITE_CATEGORIES_I18N_DOMAIN);
-
-			
 		?>
 		<p><?php _e('These options let you control the Site Categories information displayed on the front-end New Site form.', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
 		<table class="form-table">
@@ -1466,10 +1650,14 @@ class SiteCategories {
 				<label for="site-categories-signup-show"><?php _e('Show Site Categories section', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="checkbox" class='widefat' id="site-categories-signup-show" name="bcat[sites][signup_show]" 
-					<?php if (isset($this->opts['sites']['signup_show'])) { echo ' checked="checked" '; } ?> /> 
-					<p class="description"><?php _e("Controls wether to display the Site Categories and Description elements on the Mew Site Signup form.", SITE_CATEGORIES_I18N_DOMAIN); ?></p>
-					
+				<input type="radio" name="bcat[sites][signup_show]" id="site-categories-signup-show-yes" value="1" 
+				<?php if ($this->opts['sites']['signup_show'] == "1") { echo ' checked="checked" '; } ?> /> <label 
+				for="site-categories-signup-show-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+				<input type="radio" name="bcat[sites][signup_show]" id="site-categories-signup-show-no" value="0" 
+				<?php if ($this->opts['sites']['signup_show'] == "0") { echo ' checked="checked" '; } ?>/> <label 
+				for="site-categories-signup-show-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				
 			</td>
 		</tr>
 
@@ -1478,8 +1666,14 @@ class SiteCategories {
 				<label for="site-categories-signup-category-required"><?php _e('Site Categories Selection Required', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="checkbox" class='widefat' id="site-categories-signup-category-required" name="bcat[sites][signup_category_required]" 
-					<?php if (isset($this->opts['sites']['signup_category_required'])) { echo ' checked="checked" '; } ?> />
+				<input type="radio" name="bcat[sites][signup_category_required]" id="site-categories-signup-category-required-yes" value="1" 
+				<?php if ($this->opts['sites']['signup_category_required'] == "1") { echo ' checked="checked" '; } ?> /> <label 
+				for="site-categories-signup-category-required-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+				<input type="radio" name="bcat[sites][signup_category_required]" id="site-categories-signup-category-required-no" value="0" 
+				<?php if ($this->opts['sites']['signup_category_required'] == "0") { echo ' checked="checked" '; } ?>/> <label 
+				for="site-categories-signup-category-required-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				
 			</td>
 		</tr>
 
@@ -1496,16 +1690,19 @@ class SiteCategories {
 
 		<tr>
 			<th scope="row">
-				<label for="site-categories-signup-category-minimum"><?php _e('Minimum Selected Site Categories', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				<label for="site-categories-signup-description-required"><?php _e('Description is Required', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<input type="text" class='widefat' id="site-categories-signup-category-minimum" name="bcat[sites][signup_category_minimum]" 
-					value="<?php echo intval($this->opts['sites']['signup_category_minimum']); ?>" />
-					<p class="description"><?php _e("The minimum number of site categories to be set. This value should be between 1 and the value of the 'Number of categories per site' item", SITE_CATEGORIES_I18N_DOMAIN); ?></p>
-					
+				<input type="radio" name="bcat[sites][signup_description_required]" id="site-categories-signup-description-required-yes" value="1" 
+				<?php if ($this->opts['sites']['signup_description_required'] == "1") { echo ' checked="checked" '; }?> /> <label
+				 for="site-categories-signup-description-required-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+				<input type="radio" name="bcat[sites][signup_description_required]" id="site-categories-signup-description-required-no" value="0" 
+				<?php if ($this->opts['sites']['signup_description_required'] == "0") { echo ' checked="checked" '; }?>/> <label
+				 for="site-categories-signup-description-required-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				
 			</td>
 		</tr>
-
 		<tr>
 			<th scope="row">
 				<label for="site-categories-signup-description-label"><?php _e('Label for Site Categories Description', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
@@ -1514,15 +1711,6 @@ class SiteCategories {
 				<input type="text" class='widefat' id="site-categories-signup-description-label" name="bcat[sites][signup_description_label]" 
 					value="<?php echo $this->opts['sites']['signup_description_label']; ?>" />
 					<p class="description"><?php _e("The label is shown above the site description", SITE_CATEGORIES_I18N_DOMAIN); ?></p>					
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">
-				<label for="site-categories-signup-description-required"><?php _e('Description is Required', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
-			</th>
-			<td>
-				<input type="checkbox" class='widefat' id="site-categories-signup-description-required" name="bcat[sites][signup_description_required]" 
-					<?php if (isset($this->opts['sites']['signup_description_required'])) { echo ' checked="checked" '; } ?> />
 			</td>
 		</tr>
 
@@ -1566,12 +1754,27 @@ class SiteCategories {
 				?>
 			</td>
 		</tr>
+		</table>
+		<?php		
+	}
+	
+	/**
+	 * 
+	 *
+	 * @since 1.0.2
+	 *
+	 * @param none
+	 * @return none
+	 */
+	function settings_main_admin_display_selection_options_panel() {
+		?>
+		<table class="form-table">
 		<tr>
 			<th scope="row">
 				<label for="site-categories-sites-category-limit"><?php _e('Number of categories per site', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
 			</th>
 			<td>
-				<p class="description"><?php _e('This option lets you limit the number of Site Categories available to the site. This option add a number of dropdown elements on the Settings General page where the admin can set the categories for their site.', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+				<p class="description"><?php _e('This option lets you limit the number of Site Categories available to the site. This option adds a number of dropdown form elements on the Settings General page where the admin can set the categories for their site.', SITE_CATEGORIES_I18N_DOMAIN); ?></p>
 				<input type="text" class='widefat' id="site-categories-sites-category-limit" name="bcat[sites][category_limit]" 
 					value="<?php echo intval($this->opts['sites']['category_limit']); ?>" />
 			</td>
@@ -1614,15 +1817,46 @@ class SiteCategories {
 							}
 						}
 					} else {
-						?><p class=""><?php _e('If you install <a href="http://premium.wpmudev.org/project/pro-sites/" target="_blank">Pro Sites</a>, you can offer your Pro Sites levels more categories selections.', SITE_CATEGORIES_I18N_DOMAIN); ?></p><?php
+						?><p class=""><?php echo sprintf(__('If you install the %1$sPro Sites%2$s plugin, you can offer your Pro Sites levels more categories selections.', SITE_CATEGORIES_I18N_DOMAIN),
+						'<a href="http://premium.wpmudev.org/project/pro-sites/" target="_blank">', '</a>'); ?></p><?php
 					}
 				?>
 			</td>
-		</tr>				
+		</tr>
+<?php /* ?>
+		<tr>
+			<th scope="row">
+				<label for="site-categories-signup-category-minimum"><?php _e('Minimum Selected Site Categories', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+			</th>
+			<td>
+				<input type="text" class='widefat' id="site-categories-signup-category-minimum" name="bcat[sites][signup_category_minimum]" 
+					value="<?php echo intval($this->opts['sites']['signup_category_minimum']); ?>" />
+					<p class="description"><?php _e("The minimum number of site categories to be set. This value should be between 1 and the value of the 'Number of categories per site' item", SITE_CATEGORIES_I18N_DOMAIN); ?></p>
+
+			</td>
+		</tr>
+<?php */ ?>
+		<tr>
+			<th scope="row">
+				<label for="site-categories-signup-category-parent-selectable-yes"><?php _e('Category parents selectable', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+			</th>
+			<td>
+				<p><?php _e('When displaying Site Categories on the Landing page using the <strong>Grid</strong> or <strong>Accordion</strong> styles. It is advisable to set this option to <strong>no</strong>. This option controls the dropdown categories options on the New Site form as well as the Settings page within wp-admin.'); ?></p>
+				<input type="radio" name="bcat[sites][signup_category_parent_selectable]" id="site-categories-signup-category-parent-selectable-yes" value="1" 
+				<?php if ($this->opts['sites']['signup_category_parent_selectable'] == "1") { echo ' checked="checked" '; }?> /> <label
+				 for="site-categories-signup-category-parent-selectable-yes"><?php _e('Yes', SITE_CATEGORIES_I18N_DOMAIN) ?></label><br />
+				
+				<input type="radio" name="bcat[sites][signup_category_parent_selectable]" id="site-categories-signup-category-parent-selectable-no" value="0" 
+				<?php if ($this->opts['sites']['signup_category_parent_selectable'] == "0") { echo ' checked="checked" '; }?>/> <label
+				 for="site-categories-signup-category-parent-selectable-no"><?php _e('No', SITE_CATEGORIES_I18N_DOMAIN); ?></label>
+				
+			</td>
+		</tr>
+		
 		</table>
 		<?php		
 	}
-	
+
 	
 	/**
 	 * 
@@ -1687,7 +1921,12 @@ class SiteCategories {
 				'selected'			=>	$cat_selected
 			);
 			
-			?><li><?php wp_dropdown_categories( $bcat_args ); ?></li><?php
+			?><li><?php 
+				if ($this->opts['sites']['signup_category_parent_selectable'] == 1)
+					wp_dropdown_categories( $bcat_args );
+				else
+					$this->wp_dropdown_categories( $bcat_args );
+			?></li><?php
 		
 			$cat_counter += 1;
 			if ($cat_counter >= $blog_category_limit) 
@@ -1945,7 +2184,7 @@ class SiteCategories {
 						if ((isset($args['icon_show'])) && ($args['icon_show'] == true)) {
 							$data['categories'][$idx]->icon_image_src = $this->get_category_term_icon_src($data_category->term_id, $args['icon_size']);
 						}
-
+						
 						if ((isset($this->opts['landing_page_rewrite'])) && ($this->opts['landing_page_rewrite'] == true)) {
 							$data['categories'][$idx]->bcat_url = trailingslashit($this->opts['landing_page_slug']) . $data_category->slug;
 						} else {
@@ -1967,17 +2206,23 @@ class SiteCategories {
 							if (($child_categories) && (count($child_categories))) {
 
 								// We tally the count of the children to make sure the parent count shows correctly. 
-								$parent_count = 0;
+								$children_count = 0;
 								foreach($child_categories as $child_category) {
-									$parent_count += $child_category->count;
+									$children_count += $child_category->count;
 									
 									if ((isset($this->opts['landing_page_rewrite'])) && ($this->opts['landing_page_rewrite'] == true)) {
 										$child_category->bcat_url = trailingslashit($this->opts['landing_page_slug']) . $child_category->slug;
 									} else {
 										$child_category->bcat_url = $this->opts['landing_page_slug'] .'&amp;category_name=' . $child_category->slug;
 									}									
+									
+									if ((isset($args['icon_show_children'])) && ($args['icon_show_children'] == true)) {
+										$child_category->icon_image_src = $this->get_category_term_icon_src($child_category->term_id, $args['icon_size_children']);
+									}
+									
 								}
-								$data['categories'][$idx]->count = $parent_count;
+								if ($args['show_style'] == "accordion")
+									$data['categories'][$idx]->count = $children_count;
 								
 								$data['categories'][$idx]->children = $child_categories;
 							}
@@ -2064,7 +2309,7 @@ class SiteCategories {
 
 		$this->load_config();
 
-		if (!isset($this->opts['sites']['signup_show']))
+		if ((!isset($this->opts['sites']['signup_show'])) || ($this->opts['sites']['signup_show'] != 1))
 			return;
 		
 		//echo "opts<pre>"; print_r($this->opts); echo "</pre>";
@@ -2119,7 +2364,12 @@ class SiteCategories {
 			if (isset($_POST['bcat_site_categories'][$cat_counter])) {
 				$bcat_args['selected'] = intval($_POST['bcat_site_categories'][$cat_counter]);
 			}
-			?><li><?php wp_dropdown_categories( $bcat_args ); ?> <?php
+			?><li><?php 
+				if ($this->opts['sites']['signup_category_parent_selectable'] == 1)
+					wp_dropdown_categories( $bcat_args ); 
+				else
+					$this->wp_dropdown_categories( $bcat_args ); 
+				?> <?php
 				if ($cat_counter <= $this->opts['sites']['signup_category_minimum']) {
 					?><span class="site-categories-required"><?php _e('(* required)', SITE_CATEGORIES_I18N_DOMAIN); ?></span><?php
 				}
@@ -2200,12 +2450,12 @@ class SiteCategories {
 		
 		$this->load_config();
 
-		if (!isset($this->opts['sites']['signup_show']))
+		if ((!isset($this->opts['sites']['signup_show'])) || ($this->opts['sites']['signup_show'] != 1))
 			return $result;
 		
 		$errors = new WP_Error();
 
-		if (isset($this->opts['sites']['signup_category_required'])) {
+		if ((isset($this->opts['sites']['signup_category_required'])) && ($this->opts['sites']['signup_category_required'] == 1)) {
 
 			if (!isset($this->opts['sites']['signup_category_minimum']))
 				$this->opts['sites']['signup_category_minimum'] = 1;
@@ -2229,7 +2479,7 @@ class SiteCategories {
 			}			
 		} 
 
-		if (isset($this->opts['sites']['signup_description_required'])) {
+		if ((isset($this->opts['sites']['signup_description_required'])) && ($this->opts['sites']['signup_description_required'] == 1)) {
 			$bcat_site_description = '';
 			if (isset($_POST['bcat_site_description'])) {
 				$bcat_site_description = esc_attr($_POST['bcat_site_description']);
@@ -2241,6 +2491,158 @@ class SiteCategories {
 		}
 
 		return $result;
+	}
+	
+	function wp_dropdown_categories( $args = '' ) {
+		$defaults = array(
+			'show_option_all' => '', 'show_option_none' => '',
+			'orderby' => 'id', 'order' => 'ASC',
+			'show_last_update' => 0, 'show_count' => 0,
+			'hide_empty' => 1, 'child_of' => 0,
+			'exclude' => '', 'echo' => 1,
+			'selected' => 0, 'hierarchical' => 0,
+			'name' => 'cat', 'id' => '',
+			'class' => 'postform', 'depth' => 0,
+			'tab_index' => 0, 'taxonomy' => 'category',
+			'hide_if_empty' => false
+		);
+
+		$defaults['selected'] = ( is_category() ) ? get_query_var( 'cat' ) : 0;
+
+		// Back compat.
+		if ( isset( $args['type'] ) && 'link' == $args['type'] ) {
+			_deprecated_argument( __FUNCTION__, '3.0', '' );
+			$args['taxonomy'] = 'link_category';
+		}
+
+		$r = wp_parse_args( $args, $defaults );
+
+		if ( !isset( $r['pad_counts'] ) && $r['show_count'] && $r['hierarchical'] ) {
+			$r['pad_counts'] = true;
+		}
+
+		$r['include_last_update_time'] = $r['show_last_update'];
+		extract( $r );
+
+		$tab_index_attribute = '';
+		if ( (int) $tab_index > 0 )
+			$tab_index_attribute = " tabindex=\"$tab_index\"";
+
+		$categories = get_terms( $taxonomy, $r );
+		$name = esc_attr( $name );
+		$class = esc_attr( $class );
+		$id = $id ? esc_attr( $id ) : $name;
+
+		if ( ! $r['hide_if_empty'] || ! empty($categories) )
+			$output = "<select name='$name' id='$id' class='$class' $tab_index_attribute>\n";
+		else
+			$output = '';
+
+		if ( empty($categories) && ! $r['hide_if_empty'] && !empty($show_option_none) ) {
+			$show_option_none = apply_filters( 'list_cats', $show_option_none );
+			$output .= "\t<option value='-1' selected='selected'>$show_option_none</option>\n";
+		}
+
+		if ( ! empty( $categories ) ) {
+
+			if ( $show_option_all ) {
+				$show_option_all = apply_filters( 'list_cats', $show_option_all );
+				$selected = ( '0' === strval($r['selected']) ) ? " selected='selected'" : '';
+				$output .= "\t<option value='0'$selected>$show_option_all</option>\n";
+			}
+
+			if ( $show_option_none ) {
+				$show_option_none = apply_filters( 'list_cats', $show_option_none );
+				$selected = ( '-1' === strval($r['selected']) ) ? " selected='selected'" : '';
+				$output .= "\t<option value='-1'$selected>$show_option_none</option>\n";
+			}
+
+			if ( $hierarchical )
+				$depth = $r['depth'];  // Walk the full depth.
+			else
+				$depth = -1; // Flat.
+
+			$output .= $this->walk_category_dropdown_tree( $categories, $depth, $r );
+		}
+		if ( ! $r['hide_if_empty'] || ! empty($categories) )
+			$output .= "</select>\n";
+
+
+		$output = apply_filters( 'wp_dropdown_cats', $output );
+
+		if ( $echo )
+			echo $output;
+
+		return $output;
+	}
+	
+	function walk_category_dropdown_tree() {
+		$args = func_get_args();
+		// the user's options are the third parameter
+		if ( empty($args[2]['walker']) || !is_a($args[2]['walker'], 'Walker') )
+			$walker = new BCat_Walker_CategoryDropdown;
+		else
+			$walker = $args[2]['walker'];
+
+		return call_user_func_array(array( &$walker, 'walk' ), $args );
+	}
+	
+	
+}
+
+class BCat_Walker_CategoryDropdown extends Walker {
+	/**
+	 * @see Walker::$tree_type
+	 * @since 2.1.0
+	 * @var string
+	 */
+	var $tree_type = 'category';
+
+	/**
+	 * @see Walker::$db_fields
+	 * @since 2.1.0
+	 * @todo Decouple this
+	 * @var array
+	 */
+	var $db_fields = array ('parent' => 'parent', 'id' => 'term_id');
+
+	/**
+	 * @see Walker::start_el()
+	 * @since 2.1.0
+	 *
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @param object $category Category data object.
+	 * @param int $depth Depth of category. Used for padding.
+	 * @param array $args Uses 'selected', 'show_count', and 'show_last_update' keys, if they exist.
+	 */
+	function start_el(&$output, $category, $depth, $args) {
+		$pad = str_repeat('&nbsp;', $depth * 3);
+
+		$cat_name = apply_filters('list_cats', $category->name, $category);
+
+		if ($depth == 0) {
+			$output .= "<optgroup class=\"level-$depth\" label=\"".$cat_name."\">";
+			
+		} else {
+			$output .= "\t<option class=\"level-$depth\" value=\"".$category->term_id."\"";
+			if ( $category->term_id == $args['selected'] )
+				$output .= ' selected="selected"';
+			$output .= '>';
+			$output .= $pad.$cat_name;
+			if ( $args['show_count'] )
+				$output .= '&nbsp;&nbsp;('. $category->count .')';
+			if ( $args['show_last_update'] ) {
+				$format = 'Y-m-d';
+				$output .= '&nbsp;&nbsp;' . gmdate($format, $category->last_update_timestamp);
+			}
+			$output .= "</option>\n";
+		}
+	}
+
+	function end_el(&$output, $page, $depth, $args) {
+		if ($depth == 0) {
+			$output .= '</optgroup>';
+		}
 	}
 }
 
