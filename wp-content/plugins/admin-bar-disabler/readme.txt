@@ -3,8 +3,8 @@ Contributors: sc0ttkclark
 Donate link: http://scottkclark.com/
 Tags: admin bar, admin menu, disable, 3.1, wordpress multisite, multisite, remove, hide
 Requires at least: 3.1
-Tested up to: 3.1.1
-Stable tag: 1.0.2
+Tested up to: 3.5
+Stable tag: 1.0.3
 
 Disable the WP Admin Bar in 3.1+ entirely, or only for roles and capabilities which aren't in the 'whitelist' or 'blacklist'.
 
@@ -16,7 +16,7 @@ This plugin supports both Per-Site and Per-Network (WordPress Multisite) setting
 
 If you're interested in showing the Admin Bar in more cases, check out the Always Show Admin Bar plugin: http://wordpress.org/extend/plugins/always-show-admin-bar/
 
-**OFFICIAL SUPPORT** - Admin Bar Disabler - Support Forums: http://scottkclark.com/forums/admin-bar-disabler/
+If you're interested in showing the Admin Bar to logged out users, check out the Logged Out Admin Bar plugin: http://wordpress.org/extend/plugins/logged-out-admin-bar/
 
 == Installation ==
 
@@ -40,6 +40,9 @@ Scott Kingsley Clark from SKC Development -- Scott specializes in WordPress and 
 1. **Admin Bar Disabler Settings** - Set up per-site settings or if this plugin is activated network-wide then you can also set up network-wide settings through the Network Admin.
 
 == Changelog ==
+
+= 1.0.3 =
+* Bug fix on button, tested up to 3.5
 
 = 1.0.2 =
 * Localized plugin, thanks for the help from Anja Fokker

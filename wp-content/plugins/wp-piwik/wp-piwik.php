@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/wp-piwik/
 
 Description: Adds Piwik stats to your dashboard menu and Piwik code to your wordpress footer.
 
-Version: 0.9.5
+Version: 0.9.7
 Author: Andr&eacute; Br&auml;kling
 Author URI: http://www.braekling.de
 
@@ -48,31 +48,24 @@ if (!function_exists ('add_action')) {
 if (!function_exists('is_plugin_active_for_network'))
 	require_once(ABSPATH.'/wp-admin/includes/plugin.php');
 
-/***************************************************************************************** 
-	IMPORTANT NOTICE - WPMU - MULTISITE - NETWORK
-******************************************************************************************
- 	If you are using WP-Piwik as WordPress Network Plugin (Multisite/"WPMU"), 
- 	you don't have to change values anymore.
- 	PLEASE BACKUP YOUR WP & DATABASE _BEFORE_ TESTING THIS NEW WP-PIWIK RELEASE.
-	REMEMBER: MULTISITE SUPPORT IS STILL EXPERIMENTAL. USE AT YOUR OWN RISK.
-******************************************************************************************/
-
 class wp_piwik {
 
 	private static
-		$intRevisionId = 90500,
-		$strVersion = '0.9.5',
+		$intRevisionId = 90700,
+		$strVersion = '0.9.7',
 		$intDashboardID = 30,
 		$strPluginBasename = NULL,
 		$bolJustActivated = false,
 		$aryGlobalSettings = array(
-			'revision' => 90500,
+			'revision' => 90700,
 			'add_tracking_code' => false,
 			'last_settings_update' => 0,
 			'piwik_token' => '',
 			'piwik_url' => '',
 			'piwik_path' => '',
 			'piwik_mode' => 'http',
+			'piwik_useragent' => 'php',
+			'piwik_useragent_string' => 'WP-Piwik',
 			'dashboard_widget' => false,
 			'dashboard_chart' => false,
 			'dashboard_seo' => false,
@@ -86,10 +79,13 @@ class wp_piwik {
 			'track_compress' => false,
 			'track_post' => false,
 			'disable_timelimit' => false,
+			'disable_ssl_verify' => false,
 			'disable_cookies' => false,
-			'toolbar' => false
+			'toolbar' => false,
+			'shortcodes' => false
 		),
 		$arySettings = array(
+			'name' => '',
 			'tracking_code' => '',
 			'site_id' => NULL,
 			'last_tracking_code_update' => 0,
@@ -97,7 +93,10 @@ class wp_piwik {
 		);
 		
 	private
-		$intStatsPage = NULL;
+		$intStatsPage = NULL,
+		$bolNetwork = false,
+		$aryAttributes = array(),
+		$strResult = '';
 
 	/**
 	 * Load plugin settings 
@@ -161,9 +160,7 @@ class wp_piwik {
 		// Add meta links to plugin details
 		add_filter('plugin_row_meta', array($this, 'setPluginMeta'), 10, 2);
 		// Register columns
-		/* TODO: currently not working
-		 * add_filter('screen_layout_columns', array(&$this, 'onScreenLayoutColumns'), 10, 2); 
-		 */
+		add_filter('screen_layout_columns', array(&$this, 'onScreenLayoutColumns'), 10, 2);
 		// Add network admin menu if required
 		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php'))
 			add_action('network_admin_menu', array($this, 'buildNetworkAdminMenu'));
@@ -171,6 +168,9 @@ class wp_piwik {
 		add_action('admin_menu', array($this, 'buildAdminMenu'));
 		// Register the callback been used if options of page been submitted and needs to be processed
 		add_action('admin_post_save_wp-piwik_stats', array(&$this, 'onStatsPageSaveChanges'));
+		// Register own post meta boxes
+		add_action('load-post.php', array(&$this, 'postMetaboxes'));
+		add_action('load-post-new.php', array(&$this, 'postMetaboxes'));
 		// Add dashboard widget if enabled
 		/* TODO: Use bitmask here */
 		if (self::$aryGlobalSettings['dashboard_widget'] || self::$aryGlobalSettings['dashboard_chart'] || self::$aryGlobalSettings['dashboard_seo'])
@@ -179,7 +179,11 @@ class wp_piwik {
 		if (self::$aryGlobalSettings['toolbar']) {
 			add_action(is_admin()?'admin_head':'wp_head', array($this, 'loadToolbarRequirements'));
 			add_action('admin_bar_menu', array(&$this, 'extendWordPressToolbar'), 1000);
-		}			
+		}
+		// Enable shortcodes if enabled
+		if (self::$aryGlobalSettings['shortcodes'])
+			add_shortcode( 'wp-piwik', array(&$this, 'shortcode'));
+			
 		// Add tracking code to footer if enabled
 		if (self::$aryGlobalSettings['add_tracking_code']) add_action('wp_footer', array($this, 'footer'));
 	}
@@ -234,6 +238,10 @@ class wp_piwik {
             self::includeFile('update/90206');
 		if (self::$aryGlobalSettings['revision'] < 90405)
             self::includeFile('update/90405');
+		if (self::$aryGlobalSettings['revision'] < 90601)
+            self::includeFile('update/90601');
+		if (self::$aryGlobalSettings['revision'] < 90700)
+            self::includeFile('update/90700');
         // Install new version
         $this->installPlugin();      
     }
@@ -245,9 +253,10 @@ class wp_piwik {
 		self::$arySettings = array(
 			'tracking_code' => '',
 			'site_id' => get_option('wp-piwik_siteid', NULL),
-			'last_tracking_code_update' => get_option('wp-piwik_scriptupdate', 0),
+			'last_tracking_code_update' => 0,
 			'dashboard_revision' => get_option('wp-piwik_dashboardid', 0)
 		);
+		self::$aryGlobalSettings['last_settings_update'] = time();
 		// Remove deprecated option values
 		$aryRemoveOptions = array('wp-piwik_siteid','wp-piwik_404','wp-piwik_scriptupdate','wp-piwik_dashboardid','wp-piwik_jscode');
 		foreach ($aryRemoveOptions as $strRemoveOption) delete_option($strRemoveOption);
@@ -307,8 +316,128 @@ class wp_piwik {
 		else $strTrackingCode = self::$arySettings['tracking_code'];
 		// Send tracking code
 		echo '<!-- *** WP-Piwik - see http://www.braekling.de/wp-piwik-wpmu-piwik-wordpress/ -->'."\n";
+		// Add custom variables if set:
+		if (is_single()) {
+			$strCustomVars = '';
+			for ($i = 1; $i <= 5; $i++) {
+				// Get post ID
+				$intID = get_the_ID();
+				// Get key
+				$strMetaKey = get_post_meta($intID, 'wp-piwik_custom_cat'.$i, true);
+				// Get value
+				$strMetaVal = get_post_meta($intID, 'wp-piwik_custom_val'.$i, true);
+				if (!empty($strMetaKey) && !empty($strMetaVal)) {
+					$strCustomVars .= 'piwikTracker.setCustomVariable('.$i.', "'.$strMetaKey.'", "'.$strMetaVal.'", "page");';
+				}
+			}
+			if (!empty($strMetaKey)) $strTrackingCode = str_replace('piwikTracker.trackPageView();', $strCustomVars.'piwikTracker.trackPageView();', $strTrackingCode);
+		}
 		echo $strTrackingCode;
 		echo '<!-- *** /WP-Piwik *********************************************************** -->'."\n";
+		$strName = get_bloginfo('name');
+		if (!isset(self::$arySettings['name']) || self::$arySettings['name'] != $strName)
+			$this->updatePiwikSite();
+	}
+
+	/**
+	 * Shortcode function
+	 **/
+	 
+	function shortcode($aryAttributes) {
+		$this->aryAttributes = shortcode_atts(
+			array(
+				'title' => '',
+				'module' => 'overview',
+				'period' => 'day',
+				'date' => 'yesterday',
+				'limit' => 10,
+				'width' => '100%',
+				'height' => '200px',
+				'language' => 'en'
+			), $aryAttributes);
+		switch ($this->aryAttributes['module']) {
+			case 'opt-out':
+				$this->strResult = '<iframe frameborder="no" width="'.$this->aryAttributes['width'].'" height="'.$this->aryAttributes['height'].'" src="'.self::$aryGlobalSettings['piwik_url'].'index.php?module=CoreAdminHome&action=optOut&language='.$this->aryAttributes['language'].'"></iframe>';
+			break;
+			case 'overview':
+			default:
+				self::includeFile('shortcodes/overview');
+		}
+		return $this->strResult;
+	}
+	
+	/**
+	 * Add metaboxes to posts
+	 */
+	function postMetaboxes() {
+		add_action('add_meta_boxes', array(&$this, 'postAddMetaboxes'));
+		add_action('save_post', array(&$this, 'postCustomvarsSave'), 10, 2);
+	}
+
+	/**
+	 * Create post meta boxes
+	 */
+	function postAddMetaboxes() {
+		add_meta_box(
+			'wp-piwik_post_customvars',
+			__('Piwik Custom Variables', 'wp-piwik'),
+			array(&$this, 'postCustomvars'),
+			'post',
+			'side',
+			'default'
+		);
+	}
+	
+	/**
+	 * Display custom variables meta box
+	 */
+	function postCustomvars($objPost, $objBox ) {
+		wp_nonce_field(basename( __FILE__ ), 'wp-piwik_post_customvars_nonce'); ?>
+	 	<table>
+	 		<tr><th></th><th><?php _e('Name', 'wp-piwik'); ?></th><th><?php _e('Value', 'wp-piwik'); ?></th></tr>
+	 	<?php for($i = 1; $i <= 5; $i++) { ?>
+		 	<tr>
+		 		<th><label for="wp-piwik_customvar1"><?php echo $i; ?>: </label></th>
+		 		<td><input class="widefat" type="text" name="wp-piwik_custom_cat<?php echo $i; ?>" value="<?php echo esc_attr(get_post_meta($objPost->ID, 'wp-piwik_custom_cat'.$i, true ) ); ?>" size="200" /></td>
+		 		<td><input class="widefat" type="text" name="wp-piwik_custom_val<?php echo $i; ?>" value="<?php echo esc_attr(get_post_meta($objPost->ID, 'wp-piwik_custom_val'.$i, true ) ); ?>" size="200" /></td>
+		 	</tr>
+		<?php } ?>
+		</table>
+		<p><?php _e('Set custom variables for a page view', 'wp-piwik'); ?>. (<a href="http://piwik.org/docs/custom-variables/"><?php _e('More information', 'wp-piwik'); ?></a>.)</p>
+		<?php 
+	}
+
+	/**
+	 * Save post custom variables
+	 */
+	function postCustomvarsSave($intID, $objPost) {
+		// Verify the nonce before proceeding.
+		if (!isset( $_POST['wp-piwik_post_customvars_nonce'] ) || !wp_verify_nonce( $_POST['wp-piwik_post_customvars_nonce'], basename( __FILE__ ) ) )
+			return $intID;
+		// Get post type object
+		$objPostType = get_post_type_object($objPost->post_type);
+		// Check if the current user has permission to edit the post.
+		if (!current_user_can($objPostType->cap->edit_post, $intID))
+			return $intID;
+		$aryNames = array('cat', 'val');
+		for ($i = 1; $i <= 5; $i++)
+			for ($j = 0; $j <= 1; $j++) {
+				// Get data
+				$strMetaVal = (isset($_POST['wp-piwik_custom_'.$aryNames[$j].$i])?htmlentities($_POST['wp-piwik_custom_'.$aryNames[$j].$i]):'');
+				// Create key
+				$strMetaKey = 'wp-piwik_custom_'.$aryNames[$j].$i;
+				// Get the meta value of the custom field key
+				$strCurVal = get_post_meta($intID, $strMetaKey, true);
+				// Add meta val:
+				if ($strMetaVal && '' == $strCurVal)
+					add_post_meta($intID, $strMetaKey, $strMetaVal, true);
+				// Update meta val:
+				elseif ($strMetaVal && $strMetaVal != $strCurVal)
+					update_post_meta($intID, $strMetaKey, $strMetaVal);
+				// Delete meta val:
+				elseif (''==$strMetaVal && $strCurVal)
+					delete_post_meta($intID, $strMetaKey, $strCurVal);
+			}
 	}
 
 	/**
@@ -364,7 +493,7 @@ class wp_piwik {
 				__('WP-Piwik', 'wp-piwik'), 
 				'manage_sites',
 				'wp-piwik_stats',
-				array($this, 'showStats')
+				array($this, 'showStatsNetwork')
 			);
 			// Add required scripts
 			add_action('admin_print_scripts-'.$this->intStatsPage, array($this, 'loadStatsScripts'));
@@ -397,7 +526,7 @@ class wp_piwik {
 	 */ 
 	function onScreenLayoutColumns($aryColumns, $strScreen) {		
 		if ($strScreen == $this->intStatsPage)
-			$aryColumns[$this->intStatsPage] = 4;
+			$aryColumns[$this->intStatsPage] = 3;
 		return $aryColumns;
 	}
 	
@@ -434,6 +563,7 @@ class wp_piwik {
 		// Is user allowed to see stats?
 		if (current_user_can('wp-piwik_read_stats')) {
 			$aryUnique = $this->callPiwikAPI('VisitsSummary.getUniqueVisitors','day','last30',null);
+			if (!is_array($aryUnique)) $aryUnique = array();
 			$strGraph = '<script type="text/javascript">';	
 			$strGraph .= "var \$jSpark = jQuery.noConflict();\$jSpark(function() {var piwikSparkVals=[".implode(',',$aryUnique)."];\$jSpark('.wp-piwik_dynbar').sparkline(piwikSparkVals, {type: 'bar', barColor: '#ccc', barWidth:2});});";
 			$strGraph .= '</script>';
@@ -540,10 +670,13 @@ class wp_piwik {
 	 * Load scripts required by Toolbar graphs
 	 */
 	function loadToolbarRequirements() {
-		// Load Sparklines
-		wp_enqueue_script('wp-piwik-sparkline',$this->getPluginURL().'js/sparkline/jquery.sparkline.min.js',array('jquery'));
-		// Load CSS
-		wp_enqueue_style('wp-piwik', $this->getPluginURL().'css/wp-piwik-spark.css');
+		// Only load if user is allowed to see stats
+		if (current_user_can('wp-piwik_read_stats')) {
+			// Load Sparklines
+			wp_enqueue_script('wp-piwik-sparkline',$this->getPluginURL().'js/sparkline/jquery.sparkline.min.js',array('jquery'));
+			// Load CSS
+			wp_enqueue_style('wp-piwik', $this->getPluginURL().'css/wp-piwik-spark.css');
+		}
 	}
 
 	/**
@@ -600,6 +733,10 @@ class wp_piwik {
 		if (function_exists('curl_init')) {
 			// Init cURL
 			$c = curl_init($strURL);
+			// Disable SSL peer verification if asked to
+			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, !self::$aryGlobalSettings['disable_ssl_verify']);
+			// Set user agent
+			curl_setopt($c, CURLOPT_USERAGENT, self::$aryGlobalSettings['piwik_useragent']=='php'?ini_get('user_agent'):self::$aryGlobalSettings['piwik_useragent_string']);
 			// Configure cURL CURLOPT_RETURNTRANSFER = 1
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 			// Configure cURL CURLOPT_HEADER = 0 
@@ -629,13 +766,18 @@ class wp_piwik {
 	function callPHP($strParams) {
 		if (PIWIK_INCLUDE_PATH === FALSE)
 			return serialize(array('result' => 'error', 'message' => __('Could not resolve','wp-piwik').' &quot;'.htmlentities(self::$aryGlobalSettings['piwik_path']).'&quot;: '.__('realpath() returns false','wp-piwik').'.'));
-		require_once PIWIK_INCLUDE_PATH . "/index.php";
-		require_once PIWIK_INCLUDE_PATH . "/core/API/Request.php";
-		Piwik_FrontController::getInstance()->init();
+		if (file_exists(PIWIK_INCLUDE_PATH . "/index.php"))
+			require_once PIWIK_INCLUDE_PATH . "/index.php";
+		if (file_exists(PIWIK_INCLUDE_PATH . "/core/API/Request.php"))
+			require_once PIWIK_INCLUDE_PATH . "/core/API/Request.php";
+		if (class_exists('Piwik_FrontController'))
+			Piwik_FrontController::getInstance()->init();
 		// Add Piwik URL to params
 		$strParams .= '&piwikUrl='.urlencode(self::$aryGlobalSettings['piwik_url']);
 		// This inits the API Request with the specified parameters
-		$objRequest = new Piwik_API_Request($strParams);
+		if (class_exists('Piwik_API_Request'))
+			$objRequest = new Piwik_API_Request($strParams);
+		else return NULL;
 		// Calls the API and fetch XML data back
 		return $objRequest->process();		
 	}
@@ -669,12 +811,13 @@ class wp_piwik {
 		$strURL .= '&token_auth='.self::$aryGlobalSettings['piwik_token'];
 		$aryResult = unserialize($this->getRemoteFile($strURL));
 		if (!empty($aryResult) && isset($aryResult[0]['idsite'])) {
-			self::$arySettings['site_id'] = $aryResult[0]['idsite'];
+			self::$arySettings['site_id'] = (int)$aryResult[0]['idsite'];
 			self::$arySettings['last_tracking_code_update'] = time();
 		// Otherwise create new site
 		} elseif (self::isConfigured() && !empty($strURL)) {
 			$strName = get_bloginfo('name');
 			if (empty($strName)) $strName = $strBlogURL;
+			self::$arySettings['name'] = $strName;
 			$strURL .= '&method=SitesManager.addSite';
 			$strURL .= '&siteName='.urlencode($strName).'&urls='.urlencode($strBlogURL);
 			$strURL .= '&format=PHP';
@@ -692,6 +835,30 @@ class wp_piwik {
 		if (isset($_GET['wpmu_show_stats']) && is_plugin_active_for_network('wp-piwik/wp-piwik.php'))
 			restore_current_blog();
 		return array('js' => self::$arySettings['tracking_code'], 'id' => self::$arySettings['site_id']);
+	}
+
+	/**
+	 * Update a site 
+	 */ 
+	function updatePiwikSite() {
+		$strBlogURL = get_bloginfo('url');
+		// Check if blog URL already known
+		$strName = get_bloginfo('name');
+		if (empty($strName)) $strName = $strBlogURL;
+		self::$arySettings['name'] = $strName;
+		$strURL .= '&method=SitesManager.updateSite';
+		$strURL .= '&idSite='.self::$arySettings['site_id'];
+		$strURL .= '&siteName='.urlencode($strName).'&urls='.urlencode($strBlogURL);
+		$strURL .= '&format=PHP';
+		$strURL .= '&token_auth='.self::$aryGlobalSettings['piwik_token'];
+		$strResult = unserialize($this->getRemoteFile($strURL));		
+		// Store new data
+		$mixAPIResult = $this->callPiwikAPI('SitesManager.getJavascriptTag');
+		self::$arySettings['tracking_code'] = (!is_array($mixAPIResult)?html_entity_decode($mixAPIResult):'');
+		self::$arySettings['last_tracking_code_update'] = time();
+		// Change Tracking code if configured
+		self::$arySettings['tracking_code'] = $this->applyJSCodeChanges(self::$arySettings['tracking_code']);
+		self::saveSettings();
 	}
 
 	/**
@@ -746,7 +913,11 @@ class wp_piwik {
 					$intSite = $aryOptions['site_id'];
 				else $intSite = self::$arySettings['site_id'];
 			// Otherwise use the current site's id.
-			} else $intSite = self::$arySettings['site_id'];
+			} else {
+				if (empty(self::$arySettings['site_id']))
+					$aryNewSite = self::addPiwikSite();
+				$intSite = self::$arySettings['site_id'];
+			}
 			// Create error message if WP-Piwik isn't configured
 			if (!self::isConfigured()) {
 				$this->aryCache[$strKey] = array(
@@ -757,7 +928,7 @@ class wp_piwik {
 			}
 			// Build URL			
 			$strURL = '&method='.$strMethod;
-			$strURL .= '&idSite='.$intSite.'&period='.$strPeriod.'&date='.$strDate;
+			$strURL .= '&idSite='.(int)$intSite.'&period='.$strPeriod.'&date='.$strDate;
 			$strURL .= '&filter_limit='.$intLimit;
 			$strURL .= '&token_auth='.$strToken;
 			$strURL .= '&expanded='.$bolExpanded;
@@ -805,6 +976,7 @@ class wp_piwik {
 			'normal' => array(
 				'visitors' => array(__('Visitors', 'wp-piwik'), 'day', 'last30'),
 				'browsers' => array(__('Browser', 'wp-piwik'), 'day', 'yesterday'),
+				'browserdetails' => array(__('Browser Details', 'wp-piwik'), 'day', 'yesterday'),
 				'screens' => array(__('Resolution', 'wp-piwik'), 'day', 'yesterday'),
 				'systems' => array(__('Operating System', 'wp-piwik'), 'day', 'yesterday')
 			)
@@ -855,20 +1027,27 @@ class wp_piwik {
 			);
 		}
 	}
-		
+	
+	// Open stats page as network admin
+	function showStatsNetwork() {
+		$this->bolNetwork = true;
+		$this->showStats();
+	}	
+	
 	function showStats() {
 		// Disabled time limit if required
 		if (isset(self::$aryGlobalSettings['disable_timelimit']) && self::$aryGlobalSettings['disable_timelimit']) 
 			set_time_limit(0);
 		//we need the global screen column value to be able to have a sidebar in WordPress 2.8
-		global $screen_layout_columns;		
+		global $screen_layout_columns;
+		if (empty($screen_layout_columns)) $screen_layout_columns = 2;
 /***************************************************************************/ ?>
 <div id="wp-piwik-stats-general" class="wrap">
 	<?php screen_icon('options-general'); ?>
 	<h2><?php _e('Piwik Statistics', 'wp-piwik'); ?></h2>
 <?php /************************************************************************/
-		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php') && function_exists('is_super_admin') && is_super_admin()) {
-			global $blog_id;
+		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php') && function_exists('is_super_admin') && is_super_admin() && $this->bolNetwork) {
+			/* global $blog_id;
 			global $wpdb;
 			$aryBlogs = $wpdb->get_results($wpdb->prepare('SELECT blog_id FROM '.$wpdb->blogs.' ORDER BY blog_id'));			
 			if (isset($_GET['wpmu_show_stats'])) {
@@ -887,8 +1066,15 @@ class wp_piwik {
 			// Show blogs in alphabetical order
 			ksort($aryOptions);
 			foreach ($aryOptions as $strOption) echo $strOption;
-			echo '</select><input type="submit" value="'.__('Change').'" />'."\n ";
-			echo __('Currently shown stats:').' <a href="'.get_bloginfo('url').'">'.$blog_id.' - '.get_bloginfo('name').'</a>'."\n";			
+			echo '</select><input type="submit" value="'.__('Change').'" />'."\n "; */
+			if (isset($_GET['wpmu_show_stats'])) {
+				switch_to_blog((int) $_GET['wpmu_show_stats']);
+				self::loadSettings();
+			} else {
+				$this->includeFile('settings/sitebrowser');
+				return;
+			}
+			echo '<p>'.__('Currently shown stats:').' <a href="'.get_bloginfo('url').'">'.(int) $_GET['wpmu_show_stats'].' - '.get_bloginfo('name').'</a>.'.' <a href="?page=wp-piwik_stats">Show site overview</a>.</p>'."\n";			
 			echo '</form>'."\n";
 		}
 /***************************************************************************/ ?>
@@ -897,16 +1083,19 @@ class wp_piwik {
 		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false ); ?>
         <?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false ); ?>
 		<input type="hidden" name="action" value="save_wp-piwik_stats_general" />		
-		<div id="poststuff" class="metabox-holder has-right-sidebar" style="width:<?php echo 528+281; ?>px;">
-			<div id="side-info-column" class="inner-sidebar wp-piwik-side">
-				<?php do_meta_boxes($this->intStatsPage, 'side', ''); ?>
-			</div>
-        	<div id="post-body" class="has-sidebar">
-					<div id="post-body-content" class="postbox-container has-sidebar-content wp-piwik-wide-content">
-					<?php $meta_boxes = do_meta_boxes($this->intStatsPage, 'normal', ''); ?>
+		<div id="dashboard-widgets" class="metabox-holder columns-<?php echo $screen_layout_columns; ?><?php echo 2 <= $screen_layout_columns?' has-right-sidebar':''; ?>">
+				<div id='postbox-container-1' class='postbox-container'>
+					<?php $meta_boxes = do_meta_boxes($this->intStatsPage, 'normal', null); ?>	
 				</div>
-			</div>
-			<br class="clear"/>
+				
+				<div id='postbox-container-2' class='postbox-container'>
+					<?php do_meta_boxes($this->intStatsPage, 'side', null); ?>
+				</div>
+				
+				<div id='postbox-container-3' class='postbox-container'>
+					<?php do_meta_boxes($this->intStatsPage, 'column3', null); ?>
+				</div>
+				
     	</div>
 	</form>
 </div>
@@ -921,7 +1110,7 @@ class wp_piwik {
 	//]]>
 </script>
 <?php /************************************************************************/
-		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php') && function_exists('is_super_admin') && is_super_admin()) {
+		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php') && function_exists('is_super_admin') && is_super_admin() && $bolNetwork) {
 			restore_current_blog();
 		}
 	}
@@ -986,6 +1175,7 @@ class wp_piwik {
 				self::$aryGlobalSettings['capability_read_stats'] = (isset($_POST['wp-piwik_displayto'])?$_POST['wp-piwik_displayto']:array());
 				self::$aryGlobalSettings['disable_timelimit'] = (isset($_POST['wp-piwik_disabletimelimit'])?$_POST['wp-piwik_disabletimelimit']:false);
 				self::$aryGlobalSettings['toolbar'] = (isset($_POST['wp-piwik_toolbar'])?$_POST['wp-piwik_toolbar']:false);
+				self::$aryGlobalSettings['shortcodes'] = (isset($_POST['wp-piwik_shortcodes'])?$_POST['wp-piwik_shortcodes']:false);
 			break;
 			case 'tracking':
 				self::$aryGlobalSettings['add_tracking_code'] = (isset($_POST['wp-piwik_addjs'])?$_POST['wp-piwik_addjs']:false);
@@ -1000,6 +1190,9 @@ class wp_piwik {
 				self::$aryGlobalSettings['piwik_url'] = self::checkURL((isset($_POST['wp-piwik_url'])?$_POST['wp-piwik_url']:''));
 				self::$aryGlobalSettings['piwik_path'] = (isset($_POST['wp-piwik_path']) && !empty($_POST['wp-piwik_path'])?realpath($_POST['wp-piwik_path']):'');
 				self::$aryGlobalSettings['piwik_mode'] = (isset($_POST['wp-piwik_mode'])?$_POST['wp-piwik_mode']:'http');
+				self::$aryGlobalSettings['piwik_useragent'] = (isset($_POST['wp-piwik_useragent'])?$_POST['wp-piwik_useragent']:'php');
+				self::$aryGlobalSettings['piwik_useragent_string'] = (isset($_POST['wp-piwik_useragent_string'])?$_POST['wp-piwik_useragent_string']:'WP-Piwik');
+				self::$aryGlobalSettings['disable_ssl_verify'] = (isset($_POST['wp-piwik_disable_ssl_verify'])?$_POST['wp-piwik_disable_ssl_verify']:false);
 				if (!is_plugin_active_for_network('wp-piwik/wp-piwik.php')) {
 					self::$aryGlobalSettings['auto_site_config'] = (isset($_POST['wp-piwik_auto_site_config'])?$_POST['wp-piwik_auto_site_config']:false);
 					if (!self::$aryGlobalSettings['auto_site_config'])
@@ -1079,7 +1272,7 @@ class wp_piwik {
 			require_once('settings/'.$strTab.'.php');				
 		// Show submit button
 			if (!in_array($strTab, array('homepage','credits','support','sitebrowser')))
-				echo '<tr><td><p class="submit" style="clear: both;"><input type="submit" name="Submit"  class="button-primary" value="'.__('Save settings', 'wp-piwik').'" /><input type="hidden" name="wp-piwik_settings_submit" value="Y" /></p></td></tr>';
+				echo '<tr><td><p class="submit" style="clear: both;padding:0;margin:0"><input type="submit" name="Submit"  class="button-primary" value="'.__('Save settings', 'wp-piwik').'" /><input type="hidden" name="wp-piwik_settings_submit" value="Y" /></p></td></tr>';
 			echo '</table>';
 		}
 		// Close form
@@ -1152,7 +1345,11 @@ class wp_piwik {
 			'track_post' => false,
 			'disable_timelimit' => false,
 			'disable_cookies' => false,
-			'toolbar' => false
+			'toolbar' => false,
+			'piwik_useragent' => 'php',
+			'piwik_useragent_string' => 'WP-Piwik',
+			'disable_ssl_verify' => false,
+			'shortcodes' => false
 		);
 		// Reset network settings
 		if (is_plugin_active_for_network('wp-piwik/wp-piwik.php')) {
@@ -1178,7 +1375,7 @@ class wp_piwik {
 			$aryResult = get_blog_option($intBlogID, 'wp-piwik_settings');
 			$intResult = $aryResult['site_id'];
 		}		
-		return $intResult;
+		return (is_int($intResult)?$intResult:'n/a');
 	}
 	
 	/**

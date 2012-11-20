@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: polylangAT\n"
+"POT-Creation-Date: 2012-10-26 11:49+0100\n"
+"PO-Revision-Date: 2012-10-26 16:46+0100\n"
+"Last-Translator: Karim El Khalifa <karim@moutons.ch>\n"
+"Language-Team: El Khalifa Karim <karim@moutons.ch>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Language: js\n"
+
+msgid "Auto-translate"
+msgstr "機械翻訳"
+
+msgid "%s from the article in %s."
+msgstr "%2$s の記事から %1$s。"
+
+msgid "Translate"
+msgstr "翻訳"
+
+msgid "Automatically translate:"
+msgstr "自動翻訳："
+
+msgid "the title"
+msgstr "タイトル"
+
+msgid "the text"
+msgstr "テキスト"
+
+msgid "Please tick at least one translation options."
+msgstr "少なくとも一つの変換オプションをチェックしてください。"

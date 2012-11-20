@@ -3,7 +3,7 @@
 Plugin Name: Admin Bar Disabler
 Plugin URI: http://scottkclark.com/wordpress/admin-bar-disabler/
 Description: Disable the WP Admin Bar in 3.1+ entirely, or only for roles and capabilities which aren't in the 'whitelist' or 'blacklist'.
-Version: 1.0.2
+Version: 1.0.3
 Author: Scott Kingsley Clark
 Author URI: http://scottkclark.com/
 Text Domain: admin-bar-disabler
@@ -254,7 +254,7 @@ function admin_bar_disabler_network_settings_page ()
             </tr>
         </table>
         <p class="submit">
-            <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'admin-bar-disabler'); ?>) ?>"/>&nbsp;&nbsp;
+            <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'admin-bar-disabler'); ?>"/>&nbsp;&nbsp;
             <small>
                 <strong><?php _e('Do not use Blacklist in combination with Whitelist, in all cases Whitelist overrides Blacklist', 'admin-bar-disabler'); ?></strong>
             </small>
@@ -339,7 +339,7 @@ function admin_bar_disabler_settings_page ()
             </tr>
         </table>
         <p class="submit">
-            <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'admin-bar-disabler') ?>"/>&nbsp;&nbsp;
+            <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'admin-bar-disabler'); ?>"/>&nbsp;&nbsp;
             <small>
                 <strong><?php _e('Do not use Blacklist in combination with Whitelist, in all cases Whitelist overrides Blacklist', 'admin-bar-disabler'); ?></strong>
             </small>

@@ -22,15 +22,15 @@ class SiteBrowser extends WP_List_Table {
 	
 	function get_columns(){
   		$columns = array(
-			'id'    	=> 'ID',
-			'name' 		=> 'Title',
-			'siteurl'   => 'URL',
-			'piwikid'	=> 'Site ID (Piwik)'
+			'id'    	=> __('ID','wp-piwik'),
+			'name' 		=> __('Title','wp-piwik'),
+			'siteurl'   => __('URL','wp-piwik'),
+			'piwikid'	=> __('Site ID (Piwik)','wp-piwik')
 		);
 		return $columns;
 	}
 	
-	function prepare_items() {
+	function prepare_items($bolNetwork = false) {
   		$current_page = $this->get_pagenum();
 		$per_page = 10;
 		global $blog_id;
@@ -66,9 +66,13 @@ class SiteBrowser extends WP_List_Table {
     		'total_items' => $total_items,
     		'per_page'    => $per_page
   		));
-		foreach ($this->aryData as $intKey => $aryDataset)
-			if (empty($aryDataset['piwikid']))
+  		if ($bolNetwork) $pagenow = 'settings.php';
+		foreach ($this->aryData as $intKey => $aryDataset) {
+			if (empty($aryDataset['piwikid']) || !is_int($aryDataset['piwikid']))
 				$this->aryData[$intKey]['piwikid'] = '<a href="'.admin_url(($pagenow == 'settings.php'?'network/':'')).$pagenow.'?page=wp-piwik/wp-piwik.php&tab=sitebrowser'.($aryDataset['id'] != '-'?'&wpmu_show_stats='.$aryDataset['id']:'').'">Create Piwik site</a>';
+			if ($bolNetwork)
+				$this->aryData[$intKey]['name']	= '<a href="?page=wp-piwik_stats&wpmu_show_stats='.$aryDataset['id'].'">'.$aryDataset['name'].'</a>';	
+		}
   		$this->items = $this->aryData;
   		return count($this->items);
 	}
@@ -86,7 +90,7 @@ class SiteBrowser extends WP_List_Table {
 	}
 }
 $objSiteBrowser = new SiteBrowser();
-$intCnt = $objSiteBrowser->prepare_items();
+$intCnt = $objSiteBrowser->prepare_items($this->bolNetwork);
 if ($intCnt > 0) $objSiteBrowser->display();
 else echo '<p>No site configured yet.</p>'
 ?>

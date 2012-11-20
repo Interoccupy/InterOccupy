@@ -1,9 +1,9 @@
 === WP-Piwik ===
 
 Contributors: Braekling
-Requires at least: 3.3
-Tested up to: 3.4
-Stable tag: 0.9.5
+Requires at least: 3.4
+Tested up to: 3.4.2
+Stable tag: 0.9.7
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6046779
 Tags: statistics, stats, analytics, piwik, wpmu
 
@@ -13,7 +13,7 @@ This plugin adds a Piwik stats site to your WordPress or WordPress multisite das
 
 This plugin adds a Piwik stats site to your WordPress dashboard. It's also able to add the Piwik tracking code to your blog using wp_footer.
 
-**You need a running Piwik (at least 1.8.2) installation** and at least view access to your stats. Also PHP 5 or higher is strictly required.
+**You need a running Piwik (at least 1.9) installation** and at least view access to your stats. Also PHP 5 or higher is strictly required.
 
 Look at the [Piwik website](http://piwik.org/) to get further information about Piwik.
 
@@ -22,6 +22,20 @@ Look at the [Piwik website](http://piwik.org/) to get further information about 
 Languages: English, German, Albanian, Azerbaijani, Belorussian, Dutch, French, Greek, Lithuanian, Norwegian, Persian, Romanian, Russian, Spanish, Swedish, Ukrainian
 
 *Note: If you vote "It's broken", please tell me about your problem. It's hard to fix a bug I don't know about! ;-)*
+
+= Shortcodes =
+You can use following shortcodes if activated:
+
+    [wp-piwik module="overview" title="" period="day" date="yesterday"]
+Shows overview table like WP-Piwik's overview dashboard. See Piwik API documentation on VisitsSummary.get to get more information on period and day. Multiple data arrays will be cumulated. If you fill the title attribute, its content will be shown in the table's title.
+
+    [wp-piwik module="opt-out" language="en" width="100%" height="200px"]
+Shows the Piwik opt-out Iframe. You can change the Iframe's language by the language attribute (e.g. de for German language) and its width and height using the corresponding attributes.
+
+	[wp-piwik]
+is equal to *[wp-piwik module="overview" title="" period="day" date="yesterday"]*.
+
+More shortcodes will follow soon.
 
 = WP multisite =
 
@@ -32,7 +46,7 @@ See section "Installation".
 * Graphs powered by [jqPlot](http://www.jqplot.com/) (GPL 2.0 and MIT) and  and [jQuery Sparklines](http://omnipotent.net/jquery.sparkline/) (New BSD License).
 * Metabox support inspired by [Heiko Rabe's metabox demo plugin](http://www.code-styling.de/english/how-to-use-wordpress-metaboxes-at-own-plugins).
 * Translation credits see plugin settings
-* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S, the Piwik team itself, and all people flattering this.
+* Donations: Marco L., Rolf W., Tobias U., Lars K., Donna F., Kevin D., Ramos S, Thomas M., the Piwik team itself, and all people flattering this.
 * All users who send me mails containing criticism, commendation, feature requests and bug reports - you help me to make WP-Piwik much better!
 
 Thank you all!
@@ -92,10 +106,35 @@ Add WP-Piwik to your /wp-content/plugins folder and enable it as [Network Plugin
 
 == Upgrade Notice ==
 
-= 0.9.5 =
-Messed up stats page (WordPress 3.4) fixed
+Please update Piwik if not done yet (Piwik 1.9 or higher is recommended)!
 
 == Changelog ==
+
+= 0.9.7 =
+* Shortcodes added
+* WP-Piwik will rename sites in Piwik if site name changes in WordPress
+* Bugfix: Tracking code changes should stay active after WP-Piwik updates
+
+= 0.9.6.3 =
+* Piwik 1.9+ compatibility fix (Piwik 1.9 required!)
+* Browser version details added
+
+= 0.9.6.2 =
+* Bugfix: ["Create Piwik site" link (network dashboard)](http://wordpress.org/support/topic/plugin-wp-piwik-you-attempted-to-access-the-networks-dashboard-but-you-do-not)
+
+= 0.9.6.1 =
+* Toolbar graph bugfix
+
+= 0.9.6 =
+* Option: Disable SSL peer verification (REST API)
+* Option: Use own user agent
+* Test script displays additional information (e.g. response headers)
+* Using WordPress metabox concept properly
+* Bugfix: Sparkline script only loaded if required
+* Stats site supports up to 3 columns
+* Network admin stats: Choose site using a paged table (instead of a select box).
+* Feature: [Custom variables](http://piwik.org/docs/javascript-tracking/#toc-custom-variables), using [custom post meta boxes](http://wp.smashingmagazine.com/2011/10/04/create-custom-post-meta-boxes-wordpress/).
+* Some minor bugfixes
 
 = 0.9.5 =
 * WordPress 3.4 compatible (workaround)

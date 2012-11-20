@@ -31,6 +31,10 @@ if (!$bolFOpen && !$bolCURL) {
 		<input type="radio" name="wp-piwik_mode" onchange="javascript:$j('#wp-piwik_path,#wp-piwik_path-label').toggleClass('wp-piwik-input-hide');" value="php" <?php echo (self::$aryGlobalSettings['piwik_mode']=='php'?'checked="checked" ':''); ?>/>
 		<input <?php echo (self::$aryGlobalSettings['piwik_mode']!='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_path" name="wp-piwik_path" type="text" value="<?php echo self::$aryGlobalSettings['piwik_path']; ?>" />
 		<label <?php echo (self::$aryGlobalSettings['piwik_mode']!='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_path-label" for="wp-piwik_path"><?php _e('If you like to use the PHP API and also to enable tracking by WP-Piwik, please enter your Piwik URL, too. Otherwise your tracking code may be erroneous.','wp-piwik'); ?> [<a href="http://dev.piwik.org/trac/ticket/3220">Details</a>]</label>
+		<?php
+			if (isset($_POST['wp-piwik_path']) && !empty($_POST['wp-piwik_path']) && realpath($_POST['wp-piwik_path']) === false)
+				echo '<p class="wp-piwik-eyecatcher">'.__('Invalid path. Please enter the file path to Piwik.', 'wp-piwik').'</p>';
+		?>
 	</td>
 </tr><tr>
 	<th><?php _e('Auth token', 'wp-piwik'); ?>:</th>
@@ -70,11 +74,41 @@ if (!empty(self::$aryGlobalSettings['piwik_url']) && !empty(self::$aryGlobalSett
 		foreach ($aryOptions as $strOption) echo $strOption;
 			echo '</select></td></tr>';
 	} else {
+		if (empty(self::$arySettings['site_id']))
+			$this->addPiwikSite();
 		echo '<tr><th>'.__('Determined site', 'wp-piwik').':</th><td>';
 		echo '<div class="input-text-wrap">';
-		foreach ($aryData as $arySite) 
+		if (is_array(self::$arySettings['site_id']) && self::$arySettings['site_id']['result'] == 'error')
+			self::showErrorMessage(self::$arySettings['site_id']['message']);
+		else foreach ($aryData as $arySite) 
 			if ($arySite['idsite'] == self::$arySettings['site_id']) {echo '<em>'.htmlentities($arySite['name'], ENT_QUOTES, 'utf-8').'</em>'; break;}		
-		echo '<input type="hidden" name="wp-piwik_siteid" id="wp-piwik_siteid" value="'.self::$arySettings['site_id'].'" /></td></tr>';
+		echo '<input type="hidden" name="wp-piwik_siteid" id="wp-piwik_siteid" value="'.(int)self::$arySettings['site_id'].'" /></td></tr>';
 	}
 }
-}}?>
+}}
+// Expert settings (cURL only)
+?><tr>
+	<th colspan="2"><strong><?php _e('Expert Settings', 'wp-piwik'); ?>:</strong></th>
+</tr>
+<?php if (function_exists('curl_init')) { ?>
+<tr>
+	<th><label <?php echo (self::$aryGlobalSettings['piwik_mode']=='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_disable_ssl_verify-label"><?php _e('Disable SSL peer verification', 'wp-piwik'); ?>:</label></th>
+	<td>
+		<input <?php echo (self::$aryGlobalSettings['piwik_mode']=='php'?'class="wp-piwik-input-hide" ':''); ?>id="wp-piwik_disable_ssl_verify" name="wp-piwik_disable_ssl_verify" type="checkbox"<?php echo (self::$aryGlobalSettings['disable_ssl_verify']?'checked="checked"':''); ?> /> (<?php _e('not recommended','wp-piwik'); ?>)
+	</td>
+</tr><tr>
+	<th><label>User agent:</label></th>
+	<td>
+		<input type="radio" onchange="javascript:$j('#wp-piwik-useragent').toggleClass('readonly="readonly"');" name="wp-piwik_useragent" value="php" <?php echo (self::$aryGlobalSettings['piwik_useragent']=='php'?'checked="checked" ':''); ?>/> PHP default (<?php echo ini_get('user_agent'); ?>)
+	</td>
+</tr><tr>
+	<th></th>
+	<td>
+		<input type="radio" onchange="javascript:$j('#wp-piwik-useragent').toggleClass('wp-piwik-useragent-disable');" name="wp-piwik_useragent" value="own" <?php echo (self::$aryGlobalSettings['piwik_useragent']=='own'?'checked="checked" ':''); ?>/> <input type="text" id="wp-piwik-useragent" name="wp-piwik_useragent_string" value="<?php echo self::$aryGlobalSettings['piwik_useragent_string']; ?>" />
+	</td>
+</tr>
+<?php } else { ?>
+<tr>
+	<td colspan="2">cURL required. See <a href="http://www.php.net/manual/curl.setup.php">PHP manual</a>.</td>
+</tr>
+<?php }
