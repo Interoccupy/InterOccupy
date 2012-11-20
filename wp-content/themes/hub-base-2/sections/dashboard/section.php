@@ -101,7 +101,6 @@ new TWTR.Widget({
 		?> 
 		<?php
 		echo do_shortcode($tabs); 
-		echo do_shortcode('[ai1ec view="agenda"]');
 	}
 	
 

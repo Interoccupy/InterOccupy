@@ -281,8 +281,8 @@ function pagelines_head_common(){
 			pagelines_load_css_relative('css/multisite.css', 'pagelines-multisite');
 		
 		// Allow for PHP include of Framework CSS
-		if( !apply_filters( 'disable_pl_framework_css', '' ) )
-			pagelines_load_css(  PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
+//		if( !apply_filters( 'disable_pl_framework_css', '' ) )
+//			pagelines_load_css(  PL_PARENT_URL.'/style.css', 'pagelines-framework', pagelines_get_style_ver( true ));
 	
 		// RTL Language Support
 		if(is_rtl()) 
@@ -323,8 +323,7 @@ function pagelines_head_common(){
 }
 
 function load_prettify(){
-	//add_action( 'pl_body_attributes', create_function( '',  'echo "onload="prettyprint();"' ) );
-	
+	pagelines_add_bodyclass( 'prettify-on' );
 	wp_enqueue_script( 'prettify', PL_JS . '/prettify/prettify.js' );
 	wp_enqueue_style( 'prettify', PL_JS . '/prettify/prettify.css' );
 	add_action( 'wp_head', create_function( '',  'echo pl_js_wrap("prettyPrint()");' ), 14 );
@@ -358,7 +357,7 @@ function pagelines_meta_tags(){
 function pagelines_source_attribution() {
 	
 	echo "\n\n<!-- "; 
-	printf ( "Site Crafted Using PageLines - WordPress - HTML5 ( %s ) - www.PageLines.com ", get_pagelines_credentials( 'licence' ) );
+	printf ( "Site Crafted Using PageLines v%s - WordPress - HTML5 ( %s ) - www.PageLines.com ", PL_CORE_VERSION, get_pagelines_credentials( 'licence' ) );
 
 	echo "-->\n";
 }
@@ -501,7 +500,7 @@ function pagelines_filter_wp_title( $title ) {
 	$bloginfo_description = get_bloginfo( 'description' );
 	if( is_feed() ) {
 		$new_title = $title;
-	} elseif ( ( is_home () || is_front_page() ) && ! empty( $bloginfo_description ) && ! $paged && ! $page ) {
+	} elseif ( ( is_home () || is_front_page() ) && ! empty( $bloginfo_description ) ) {
 		$new_title .= $sep . ' ' . $bloginfo_description;
 	} elseif ( is_category() ) {
 		$new_title .= $sep . ' ' . single_cat_title( '', false );
@@ -511,7 +510,7 @@ function pagelines_filter_wp_title( $title ) {
 		$new_title .= $sep . ' ' . sprintf( __( 'Search Results: %s','pagelines' ), esc_html( $s ) );
 	} else
 		$new_title .= $sep . ' ' . $title;
-	if ( $paged || $page ) {
+	if ( $paged >= 2 || $page >= 2 ) {
 		$new_title .= ' ' . $sep . ' ' . sprintf( __( 'Page: %s', 'pagelines' ), max( $paged, $page ) );
 	}
     return apply_filters( 'pagelines_meta_title', $new_title );
@@ -543,7 +542,7 @@ function pagelines_fix_ie( ){
 
 	// If IE7 add the Internet Explorer 7 specific stylesheet
 	if ( $ie_ver == 7 )
-		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), CORE_VERSION);
+		wp_enqueue_style('ie7-style', PL_CSS  . '/ie7.css', array(), PL_CORE_VERSION);
 } 
 
 /**
@@ -620,12 +619,22 @@ function pagelines_font_replacement( $default_font = ''){
  */
 function pagelines_pagination() {
 	if(function_exists('wp_pagenavi') && show_posts_nav() && VPRO):
-		wp_pagenavi(); 
+		
+		$args = array(
+			'before' => '<div class="pagination pagenavi">', 
+			'after' => '</div>', 
+		); 
+		wp_pagenavi( $args );
+		 
 	elseif (show_posts_nav()) : ?>
-		<div class="page-nav-default fix">
-			<span class="previous-entries"><?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?></span>
-			<span class="next-entries"><?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?></span>
-		</div>
+		<ul class="pager page-nav-default fix">
+			<li class="previous previous-entries">
+				<?php next_posts_link(__('&larr; Previous Entries','pagelines')) ?>
+			</li>
+			<li class="next next-entries">
+			<?php previous_posts_link(__('Next Entries &rarr;','pagelines')) ?>
+			</li>
+		</ul>
 <?php endif;
 }
 
@@ -712,13 +721,18 @@ function pagelines_main_logo( $location = null ){
 	
 	if(ploption('pagelines_custom_logo', $oset) || apply_filters('pagelines_site_logo', '') || apply_filters('pagelines_logo_url', '')){
 		
-
 		$logo = apply_filters('pagelines_logo_url', esc_url(ploption('pagelines_custom_logo', $oset) ), $location);
 
 
 		$logo_url = ( esc_url(ploption('pagelines_custom_logo_url', $oset) ) ) ? esc_url(ploption('pagelines_custom_logo_url', $oset) ) : home_url();
 		
-		$site_logo = sprintf( '<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', $logo_url, get_bloginfo('name'), $logo, get_bloginfo('name'));
+		$site_logo = sprintf( 
+			'<a class="plbrand mainlogo-link" href="%s" title="%s"><img class="mainlogo-img" src="%s" alt="%s" /></a>', 
+			$logo_url, 
+			get_bloginfo('name'),
+			$logo, 
+			get_bloginfo('name')
+		);
 		
 		echo apply_filters('pagelines_site_logo', $site_logo, $location);
 		
@@ -779,6 +793,41 @@ function pagelines_settings_menu_link(  ){
 	if( $template_name && is_pagelines_special() && $spurl){
 		$wp_admin_bar->add_menu( array( 'id' => 'special_settings', 'title' => __('Edit Meta', 'pagelines'), 'href' => $spurl ) );
 	}
+
+	if ( is_pl_debug() && ! is_admin() ) {
+
+		$wp_admin_bar->add_menu(
+			array(
+				'id'    => 'pl_flush',
+				'title' => __('Flush LESS', 'pagelines'),
+				'href'  => get_pl_reset_less_url()
+				) );
+	}
+}
+
+function get_pl_reset_less_url() {
+
+	$flush = array( 'pl_reset_less' => 1 );
+
+	$request = explode( '?', $_SERVER['REQUEST_URI'] );
+
+	$page = $request[0];
+
+	$query = array();
+
+	if ( isset( $request[1] ) )
+		wp_parse_str( $request[1], $query );
+
+	$query = wp_parse_args( $flush, $query );
+
+	$url = sprintf( '%s://%s%s?%s',
+		is_ssl() ? 'https' : 'http',
+		$_SERVER['HTTP_HOST'],
+		$page,
+		http_build_query( $query )
+		);
+
+	return $url;
 }
 
 /**

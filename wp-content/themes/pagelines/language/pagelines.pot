@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the PageLines Framework package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PageLines Framework 2.2.5\n"
+"Project-Id-Version: PageLines Framework 2.3.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pagelines\n"
-"POT-Creation-Date: 2012-07-23 18:05:56+00:00\n"
+"POT-Creation-Date: 2012-10-29 22:13:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,95 +12,99 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/class.register.php:272
+#: includes/class.register.php:314
 msgid "Primary Sidebar"
 msgstr ""
 
-#: includes/class.register.php:273
+#: includes/class.register.php:315
 msgid "The main widgetized sidebar."
 msgstr ""
 
-#: includes/class.register.php:276
+#: includes/class.register.php:318
 msgid "Secondary Sidebar"
 msgstr ""
 
-#: includes/class.register.php:277
+#: includes/class.register.php:319
 msgid "The secondary widgetized sidebar for the theme."
 msgstr ""
 
-#: includes/class.register.php:280
+#: includes/class.register.php:322
 msgid "Tertiary Sidebar"
 msgstr ""
 
-#: includes/class.register.php:281
+#: includes/class.register.php:323
 msgid "A 3rd widgetized sidebar for the theme that can be used in standard sidebar templates."
 msgstr ""
 
-#: includes/class.register.php:284
+#: includes/class.register.php:326
 msgid "Universal Sidebar"
 msgstr ""
 
-#: includes/class.register.php:285
+#: includes/class.register.php:327
 msgid "A universal widgetized sidebar"
 msgstr ""
 
-#: includes/class.register.php:289
+#: includes/class.register.php:331
 msgid "Full Width Sidebar"
 msgstr ""
 
-#: includes/class.register.php:290
+#: includes/class.register.php:332
 msgid "Shows full width widgetized sidebar."
 msgstr ""
 
-#: includes/class.register.php:293
+#: includes/class.register.php:335
 msgid "Content Sidebar"
 msgstr ""
 
-#: includes/class.register.php:294
+#: includes/class.register.php:336
 msgid "Displays a widgetized sidebar inside the main content area. Set it up in the widgets panel."
+msgstr ""
+
+#: includes/class.register.php:380 admin/class.extend.php:1212
+msgid "<h2>Unable to fetch from API</h2>"
 msgstr ""
 
 #: includes/class.layout.php:214
 msgid "Main Column"
 msgstr ""
 
-#: includes/class.shortcodes.php:307
+#: includes/class.shortcodes.php:309
 msgid "<span class='editpage sc'>Edit</span>"
 msgstr ""
 
-#: includes/class.shortcodes.php:357
+#: includes/class.shortcodes.php:359
 msgid "Tagged With: "
 msgstr ""
 
-#: includes/class.shortcodes.php:381
+#: includes/class.shortcodes.php:383
 msgid "Type: "
 msgstr ""
 
-#: includes/class.shortcodes.php:412 includes/library.wordpress.php:11
+#: includes/class.shortcodes.php:414 includes/library.wordpress.php:11
 msgid "Add Comment"
 msgstr ""
 
-#: includes/class.shortcodes.php:413
+#: includes/class.shortcodes.php:415
 msgid "<span class='num'>1</span> Comment"
 msgstr ""
 
-#: includes/class.shortcodes.php:414
+#: includes/class.shortcodes.php:416
 msgid "<span class='num'>%</span> Comments"
 msgstr ""
 
-#: includes/class.shortcodes.php:482
+#: includes/class.shortcodes.php:493
 msgid "Visit %s&#8217;s website"
 msgstr ""
 
-#: includes/class.render.css.php:107 includes/class.render.css.php:548
-msgid "CSS was compiled at %s and took %s seconds using %sMB of unicorn dust."
+#: includes/class.render.css.php:137 includes/class.render.css.php:591
+msgid "%s/* CSS was compiled at %s and took %s seconds using %sMB of unicorn dust%s.*/"
 msgstr ""
 
-#: includes/class.render.css.php:187
+#: includes/class.render.css.php:223
 msgid "LESS Compile error!"
 msgstr ""
 
-#: includes/class.render.css.php:194
+#: includes/class.render.css.php:230
 msgid "Error in %s Less code: %s"
 msgstr ""
 
@@ -128,27 +132,27 @@ msgstr ""
 msgid "Add links using WordPress menus in your site admin."
 msgstr ""
 
-#: includes/library.functions.php:966
+#: includes/library.functions.php:964
 msgid "Error: Please make sure the Twitter account is <a href='%s'>public</a>."
 msgstr ""
 
-#: includes/library.functions.php:970
+#: includes/library.functions.php:968
 msgid "Error 403: Your IP is being rate limited by Twitter."
 msgstr ""
 
-#: includes/library.functions.php:974
+#: includes/library.functions.php:972
 msgid "Error 404: Your username was not found on Twitter."
 msgstr ""
 
-#: includes/library.functions.php:978
+#: includes/library.functions.php:976
 msgid "Error 420: Your IP is being rate limited by Twitter."
 msgstr ""
 
-#: includes/library.functions.php:982
+#: includes/library.functions.php:980
 msgid "Error 502: Twitter is being upgraded."
 msgstr ""
 
-#: includes/library.functions.php:986
+#: includes/library.functions.php:984
 msgid "Unknown Twitter error."
 msgstr ""
 
@@ -184,8 +188,8 @@ msgstr ""
 msgid "Sidebar Wrap"
 msgstr ""
 
-#: includes/class.template.php:1122 admin/actions.admin.php:292
-#: admin/actions.admin.php:311
+#: includes/class.template.php:1122 admin/actions.admin.php:294
+#: admin/actions.admin.php:313
 msgid "Default"
 msgstr ""
 
@@ -233,8 +237,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: includes/class.template.php:1186 includes/config.options.php:970
-#: includes/config.options.php:986
+#: includes/class.template.php:1186 includes/config.options.php:972
+#: includes/config.options.php:988 sections/postauthor/section.php:39
 msgid "Author"
 msgstr ""
 
@@ -252,6 +256,10 @@ msgstr ""
 
 #: includes/class.objects.php:109
 msgid "Edit"
+msgstr ""
+
+#: includes/class.objects.php:155
+msgid "edit"
 msgstr ""
 
 #: includes/class.sections.php:476
@@ -302,1205 +310,1193 @@ msgstr ""
 msgid "Logging in with your PageLines account will allow you to purchase items from the PageLines Store, and more."
 msgstr ""
 
-#: includes/config.options.php:54
+#: includes/config.options.php:58
 msgid "Upload custom logo"
 msgstr ""
 
-#: includes/config.options.php:55
-msgid "Custom Header Image"
+#: includes/config.options.php:61
+msgid "Custom Logo"
 msgstr ""
 
-#: includes/config.options.php:56
+#: includes/config.options.php:62
 msgid "Input full URL to your custom header or logo image"
 msgstr ""
 
-#: includes/config.options.php:66
+#: includes/config.options.php:72
 msgid "Favicon Image"
 msgstr ""
 
-#: includes/config.options.php:67
+#: includes/config.options.php:73
 msgid "Input full URL to favicon image (<strong>favicon.ico</strong> image file)"
 msgstr ""
 
-#: includes/config.options.php:68
+#: includes/config.options.php:74
 msgid "Enter the full URL location of your custom <strong>favicon</strong> which is visible in browser favorites and tabs.<br/> <strong>Must be .png or .ico file - 16px by 16px</strong>."
 msgstr ""
 
-#: includes/config.options.php:73
+#: includes/config.options.php:79
 msgid "Your Twitter Username"
 msgstr ""
 
-#: includes/config.options.php:74
+#: includes/config.options.php:80
 msgid "Twitter Integration"
 msgstr ""
 
-#: includes/config.options.php:75
+#: includes/config.options.php:81
 msgid "Places your Twitter feed in your site"
 msgstr ""
 
-#: includes/config.options.php:76
+#: includes/config.options.php:82
 msgid "This places your Twitter feed on the site. Leave blank if you want to hide or not use."
 msgstr ""
 
-#: includes/config.options.php:81
+#: includes/config.options.php:87
 msgid "Your Website Hashtag"
 msgstr ""
 
-#: includes/config.options.php:82
+#: includes/config.options.php:88
 msgid "Website Hashtag"
 msgstr ""
 
-#: includes/config.options.php:83
+#: includes/config.options.php:89
 msgid "This hashtag will be used in social media (e.g. Twitter) and elsewhere to create feeds."
 msgstr ""
 
-#: includes/config.options.php:84
+#: includes/config.options.php:90
 msgid "Having a hashtag can be useful in creating a common thread or feed in your social media efforts."
 msgstr ""
 
-#: includes/config.options.php:93
+#: includes/config.options.php:99
 msgid "Login Page Image"
 msgstr ""
 
-#: includes/config.options.php:94
+#: includes/config.options.php:100
 msgid "The image to use on your site's login page"
 msgstr ""
 
-#: includes/config.options.php:95
+#: includes/config.options.php:101
 msgid "This image will be used on the login page to your admin. Use an image that is approximately <strong>80px</strong> in height."
 msgstr ""
 
-#: includes/config.options.php:103
+#: includes/config.options.php:109
 msgid "Mobile Touch Image"
 msgstr ""
 
-#: includes/config.options.php:104
+#: includes/config.options.php:110
 msgid "Input full URL to Apple touch image (.jpg, .gif, .png)"
 msgstr ""
 
-#: includes/config.options.php:105
+#: includes/config.options.php:111
 msgid "Enter the full URL location of your Apple Touch Icon which is visible when your users set your site as a <strong>webclip</strong> in Apple Iphone and Touch Products. It is an image approximately 57px by 57px in either .jpg, .gif or .png format."
 msgstr ""
 
-#: includes/config.options.php:116
+#: includes/config.options.php:127
 msgid "Website Watermark"
 msgstr ""
 
-#: includes/config.options.php:117
+#: includes/config.options.php:128
 msgid "Configure your website watermark (in footer)"
 msgstr ""
 
-#: includes/config.options.php:123
+#: includes/config.options.php:134
 msgid "Automatically show Page titles?"
 msgstr ""
 
-#: includes/config.options.php:124
+#: includes/config.options.php:135
 msgid "Page Titles"
 msgstr ""
 
-#: includes/config.options.php:125
+#: includes/config.options.php:136
 msgid "Show the title of pages above the page content"
 msgstr ""
 
-#: includes/config.options.php:126
+#: includes/config.options.php:137
 msgid "This option will automatically place page titles on all pages."
 msgstr ""
 
-#: includes/config.options.php:131
+#: includes/config.options.php:142
 msgid "Hide Sidebars When Empty (no widgets)"
 msgstr ""
 
-#: includes/config.options.php:132
+#: includes/config.options.php:143
 msgid "Remove Default Sidebars When Empty"
 msgstr ""
 
-#: includes/config.options.php:133
+#: includes/config.options.php:144
 msgid "Hide default sidebars when sidebars have no widgets in them"
 msgstr ""
 
-#: includes/config.options.php:134
+#: includes/config.options.php:145
 msgid "This allows you to remove sidebars completely when they have no widgets in them."
 msgstr ""
 
-#: includes/config.options.php:141
+#: includes/config.options.php:152
 msgid "On Top of Sidebar"
 msgstr ""
 
-#: includes/config.options.php:142
+#: includes/config.options.php:153
 msgid "On Bottom of Sidebar"
 msgstr ""
 
-#: includes/config.options.php:144
+#: includes/config.options.php:155
 msgid "Sidebar Wrap Widgets Position"
 msgstr ""
 
-#: includes/config.options.php:145
+#: includes/config.options.php:156
 msgid "Sidebar Wrap Widgets"
 msgstr ""
 
-#: includes/config.options.php:146
+#: includes/config.options.php:157
 msgid "Choose whether to show the sidebar wrap widgets on the top or bottom of the sidebar"
 msgstr ""
 
-#: includes/config.options.php:147
+#: includes/config.options.php:158
 msgid "You can select whether to show the widgets that you place in the sidebar wrap template in either the top or the bottom of the sidebar."
 msgstr ""
 
-#: includes/config.options.php:173
+#: includes/config.options.php:184
 msgid "How should layout be handled?"
 msgstr ""
 
-#: includes/config.options.php:180
+#: includes/config.options.php:191
 msgid "Responsive with Pixel Width"
 msgstr ""
 
-#: includes/config.options.php:181
-msgid "Responsive with Percent Width"
+#: includes/config.options.php:192
+msgid "Responsive with % Width"
 msgstr ""
 
-#: includes/config.options.php:182
+#: includes/config.options.php:193
 msgid "Static with Pixel Width"
 msgstr ""
 
-#: includes/config.options.php:184
+#: includes/config.options.php:195
 msgid "Layout Handling"
 msgstr ""
 
-#: includes/config.options.php:185
+#: includes/config.options.php:196
 msgid "Select between responsive vs. static; pixel based or percentage based layout"
 msgstr ""
 
-#: includes/config.options.php:186
+#: includes/config.options.php:197
 msgid "Responsive layout adjusts to the size of your user's browser window; static is fixed width. Use this option to switch between the pixel based site width and a percentage based one."
 msgstr ""
 
-#: includes/config.options.php:198
+#: includes/config.options.php:209
 msgid "Full-Width Sections"
 msgstr ""
 
-#: includes/config.options.php:199
+#: includes/config.options.php:210
 msgid "Fixed-Width Mode"
 msgstr ""
 
-#: includes/config.options.php:201 includes/config.options.php:202
+#: includes/config.options.php:212 includes/config.options.php:213
 msgid "Site Design Mode"
 msgstr ""
 
-#: includes/config.options.php:203
+#: includes/config.options.php:214
 msgid "The basic HTML layout structure for color and background effects"
 msgstr ""
 
-#: includes/config.options.php:204
+#: includes/config.options.php:215
 msgid "This option controls how the basic HTML layout is built. Different layout structures change the way background colors and images behave.<ul><li><strong>Full-Width Mode</strong> Full width design mode allows you to have aspects of your site that are the full-width of your screen; while others are the width of the content area.</li><li><strong>Fixed-Width Mode</strong> Fixed width design mode creates a fixed width <strong>page</strong> that can be used as the area for your design.  You can set a background to the page; and the content will have a seperate <strong>fixed-width</strong> background area (i.e. the width of the content).</li></ul>"
 msgstr ""
 
-#: includes/config.options.php:209 admin/class.options.metapanel.php:811
+#: includes/config.options.php:220 admin/class.options.metapanel.php:811
 msgid "Disable Mobile Optimized View"
 msgstr ""
 
-#: includes/config.options.php:210 admin/class.options.metapanel.php:812
+#: includes/config.options.php:221 admin/class.options.metapanel.php:812
 msgid "Disable Mobile View"
 msgstr ""
 
-#: includes/config.options.php:211
+#: includes/config.options.php:222
 msgid "Forces mobile devices to see the full site"
 msgstr ""
 
-#: includes/config.options.php:212 admin/class.options.metapanel.php:814
+#: includes/config.options.php:223 admin/class.options.metapanel.php:814
 msgid "By default PageLines accommodates mobile devices resolution and shows a mobile optimized view. Check this option to make it so users see your full site."
 msgstr ""
 
-#: includes/config.options.php:222 admin/class.options.metapanel.php:778
+#: includes/config.options.php:233 admin/class.options.metapanel.php:778
 msgid "Fullwidth layout"
 msgstr ""
 
-#: includes/config.options.php:223 admin/class.options.metapanel.php:779
+#: includes/config.options.php:234 admin/class.options.metapanel.php:779
 msgid "One sidebar on right"
 msgstr ""
 
-#: includes/config.options.php:224 admin/class.options.metapanel.php:780
+#: includes/config.options.php:235 admin/class.options.metapanel.php:780
 msgid "One sidebar on left"
 msgstr ""
 
-#: includes/config.options.php:225 admin/class.options.metapanel.php:781
+#: includes/config.options.php:236 admin/class.options.metapanel.php:781
 msgid "Two sidebars on right"
 msgstr ""
 
-#: includes/config.options.php:226 admin/class.options.metapanel.php:782
+#: includes/config.options.php:237 admin/class.options.metapanel.php:782
 msgid "Two sidebars on left"
 msgstr ""
 
-#: includes/config.options.php:227 admin/class.options.metapanel.php:783
+#: includes/config.options.php:238 admin/class.options.metapanel.php:783
 msgid "Two sidebars, one on each side"
 msgstr ""
 
-#: includes/config.options.php:229
+#: includes/config.options.php:240
 msgid "Default Layout Mode"
 msgstr ""
 
-#: includes/config.options.php:230
+#: includes/config.options.php:241
 msgid "Select Default Layout"
 msgstr ""
 
-#: includes/config.options.php:231
+#: includes/config.options.php:242
 msgid "Select your default layout mode, this can be changed on individual pages.<br />Once selected, you can adjust the layout in the Layout Dimension Editor"
 msgstr ""
 
-#: includes/config.options.php:232
+#: includes/config.options.php:243
 msgid "The default layout for pages and posts on your site. Dimensions can be changed using the Layout Dimension Editor."
 msgstr ""
 
-#: includes/config.options.php:239
+#: includes/config.options.php:250
 msgid "Layout Dimension Editor"
 msgstr ""
 
-#: includes/config.options.php:240
+#: includes/config.options.php:251
 msgid "Configure the default layout sizes for your site, which is initially selected above in the Default Layout Mode. <br/>This option allows you to adjust columns and margins for the default layout"
 msgstr ""
 
-#: includes/config.options.php:245
+#: includes/config.options.php:256
 msgid "Reset Layout"
 msgstr ""
 
-#: includes/config.options.php:248
+#: includes/config.options.php:259
 msgid "Reset Layout To Default"
 msgstr ""
 
-#: includes/config.options.php:250
+#: includes/config.options.php:261
 msgid "Changes layout mode and dimensions back to default"
 msgstr ""
 
-#: includes/config.options.php:268
+#: includes/config.options.php:279
 msgid "Basic Layout Colors"
 msgstr ""
 
-#: includes/config.options.php:269
+#: includes/config.options.php:280
 msgid "The main layout colors for your site"
 msgstr ""
 
-#: includes/config.options.php:270
+#: includes/config.options.php:281
 msgid "Use these options to quickly setup the main layout colors for your site.  You can use these options to build custom sites very quickly, or to quickly prototype a design then refine through custom CSS.<br/><br/><strong>Notes:</strong> <ol><li>To make the background transparent, you can leave the options blank (delete text).</li>  <li>Further customize and refine colors through custom CSS or plugins</li></ol>"
 msgstr ""
 
-#: includes/config.options.php:279
+#: includes/config.options.php:290
 msgid "Body Background"
 msgstr ""
 
-#: includes/config.options.php:287
+#: includes/config.options.php:298
 msgid "Page Background (Optional)"
 msgstr ""
 
-#: includes/config.options.php:295
+#: includes/config.options.php:306
 msgid "Content Background (Optional)"
 msgstr ""
 
-#: includes/config.options.php:364
+#: includes/config.options.php:375
 msgid "Page Text Colors"
 msgstr ""
 
-#: includes/config.options.php:365
+#: includes/config.options.php:376
 msgid "Controls the color of text used throughout your site"
 msgstr ""
 
-#: includes/config.options.php:366
+#: includes/config.options.php:377
 msgid "These options control the colors of the text throughout the page or content area of your site.<br/><br/>Certain text types are designed to contrast with different box elements and are meant to be used with hover effects.<br/><br/>Experiment to find exactly how colors are combined with text on your site."
 msgstr ""
 
-#: includes/config.options.php:375
+#: includes/config.options.php:386
 msgid "Primary Text"
 msgstr ""
 
-#: includes/config.options.php:385
+#: includes/config.options.php:396
 msgid "Text Headers"
 msgstr ""
 
-#: includes/config.options.php:395
+#: includes/config.options.php:406
 msgid "Primary Links"
 msgstr ""
 
-#: includes/config.options.php:405
+#: includes/config.options.php:416
 msgid "Footer Text"
 msgstr ""
 
-#: includes/config.options.php:414
+#: includes/config.options.php:425
 msgid "Enable Content Shadow (Fixed Width Mode Only)"
 msgstr ""
 
-#: includes/config.options.php:415
+#: includes/config.options.php:426
 msgid "Adds a shadow on the fixed width content area for a little style"
 msgstr ""
 
-#: includes/config.options.php:416
+#: includes/config.options.php:427
 msgid "Check this option to enable a drop shadow on the canvas area when using fixed width mode."
 msgstr ""
 
-#: includes/config.options.php:423
+#: includes/config.options.php:434
 msgid "Site Background Image (Optional)"
 msgstr ""
 
-#: includes/config.options.php:424
+#: includes/config.options.php:435
 msgid "Setup a background image for the background of your site"
 msgstr ""
 
-#: includes/config.options.php:425
+#: includes/config.options.php:436
 msgid "Use this option to apply a background image to your site. This option will be applied to different areas depending on the design mode you have set.<br/><br/><strong>Positioning</strong> Use percentages to position the images, 0% corresponds to the <strong>top</strong> or <strong>left</strong> side, 50% to center, etc.."
 msgstr ""
 
-#: includes/config.options.php:430
+#: includes/config.options.php:441
 msgid "<strong>Supersize</strong> The Background Image (Fixed Width Mode Required)"
 msgstr ""
 
-#: includes/config.options.php:431
+#: includes/config.options.php:442
 msgid "Uses a script to set the background for full width and responsive design"
 msgstr ""
 
-#: includes/config.options.php:432
+#: includes/config.options.php:443
 msgid "Sets the background to match the width of the browser."
 msgstr ""
 
-#: includes/config.options.php:461
+#: includes/config.options.php:472
 msgid "Typography - Text Headers"
 msgstr ""
 
-#: includes/config.options.php:462
+#: includes/config.options.php:473
 msgid "Select and style your site's header tags (H1, H2, H3...)"
 msgstr ""
 
-#: includes/config.options.php:463
+#: includes/config.options.php:474
 msgid "Set typography for your h1, h2, etc.. tags. <br/><br/><strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts<br/><br/><strong>Note:</strong> These options make use of the <a href='http://code.google.com/webfonts' target='_blank'>Google fonts API</a> to vastly increase the number of websafe fonts you can use."
 msgstr ""
 
-#: includes/config.options.php:464 includes/config.options.php:476
-#: includes/config.options.php:489
+#: includes/config.options.php:475 includes/config.options.php:487
+#: includes/config.options.php:500
 msgid "The Pro version of this framework has over 50 websafe and Google fonts."
 msgstr ""
 
-#: includes/config.options.php:472 includes/config.options.php:485
-#: includes/config.options.php:498 admin/class.ui.typography.php:41
+#: includes/config.options.php:483 includes/config.options.php:496
+#: includes/config.options.php:509 admin/class.ui.typography.php:41
 msgid "Select Font"
 msgstr ""
 
-#: includes/config.options.php:473
+#: includes/config.options.php:484
 msgid "Typography - Primary Font"
 msgstr ""
 
-#: includes/config.options.php:474
+#: includes/config.options.php:485
 msgid "Select and style the standard type used in your site (body)"
 msgstr ""
 
-#: includes/config.options.php:475
+#: includes/config.options.php:486
 msgid "Set typography for your primary site text. This is assigned to your site's body tag. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts"
 msgstr ""
 
-#: includes/config.options.php:486
+#: includes/config.options.php:497
 msgid "Typography - Secondary Font "
 msgstr ""
 
-#: includes/config.options.php:487
+#: includes/config.options.php:498
 msgid "Select and style your site's secondary or sub title text (Metabar, Sub Titles, etc..)"
 msgstr ""
 
-#: includes/config.options.php:488
+#: includes/config.options.php:499
 msgid "This options sets the typography for secondary text used throughout your site. This includes your navigation, subtitles, widget titles, etc.. <br/><br/> <strong>*</strong> Denotes Web Safe Fonts<br/><strong>G</strong> Denotes Google Fonts"
 msgstr ""
 
-#: includes/config.options.php:499
+#: includes/config.options.php:510
 msgid "Typography - Inputs and Textareas"
 msgstr ""
 
-#: includes/config.options.php:500
+#: includes/config.options.php:511
 msgid "Select and Style Your Site's Text Inputs and Textareas"
 msgstr ""
 
-#: includes/config.options.php:501
+#: includes/config.options.php:512
 msgid "This options sets the typography for general text inputs and textarea inputs. This includes default WordPress comment fields, etc.. <br/><br/> This option makes use of the <a href='http://code.google.com/webfonts'>Google fonts API</a> to vastly increase the number of websafe fonts you can use.<br/><strong>*</strong> Denotes web safe fonts<br/><strong>G</strong> Denotes Google fonts<br/><br/><strong>Note:</strong> the <strong>preview</strong> pane represents the font in your current browser and OS. If developing locally, Google fonts require an internet connection."
 msgstr ""
 
-#: includes/config.options.php:507
+#: includes/config.options.php:518
 msgid "Typekit Header Script"
 msgstr ""
 
-#: includes/config.options.php:508
+#: includes/config.options.php:519
 msgid "Typekit Font Replacement"
 msgstr ""
 
-#: includes/config.options.php:509
+#: includes/config.options.php:520
 msgid "Typekit is a service that allows you to use tons of new fonts on your site"
 msgstr ""
 
-#: includes/config.options.php:510
+#: includes/config.options.php:521
 msgid "Typekit is a new service and technique that allows you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>Visit <a href='http://www.typekit.com' target='_blank'>Typekit.com</a> to get the script for this option. Instructions for setting up Typekit are <a href='http://typekit.assistly.com/portal/article/6780-Adding-fonts-to-your-site' target='_blank'>here</a>."
 msgstr ""
 
-#: includes/config.options.php:516
+#: includes/config.options.php:527
 msgid "Use Cufon font replacement?"
 msgstr ""
 
-#: includes/config.options.php:517
+#: includes/config.options.php:528
 msgid "Use Cufon Font Replacement"
 msgstr ""
 
-#: includes/config.options.php:518
+#: includes/config.options.php:529
 msgid "Use a special font replacement technique for certain text"
 msgstr ""
 
-#: includes/config.options.php:519
+#: includes/config.options.php:530
 msgid "Cufon is a special technique for allowing you to use fonts outside of the 10 or so <strong>web-safe</strong> fonts. <br/><br/>%s is equipped to use it.  Select this option to enable it. Visit the <a href='http://cufon.shoqolate.com/generate/'>Cufon site</a>."
 msgstr ""
 
-#: includes/config.options.php:525
+#: includes/config.options.php:536
 msgid "Cufon replacement font file URL"
 msgstr ""
 
-#: includes/config.options.php:526
+#: includes/config.options.php:537
 msgid "Cufon: Replacement Font File URL"
 msgstr ""
 
-#: includes/config.options.php:527
+#: includes/config.options.php:538
 msgid "The font file used to replace text"
 msgstr ""
 
-#: includes/config.options.php:528
+#: includes/config.options.php:539
 msgid "Use the <a href='http://cufon.shoqolate.com/generate/'>Cufon site</a> to generate a font file for use with this theme.  Place it in your theme folder and add the full URL to it here. The default font is Museo Sans."
 msgstr ""
 
-#: includes/config.options.php:534
+#: includes/config.options.php:545
 msgid "CSS elements for font replacement"
 msgstr ""
 
-#: includes/config.options.php:535
+#: includes/config.options.php:546
 msgid "Cufon: CSS elements for font replacement"
 msgstr ""
 
-#: includes/config.options.php:536
+#: includes/config.options.php:547
 msgid "Add selectors of elements you would like replaced"
 msgstr ""
 
-#: includes/config.options.php:537
+#: includes/config.options.php:548
 msgid "Use standard CSS selectors to replace them with your Cufon font. Font replacement must be enabled."
 msgstr ""
 
-#: includes/config.options.php:563
+#: includes/config.options.php:574
 msgid "Enable Drop Down Navigation?"
 msgstr ""
 
-#: includes/config.options.php:564
+#: includes/config.options.php:575
 msgid "Drop Down Navigation"
 msgstr ""
 
-#: includes/config.options.php:565
+#: includes/config.options.php:576
 msgid "Enable universal drop down navigation"
 msgstr ""
 
-#: includes/config.options.php:566
+#: includes/config.options.php:577
 msgid "Checking this option will create drop down menus for all child pages when users hover over main navigation items."
 msgstr ""
 
-#: includes/config.options.php:572
+#: includes/config.options.php:583
 msgid "Enable Shadow on Drop Down Menu?"
 msgstr ""
 
-#: includes/config.options.php:573
+#: includes/config.options.php:584
 msgid "Drop Down Shadow"
 msgstr ""
 
-#: includes/config.options.php:574
+#: includes/config.options.php:585
 msgid "Enable shadow for drop down navigation"
 msgstr ""
 
-#: includes/config.options.php:575
+#: includes/config.options.php:586
 msgid "Checking this option will create shadows for the drop down menus"
 msgstr ""
 
-#: includes/config.options.php:581
+#: includes/config.options.php:592
 msgid "Enable Arrows on Drop Down Menu?"
 msgstr ""
 
-#: includes/config.options.php:582
+#: includes/config.options.php:593
 msgid "Drop Down Arrows"
 msgstr ""
 
-#: includes/config.options.php:583
+#: includes/config.options.php:594
 msgid "Enable arrows for drop down navigation"
 msgstr ""
 
-#: includes/config.options.php:584
+#: includes/config.options.php:595
 msgid "Checking this option will create arrows for the drop down menus"
 msgstr ""
 
-#: includes/config.options.php:586
+#: includes/config.options.php:597
 msgid "Select Which Drop Down Options To Show"
 msgstr ""
 
-#: includes/config.options.php:587
+#: includes/config.options.php:598
 msgid "Nav Classic &amp; BrandNav Section - Drop Down Handling"
 msgstr ""
 
-#: includes/config.options.php:588
+#: includes/config.options.php:599
 msgid "Select which to show"
 msgstr ""
 
-#: includes/config.options.php:589
+#: includes/config.options.php:600
 msgid "Enable drop downs and choose the options you would like to show"
 msgstr ""
 
-#: includes/config.options.php:596
+#: includes/config.options.php:607
 msgid "Hide search field?"
 msgstr ""
 
-#: includes/config.options.php:597
+#: includes/config.options.php:608
 msgid "Nav Classic - Hide Search"
 msgstr ""
 
-#: includes/config.options.php:598
+#: includes/config.options.php:609
 msgid "Remove the search field from the nav section"
 msgstr ""
 
-#: includes/config.options.php:599
+#: includes/config.options.php:610
 msgid "Removes the search field from the PageLines Navigation Section."
 msgstr ""
 
-#: includes/config.options.php:606
+#: includes/config.options.php:617
 msgid "Distance From Bottom (in pixels)"
 msgstr ""
 
-#: includes/config.options.php:607
+#: includes/config.options.php:618
 msgid "Distance From Right (in pixels)"
 msgstr ""
 
-#: includes/config.options.php:609
+#: includes/config.options.php:620
 msgid "Branding Section - Social Icon Position"
 msgstr ""
 
-#: includes/config.options.php:610
+#: includes/config.options.php:621
 msgid "Control the location of the social icons in the branding section"
 msgstr ""
 
-#: includes/config.options.php:611
+#: includes/config.options.php:622
 msgid "Set the position of your header icons with these options. They will be relative to the <strong>branding</strong> section of your site."
 msgstr ""
 
-#: includes/config.options.php:616
+#: includes/config.options.php:627
 msgid "Display the Blog RSS icon and link?"
 msgstr ""
 
-#: includes/config.options.php:617
+#: includes/config.options.php:628
 msgid "News/Blog RSS Icon"
 msgstr ""
 
-#: includes/config.options.php:618
+#: includes/config.options.php:629
 msgid "Places a news/blog RSS icon in your header"
 msgstr ""
 
-#: includes/config.options.php:624
+#: includes/config.options.php:635
 msgid "Display facebook Opengraph data in page header?"
 msgstr ""
 
-#: includes/config.options.php:625
+#: includes/config.options.php:636
 msgid "Facebook Opengraph"
 msgstr ""
 
-#: includes/config.options.php:626
+#: includes/config.options.php:637
 msgid "Places the special og: data in page <head> area."
 msgstr ""
 
-#: includes/config.options.php:634
+#: includes/config.options.php:645
 msgid "Your Google+ Profile URL"
 msgstr ""
 
-#: includes/config.options.php:635
+#: includes/config.options.php:646
 msgid "Your Facebook Profile URL"
 msgstr ""
 
-#: includes/config.options.php:636
+#: includes/config.options.php:647
 msgid "Your Twitter Profile URL"
 msgstr ""
 
-#: includes/config.options.php:637
+#: includes/config.options.php:648
 msgid "Your LinkedIn Profile URL"
 msgstr ""
 
-#: includes/config.options.php:638
+#: includes/config.options.php:649
 msgid "Your YouTube Profile URL"
 msgstr ""
 
-#: includes/config.options.php:640
+#: includes/config.options.php:651
 msgid "Social Icons"
 msgstr ""
 
-#: includes/config.options.php:641
+#: includes/config.options.php:652
 msgid "Add social network profile icons to your header"
 msgstr ""
 
-#: includes/config.options.php:642
+#: includes/config.options.php:653
 msgid "Fill in the URLs of your social networking profiles. This option will create icons in the header/branding section of your site."
 msgstr ""
 
-#: includes/config.options.php:647
+#: includes/config.options.php:658
 msgid "Use Child Pages For Secondary Nav?"
 msgstr ""
 
-#: includes/config.options.php:648
+#: includes/config.options.php:659
 msgid "Secondary Nav - Use Child Pages"
 msgstr ""
 
-#: includes/config.options.php:649
+#: includes/config.options.php:660
 msgid "Use this options if you want child pages in secondary nav, instead of WP menus"
 msgstr ""
 
-#: includes/config.options.php:656
+#: includes/config.options.php:667
 msgid "FootCols Section - Column Number"
 msgstr ""
 
-#: includes/config.options.php:657
+#: includes/config.options.php:668
 msgid "Control the number of columns per row in your footer columns section"
 msgstr ""
 
-#: includes/config.options.php:658
+#: includes/config.options.php:669
 msgid "Select Number of Footer Columns"
 msgstr ""
 
-#: includes/config.options.php:665
+#: includes/config.options.php:676
 msgid "Add Footer logo"
 msgstr ""
 
-#: includes/config.options.php:666
+#: includes/config.options.php:677
 msgid "FootCols Section - Logo"
 msgstr ""
 
-#: includes/config.options.php:667
+#: includes/config.options.php:678
 msgid "Show a logo in the footer"
 msgstr ""
 
-#: includes/config.options.php:668
+#: includes/config.options.php:679
 msgid "Add the full url of an image for use in the footer. Recommended size: 140px wide."
 msgstr ""
 
-#: includes/config.options.php:671
+#: includes/config.options.php:682
 msgid "Thanks for dropping by! Feel free to join the discussion by leaving comments, and stay updated by subscribing to the <a href='%s'>RSS feed</a>."
 msgstr ""
 
-#: includes/config.options.php:673
+#: includes/config.options.php:684
 msgid "More Statement In Footer"
 msgstr ""
 
-#: includes/config.options.php:674
+#: includes/config.options.php:685
 msgid "FootCols Section - More Statement"
 msgstr ""
 
-#: includes/config.options.php:675
+#: includes/config.options.php:686
 msgid "Add a quick statement for users who want to know more..."
 msgstr ""
 
-#: includes/config.options.php:676
+#: includes/config.options.php:687
 msgid "This statement will show in the footer columns under the word more. It is for users who may want to know more about your company or service."
 msgstr ""
 
-#: includes/config.options.php:681
+#: includes/config.options.php:692
 msgid "Terms line in footer:"
 msgstr ""
 
-#: includes/config.options.php:682
+#: includes/config.options.php:693
 msgid "FootCols Section - Site Terms Statement"
 msgstr ""
 
-#: includes/config.options.php:683
+#: includes/config.options.php:694
 msgid "A line in your footer for <strong>terms and conditions</strong> text or similar"
 msgstr ""
 
-#: includes/config.options.php:684
+#: includes/config.options.php:695
 msgid "It's sometimes a good idea to give your users a terms and conditions statement so they know how they should use your service or content."
 msgstr ""
 
-#: includes/config.options.php:711
+#: includes/config.options.php:722
 msgid "Magazine Layout Mode"
 msgstr ""
 
-#: includes/config.options.php:712
+#: includes/config.options.php:723
 msgid "Blog Layout Mode"
 msgstr ""
 
-#: includes/config.options.php:714
+#: includes/config.options.php:725
 msgid "Select Post Layout Mode"
 msgstr ""
 
-#: includes/config.options.php:715
+#: includes/config.options.php:726
 msgid "Blog Post Layout Mode"
 msgstr ""
 
-#: includes/config.options.php:716
+#: includes/config.options.php:727
 msgid "Choose between magazine style and blog style layout"
 msgstr ""
 
-#: includes/config.options.php:717
+#: includes/config.options.php:728
 msgid "Choose between two magazine or blog layout mode. <br/><br/> <strong>Magazine Layout Mode</strong><br/> Magazine layout mode makes use of post <strong>clips</strong>. These are summarized excerpts shown at half the width of the main content column.<br/>  <strong>Note:</strong> There is an option for showing <strong>full-width</strong> posts on your main <strong>posts</strong> page.<br/><br/><strong>Blog Layout Mode</strong><br/> This is your classical blog layout. Posts span the entire width of the main content column."
 msgstr ""
 
-#: includes/config.options.php:722
+#: includes/config.options.php:733
 msgid "Select Excerpt Mode"
 msgstr ""
 
-#: includes/config.options.php:729 includes/config.options.php:759
+#: includes/config.options.php:740 includes/config.options.php:770
 msgid "Left Justified"
 msgstr ""
 
-#: includes/config.options.php:730 includes/config.options.php:760
+#: includes/config.options.php:741 includes/config.options.php:771
 msgid "On Top"
 msgstr ""
 
-#: includes/config.options.php:731 includes/config.options.php:761
+#: includes/config.options.php:742 includes/config.options.php:772
 msgid "Left, In Excerpt"
 msgstr ""
 
-#: includes/config.options.php:732 includes/config.options.php:762
+#: includes/config.options.php:743 includes/config.options.php:773
 msgid "Right, In Excerpt"
 msgstr ""
 
-#: includes/config.options.php:735
+#: includes/config.options.php:746
 msgid "Feature Post Excerpt Mode"
 msgstr ""
 
-#: includes/config.options.php:736
+#: includes/config.options.php:747
 msgid "Select how thumbs should be handled in full-width posts"
 msgstr ""
 
-#: includes/config.options.php:737
+#: includes/config.options.php:748
 msgid "Use this option to configure how thumbs will be shown in full-width posts on your blog page."
 msgstr ""
 
-#: includes/config.options.php:742
+#: includes/config.options.php:753
 msgid "Configure Full Width Post Metabar"
 msgstr ""
 
-#: includes/config.options.php:743
+#: includes/config.options.php:754
 msgid "Full Width Post Meta"
 msgstr ""
 
-#: includes/config.options.php:745
+#: includes/config.options.php:756
 msgid "Additional information about a post such as Author, Date, etc..."
 msgstr ""
 
-#: includes/config.options.php:746
+#: includes/config.options.php:757
 msgid "Use shortcodes to control the dynamic information in your metabar. Example shortcodes you can use are: <ul><li><strong>[post_categories]</strong> - List of categories</li><li><strong>[post_edit]</strong> - Link for admins to edit the post</li><li><strong>[post_tags]</strong> - List of post tags</li><li><strong>[post_comments]</strong> - Link to post comments</li><li><strong>[post_author_posts_link]</strong> - Author and link to archive</li><li><strong>[post_author_link]</strong> - Link to author URL</li><li><strong>[post_author]</strong> - Post author with no link</li><li><strong>[post_time]</strong> - Time of post</li><li><strong>[post_date]</strong> - Date of post</li><li><strong>[post_type]</strong> - Type of post</li></ul>"
 msgstr ""
 
-#: includes/config.options.php:752
+#: includes/config.options.php:763
 msgid "Select Clip Excerpt Mode"
 msgstr ""
 
-#: includes/config.options.php:765
+#: includes/config.options.php:776
 msgid "Clip Excerpt Mode"
 msgstr ""
 
-#: includes/config.options.php:766
+#: includes/config.options.php:777
 msgid "Select how thumbs should be handled in clips"
 msgstr ""
 
-#: includes/config.options.php:767
+#: includes/config.options.php:778
 msgid "Use this option to configure how thumbs will be shown in clips. These are the smaller <strong>magazine</strong> style excerpts on your blog page."
 msgstr ""
 
-#: includes/config.options.php:774
+#: includes/config.options.php:785
 msgid "Configure Clip Metabar"
 msgstr ""
 
-#: includes/config.options.php:775
+#: includes/config.options.php:786
 msgid "Clip Metabar"
 msgstr ""
 
-#: includes/config.options.php:776
+#: includes/config.options.php:787
 msgid "Additional information about a clip such as Author, Date, etc..."
 msgstr ""
 
-#: includes/config.options.php:777
+#: includes/config.options.php:788
 msgid "Use shortcodes to control the dynamic information in your metabar. Example shortcodes you can use are: <ul><li><strong>[post_categories]</strong> - List of categories</li><li><strong>[post_edit]</strong> - Link for admins to edit the post</li><li><strong>[post_tags]</strong> - List of post tags</li><li><strong>[post_comments]</strong> - Link to post comments</li><li><strong>[post_author_posts_link]</strong> - Author and link to archive</li><li><strong>[post_author_link]</strong> - Link to author URL</li><li><strong>[post_author]</strong> - Post author with no link</li><li><strong>[post_time]</strong> - Time of post</li><li><strong>[post_date]</strong> - Date of post</li></ul>"
 msgstr ""
 
-#: includes/config.options.php:784
+#: includes/config.options.php:795
 msgid "Number of Full Width Posts?"
 msgstr ""
 
-#: includes/config.options.php:785
+#: includes/config.options.php:796
 msgid "Full Width Posts (Magazine Layout Mode Only)"
 msgstr ""
 
-#: includes/config.options.php:786
+#: includes/config.options.php:797
 msgid "When using magazine layout mode, select the number of <strong>featured</strong> or full-width posts"
 msgstr ""
 
-#: includes/config.options.php:787
+#: includes/config.options.php:798
 msgid "Select the number of posts you would like shown at the full width of the main content column in magazine layout mode (the rest will be half-width post <strong>clips</strong>)."
 msgstr ""
 
-#: includes/config.options.php:792 includes/config.options.php:806
-#: includes/config.options.php:848
+#: includes/config.options.php:803 includes/config.options.php:817
+#: includes/config.options.php:859
 msgid "Posts/Blog Page"
 msgstr ""
 
-#: includes/config.options.php:793 includes/config.options.php:807
+#: includes/config.options.php:804 includes/config.options.php:818
 msgid "Single Post Pages"
 msgstr ""
 
-#: includes/config.options.php:794 includes/config.options.php:808
-#: includes/config.options.php:849 admin/library.help.php:54
+#: includes/config.options.php:805 includes/config.options.php:819
+#: includes/config.options.php:860 admin/library.help.php:54
 msgid "Search Results"
 msgstr ""
 
-#: includes/config.options.php:795 includes/config.options.php:809
-#: includes/config.options.php:850
+#: includes/config.options.php:806 includes/config.options.php:820
+#: includes/config.options.php:861
 msgid "Category Lists"
 msgstr ""
 
-#: includes/config.options.php:796 includes/config.options.php:810
-#: includes/config.options.php:851
+#: includes/config.options.php:807 includes/config.options.php:821
+#: includes/config.options.php:862
 msgid "Post Archives"
 msgstr ""
 
-#: includes/config.options.php:797
+#: includes/config.options.php:808
 msgid "In Post Clips (Magazine Mode)"
 msgstr ""
 
-#: includes/config.options.php:799
+#: includes/config.options.php:810
 msgid "Post Thumbnail Placement"
 msgstr ""
 
-#: includes/config.options.php:800
+#: includes/config.options.php:811
 msgid "Where should the theme use post thumbnails?"
 msgstr ""
 
-#: includes/config.options.php:801
+#: includes/config.options.php:812
 msgid "Use this option to control where post <strong>featured images</strong> or thumbnails are used. Note: The post clips option only applies when magazine layout is selected."
 msgstr ""
 
-#: includes/config.options.php:812
+#: includes/config.options.php:823
 msgid "Post Excerpt or Summary Handling"
 msgstr ""
 
-#: includes/config.options.php:813
+#: includes/config.options.php:824
 msgid "Where should the theme use post excerpts when showing full column posts?"
 msgstr ""
 
-#: includes/config.options.php:814
+#: includes/config.options.php:825
 msgid "This option helps you control where post excerpts are displayed.<br/><br/> <strong>About:</strong> Excerpts are small summaries of articles filled out when creating a post."
 msgstr ""
 
-#: includes/config.options.php:820
+#: includes/config.options.php:831
 msgid "Facebook"
 msgstr ""
 
-#: includes/config.options.php:821
+#: includes/config.options.php:832
 msgid "Twitter"
 msgstr ""
 
-#: includes/config.options.php:822
+#: includes/config.options.php:833
 msgid "Twitter - Add #Hashtag"
 msgstr ""
 
-#: includes/config.options.php:823
+#: includes/config.options.php:834
 msgid "Twitter - Show Via @Handle"
 msgstr ""
 
-#: includes/config.options.php:824
+#: includes/config.options.php:835
 msgid "StumbleUpon"
 msgstr ""
 
-#: includes/config.options.php:825
+#: includes/config.options.php:836
 msgid "Google+"
 msgstr ""
 
-#: includes/config.options.php:826
+#: includes/config.options.php:837
 msgid "Buffer"
 msgstr ""
 
-#: includes/config.options.php:827
+#: includes/config.options.php:838
 msgid "LinkedIn"
 msgstr ""
 
-#: includes/config.options.php:828
+#: includes/config.options.php:839
 msgid "Pinterest"
 msgstr ""
 
-#: includes/config.options.php:829
+#: includes/config.options.php:840
 msgid "Add Shares Under Metabar"
 msgstr ""
 
-#: includes/config.options.php:831
+#: includes/config.options.php:842
 msgid "Select Which Share Buttons To Show"
 msgstr ""
 
-#: includes/config.options.php:832
+#: includes/config.options.php:843
 msgid "Sharebar Social Sharing Buttons"
 msgstr ""
 
-#: includes/config.options.php:833
+#: includes/config.options.php:844
 msgid "Select which to show and configure appearance"
 msgstr ""
 
-#: includes/config.options.php:834
+#: includes/config.options.php:845
 msgid "Select which social sharing buttons you would like to use in your Sharebar.<br/><br/> <strong>Note:</strong> that since these use iFrames and javascript (provided by the companies themselves) they may be hard to style and control."
 msgstr ""
 
-#: includes/config.options.php:840
+#: includes/config.options.php:851
 msgid "Continue Reading Link Text"
 msgstr ""
 
-#: includes/config.options.php:841
+#: includes/config.options.php:852
 msgid "<strong>Continue Reading</strong> Link Text (When Using Excerpts)"
 msgstr ""
 
-#: includes/config.options.php:842
+#: includes/config.options.php:853
 msgid "The link at the end of your excerpt"
 msgstr ""
 
-#: includes/config.options.php:843
+#: includes/config.options.php:854
 msgid "This text will be used as the link to your full article when viewing articles on your posts page (when excerpts are turned on)."
 msgstr ""
 
-#: includes/config.options.php:853
+#: includes/config.options.php:864
 msgid "Full Post Content"
 msgstr ""
 
-#: includes/config.options.php:854
+#: includes/config.options.php:865
 msgid "In addition to single post pages and page templates, where should the theme place the full content of posts?"
 msgstr ""
 
-#: includes/config.options.php:855
+#: includes/config.options.php:866
 msgid "Choose where the full content of posts is displayed. Choose between all posts pages or just single post pages (i.e. posts pages can just show excerpts or titles)."
 msgstr ""
 
-#: includes/config.options.php:862
+#: includes/config.options.php:873
 msgid "Number of words."
 msgstr ""
 
-#: includes/config.options.php:863
+#: includes/config.options.php:874
 msgid "Excerpt Length"
 msgstr ""
 
-#: includes/config.options.php:864
+#: includes/config.options.php:875
 msgid "Set the length of excerpts to something other than default"
 msgstr ""
 
-#: includes/config.options.php:865
+#: includes/config.options.php:876
 msgid "Excerpts are set to 55 words by default."
 msgstr ""
 
-#: includes/config.options.php:871
+#: includes/config.options.php:882
 msgid "Allowed Tags"
 msgstr ""
 
-#: includes/config.options.php:872
+#: includes/config.options.php:883
 msgid "Allow Tags in Excerpt"
 msgstr ""
 
-#: includes/config.options.php:873
+#: includes/config.options.php:884
 msgid "Control which tags are stripped from excerpts"
 msgstr ""
 
-#: includes/config.options.php:874
+#: includes/config.options.php:885
 msgid "By default WordPress strips all HTML tags from excerpts. You can use this option to allow certain tags. Simply enter the allowed tags in this field. <br/>An example of allowed tags could be: <strong>&lt;p&gt;&lt;br&gt;&lt;a&gt;</strong>. <br/><br/> <strong>Note:</strong> Enter a period <strong>.</strong> to disallow all tags."
 msgstr ""
 
-#: includes/config.options.php:895
+#: includes/config.options.php:906
 msgid "Include Google IE Compatibility Script?"
 msgstr ""
 
-#: includes/config.options.php:896
+#: includes/config.options.php:907
 msgid "Google IE Compatibility Fix"
 msgstr ""
 
-#: includes/config.options.php:897
+#: includes/config.options.php:908
 msgid "Include a Google JS script that fixes problems with IE"
 msgstr ""
 
-#: includes/config.options.php:898
+#: includes/config.options.php:909
 msgid "More info on this can be found <a target='_blank' href='http://code.google.com/p/ie7-js/'>here</a>."
 msgstr ""
 
-#: includes/config.options.php:903
+#: includes/config.options.php:914
 msgid "Enable Code Prettify?"
 msgstr ""
 
-#: includes/config.options.php:904
+#: includes/config.options.php:915
 msgid "Google Prettify Code"
 msgstr ""
 
-#: includes/config.options.php:905
+#: includes/config.options.php:916
 msgid "Adds pretty syntax highlighting for code."
 msgstr ""
 
-#: includes/config.options.php:906
+#: includes/config.options.php:917
 msgid "Add a class of 'prettyprint' to code or pre tags, or optionally use the [pl_codebox] shortcode. Wrap the codebox shortcode using [pl_raw] if Wordpress inserts line breaks."
 msgstr ""
 
-#: includes/config.options.php:911
+#: includes/config.options.php:922
 msgid "Enter Partner Link"
 msgstr ""
 
-#: includes/config.options.php:912
+#: includes/config.options.php:923
 msgid "PageLines Affiliate/Partner Link"
 msgstr ""
 
-#: includes/config.options.php:913
+#: includes/config.options.php:924
 msgid "Change a your PageLines footer link to a PageLines affiliate link"
 msgstr ""
 
-#: includes/config.options.php:914
+#: includes/config.options.php:925
 msgid "If you are a <a target='_blank' href='http://www.pagelines.com'>PageLines Partner</a> enter your link here and the footer link will become a partner or affiliate link."
 msgstr ""
 
-#: includes/config.options.php:920
+#: includes/config.options.php:931
 msgid "Disable AJAX Saving?"
 msgstr ""
 
-#: includes/config.options.php:921
+#: includes/config.options.php:932
 msgid "Disable AJAX Saving"
 msgstr ""
 
-#: includes/config.options.php:922
+#: includes/config.options.php:933
 msgid "Check to disable AJAX saving"
 msgstr ""
 
-#: includes/config.options.php:923
+#: includes/config.options.php:934
 msgid "Check this option if you are having problems with AJAX saving. For example, if design control or typography options aren't working"
 msgstr ""
 
-#: includes/config.options.php:930
+#: includes/config.options.php:941
 msgid "Install Class"
 msgstr ""
 
-#: includes/config.options.php:931
+#: includes/config.options.php:942
 msgid "Current Install Class"
 msgstr ""
 
-#: includes/config.options.php:932
+#: includes/config.options.php:943
 msgid "Add a special \"body\" class to this install of PageLines"
 msgstr ""
 
-#: includes/config.options.php:933
+#: includes/config.options.php:944
 msgid "Use this option to add a class to the &gt;body&lt; element of the website. This can be useful when using the same child theme on several installations or sub domains and can be used to control CSS customizations."
 msgstr ""
 
-#: includes/config.options.php:939
+#: includes/config.options.php:950
 msgid "Enable debug?"
 msgstr ""
 
-#: includes/config.options.php:940
+#: includes/config.options.php:951
 msgid "PageLines debug"
 msgstr ""
 
-#: includes/config.options.php:941
+#: includes/config.options.php:952
 msgid "Show detailed settings information"
 msgstr ""
 
-#: includes/config.options.php:942
+#: includes/config.options.php:953
 msgid "This information can be useful in the forums if you have a problem. %s"
 msgstr ""
 
-#: includes/config.options.php:949
+#: includes/config.options.php:960
 msgid "Enable CSS minification?"
 msgstr ""
 
-#: includes/config.options.php:950
+#: includes/config.options.php:961
 msgid "Minification"
 msgstr ""
 
-#: includes/config.options.php:951
+#: includes/config.options.php:962
 msgid "Strips whitespace from compiled CSS."
 msgstr ""
 
-#: includes/config.options.php:958
-msgid "Hide the introduction?"
-msgstr ""
-
-#: includes/config.options.php:959
-msgid "Show Theme Introduction"
-msgstr ""
-
-#: includes/config.options.php:960
-msgid "Uncheck this option to show theme introduction"
-msgstr ""
-
-#: includes/config.options.php:968 includes/config.options.php:984
+#: includes/config.options.php:970 includes/config.options.php:986
 msgid "Administrator"
 msgstr ""
 
-#: includes/config.options.php:969 includes/config.options.php:985
+#: includes/config.options.php:971 includes/config.options.php:987
 msgid "Editor"
 msgstr ""
 
-#: includes/config.options.php:971 includes/config.options.php:987
+#: includes/config.options.php:973 includes/config.options.php:989
 msgid "Contributor"
 msgstr ""
 
-#: includes/config.options.php:973
+#: includes/config.options.php:975
 msgid "Minimum user level for Post/Page Meta Settings"
 msgstr ""
 
-#: includes/config.options.php:974
+#: includes/config.options.php:976
 msgid "Post/Page Meta"
 msgstr ""
 
-#: includes/config.options.php:975
+#: includes/config.options.php:977
 msgid "Set userlevels for the different settings pages. "
 msgstr ""
 
-#: includes/config.options.php:976 includes/config.options.php:990
+#: includes/config.options.php:978 includes/config.options.php:992
 msgid "Members with a user level lower than the settings here will not be able to see the settings."
 msgstr ""
 
-#: includes/config.options.php:989
+#: includes/config.options.php:991
 msgid "Minimum user level for Custom Post Types ( banners, features etc )"
 msgstr ""
 
-#: includes/config.options.php:1014
-msgid "CSS Rules"
+#: includes/config.options.php:1016
+msgid "CSS/LESS Rules"
 msgstr ""
 
-#: includes/config.options.php:1015
+#: includes/config.options.php:1017
 msgid "Custom CSS / LESS"
 msgstr ""
 
-#: includes/config.options.php:1016
+#: includes/config.options.php:1018
 msgid "Insert custom CSS or LESS styling here. It will be stored in the DB and not overwritten. <br/>Note: The professional way to customize your site is using a child theme, or customization plugin"
 msgstr ""
 
-#: includes/config.options.php:1018
+#: includes/config.options.php:1020
 msgid "View Customization Documentation"
 msgstr ""
 
-#: includes/config.options.php:1025
+#: includes/config.options.php:1027
 msgid "Headerscripts Code"
 msgstr ""
 
-#: includes/config.options.php:1026
+#: includes/config.options.php:1028
 msgid "Header Scripts"
 msgstr ""
 
-#: includes/config.options.php:1027
+#: includes/config.options.php:1029
 msgid "Scripts inserted directly before the end of the HTML &lt;head&gt; tag"
 msgstr ""
 
-#: includes/config.options.php:1034
+#: includes/config.options.php:1036
 msgid "Footerscripts Code or Analytics"
 msgstr ""
 
-#: includes/config.options.php:1035
+#: includes/config.options.php:1037
 msgid "Footer Scripts &amp; Analytics"
 msgstr ""
 
-#: includes/config.options.php:1036
+#: includes/config.options.php:1038
 msgid "Any footer scripts including Google Analytics"
 msgstr ""
 
-#: includes/config.options.php:1044 includes/config.options.php:1045
+#: includes/config.options.php:1046 includes/config.options.php:1047
 msgid "Asynchronous Analytics"
 msgstr ""
 
-#: includes/config.options.php:1046
+#: includes/config.options.php:1048
 msgid "Placeholder for Google asynchronous analytics. Goes just before <strong>&lt;/html&gt;</strong> tag"
 msgstr ""
 
-#: includes/config.options.php:1061
+#: includes/config.options.php:1063
 msgid "Enter CSS Rules to change the style of your site.<br/><br/> A lot can be accomplished by simply changing the default styles of the <strong>body</strong> tag such as <strong>line-height</strong>, <strong>font-size</strong>, or <strong>color</strong> (as in text color)."
 msgstr ""
 
@@ -1508,117 +1504,121 @@ msgstr ""
 msgid "Add Widgets &rarr;"
 msgstr ""
 
-#: includes/library.templates.php:478
+#: includes/library.templates.php:477
 msgid "Page %s"
 msgstr ""
 
-#: includes/library.templates.php:499
+#: includes/library.templates.php:498
 msgid "|"
 msgstr ""
 
-#: includes/library.templates.php:511
+#: includes/library.templates.php:510
 msgid "Search Results: %s"
 msgstr ""
 
-#: includes/library.templates.php:515
+#: includes/library.templates.php:514
 msgid "Page: %s"
 msgstr ""
 
-#: includes/library.templates.php:626
+#: includes/library.templates.php:632
 msgid "&larr; Previous Entries"
 msgstr ""
 
-#: includes/library.templates.php:627
+#: includes/library.templates.php:635
 msgid "Next Entries &rarr;"
 msgstr ""
 
-#: includes/library.templates.php:658
+#: includes/library.templates.php:667
 msgid "<ul class='inline-list'>Please select a nav menu for this area in the <a href='%s'>WordPress menu admin</a>.</ul>"
 msgstr ""
 
-#: includes/library.templates.php:727 sections/sb_footcols/section.php:58
+#: includes/library.templates.php:741 sections/sb_footcols/section.php:58
 #: sections/sb_footcols/section.php:60
 msgid "Home"
 msgstr ""
 
-#: includes/library.templates.php:763
+#: includes/library.templates.php:777
 msgid "PageLines"
 msgstr ""
 
-#: includes/library.templates.php:764 admin/actions.options.php:29
-#: admin/t.dashboard.php:95
+#: includes/library.templates.php:778 admin/actions.options.php:29
+#: admin/t.dashboard.php:92
 msgid "Dashboard"
 msgstr ""
 
-#: includes/library.templates.php:765 admin/actions.options.php:31
+#: includes/library.templates.php:779 admin/actions.options.php:31
 msgid "Site Options"
 msgstr ""
 
-#: includes/library.templates.php:766 admin/actions.options.php:33
+#: includes/library.templates.php:780 admin/actions.options.php:33
 msgid "Page Options"
 msgstr ""
 
-#: includes/library.templates.php:767
+#: includes/library.templates.php:781
 msgid "Drag &amp; Drop"
 msgstr ""
 
-#: includes/library.templates.php:768 admin/actions.options.php:37
+#: includes/library.templates.php:782 admin/actions.options.php:37
 msgid "Store"
 msgstr ""
 
-#: includes/library.templates.php:773
+#: includes/library.templates.php:787
 msgid "Template: "
 msgstr ""
 
-#: includes/library.templates.php:780
+#: includes/library.templates.php:794
 msgid "Edit Meta"
+msgstr ""
+
+#: includes/library.templates.php:802
+msgid "Flush LESS"
 msgstr ""
 
 #: includes/class.posts.php:28
 msgid "[Continue Reading...]"
 msgstr ""
 
-#: includes/class.posts.php:248
-msgid "<p class='content-pagination'><span class='cp-desc'>pages:</span>"
+#: includes/class.posts.php:250
+msgid "<div class='pagination'><span class='desc'>pages:</span><ul>"
 msgstr ""
 
-#: includes/class.posts.php:251
-msgid "Tagged with: "
+#: includes/class.posts.php:263
+msgid "<span class=\"note\">Tagged with &rarr;</span> "
 msgstr ""
 
-#: includes/class.posts.php:408
+#: includes/class.posts.php:424
 msgid "Link To"
 msgstr ""
 
-#: includes/class.posts.php:433 includes/class.posts.php:439
+#: includes/class.posts.php:449 includes/class.posts.php:455
 msgid "On"
 msgstr ""
 
-#: includes/class.posts.php:433 includes/class.posts.php:439
+#: includes/class.posts.php:449 includes/class.posts.php:455
 msgid "By"
 msgstr ""
 
-#: includes/class.posts.php:439
+#: includes/class.posts.php:455
 msgid "In"
 msgstr ""
 
-#: includes/class.posts.php:506
+#: includes/class.posts.php:522
 msgid "View"
 msgstr ""
 
-#: includes/class.posts.php:653
+#: includes/class.posts.php:669
 msgid "No results for &quot;%s&quot;"
 msgstr ""
 
-#: includes/class.posts.php:653
+#: includes/class.posts.php:669
 msgid "Nothing Found"
 msgstr ""
 
-#: includes/class.posts.php:655
+#: includes/class.posts.php:671
 msgid "Try another search?"
 msgstr ""
 
-#: includes/class.posts.php:655
+#: includes/class.posts.php:671
 msgid "Sorry, what you are looking for isn't here."
 msgstr ""
 
@@ -1756,135 +1756,135 @@ msgstr ""
 msgid "Upload Image"
 msgstr ""
 
-#: admin/class.options.engine.php:1145
+#: admin/class.options.engine.php:844
+msgid "Select From Library"
+msgstr ""
+
+#: admin/class.options.engine.php:1168
 msgid "No sets have been created and added to this post-type yet!"
 msgstr ""
 
-#: admin/class.options.engine.php:1262
+#: admin/class.options.engine.php:1285
 msgid "Background Image"
 msgstr ""
 
-#: admin/class.options.engine.php:1266
+#: admin/class.options.engine.php:1289
 msgid "Set Background Image Repeat"
 msgstr ""
 
-#: admin/class.options.engine.php:1269
+#: admin/class.options.engine.php:1292
 msgid "Do Not Repeat"
 msgstr ""
 
-#: admin/class.options.engine.php:1270
+#: admin/class.options.engine.php:1293
 msgid "Tile"
 msgstr ""
 
-#: admin/class.options.engine.php:1271
+#: admin/class.options.engine.php:1294
 msgid "Repeat Horizontally"
 msgstr ""
 
-#: admin/class.options.engine.php:1272
+#: admin/class.options.engine.php:1295
 msgid "Repeat Vertically"
 msgstr ""
 
-#: admin/class.options.engine.php:1276
+#: admin/class.options.engine.php:1299
 msgid "Vertical Position In Percent"
 msgstr ""
 
-#: admin/class.options.engine.php:1277 admin/class.options.engine.php:1283
+#: admin/class.options.engine.php:1300 admin/class.options.engine.php:1306
 msgid "count_select"
 msgstr ""
 
-#: admin/class.options.engine.php:1282
+#: admin/class.options.engine.php:1305
 msgid "Horizontal Position In Percent"
 msgstr ""
 
-#: admin/class.options.engine.php:1288
+#: admin/class.options.engine.php:1311
 msgid "Set Background Attachment"
 msgstr ""
 
-#: admin/class.options.engine.php:1291
+#: admin/class.options.engine.php:1314
 msgid "Scroll"
 msgstr ""
 
-#: admin/class.options.engine.php:1292
+#: admin/class.options.engine.php:1315
 msgid "Fixed"
 msgstr ""
 
-#: admin/class.options.engine.php:1324
+#: admin/class.options.engine.php:1347
 msgid "Login"
 msgstr ""
 
-#: admin/class.options.engine.php:1326
+#: admin/class.options.engine.php:1349
 msgid "Register"
 msgstr ""
 
-#: admin/class.options.engine.php:1341
+#: admin/class.options.engine.php:1364
 msgid "Successfully logged in as &quot;%s&quot; to PageLines%s."
 msgstr ""
 
-#: admin/class.options.engine.php:1343
+#: admin/class.options.engine.php:1366
 msgid "Could not connect to PageLines as user &quot;%s&quot;."
 msgstr ""
 
-#: admin/class.options.engine.php:1346
+#: admin/class.options.engine.php:1369
 msgid "ERROR: %1$s<br />There was a problem logging in to PageLines."
 msgstr ""
 
-#: admin/class.options.engine.php:1349
+#: admin/class.options.engine.php:1372
 msgid "<br />Developer edition enabled."
 msgstr ""
 
-#: admin/class.options.engine.php:1352
+#: admin/class.options.engine.php:1375
 msgid "Please set your PageLines login credentials.<br />No account yet? <a href='%s'>Get one now</a>."
 msgstr ""
 
-#: admin/class.options.engine.php:1358
+#: admin/class.options.engine.php:1381
 msgid "Active Plus account."
 msgstr ""
 
-#: admin/class.options.engine.php:1360
-msgid "<br /><br />Install, delete and upgrades are disabled for non Network Admins"
-msgstr ""
-
-#: admin/class.options.engine.php:1386
+#: admin/class.options.engine.php:1404
 msgid "Reset Account Credentials &rarr;"
 msgstr ""
 
-#: admin/class.options.engine.php:1389
+#: admin/class.options.engine.php:1407
 msgid "PageLines Username"
 msgstr ""
 
-#: admin/class.options.engine.php:1391
+#: admin/class.options.engine.php:1409
 msgid "PageLines Password"
 msgstr ""
 
-#: admin/class.options.engine.php:1394
+#: admin/class.options.engine.php:1412
 msgid "Submit Credentials"
 msgstr ""
 
-#: admin/class.options.engine.php:1424
+#: admin/class.options.engine.php:1442
 msgid "Export Settings File &darr;"
 msgstr ""
 
-#: admin/class.options.engine.php:1441
+#: admin/class.options.engine.php:1459
 msgid "Import Template Settings"
 msgstr ""
 
-#: admin/class.options.engine.php:1444
+#: admin/class.options.engine.php:1462
 msgid "Import Primary Settings"
 msgstr ""
 
-#: admin/class.options.engine.php:1448
+#: admin/class.options.engine.php:1466
 msgid "Import Special Meta Settings"
 msgstr ""
 
-#: admin/class.options.engine.php:1451
+#: admin/class.options.engine.php:1469
 msgid "Import Layout Configuration"
 msgstr ""
 
-#: admin/class.options.engine.php:1455
+#: admin/class.options.engine.php:1473
 msgid "Import Settings To Install &uarr;"
 msgstr ""
 
-#: admin/class.options.engine.php:1456
+#: admin/class.options.engine.php:1474
 msgid "Are you sure? This will overwrite your current settings and configurations with the information in this file!"
 msgstr ""
 
@@ -1896,15 +1896,15 @@ msgstr ""
 msgid "<div class='config-error'><h2>PHP Version Problem</h2>Looks like you are using PHP version: <strong>%s</strong>. To run this framework you will need PHP <strong>5.0</strong> or better...<br/><br/> Don't worry though! Just check with your host about a quick upgrade.</div>"
 msgstr ""
 
-#: admin/actions.admin.php:122
+#: admin/actions.admin.php:124
 msgid "Unsupported file type!"
 msgstr ""
 
-#: admin/actions.admin.php:125
+#: admin/actions.admin.php:127
 msgid "Upload Error: %s"
 msgstr ""
 
-#: admin/actions.admin.php:302
+#: admin/actions.admin.php:304
 msgid "No Template Assigned"
 msgstr ""
 
@@ -2008,108 +2008,116 @@ msgstr ""
 msgid "Page Option Setup"
 msgstr ""
 
-#: admin/actions.options.php:351
+#: admin/actions.options.php:372
 msgid "%s Settings Saved. &nbsp;<a class='sh_preview' href='%s/' target='_blank'>View Your Site &rarr;</a>"
 msgstr ""
 
-#: admin/actions.options.php:355
+#: admin/actions.options.php:376
 msgid "Congratulations! %s Has Been Successfully Activated."
 msgstr ""
 
-#: admin/actions.options.php:360
+#: admin/actions.options.php:381
 msgid "Congratulations! New settings have been successfully imported."
 msgstr ""
 
-#: admin/actions.options.php:365
+#: admin/actions.options.php:386
 msgid "There was an error with import. Please make sure you are using the correct file."
 msgstr ""
 
-#: admin/actions.options.php:373
+#: admin/actions.options.php:394
 msgid "Template Configuration Restored To Default."
 msgstr ""
 
-#: admin/actions.options.php:376
+#: admin/actions.options.php:397
 msgid "Layout Dimensions Restored To Default."
 msgstr ""
 
-#: admin/actions.options.php:379
+#: admin/actions.options.php:400
 msgid "Settings Restored To Default."
 msgstr ""
 
-#: admin/actions.options.php:383
+#: admin/actions.options.php:404
 msgid "Launchpad settings saved."
 msgstr ""
 
-#: admin/actions.options.php:386
+#: admin/actions.options.php:407
 msgid "Successfully uploaded your %s"
 msgstr ""
 
-#: admin/actions.options.php:392
+#: admin/actions.options.php:413
 msgid "Section was deleted."
 msgstr ""
 
-#: admin/actions.options.php:396
+#: admin/actions.options.php:417
 msgid "Section was installed."
 msgstr ""
 
-#: admin/actions.options.php:400
+#: admin/actions.options.php:421
 msgid "Section was upgraded."
 msgstr ""
 
-#: admin/actions.options.php:404
+#: admin/actions.options.php:425
 msgid "Plugin was installed."
 msgstr ""
 
-#: admin/actions.options.php:408
+#: admin/actions.options.php:429
 msgid "Plugin was deleted."
 msgstr ""
 
-#: admin/actions.options.php:412
+#: admin/actions.options.php:433
 msgid "Plugin was upgraded."
 msgstr ""
 
-#: admin/actions.options.php:416
+#: admin/actions.options.php:437
 msgid "Theme installed."
 msgstr ""
 
-#: admin/actions.options.php:420
+#: admin/actions.options.php:441
 msgid "Theme upgraded."
 msgstr ""
 
-#: admin/actions.options.php:423
+#: admin/actions.options.php:444
 msgid "Theme deleted."
 msgstr ""
 
-#: admin/actions.options.php:470
+#: admin/actions.options.php:491
 msgid "You are using Internet Explorer version: %s"
 msgstr ""
 
-#: admin/actions.options.php:471
+#: admin/actions.options.php:492
 msgid "Advanced options don't support Internet Explorer version 7 or lower. Please switch to a standards based browser that will allow you to easily configure your site (e.g. Firefox, Chrome, Safari, even IE8 or better would work)."
 msgstr ""
 
-#: admin/actions.options.php:476
+#: admin/actions.options.php:497
 msgid "You are using PHP version %s"
 msgstr ""
 
-#: admin/actions.options.php:477
+#: admin/actions.options.php:498
 msgid "Version 5 or higher is required for this theme to work correctly. Please check with your host about upgrading to a newer version."
 msgstr ""
 
-#: admin/actions.options.php:480
+#: admin/actions.options.php:501
 msgid "Extension problem found"
 msgstr ""
 
-#: admin/actions.options.php:485
+#: admin/actions.options.php:506
 msgid "No file selected!"
 msgstr ""
 
-#: admin/actions.options.php:489
+#: admin/actions.options.php:510
 msgid "The file did not appear to be a PageLines section."
 msgstr ""
 
-#: admin/actions.options.php:493
+#: admin/actions.options.php:514
 msgid "Unknown error: %s"
+msgstr ""
+
+#: admin/actions.options.php:608
+msgid "Select This Image For Option"
+msgstr ""
+
+#: admin/actions.options.php:625
+msgid "Media Library"
 msgstr ""
 
 #: admin/class.ui.typography.php:51
@@ -2204,15 +2212,15 @@ msgstr ""
 msgid "Use this button to restore these settings to default."
 msgstr ""
 
-#: admin/class.options.ui.php:386
+#: admin/class.options.ui.php:413
 msgid "Why Upgrade? &darr;"
 msgstr ""
 
-#: admin/class.options.ui.php:389
+#: admin/class.options.ui.php:416
 msgid "PageLines Tour"
 msgstr ""
 
-#: admin/class.options.ui.php:391
+#: admin/class.options.ui.php:418
 msgid "Upgrade Now &rarr;"
 msgstr ""
 
@@ -2229,7 +2237,7 @@ msgid "Video - Build A Site in 10 Minutes"
 msgstr ""
 
 #: admin/class.welcome.php:69
-msgid "In this video <a href=\"http://bearded-avenger.com/\">Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines"
+msgid "In this video <a href=\"http://nickhaskins.com/\">Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines"
 msgstr ""
 
 #: admin/class.welcome.php:83
@@ -2572,39 +2580,39 @@ msgstr ""
 msgid "With PageLines Plus, you get all PageLines-built extensions and more every month!"
 msgstr ""
 
-#: admin/t.dashboard.php:22
+#: admin/t.dashboard.php:18
 msgid "Your Available Updates"
 msgstr ""
 
-#: admin/t.dashboard.php:33
+#: admin/t.dashboard.php:30
 msgid "News from the PageLines Blog"
 msgstr ""
 
-#: admin/t.dashboard.php:44
+#: admin/t.dashboard.php:41
 msgid "From the Community"
 msgstr ""
 
-#: admin/t.dashboard.php:56
+#: admin/t.dashboard.php:53
 msgid "Updates on PageLines Store"
 msgstr ""
 
-#: admin/t.dashboard.php:67
+#: admin/t.dashboard.php:64
 msgid "Latest Extensions"
 msgstr ""
 
-#: admin/t.dashboard.php:216
+#: admin/t.dashboard.php:213
 msgid "Get PageLines Plus"
 msgstr ""
 
-#: admin/t.dashboard.php:221
+#: admin/t.dashboard.php:218
 msgid "Have Plus? Login"
 msgstr ""
 
-#: admin/t.dashboard.php:262 admin/class.extend.php:184
+#: admin/t.dashboard.php:259 admin/class.extend.php:184
 msgid "Installed"
 msgstr ""
 
-#: admin/t.dashboard.php:310
+#: admin/t.dashboard.php:307
 msgid "No new updates available."
 msgstr ""
 
@@ -2622,7 +2630,7 @@ msgid "Install &darr;"
 msgstr ""
 
 #: admin/class.extend.php:119
-msgid "Login &rarr;"
+msgid "Login to install or purchase &rarr;"
 msgstr ""
 
 #: admin/class.extend.php:120 admin/class.extend.php:126
@@ -2666,7 +2674,7 @@ msgid "%s is required"
 msgstr ""
 
 #: admin/class.extend.php:205
-msgid "Upgrade"
+msgid "Upgrade to Pro"
 msgstr ""
 
 #: admin/class.extend.php:214
@@ -2685,16 +2693,12 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: admin/class.extend.php:1043
+#: admin/class.extend.php:1096
 msgid "Purchase"
 msgstr ""
 
-#: admin/class.extend.php:1058
+#: admin/class.extend.php:1111
 msgid "Free PageLines Plus"
-msgstr ""
-
-#: admin/class.extend.php:1159
-msgid "<h2>Unable to fetch from API</h2>"
 msgstr ""
 
 #: admin/class.options.panel.php:35
@@ -2734,7 +2738,7 @@ msgid "You need to install %s first."
 msgstr ""
 
 #: admin/class.extend.actions.php:496
-msgid "This %s is free with a Pro license."
+msgid "This %s needs a Pro license."
 msgstr ""
 
 #: admin/class.extend.actions.php:522
@@ -2893,31 +2897,31 @@ msgstr ""
 msgid "Available PageLines Integrations"
 msgstr ""
 
-#: admin/class.extend.ui.php:654
+#: admin/class.extend.ui.php:660
 msgid "Featured"
 msgstr ""
 
-#: admin/class.extend.ui.php:658
+#: admin/class.extend.ui.php:664
 msgid "Top Premium"
 msgstr ""
 
-#: admin/class.extend.ui.php:662
+#: admin/class.extend.ui.php:668
 msgid "Top Free"
 msgstr ""
 
-#: admin/class.extend.ui.php:672
+#: admin/class.extend.ui.php:678
 msgid "Add New Themes"
 msgstr ""
 
-#: admin/class.extend.ui.php:679
+#: admin/class.extend.ui.php:685
 msgid "Add New Sections"
 msgstr ""
 
-#: admin/class.extend.ui.php:685
+#: admin/class.extend.ui.php:691
 msgid "Upload"
 msgstr ""
 
-#: admin/class.extend.ui.php:691
+#: admin/class.extend.ui.php:697
 msgid "Add New Plugins"
 msgstr ""
 
@@ -3105,7 +3109,7 @@ msgstr ""
 msgid "Enter the options for the Callout button"
 msgstr ""
 
-#: sections/callout/section.php:124 sections/masthead/section.php:193
+#: sections/callout/section.php:124 sections/masthead/section.php:226
 msgid "Start Here"
 msgstr ""
 
@@ -3129,7 +3133,7 @@ msgstr ""
 msgid "The Latest"
 msgstr ""
 
-#: sections/sb_footcols/section.php:73 sections/features/section.php:367
+#: sections/sb_footcols/section.php:73 sections/features/section.php:389
 msgid "More"
 msgstr ""
 
@@ -3153,35 +3157,35 @@ msgstr ""
 msgid "Set Hero page options to activate."
 msgstr ""
 
-#: sections/masthead/section.php:28
+#: sections/masthead/section.php:44
 msgid "Masthead Splash Options"
 msgstr ""
 
-#: sections/masthead/section.php:29
+#: sections/masthead/section.php:45
 msgid "Enter the options for the masthead splash image. If no options are specified, no image will be shown."
 msgstr ""
 
-#: sections/masthead/section.php:56
+#: sections/masthead/section.php:81
 msgid "Masthead Action Button 1"
 msgstr ""
 
-#: sections/masthead/section.php:57 sections/masthead/section.php:92
+#: sections/masthead/section.php:82 sections/masthead/section.php:117
 msgid "Enter the options for the masthead button. If no options are specified, no button will be shown."
 msgstr ""
 
-#: sections/masthead/section.php:91
+#: sections/masthead/section.php:116
 msgid "Masthead Action Button 2"
 msgstr ""
 
-#: sections/masthead/section.php:125
+#: sections/masthead/section.php:150
 msgid "Choose a Wordpress menu to display (optional)"
 msgstr ""
 
-#: sections/masthead/section.php:131
+#: sections/masthead/section.php:156
 msgid "Enter text to be shown on Masthead (optional)"
 msgstr ""
 
-#: sections/masthead/section.php:235
+#: sections/masthead/section.php:268
 msgid "Set Masthead page options to activate."
 msgstr ""
 
@@ -3189,75 +3193,75 @@ msgstr ""
 msgid "BrandNav Section Navigation"
 msgstr ""
 
-#: sections/navbar/section.php:31 sections/navbar/section.php:32
+#: sections/navbar/section.php:44 sections/navbar/section.php:45
 msgid "Enable Fixed Navigation Bar"
 msgstr ""
 
-#: sections/navbar/section.php:33 sections/navbar/section.php:42
+#: sections/navbar/section.php:46 sections/navbar/section.php:55
 msgid "Applies a fixed navigation bar to the top of your site"
 msgstr ""
 
-#: sections/navbar/section.php:34
+#: sections/navbar/section.php:47
 msgid "Use this feature to add the NavBar section as a fixed navigation bar on the top of your site."
 msgstr ""
 
-#: sections/navbar/section.php:40
+#: sections/navbar/section.php:53
 msgid "Fixed NavBar Logo"
 msgstr ""
 
-#: sections/navbar/section.php:41
+#: sections/navbar/section.php:54
 msgid "Fixed NavBar - NavBar Logo"
 msgstr ""
 
-#: sections/navbar/section.php:43
+#: sections/navbar/section.php:56
 msgid "Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.<br/><br/><strong>Notes:</strong> <br/>1. Only visible in Fixed Mode.<br/>2. Image Height is constricted to a maximum 29px."
 msgstr ""
 
-#: sections/navbar/section.php:76
+#: sections/navbar/section.php:89
 msgid "NavBar and Fixed NavBar Theme"
 msgstr ""
 
-#: sections/navbar/section.php:77
+#: sections/navbar/section.php:90
 msgid "Select the color and theme of the NavBar"
 msgstr ""
 
-#: sections/navbar/section.php:78
+#: sections/navbar/section.php:91
 msgid "The NavBar comes with several color options. Select one to automatically configure."
 msgstr ""
 
-#: sections/navbar/section.php:97
+#: sections/navbar/section.php:110
 msgid "NavBar and Fixed NavBar Menu"
 msgstr ""
 
-#: sections/navbar/section.php:98
+#: sections/navbar/section.php:111
 msgid "Select the WordPress Menu for the NavBar(s)"
 msgstr ""
 
-#: sections/navbar/section.php:99
+#: sections/navbar/section.php:112
 msgid "The NavBar uses WordPress menus. Select one for use."
 msgstr ""
 
-#: sections/navbar/section.php:121
+#: sections/navbar/section.php:134
 msgid "Configure Options for NavBars"
 msgstr ""
 
-#: sections/navbar/section.php:122
+#: sections/navbar/section.php:135
 msgid "NavBar and Fixed NavBar Configuration Options"
 msgstr ""
 
-#: sections/navbar/section.php:123
+#: sections/navbar/section.php:136
 msgid "Control various appearance options for the NavBars"
 msgstr ""
 
-#: sections/navbar/section.php:130
+#: sections/navbar/section.php:143
 msgid "NavBar Title"
 msgstr ""
 
-#: sections/navbar/section.php:131
+#: sections/navbar/section.php:144
 msgid "Applies text to NavBar on small screens. Not available on Fixed NavBar"
 msgstr ""
 
-#: sections/navbar/section.php:132
+#: sections/navbar/section.php:145
 msgid "Add text to the NavBar to serve as a title, but only displayed on small screens."
 msgstr ""
 
@@ -3313,304 +3317,304 @@ msgstr ""
 msgid "If you are using the feature slider in posts or post category mode, you may want to control the appearance of the posts inside the feature. Enable this option to show the posts metapanel."
 msgstr ""
 
-#: sections/features/section.php:336
+#: sections/features/section.php:356
 msgid "No Feature posts matched this page's criteria"
 msgstr ""
 
-#: sections/features/section.php:517 sections/features/section.php:532
+#: sections/features/section.php:539 sections/features/section.php:554
 msgid "Feature Design Style"
 msgstr ""
 
-#: sections/features/section.php:518
+#: sections/features/section.php:540
 msgid "The basic styling of the feature"
 msgstr ""
 
-#: sections/features/section.php:522
+#: sections/features/section.php:544
 msgid "Feature Text Position"
 msgstr ""
 
-#: sections/features/section.php:524
+#: sections/features/section.php:546
 msgid "Text On Left"
 msgstr ""
 
-#: sections/features/section.php:525
+#: sections/features/section.php:547
 msgid "Text On Right"
 msgstr ""
 
-#: sections/features/section.php:526
+#: sections/features/section.php:548
 msgid "Text On Bottom"
 msgstr ""
 
-#: sections/features/section.php:527
+#: sections/features/section.php:549
 msgid "Full Width Background Image - No Text - Links Entire BG"
 msgstr ""
 
-#: sections/features/section.php:534
+#: sections/features/section.php:556
 msgid "White Text - Dark Feature Background - Transparent Text Overlay (Default)"
 msgstr ""
 
-#: sections/features/section.php:535
+#: sections/features/section.php:557
 msgid "Black Text - Light Feature Background with Border - No Overlay"
 msgstr ""
 
-#: sections/features/section.php:536
+#: sections/features/section.php:558
 msgid "White Text - Dark Feature Background - No Overlay"
 msgstr ""
 
-#: sections/features/section.php:537
+#: sections/features/section.php:559
 msgid "Black Text - No Feature Background - No Overlay"
 msgstr ""
 
-#: sections/features/section.php:544
+#: sections/features/section.php:566
 msgid "Feature Media"
 msgstr ""
 
-#: sections/features/section.php:545
+#: sections/features/section.php:567
 msgid "The media that the feature will use"
 msgstr ""
 
-#: sections/features/section.php:548
+#: sections/features/section.php:570
 msgid "Full Size - Feature Background Image"
 msgstr ""
 
-#: sections/features/section.php:555
+#: sections/features/section.php:577
 msgid "Media Area - Image (optional)"
 msgstr ""
 
-#: sections/features/section.php:560
+#: sections/features/section.php:582
 msgid "Feature HTML (video embeds etc, In Media Area)"
 msgstr ""
 
-#: sections/features/section.php:565
+#: sections/features/section.php:587
 msgid "Make Feature HTML Full Width"
 msgstr ""
 
-#: sections/features/section.php:568
+#: sections/features/section.php:590
 msgid "Thumb Navigation - Upload Feature Thumbnail (50px by 30px)"
 msgstr ""
 
-#: sections/features/section.php:573
+#: sections/features/section.php:595
 msgid "Names Navigation - Enter Text"
 msgstr ""
 
-#: sections/features/section.php:581
+#: sections/features/section.php:603
 msgid "Adding a URL here will add a link to your feature slide"
 msgstr ""
 
-#: sections/features/section.php:582
+#: sections/features/section.php:604
 msgid "Feature Link URL"
 msgstr ""
 
-#: sections/features/section.php:583
+#: sections/features/section.php:605
 msgid "Enter Feature Link URL"
 msgstr ""
 
-#: sections/features/section.php:585
+#: sections/features/section.php:607
 msgid "Adds a \"More\" link to your text. If you have \"Full Width Background Image\" mode selected, the entire slide will be linked."
 msgstr ""
 
-#: sections/features/section.php:589
+#: sections/features/section.php:611
 msgid "Enter the text you would like in your feature link"
 msgstr ""
 
-#: sections/features/section.php:590
+#: sections/features/section.php:612
 msgid "Link Text"
 msgstr ""
 
-#: sections/features/section.php:591
+#: sections/features/section.php:613
 msgid "Enter Feature Link Text"
 msgstr ""
 
-#: sections/features/section.php:606 sections/features/section.php:616
+#: sections/features/section.php:628 sections/features/section.php:638
 msgid "Feature Setup Options"
 msgstr ""
 
-#: sections/features/section.php:633 sections/features/section.php:829
+#: sections/features/section.php:655 sections/features/section.php:851
 msgid "Features"
 msgstr ""
 
-#: sections/features/section.php:634
+#: sections/features/section.php:656
 msgid "Feature"
 msgstr ""
 
-#: sections/features/section.php:635
+#: sections/features/section.php:657
 msgid "For setting slides on the feature page template"
 msgstr ""
 
-#: sections/features/section.php:641 sections/features/section.php:650
+#: sections/features/section.php:663 sections/features/section.php:672
 msgid "Feature Sets"
 msgstr ""
 
-#: sections/features/section.php:642
+#: sections/features/section.php:664
 msgid "Feature Set"
 msgstr ""
 
-#: sections/features/section.php:647 sections/features/section.php:801
+#: sections/features/section.php:669 sections/features/section.php:823
 #: sections/boxes/section.php:219
 msgid "Title"
 msgstr ""
 
-#: sections/features/section.php:648
+#: sections/features/section.php:670
 msgid "Text"
 msgstr ""
 
-#: sections/features/section.php:649
+#: sections/features/section.php:671
 msgid "Media"
 msgstr ""
 
-#: sections/features/section.php:672
+#: sections/features/section.php:694
 msgid "Feature Section Setup"
 msgstr ""
 
-#: sections/features/section.php:673
+#: sections/features/section.php:695
 msgid "Basic section setup for features"
 msgstr ""
 
-#: sections/features/section.php:676
+#: sections/features/section.php:698
 msgid "View Feature Documentation"
 msgstr ""
 
-#: sections/features/section.php:684
+#: sections/features/section.php:706
 msgid "Select Feature Set"
 msgstr ""
 
-#: sections/features/section.php:691 sections/quickslider/section.php:158
+#: sections/features/section.php:713 sections/quickslider/section.php:171
 msgid "No Navigation"
 msgstr ""
 
-#: sections/features/section.php:692
+#: sections/features/section.php:714
 msgid "Squares or Dots"
 msgstr ""
 
-#: sections/features/section.php:693
+#: sections/features/section.php:715
 msgid "Feature Names"
 msgstr ""
 
-#: sections/features/section.php:694
+#: sections/features/section.php:716
 msgid "Feature Thumbs (50px by 30px)"
 msgstr ""
 
-#: sections/features/section.php:695
+#: sections/features/section.php:717
 msgid "Numbers"
 msgstr ""
 
-#: sections/features/section.php:697
+#: sections/features/section.php:719
 msgid "Feature Navigation Mode"
 msgstr ""
 
-#: sections/features/section.php:703
+#: sections/features/section.php:725
 msgid "Max number of features to show"
 msgstr ""
 
-#: sections/features/section.php:710
+#: sections/features/section.php:732
 msgid "Feature Section Height and Responsive Control"
 msgstr ""
 
-#: sections/features/section.php:711
+#: sections/features/section.php:733
 msgid "Dimensions and Responsive Handling"
 msgstr ""
 
-#: sections/features/section.php:719
+#: sections/features/section.php:741
 msgid "Static Height (Height is always the same)"
 msgstr ""
 
-#: sections/features/section.php:720
+#: sections/features/section.php:742
 msgid "Aspect Height (Height based on width)"
 msgstr ""
 
-#: sections/features/section.php:722
+#: sections/features/section.php:744
 msgid "Select Height Mode (The way feature height is managed)"
 msgstr ""
 
-#: sections/features/section.php:728
+#: sections/features/section.php:750
 msgid "Static Mode - Height (In Pixels)"
 msgstr ""
 
-#: sections/features/section.php:734
+#: sections/features/section.php:756
 msgid "Aspect Mode - Ratio (Width/Height - 16:9 would be 1.777)"
 msgstr ""
 
-#: sections/features/section.php:740
+#: sections/features/section.php:762
 msgid "Feature Transitions and Effects"
 msgstr ""
 
-#: sections/features/section.php:741
+#: sections/features/section.php:763
 msgid "Options for managing feature transitions"
 msgstr ""
 
-#: sections/features/section.php:748
+#: sections/features/section.php:770
 msgid "Select Transition Effect"
 msgstr ""
 
-#: sections/features/section.php:754
+#: sections/features/section.php:776
 msgid "Timeout (ms - 0 means manual transition, 5000 = 5 seconds)"
 msgstr ""
 
-#: sections/features/section.php:760
+#: sections/features/section.php:782
 msgid "Transition Speed (ms - e.g. 1500 = 1.5 seconds)"
 msgstr ""
 
-#: sections/features/section.php:767
+#: sections/features/section.php:789
 msgid "Show play pause button? (Auto Scrolling Only)"
 msgstr ""
 
-#: sections/features/section.php:773
+#: sections/features/section.php:795
 msgid "Feature Source and Order (Advanced)"
 msgstr ""
 
-#: sections/features/section.php:774
+#: sections/features/section.php:796
 msgid "Advanced options for feature sources and their order. Important: Enable feature panel under settings > advanced for use with posts."
 msgstr ""
 
-#: sections/features/section.php:781
+#: sections/features/section.php:803
 msgid "Feature Posts (custom post type)"
 msgstr ""
 
-#: sections/features/section.php:782
+#: sections/features/section.php:804
 msgid "Use Post Category"
 msgstr ""
 
-#: sections/features/section.php:783
+#: sections/features/section.php:805
 msgid "Use all Posts"
 msgstr ""
 
-#: sections/features/section.php:785
+#: sections/features/section.php:807
 msgid "Select Feature Post Source (Optional - Defaults to Custom Post Type)"
 msgstr ""
 
-#: sections/features/section.php:792
+#: sections/features/section.php:814
 msgid "Select Post Category (Post category source only)"
 msgstr ""
 
-#: sections/features/section.php:800 sections/boxes/section.php:218
+#: sections/features/section.php:822 sections/boxes/section.php:218
 msgid "Post ID (default)"
 msgstr ""
 
-#: sections/features/section.php:802 sections/boxes/section.php:220
+#: sections/features/section.php:824 sections/boxes/section.php:220
 msgid "Date"
 msgstr ""
 
-#: sections/features/section.php:803 sections/boxes/section.php:221
+#: sections/features/section.php:825 sections/boxes/section.php:221
 msgid "Last Modified"
 msgstr ""
 
-#: sections/features/section.php:804 sections/boxes/section.php:222
+#: sections/features/section.php:826 sections/boxes/section.php:222
 msgid "Random"
 msgstr ""
 
-#: sections/features/section.php:806
+#: sections/features/section.php:828
 msgid "Select sort method (If not using Post Type Order plugin)"
 msgstr ""
 
-#: sections/features/section.php:814 sections/boxes/section.php:229
+#: sections/features/section.php:836 sections/boxes/section.php:229
 msgid "Descending"
 msgstr ""
 
-#: sections/features/section.php:815 sections/boxes/section.php:230
+#: sections/features/section.php:837 sections/boxes/section.php:230
 msgid "Ascending"
 msgstr ""
 
-#: sections/features/section.php:817
+#: sections/features/section.php:839
 msgid "Select sort order (If not using Post Type Order plugin)"
 msgstr ""
 
@@ -3822,115 +3826,119 @@ msgstr ""
 msgid "Add a custom CSS class to this set of boxes."
 msgstr ""
 
-#: sections/postauthor/section.php:32
-msgid "About The Author"
+#: sections/postauthor/section.php:46
+msgid "Visit Authors Website &rarr;"
 msgstr ""
 
-#: sections/postauthor/section.php:39
-msgid "Visit Authors Website"
-msgstr ""
-
-#: sections/quickslider/section.php:134
-msgid "Number of Slides to Configure"
-msgstr ""
-
-#: sections/quickslider/section.php:135
-msgid "Number of Slides"
-msgstr ""
-
-#: sections/quickslider/section.php:136
-msgid "Enter the number of QuickSlider slides. <strong>Default is 3</strong>"
-msgstr ""
-
-#: sections/quickslider/section.php:137
-msgid "This number will be used to generate slides and option setup."
-msgstr ""
-
-#: sections/quickslider/section.php:144
-msgid "Use Fading Transition"
-msgstr ""
-
-#: sections/quickslider/section.php:145
-msgid "Use Slide/Horizontal Transition"
+#: sections/postauthor/section.php:51
+msgid "Authors Google Profile &rarr;"
 msgstr ""
 
 #: sections/quickslider/section.php:147
-msgid "Select Transition Type"
+msgid "Number of Slides to Configure"
 msgstr ""
 
 #: sections/quickslider/section.php:148
-msgid "Slider Transition Type"
+msgid "Number of Slides"
 msgstr ""
 
 #: sections/quickslider/section.php:149
-msgid "Configure the way slides transfer to one another."
+msgid "Enter the number of QuickSlider slides. <strong>Default is 3</strong>"
+msgstr ""
+
+#: sections/quickslider/section.php:150
+msgid "This number will be used to generate slides and option setup."
 msgstr ""
 
 #: sections/quickslider/section.php:157
-msgid "Use Both Arrow and Slide Control Navigation"
+msgid "Use Fading Transition"
 msgstr ""
 
-#: sections/quickslider/section.php:159
-msgid "Slide Controls Only"
+#: sections/quickslider/section.php:158
+msgid "Use Slide/Horizontal Transition"
 msgstr ""
 
 #: sections/quickslider/section.php:160
-msgid "Arrow Navigation Only"
+msgid "Select Transition Type"
+msgstr ""
+
+#: sections/quickslider/section.php:161
+msgid "Slider Transition Type"
 msgstr ""
 
 #: sections/quickslider/section.php:162
-msgid "Slider Navigation"
+msgid "Configure the way slides transfer to one another."
 msgstr ""
 
-#: sections/quickslider/section.php:163
-msgid "Slider Navigation mode"
-msgstr ""
-
-#: sections/quickslider/section.php:164
-msgid "Configure the navigation for this slider."
+#: sections/quickslider/section.php:170
+msgid "Use Both Arrow and Slide Control Navigation"
 msgstr ""
 
 #: sections/quickslider/section.php:172
-msgid "Animate Slideshow Automatically?"
+msgid "Slide Controls Only"
 msgstr ""
 
 #: sections/quickslider/section.php:173
+msgid "Arrow Navigation Only"
+msgstr ""
+
+#: sections/quickslider/section.php:175
+msgid "Slider Navigation"
+msgstr ""
+
+#: sections/quickslider/section.php:176
+msgid "Slider Navigation mode"
+msgstr ""
+
+#: sections/quickslider/section.php:177
+msgid "Configure the navigation for this slider."
+msgstr ""
+
+#: sections/quickslider/section.php:185
+msgid "Animate Slideshow Automatically?"
+msgstr ""
+
+#: sections/quickslider/section.php:186
 msgid "Automatic Slideshow?"
 msgstr ""
 
-#: sections/quickslider/section.php:174
+#: sections/quickslider/section.php:187
 msgid "Autoplay the slides, transitioning every 7 seconds."
 msgstr ""
 
-#: sections/quickslider/section.php:192
+#: sections/quickslider/section.php:205
 msgid "Slide Image"
 msgstr ""
 
-#: sections/quickslider/section.php:196
+#: sections/quickslider/section.php:209
+msgid "Image Alt"
+msgstr ""
+
+#: sections/quickslider/section.php:213
 msgid "Slide Text"
 msgstr ""
 
-#: sections/quickslider/section.php:200
+#: sections/quickslider/section.php:217
 msgid "Slide Link URL"
 msgstr ""
 
-#: sections/quickslider/section.php:204
+#: sections/quickslider/section.php:221
 msgid "Slide Text Location"
 msgstr ""
 
-#: sections/quickslider/section.php:214
+#: sections/quickslider/section.php:231
 msgid "QuickSlider Slide "
 msgstr ""
 
-#: sections/quickslider/section.php:215
+#: sections/quickslider/section.php:232
 msgid "Setup options for slide number "
 msgstr ""
 
-#: sections/quickslider/section.php:216
+#: sections/quickslider/section.php:233
 msgid "For best results all images in the slider should have the same dimensions."
 msgstr ""
 
-#: sections/quickslider/section.php:225
+#: sections/quickslider/section.php:242
 msgid "QuickSlider"
 msgstr ""
 
@@ -4042,6 +4050,6 @@ msgstr ""
 msgid "No Banner posts matched this page's criteria"
 msgstr ""
 
-#: sections/highlight/section.php:121
+#: sections/highlight/section.php:126
 msgid "Set highlight page options to activate."
 msgstr ""

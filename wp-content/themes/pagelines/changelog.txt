@@ -4,6 +4,80 @@
 
 ********************************************************
 
+Version 2.3.5
+
+	- Bugs - Fix LESS validation and \'escape\' bug in customcss box.
+	- Bugs - Fix accordian shortcode if %s is in the content, props Evan.
+	- Bugs - Fix community links in dashboard, props Evan.
+	- Bugs - Fix Linkedin option in the sharebar, props Evan.
+
+Version 2.3.4
+
+	- CORE - Add SECTION_ROOT to deprecated.php
+	- CORE - Updated twitter logo.
+	- CORE - Added Flush Less button to adminbar if debug is on under advanced settings.
+	- CORE - Removed customcss from kses whitelist, should stop people adding script tags to css and breaking everything.
+	- Bugs - Fix #comments jump link, and check for livefyre.
+	- Bugs - Fix pl_video shortcode, height and width are now working.
+	- Bugs - Fixed 'Hide by default' bug.
+	- Bugs - Banner Section - Fix alt image text.
+	- Bugs - Fix debug comment in css.
+	- Bugs - Fix footcols in fixed mode.
+	- Bugs - Add separate video classes and fix vimeo black borders.
+	- Bugs - Fix wp_title Paged bug.
+
+Version 2.3.3
+
+	- CORE - Added pagelines_gfont_baseurl filter for google fonts.
+	- CORE - Properly namespace all CONSTANTS.
+	- CORE - Fixed PageLines admin area in WordPress 3.5b1.
+    - CORE - Updated Twitter icon per guidelines
+	- Bugs - Fixed rare php notices on settings reset if WP_DEBUG is on.
+	- Bugs - Store logic fix.
+
+Version 2.3.2
+
+	- CORE - Revert fix for compatibility with WordPress 3.5 (layout editor broke).
+
+Version 2.3.1
+
+	- CORE - remove main style.css from HEAD, not needed now as it contains no actual css.
+	- CORE - Better minification rules.
+	- CORE - Fix compatibility with WordPress 3.5 alpha.
+	- CORE - Add version to admin scripts.
+	- Bugs - NavBar dropdown fix for IE8.
+	- Bugs - Features, add filter for target: pagelines_features_target.
+	- Bugs - Only show update nags to admins.
+	- Bugs - Fix cut and paste in wp-admin.
+	- Bugs - Add linewrapping to code editors.
+	- Bugs - Video shortcode, added related.
+	- Bugs - LESS sections handling, do not compile disabled sections.
+	- Bugs - Various IE8 fixes.
+	- Bugs - Fix tooltip/rollover position.
+	- Bugs - Fix Author profile links.
+
+Version 2.3
+
+	- NEW - Added code styling to all code areas.
+	- NEW - Use native WordPress media library for all images.
+	- NEW - Bootstrap NavBar gets child submenus.
+	- NEW - Masthead section updated with video option
+	- NEW - Added "position" to Tooltip and Popover shortcodes
+	- NEW - Added alt tag option to Quickslider images
+	- CORE - Upgraded to latest bootstrap.
+	- CORE - Upgraded to latest LESS compiler.
+	- CORE - Child themes can now override core less files. 
+	- Bugs - Boxes, open in new window if selected.
+	- Bugs - Stop banner images overflowing.
+	- Bugs - Make (edit) translatable.
+	- Bugs - Fix carousel shortcode.
+	- Bugs - Fix feature slides appearing before js is ready.
+	- Bugs - Fix nav dropdown in ie8.
+	- Bugs - Various multisite fixes.
+	- Bugs - Flush css when framework is updated.
+	- Bugs - Fix Quickslider nav in IE.
+
+
 Version 2.2.5
     - CORE - Added new LESS variable @{plPluginsRoot}.
 	- CORE - New filter 'pagelines_thumb_width' use to set thumb widths.

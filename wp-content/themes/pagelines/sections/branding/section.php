@@ -21,7 +21,7 @@ class PageLinesBranding extends PageLinesSection {
 	*/
    function section_template() { 
 			
-			printf('<div class="branding_wrap">');
+			printf('<div class="branding_wrap fix">');
 			
 				pagelines_main_logo(); 
 			
@@ -54,7 +54,7 @@ class PageLinesBranding extends PageLinesSection {
 				
 					}
 					
-			printf('</div></div>');
+			echo '</div></div>';
 					
 			pagelines_register_hook( 'pagelines_after_branding_wrap', 'branding' ); // Hook
 				

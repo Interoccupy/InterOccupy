@@ -62,9 +62,6 @@ class PageLinesShareBar extends PageLinesSection {
 		$desc = wp_strip_all_tags( pl_short_excerpt($post->ID, 10, '') );
 
 		$out = '';
-		
-		if(ploption('share_facebook'))
-			$out .= self::facebook(array('permalink' => $perm));
 	
 		if(ploption('share_google'))
 			$out .= self::google(array('permalink' => $perm));
@@ -72,6 +69,12 @@ class PageLinesShareBar extends PageLinesSection {
 		if(ploption('share_twitter'))
 			$out .= self::twitter(array('permalink' => $perm, 'title' => $title));
 			
+		if(ploption('share_facebook'))
+			$out .= self::facebook(array('permalink' => $perm));	
+			
+		if(ploption('share_linkedin'))	
+			$out .= self::linkedin(array('permalink' => $perm, 'title' => $title));
+		
 		if(ploption('share_pinterest'))
 			$out .= self::pinterest(array('permalink' => $perm, 'image' => $thumb, 'desc' => $desc));
 			
@@ -81,8 +84,7 @@ class PageLinesShareBar extends PageLinesSection {
 		if(ploption('share_stumble'))
 			$out .= self::stumbleupon(array('permalink' => $perm, 'title' => $title));
 		
-		if(ploption('share_linkedin'))	
-			$out .= self::linkedin(array('permalink' => $perm, 'title' => $title));
+		
 
 		return $out;
 	}
@@ -137,7 +139,7 @@ class PageLinesShareBar extends PageLinesSection {
 		ob_start();
 		?>
 			<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
-			<script width="100" type="IN/Share" data-url="<?php echo $a['perm'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
+			<script width="100" type="IN/Share" data-url="<?php echo $a['permalink'];?>" data-width="<?php echo $a['width'];?>" data-counter="right"></script>
 
 		<?php 
 

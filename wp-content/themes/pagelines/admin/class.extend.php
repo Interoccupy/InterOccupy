@@ -81,7 +81,7 @@
 	 function master_array( $type, $key, $ext, $tab ){
 		
 		$a = array( 
-			'plversion'		=>	CORE_VERSION,
+			'plversion'		=>	PL_CORE_VERSION,
 			'price'		=>	'free',
 			'featured'	=>	'false',
 			'type'		=>	'internal',
@@ -116,7 +116,7 @@
 				'condition'	=> $this->show_login_button( $type, $key, $ext, $tab ),				
 				'type'		=> $type,
 				'file'		=> $this->get_the_file( 'login', $type, $key, $ext, $tab ),
-				'text'		=> __( 'Login &rarr;', 'pagelines' ),
+				'text'		=> __( 'Login to install or purchase &rarr;', 'pagelines' ),
 				'dtext'		=> __( 'Redirecting', 'pagelines' ),
 			),
 			'purchase'	=> array(
@@ -202,7 +202,7 @@
 				'mode'		=>	'pro_fail',
 				'path'		=>	$type,
 				'condition'	=> $this->is_pro_only( $type, $key, $ext, $tab ),
-				'text'		=> __( 'Upgrade', 'pagelines' ),
+				'text'		=> __( 'Upgrade to Pro', 'pagelines' ),
 				),
 	
 			'download'	=> array(
@@ -249,7 +249,7 @@
 	 function show_in_tab( $type, $key, $ext, $tab ){
 
 		$a = array( 
-			'plversion'			=>	CORE_VERSION,
+			'plversion'			=>	PL_CORE_VERSION,
 			'price'				=>	'free',
 			'featured'			=>	'false',
 			'loaded' 			=> ( isset( $ext['status']['status'] ) ) ? true : false,
@@ -336,7 +336,7 @@
 	 *
 	 */
 	 function version_check( $version ){
-		return ( version_compare( CORE_VERSION, $version ) >= 0 ) ? true : false;
+		return ( version_compare( PL_CORE_VERSION, $version ) >= 0 ) ? true : false;
 	}
 	
 
@@ -426,19 +426,30 @@
 	 */
 	 function show_login_button( $type, $key, $ext, $tab ){
 
+
+		if( $this->updates_configured() )
+			return false;
+
 		if ( $type == 'integration' && !$this->updates_configured() && !EXTEND_NETWORK )
 			return true;
+
+		if( EXTEND_NETWORK && ! $this->updates_configured()
+			&& true === $this->is_premium( $type, $key, $ext )
+			&& 'user' == $tab || 'installed' == $tab
+			&& isset( $ext['price'] )
+			&& $ext['price']
+			&& $ext['price'] != 'free'		
+		) return true;
 		
 		if( !EXTEND_NETWORK 
-			&& !$this->updates_configured()
 			&& !$this->is_purchased( $type, $key, $ext )
 			&& $this->in_the_store( $type, $key, $ext, $tab )
 			&& !$this->is_installed( $type, $key, $ext )
 			&& ! $this->version_fail( $ext['plversion'] )
-		) {
-			return true;
-		} else
-			return false;
+		) return true;
+
+		
+		return false;
 	}
 	
 
@@ -473,8 +484,7 @@
 	*/
 	function is_pro_only( $type, $key, $ext, $tab ) {
 		
-		if ( isset( $ext['edition']) && 'pro' == $ext['edition'] && ! VPRO 
-			&& $this->is_purchased( $type, $key, $ext ) )
+		if ( isset( $ext['edition']) && 'pro' == strtolower( $ext['edition'] ) && ! VPRO )
 			return true;
 		else 
 			return false;	
@@ -500,7 +510,8 @@
 	*/
 	function show_subscribe_button( $type, $key, $ext, $tab ){
 
-		if( $this->is_installed( $type, $key, $ext )
+		if( ! EXTEND_NETWORK
+			&& $this->is_installed( $type, $key, $ext )
 			&& $this->subscription_enabled()
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& ! $this->is_subscribed( $type, $key, $ext, $tab )
@@ -519,7 +530,8 @@
 	*/
 	function show_unsubscribe_button( $type, $key, $ext, $tab ){
 
-		if( $this->is_installed( $type, $key, $ext )
+		if( ! EXTEND_NETWORK
+			&& $this->is_installed( $type, $key, $ext )
 			&& $this->subscription_enabled()
 			&& $this->is_subscribed( $type, $key, $ext, $tab )
 			&& ! $this->in_the_store( $type, $key, $ext, $tab )
@@ -639,7 +651,20 @@
 	*
 	*/
 	function show_purchase_button( $type, $key, $ext, $tab ){
-		
+
+		if ( !$this->updates_configured() )
+			return false;
+
+		if( EXTEND_NETWORK ) {
+		if( ( 'user' == $tab || 'installed' == $tab )
+			&& ! $this->is_purchased( $type, $key, $ext ) 
+			&& $this->is_premium( $type, $key, $ext )
+
+			&& !($this->is_user_plus() && $this->is_plus_product( $type, $key, $ext, $tab ))
+		) return true;
+		return false;
+	}
+
 		if( !EXTEND_NETWORK 
 			&& $this->updates_configured() 
 			&& $this->in_the_store( $type, $key, $ext, $tab )
@@ -648,6 +673,7 @@
 			&& $this->is_premium( $type, $key, $ext )
 			&& ! $this->version_fail( $ext['plversion'] )
 			&& !($this->is_user_plus() && $this->is_plus_product( $type, $key, $ext, $tab ))
+			&& ! $this->is_pro_only( $type, $key, $ext, $tab )
 		){
 			return true;
 		} else 
@@ -684,9 +710,10 @@
 	*/
 	function is_premium( $type, $key, $ext ){
 		$ext = (array) $ext;
+
 		if( isset( $ext['price'] ) 
 			&& $ext['price'] != 'free' 
-			&& $ext['price'] >= 0 
+			&& (int) $ext['price'] >= 0 
 		){
 			return true;
 		} else 
@@ -699,15 +726,15 @@
 	 * @TODO document
 	 *
 	 */
-	 function is_purchased( $type, $key, $info ){
+	 function is_purchased( $type, $key, $ext ){
 
 		if($type == 'section'){
 			
-			return ( isset( $info['purchased'] ) ) ? true : false;
+			return ( isset( $ext['purchased'] ) && $ext['purchased'] == 'purchased' ) ? true : false;
 			
 		} else {
 			
-			if( isset( $info['purchased'] ) )
+			if( isset( $ext['purchased'] ) )
 				return true; 
 			else
 				return false;
@@ -721,11 +748,32 @@
 	*
 	*/
 	function show_activate_button( $type, $key, $ext, $tab ){
-		
+
+		if( EXTEND_NETWORK ) {
+
+		if( ! $this->in_the_store( $type, $key, $ext, $tab )
+			&& $this->is_installed( $type, $key, $ext, $tab )
+			&& ! $this->is_active( $type, $key, $ext )
+	//		&& ! $this->is_persistant( $type, $key, $ext, $tab )
+			&& ! $this->show_purchase_button( $type, $key, $ext, $tab )
+		) {
+
+		if ( VPLUS && isset( $ext['plus_product'] ) )
+			return true;
+		if ( isset( $ext['loadme'] ) && $ext['loadme'] )
+			return true;
+		if ( isset( $ext['price'] ) && ( $ext['price'] == 'free' || ! $ext['price'] ) )
+			return true;
+		if ( isset( $ext['purchased']) && 'purchased' == $ext['purchased'] )
+			return true;
+		}
+		return false;
+	}
+
 		if ( $type == 'integration' && VDEV && is_integration_active($key) == false )
 			return true;
 
-		if( !$this->in_the_store( $type, $key, $ext, $tab )
+		if( ! $this->in_the_store( $type, $key, $ext, $tab )
 			&& $this->is_installed( $type, $key, $ext, $tab )
 			&& ! $this->is_active( $type, $key, $ext )
 			&& ! $this->is_persistant( $type, $key, $ext, $tab )
@@ -736,7 +784,7 @@
 			return false;
 	}
 	
-
+	
 	/**
 	*
 	* @TODO document
@@ -1025,7 +1073,12 @@
 	 *
 	 */
 	 function paypal_link( $type, $key, $ext, $tab ){
-		return ( isset( $ext['productid'] ) ) ? sprintf( '%s,%s|%s|%s', $ext['productid'], $ext['uid'], $ext['price'], $ext['name'] ) : '';		
+		if( isset( $ext['pid'] ) )
+			$p = $ext['pid'];
+		elseif( isset( $ext['productid'] ) )
+			$p = $ext['productid'];
+
+		return ( isset( $p ) && isset( $ext['uid'] ) ) ? sprintf( '%s,%s|%s|%s', $p, $ext['uid'], $ext['price'], $ext['name'] ) : '';		
 	}
 
 

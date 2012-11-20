@@ -3,7 +3,8 @@
 // -----------
 // Image Frame
 // -----------
-.pl-imageframe img, img.pl-imageframe {
+.pl-imageframe img, 
+img.pl-imageframe {
 	padding: 4px;
 	background: @baseLighter;
 	border: 1px solid @baseLighterMore;
@@ -21,19 +22,21 @@
 // Useful classes for specifying zero margin on top, or bottom of headings and paragraph elements
 // -----------
 
-[class*="zmt"] {
+.zmt {
 	margin-top:0 !important; // We have to declare importance becuase we're overriding the 20px margin-top with a wildcard class
 }
 
-[class*="zmb"] {
+.zmb {
 	margin-bottom:0 !important; // We have to declare importance becuase we're overriding the 20px margin-bottom with a wildcard class
 }
 
-[class*="zb"] {
+.zb {
   border:none !important; // We have to declare importance 
 }
 
-
+.tac {
+  text-align:center !important; // We have to declare importance 
+}
 
 // -----------
 // Visibility Utility Class
@@ -50,29 +53,6 @@
 
 
 // -----------
-// CLOSE ICONS
-// -----------
-.close {
-  float: right;
-  font-size: 20px;
-  font-family: @baseFontFamily;
-  font-weight: bold;
-  line-height: @baseLineHeight;
-  color: @black;
-  text-shadow: 0 1px 0 rgba(255,255,255,1);
-  .opacity(20);
-  &:hover {
-    color: @black;
-    text-decoration: none;
-    .opacity(40);
-    cursor: pointer;
-  }
-}
-
-.hentry .close:hover {text-decoration:none;}
-
-
-// -----------
 // Code typography styles for the <code> and <pre> elements
 // -----------
 
@@ -82,25 +62,26 @@ pre {
   padding: 0 3px 2px;
   #font > #family > .monospace;
   font-size: @baseFontSize - 1;
-  color: @grayDark;
+  color: @textColorAlt;
   .border-radius(3px);
 }
 
 // Inline code
 code {
   padding: 2px 4px;
-  color: #d14;
 }
 
-code, .prettyprint{
-	background-color: #f7f7f9;
-	border: 1px solid #e1e1e8;
+code, 
+.prettyprint{
+	background-color: @baseContrastSlight;
+	border: 1px solid @baseContrastDarkMore;
 }
 
-	.prettyprint.linenums {
-	  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-	     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-	          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+	
+	.prettify-on .prettyprint.linenums {
+	  -webkit-box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
+	     -moz-box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
+	          box-shadow: inset 40px 0 0 @dark-base, inset 41px 0 0 @baseContrastDarkMore;
 	}
 	
 	ol.linenums li{
@@ -145,9 +126,15 @@ pre {
 
 /* 11. Responsive Vids */
 .pl-video {
+	&.youtube {
+	padding-top: 30px;
+	}
+	&.vimeo {
+	padding-top: 10px;
+	}
   position: relative;
   padding-bottom: 56.25%;
-  padding-top: 30px;
+  
   height: 0;
   overflow: hidden;
 
@@ -155,7 +142,36 @@ pre {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
   }
+}
+
+.fix {
+.clearfix;
+}
+
+
+// -----------
+// Image Styles
+// styled images added from Bootstrap
+// PageLines 2.3
+// BA
+// -----------
+
+// Rounded corners
+.img-rounded {
+  .border-radius(6px);
+}
+
+// Add polaroid-esque trim
+.img-polaroid {
+  padding: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  .box-shadow(0 1px 3px rgba(0,0,0,.1));
+}
+
+// Perfect circle
+.img-circle {
+  .border-radius(500px); // crank the border-radius so it works with most reasonably sized images
 }

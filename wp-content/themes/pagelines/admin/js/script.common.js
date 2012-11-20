@@ -46,6 +46,17 @@ jQuery(document).ready(function(){
 	jQuery('#message.slideup_message').delay(5000).slideUp('fast');
 	
 	
+	/**
+	 * Textarea CODE
+	 */
+
+	if(jQuery("#pagelines-settings-two_customcss").length){
+		var editor = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_customcss").get(0), cm_customcss);
+	}
+
+	if(jQuery("#pagelines-settings-two_headerscripts").length){
+		var editor2 = CodeMirror.fromTextArea(jQuery("#pagelines-settings-two_headerscripts").get(0), cm_headers);
+	}
 	
 	
 	jQuery('.graphic_selector .graphic_select_border').click(function(){
@@ -100,8 +111,10 @@ jQuery(document).ready(function(){
 				else{
 
 					var previewSize = clickedObject.parent().find('.image_preview_size').attr('value');
-
-					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview" id="image_'+clickedID+'" src="'+response+'" alt="" />';
+					
+					var preSelector = 'pre_' + clickedObject.parent().find('.uploaded_url').attr('id');
+					
+					var buildReturn = '<img style="max-width:'+previewSize+'px;" class="pagelines_image_preview '+preSelector+'" id="image_'+clickedID+'" src="'+response+'" alt="" />';
 
 					clickedObject.parent().find('.uploaded_url').val(response);
 
@@ -172,7 +185,6 @@ function TemplateSetupDoneSaving( text ){
 	jQuery('.selected_builder .confirm_save').removeClass('ajax-saving');
 	jQuery('.selected_builder .confirm_save_pad').text( text ).show().delay(1500).fadeOut(700);
 }
-
 
 /**
  * Typography

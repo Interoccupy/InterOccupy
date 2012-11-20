@@ -12,19 +12,29 @@
  * @ Lists
  **********************************************************************/
 
-	/* @ Inline List - Horizontal non-floated navigation/menu  */
-	ul.inline-list { list-style-type: none; }
-	ul.inline-list li { display: inline ; padding: 0px 3px; }
-
-	/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
-	ul.tabbed-list {
-		list-style-type: none; 
-		margin:0;
-		width: 100%; /* clear IE 7 */
+/* @ Inline List - Horizontal non-floated navigation/menu  */
+ul.inline-list { 
+	list-style-type: none; 
+	li { 
+		display: inline ; 
+		padding: 0px 3px; 
 	}
-	ul.tabbed-list li, ul.tabbed-list lh {margin: 0; padding: 0; float: left;}
-	ul.tabbed-list li a, ul.tabbed-list lh a{display: block; }
+}
 
+/* @ Tabbed List - Horizontal floated list, tab and navigation effects */
+ul.tabbed-list {
+	list-style-type: none; 
+	margin:0;
+	width: 100%; /* clear IE 7 */
+	li, lh{
+		margin: 0; 
+		padding: 0; 
+		float: left;
+		a{
+			display: block;
+		}
+	}
+}
 /* 
  * @ Media / Image Format
  **********************************************************************/
@@ -51,6 +61,7 @@
 			float:right; 
 			margin-left: 15px;
 		}
+		
 		img{
 			display: inline-block;  
 			vertical-align: bottom;
@@ -59,17 +70,29 @@
 			width: auto\9;
 			
 		}
+		.thumbnail{
+			display: inline-block;
+			padding: 3px;
+			border: 1px solid @baseContrast;
+			.border-radius(4px);
+			.box-shadow(0 1px 3px rgba(0,0,0,.055));
+			.transition(all .2s ease-in-out);
+			
+			&[href]:hover{
+					border-color: @linkColor;
+					.box-shadow(0 1px 4px rgba(0,105,214,.25));
+			}
+		}
 	}
+	
 }
-
-
-
 
 /*
  *  @ Vignettes
  ***********************************/
 	.pl-vignette {
-	  position: relative;
+	  	position: relative;
+		display: inline-block;
 		&:after{
 			box-shadow: inset 0 0 8px rgba(0,0,0,.2);
 			position: absolute;
@@ -317,7 +340,68 @@ body #page .blink-wrap	.blink{
 }
 
 /* Misc */
-#supersized-loader { position:absolute; top:50%; left:50%; z-index:10; width:60px; height:60px; margin:-30px 0 0 -30px; text-indent:-999em; background-color:#111; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+#supersized-loader { position:absolute; top:50%; left:50%; z-index:10; width:60px; height:60px; margin:-30px 0 0 -30px; text-indent:-999em; background-color:#111; .border-radius(5px); }
 
-#supersized { position:fixed; left:0; top:0; overflow:hidden; z-index:-999; height:100%; width:100%; }
-#supersized img{ height:auto; width:auto; position:relative; outline:none; border:none; -ms-interpolation-mode:bicubic; image-rendering: optimizeQuality; }
+#supersized { 
+	position:fixed; 
+	left:0; 
+	top:0; 
+	overflow:hidden; 
+	z-index:-999; 
+	height:100%; 
+	width:100%;
+	background-size: cover;
+	img{ 
+		height:auto; 
+		width:auto; 
+		position:relative; 
+		outline:none; 
+		border:none; 
+		-ms-interpolation-mode:bicubic;
+		image-rendering: optimizeQuality; 
+	}
+}
+
+/* Spinner */
+.spinner{
+	
+	position: absolute;
+	width: 54px;
+	height: 54px;
+	top: 50%; 
+	left: 50%;
+	margin-left: -27px; 
+	margin-top: -27px;
+	display: inline-block;
+
+	div {
+	  width: 12%;
+	  height: 26%;
+	  background: darken(@pl-base, 5 * @invert-dark);
+	  position: absolute;
+	  left: 44.5%;
+	  top: 37%;
+	  opacity: 0;
+	  -webkit-animation: fade 1s linear infinite;
+	  -webkit-border-radius: 50px;
+	}
+
+	.bar1 {-webkit-transform:rotate(0deg) translate(0, -142%); -webkit-animation-delay: 0s;}    
+	.bar2 {-webkit-transform:rotate(30deg) translate(0, -142%); -webkit-animation-delay: -0.9167s;}
+	.bar3 {-webkit-transform:rotate(60deg) translate(0, -142%); -webkit-animation-delay: -0.833s;}
+	.bar4 {-webkit-transform:rotate(90deg) translate(0, -142%); -webkit-animation-delay: -0.75s;}
+	.bar5 {-webkit-transform:rotate(120deg) translate(0, -142%); -webkit-animation-delay: -0.667s;}
+	.bar6 {-webkit-transform:rotate(150deg) translate(0, -142%); -webkit-animation-delay: -0.5833s;}
+	.bar7 {-webkit-transform:rotate(180deg) translate(0, -142%); -webkit-animation-delay: -0.5s;}
+	.bar8 {-webkit-transform:rotate(210deg) translate(0, -142%); -webkit-animation-delay: -0.41667s;}
+	.bar9 {-webkit-transform:rotate(240deg) translate(0, -142%); -webkit-animation-delay: -0.333s;}
+	.bar10 {-webkit-transform:rotate(270deg) translate(0, -142%); -webkit-animation-delay: -0.25s;}
+	.bar11 {-webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;}
+	.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;}
+	
+} 
+
+ @-webkit-keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0.25;}
+}

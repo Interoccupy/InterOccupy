@@ -25,7 +25,7 @@ class InteroccHubDash extends PageLinesSection {
 		$tabs .= '[pl_tabtitlesection type="tabs"]';
 		$tabs .= '[pl_tabtitle active="yes" number="1"]Info[/pl_tabtitle]';
 		$tabs .= '[pl_tabtitle number="2"]Updates[/pl_tabtitle]';
-		$tabs .= '[pl_tabtitle number="3"]Minutes[/pl_tabtitle]';
+		if (( of_get_option('minutes-tab')) == 0 ) $tabs .= '[pl_tabtitle number="3"]Minutes[/pl_tabtitle]';
 		if (is_user_logged_in()) { $tabs .= '[pl_tabtitle number="5"]Bulletin[/pl_tabtitle]'; }
 		if ( of_get_option ( 'hub-wiki' ) ) $tabs .= '[pl_tabtitle number="4"]Wiki[/pl_tabtitle]';
 		if (( of_get_option('social-tab')) == 1 ) $tabs .= '[pl_tabtitle number="6"]Social[/pl_tabtitle]';
@@ -43,13 +43,14 @@ class InteroccHubDash extends PageLinesSection {
 		$tabs .= '[pl_tabcontent number="2"]';
 		$tabs .= render_view(array("id"=>"14"));
 		$tabs .= '[/pl_tabcontent]';
-		$tabs .= '[pl_tabcontent number="3"]';
-		$tabs .= render_view(array("id"=>"13"));
-		$tabs .= '[/pl_tabcontent]';
-		
+		if (( of_get_option('minutes-tab')) == 0 ) {
+			$tabs .= '[pl_tabcontent number="3"]';
+			$tabs .= render_view(array("id"=>"13"));
+			$tabs .= '[/pl_tabcontent]';
+		}			
 		if (is_user_logged_in()) { 
 			$tabs .= '[pl_tabcontent number="5"]';
-			$tabs .= render_view(array("id"=>"183"));
+			$tabs .= render_view(array("id"=>"416"));
 			$tabs .= '[/pl_tabcontent]';
 		}
 		

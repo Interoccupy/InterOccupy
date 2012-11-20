@@ -12,7 +12,7 @@
 .gradient-blue { 
 	#gradient > .vertical(@lightblue,@blue);
 }
-.btn-info {  .gradient-blue; font-family: 'LeagueGothicRegular'; text-transform: uppercase; font-size:1.2em; padding-right:6px;}
+.btn-info {  .gradient-blue; font-family: 'LeagueGothicRegular'; text-transform: uppercase; font-weight: bold; font-size:1.2em; padding-right:6px;}
 .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] { background-color:@blue; }
 .offsite { display:inline-block; background:url('@{plChildRoot}/images/icon-offsite.png') no-repeat top right; width:14px; height:12px;   }
 h2.hubhead { display:inline-block !important; margin-right:20px; }
@@ -27,10 +27,33 @@ body .ui-widget { font-family: @plBaseFont; }
 body .tab-content p { padding-left:0; }
 body .ui-accordion .ui-accordion-content { padding-top:0;  }
 .ui-widget-content a { color:@blue !important; border-bottom:1px solid rgba(255,205,69,0.74);  }
-
+.ui-accordion { clear:both; }
 body .btn-success { background-color:@yellow1; background-image:none; color:@black; font-family: LeagueGothicRegular !important; text-transform: uppercase; font-size:22px; text-shadow:1px 1px 0 white; }
 body .btn-large { padding:4px 14px 2px; }
 blockquote { margin:0 50px 20 20px; font-style: italic; color:#333; }
 body .ui-accordion .ui-accordion-header a { font-size:1.2em !important; padding-left:1.2em !important; font-family: @plHeaderFont !important; text-transform: none;  }
 #social input#submit { height:auto !important; }
+.widget .widget-title { margin-bottom:0; }
 
+.action { text-align: right; font-family: 'LeagueGothicRegular'; text-transform: uppercase; font-size:1.2em; float:right; margin-top:-48px; }
+.action img { vertical-align: middle; margin-left:10px; }
+.form-allowed-tags { display:none; }
+.wp-comments, .wp-comments-pad, .commentlist p, .commentlist .comment-meta, #content .content-pad { margin-top:0; padding-top:0; }
+#respond, .wp-comments-pad, .gform_wrapper .top_label .gfield_label { margin-bottom: 0 !important; }
+#respond form { margin-top:0; }
+.comment-form-comment label { display:none; }
+#reply-title, #comments-title { font-size:1.2em; }
+#respond h3 { margin-right:10px; float:left; }
+#dashboard h2 { font-size:1.5em; margin-bottom:-4px !important; }
+#dashboard p { font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; font-size:13px; }
+body .ui-accordion .ui-accordion-header a { font-family: 'LeagueGothicRegular' !important; text-transform: uppercase; }
+.commentlist { margin-top:0; }
+#respond { margin-top:0; }
+#commentform textarea { height:40px !important; font-size:11px; }
+#comments { background:#edeff4; padding:10px; margin-bottom:20px; border-bottom:1px solid #edeff4; }
+.modal-body { height:400px; }
+.modal-header { display:none; }
+.gform_wrapper .description_above .gfield_description { padding-bottom: 0 !important; text-transform: none; font-size:11px; margin-bottom: 0;}
+.modal-body input { background:#F2F2F2; text-transform: none; font-family:'lucida grande',tahoma,verdana,arial,sans-serif !important; font-size:16px !important; padding:3px 4px 3px 4px !important; color:#333 !important; }
+.gform_wrapper span.gform_description { font-family:'lucida grande',tahoma,verdana,arial,sans-serif !important; text-transform: none; font-size:13px; }
+.featured-image { float:left; margin-right:14px; }

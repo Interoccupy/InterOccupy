@@ -20,6 +20,19 @@ class PLNavBar extends PageLinesSection {
 
 	var $default_limit = 2;
 
+	function section_head() {
+		?>
+			<!--[if IE 8]>
+				<style>
+					.nav-collapse.collapse {
+						height: auto;
+						overflow: visible;
+					}
+				</style>
+			<![endif]-->		
+		<?php
+	}
+
 	function section_persistent(){
 	
 		
@@ -252,7 +265,7 @@ class PLNavBar extends PageLinesSection {
 							'menu'				=> $menu,
 							'container'			=> null, 
 							'container_class'	=> '', 
-							'depth'				=> 2, 
+							'depth'				=> 3, 
 							'fallback_cb'		=> ''
 						) 
 					);

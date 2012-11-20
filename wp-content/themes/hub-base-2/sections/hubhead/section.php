@@ -28,7 +28,18 @@ class InteroccHubHead extends PageLinesSection {
 		$call_title = of_get_option ( 'hub-title' );
 		$call_sub = of_get_option ( 'short-desc' );
 		$call_img = of_get_option ( 'hub-image' );
-		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines');
+		$call_action_text = (ploption('pagelines_callout_action_text', $this->oset)) ? ploption('pagelines_callout_action_text', $this->oset) : __('Start Here', 'pagelines'); ?>
+		
+		<?php $offsitelinks = '[pl_buttongroup]'; ?>
+		<?php if ( of_get_option ( 'hub-website' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-website' ) . '" class="btn btn-info" target="_blank">Website<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'hub-facebook' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-facebook' ) . '" class="btn btn-info" target="_blank">Facebook Page<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'hub-facebook-group' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-facebook-group' ) . '" class="btn btn-info" target="_blank">Facebook Group<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'hub-twitter' ) ) $offsitelinks .= '<a href="http://www.twitter.com/' . of_get_option ( 'hub-twitter' ) . '" class="btn btn-info" target="_blank">Twitter<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'hub-forum' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-forum' ) . '" class="btn btn-info">Discuss</a>'; ?>
+		<?php if ( of_get_option ( 'hub-classifieds' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-classifieds' ) . '" class="btn btn-info" target="_blank">Help Wanted!<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'contact-email' ) ) $offsitelinks .= '<a href="mailto:' . of_get_option ( 'contact-email' ) . '" class="btn btn-info">Email<span class="offsite"></span></a>'; ?>
+		<?php if ( of_get_option ( 'hub-list' ) ) $offsitelinks .= '<a href="' . of_get_option ( 'hub-list' ) . '" class="btn btn-info">Mailing List</a>'; ?>
+		<?php $offsitelinks .= '[/pl_buttongroup]'; 
 
 		$styling_class = 'with-callsub';
 		
@@ -57,17 +68,12 @@ class InteroccHubHead extends PageLinesSection {
 	</div>
 	<div class="callout_text bd">
 		<div class="callout_text-pad">
-			<a href="<?php echo $hubhome; ?>"><?php $this->draw_text($call_title, $call_sub, $call_img); ?></a>
-		<div class="connect">
-		<?php if ( of_get_option ( 'hub-website' ) ) echo '<a href="' . of_get_option ( 'hub-website' ) . '" class="button" target="_blank">website</a>'; ?>
-		<?php if ( of_get_option ( 'hub-facebook' ) ) echo '<a href="' . of_get_option ( 'hub-facebook' ) . '" class="button" target="_blank">facebook page</a>'; ?>
-		<?php if ( of_get_option ( 'hub-facebook-group' ) ) echo '<a href="' . of_get_option ( 'hub-facebook-group' ) . '" class="button" target="_blank">facebook group</a>'; ?>
-		<?php if ( of_get_option ( 'hub-twitter' ) ) echo '<a href="http://www.twitter.com/' . of_get_option ( 'hub-twitter' ) . '" class="button" target="_blank">twitter</a>'; ?>
-		<?php if ( of_get_option ( 'hub-forum' ) ) echo '<a href="' . of_get_option ( 'hub-forum' ) . '" class="button">discuss</a>'; ?>
-		<?php if ( of_get_option ( 'hub-classifieds' ) ) echo '<a href="' . of_get_option ( 'hub-classifieds' ) . '" class="button" target="_blank">help wanted!</a>'; ?>
-		<?php if ( of_get_option ( 'contact-email' ) ) echo '<a href="mailto:' . of_get_option ( 'contact-email' ) . '" class="button">Email</a>'; ?>
-		<?php if ( of_get_option ( 'hub-list' ) ) echo '<a href="' . of_get_option ( 'hub-list' ) . '" class="button">Mailing List</a>'; ?>
-		</div>
+			<h2 class="callout_head hubhead"><a href="<?php echo $hubhome; ?>"><?php echo $call_title; ?></a></h2>
+			<div class="connect">
+				<?php echo do_shortcode($offsitelinks); ?>
+			</div>
+			<p class="callout_sub subhead"><?php echo $call_sub; ?></p>
+		
 		</div>
 	</div>
 </div>

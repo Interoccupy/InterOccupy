@@ -19,7 +19,7 @@ class PageLinesOptionsUI {
 	function __construct( $args = array() ) {
 		
 		$defaults = array(
-				'title'			=> sprintf( '%s %s', ( is_child_theme() ) ? NICECHILDTHEMENAME : '', __( 'Global Settings', 'pagelines') ),
+				'title'			=> sprintf( '%s %s', ( is_child_theme() ) ? PL_NICECHILDTHEMENAME : '', __( 'Global Settings', 'pagelines') ),
 				'callback'		=> null,
 				'settings'		=> PAGELINES_SETTINGS, 
 				'sanitize'		=> '',
@@ -350,9 +350,37 @@ class PageLinesOptionsUI {
 	 */
 	function get_tab_setup(){ ?>
 		<script type="text/javascript">
-				jQuery(document).ready(function() {						
-					var myTabs = jQuery("#tabs").tabs({ cookie: { name: "<?php echo $this->set['settings'];?>-tabs" }, fx: { opacity: "toggle", duration: 100 }});
-				});
+				jQuery(document).ready(function() {		
+							
+					var myTabs = jQuery("#tabs").tabs({ 
+						cookie: { 
+							name: "<?php echo $this->set['settings'];?>-tabs" 
+						} 
+						, fx: { 
+							opacity: "toggle", 
+							duration: 100 
+						}
+					})
+					
+					
+				// var tabsID = "<?php echo $this->set['settings'];?>-tabs"
+				// 			, 	tabSelected = jQuery.cookie(tabsID)
+				// 				
+				// 			console.log(tabSelected)
+				// 				jQuery("#tabs").tabs({ 
+				// 						selected: tabSelected -2
+				// 						, fx: { 
+				// 							opacity: "toggle", 
+				// 							duration: 100 
+				// 						}
+				// 						, show: function(event, ui) {
+				// 							jQuery.cookie(tabsID, ui.index)
+				// 						
+				// 						}
+				// 					}
+				// 				);
+				
+				})
 		</script>
 	<?php }
 	
@@ -369,7 +397,6 @@ class PageLinesOptionsUI {
 		$usections = $pl_section_factory->unavailable_sections;
 		
 		?>
-	
 		<div id="vpro_billboard" class="vpro-billboard">
 			<div class="vpro-billboard-pad">
 				<div class="vpro_billboard_height fix">

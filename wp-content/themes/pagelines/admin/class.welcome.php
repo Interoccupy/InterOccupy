@@ -66,7 +66,7 @@ class PageLinesWelcome {
 			<div class="admin_billboard_pad fix">
 					<h3 class="admin_header_main"><?php _e( 'Video - Build A Site in 10 Minutes', 'pagelines' ); ?></h3>
 					<div class='admin_billboard_text'>
-						<?php _e( 'In this video <a href="http://bearded-avenger.com/">Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines', 'pagelines' ); ?>
+						<?php _e( 'In this video <a href="http://nickhaskins.com/">Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines', 'pagelines' ); ?>
 					</div>
 			</div>
 		</div>
@@ -120,7 +120,7 @@ class PageLinesWelcome {
      *
      * Used to produce the content at the top of the theme Welcome page.
      *
-     * @uses        CHILD_URL (constant)
+     * @uses        PL_CHILD_URL (constant)
      * @internal    uses 'pagelines_welcome_billboard' filter
      *
      * @return      mixed|void

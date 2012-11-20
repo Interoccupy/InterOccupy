@@ -188,6 +188,13 @@ function optionsframework_options() {
 		'type' => 'text');
 
 	$options[] = array(
+		'name' => __('Remove Minutes Tab?', 'options_check'),
+		'desc' => __('Check to remove the minutes tab', 'options_check'),
+		'id' => 'minutes-tab',
+		'std' => '0',
+		'type' => 'checkbox');
+
+	$options[] = array(
 		'name' => __('Social Tab?', 'options_check'),
 		'desc' => __('Works best with Facebook Page (rather than group) and twitter handle.', 'options_check'),
 		'id' => 'social-tab',

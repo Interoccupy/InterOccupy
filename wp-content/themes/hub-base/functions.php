@@ -1,6 +1,7 @@
 <?php
 // Setup  -- Probably want to keep this stuff... 
-
+require_once dirname(__FILE__) . '/embedded-types/types.php';
+require_once dirname(__FILE__) . '/embedded-views/views.php';
 /**
  * Hello and welcome to Base! First, lets load the PageLines core so we have access to the functions 
  */	

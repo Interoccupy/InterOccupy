@@ -86,8 +86,15 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		$wrap_class = '.'.$clone_class."_wrap";
 		
-?><script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready(function () {
+?>
+
+<script type="text/javascript">
+/* <![CDATA[ */ jQuery(document).ready(function () {
 	
+	jQuery('#feature-area').css('overflow', 'hidden');
+	
+	
+		
 <?php if( ! ploption( 'feature_height_mode', $oset ) || ploption( 'feature_height_mode', $oset ) == 'aspect' ) :
 		
 		printf( '$aspect%s = %s;', $clone_id,(ploption( 'feature_aspect', $oset ) ) ? ploption( 'feature_aspect', $oset ) : 2.5 );
@@ -96,11 +103,14 @@ class PageLinesFeatures extends PageLinesSection {
 		
 		printf( '$height_selectors%s = "%s";', $clone_id, $this->selectors( '', $wrap_class.' ' ) );
 	?>
+	jQuery(window).load(function() {
 	
-	$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
-		
-	$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
-	jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+		$the_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
+	
+		$new_height<?php echo $clone_id;?> = $the_width<?php echo $clone_id;?> / $aspect<?php echo $clone_id;?>;
+		jQuery($height_selectors<?php echo $clone_id;?>).height($new_height<?php echo $clone_id;?>);
+	
+	});
 	
 	jQuery(window).resize(function() {
 		$response_width<?php echo $clone_id;?> = jQuery($width_area<?php echo $clone_id;?>).width();
@@ -111,30 +121,35 @@ class PageLinesFeatures extends PageLinesSection {
 <?php 
 
 	endif;
-	//Feature Cycle Setup
-	printf( "jQuery('%s').cycle({ %s });", $selector, $args );
 	
-	$this->_js_feature_loop( $fmode, $f, $clone_class );
+	?>
+	jQuery(window).load(function() {
+	<?php
+		//Feature Cycle Setup
+		printf( "jQuery('%s').cycle({ %s });", $selector, $args );
+	
+		$this->_js_feature_loop( $fmode, $f, $clone_class );
 
-	if( $playpause ):
-	?>	
+		if( $playpause ):
+		?>	
 	
-		var cSel = '<?php echo $selector;?>';
-		var ppSel = '<?php echo $playpause_selector;?>';
+			var cSel = '<?php echo $selector;?>';
+			var ppSel = '<?php echo $playpause_selector;?>';
 		
-		jQuery(ppSel).click(function() { 
-			if (jQuery(ppSel).hasClass('pause')) {  
-				jQuery(cSel).cycle('pause'); jQuery(ppSel).removeClass('pause').addClass('resume');
-			} else { 
-				jQuery(ppSel).removeClass('resume').addClass('pause'); jQuery(cSel).cycle('resume', true);
-			}
-		});
+			jQuery(ppSel).click(function() { 
+				if (jQuery(ppSel).hasClass('pause')) {  
+					jQuery(cSel).cycle('pause'); jQuery(ppSel).removeClass('pause').addClass('resume');
+				} else { 
+					jQuery(ppSel).removeClass('resume').addClass('pause'); jQuery(cSel).cycle('resume', true);
+				}
+			});
 	<?php endif;?>
 	
-	
+	});	
 });
 
 /* ]]> */ </script>
+
 <?php }
 
 
@@ -154,7 +169,12 @@ class PageLinesFeatures extends PageLinesSection {
 
 	function selectors( $clone_id, $prepend = ''){
 		
-		$base = array( '.fset_height', '#feature_slider .text-bottom .fmedia .dcol-pad', '#feature_slider .text-bottom .feature-pad', '#feature_slider .text-none .fmedia .dcol-pad');
+		$base = array( 
+			'.fset_height', 
+			'#feature_slider .text-bottom .fmedia .fmedia-pad', 
+			'#feature_slider .text-bottom .feature-pad', 
+			'#feature_slider .text-none .fmedia .fmedia-pad'
+		);
 		
 		$selectors = array();
 		
@@ -359,6 +379,8 @@ class PageLinesFeatures extends PageLinesSection {
 						setup_postdata( $post ); 
 
 						$oset = array( 'post_id' => $post->ID );
+						
+						$target = apply_filters( 'pagelines_features_target', '', $post );
 
 						$feature_style = ( ploption( 'feature-style', $oset ) ) ? ploption( 'feature-style', $oset ) : 'text-left';
 						
@@ -417,7 +439,7 @@ class PageLinesFeatures extends PageLinesSection {
 						$feature_wrap_markup = ( $feature_style == 'text-none' && isset( $action ) ) ? 'a' : 'div';
 						$feature_wrap_link = ( $feature_style == 'text-none' && isset( $action ) ) ? sprintf( 'href="%s"', $action ) : '';
 						
-						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a class="plmore" href="%s" >%s</a>', $action, $flink_text ) : '';
+						$more_link = ( $feature_style != 'text-none' && $action ) ? sprintf( ' <a %s class="plmore" href="%s" >%s</a>', $target, $action, $flink_text ) : '';
 						
 						$background_css = ( $feature_background_image ) ? sprintf('style="background-image: url(\'%s\');"', $feature_background_image ) : '';
 
@@ -435,13 +457,13 @@ class PageLinesFeatures extends PageLinesSection {
 							
 								<div class="feature-pad fset_height fix">
 									<div class="fcontent scale_text fset_height <?php echo $fcontent_class;?>">
-										<div class="dcol-pad fix">
+										<div class="fcontent-pad fix">
 												<?php
 												
 													
 													pagelines_register_hook( 'pagelines_feature_text_top', $this->id ); // Hook 
 													
-													$link = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? sprintf( '<a href="%s">%s</a>', $action, $post->post_title ) : $post->post_title;
+													$link = ( $feature_source == 'posts' || $feature_source == 'posts_all' ) ? sprintf( '<a %s href="%s">%s</a>', $target, $action, $post->post_title ) : $post->post_title;
 													
 													$title = sprintf( '<div class="fheading"> <h2 class="ftitle">%s</h2> </div>', $link );
 													
@@ -460,7 +482,7 @@ class PageLinesFeatures extends PageLinesSection {
 									</div>
 						
 									<div class="fmedia fset_height" style="">
-										<div class="dcol-pad">
+										<div class="fmedia-pad">
 											<?php 
 											
 											pagelines_register_hook( 'pagelines_feature_media_top', $this->id ); // Hook 

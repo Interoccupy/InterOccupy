@@ -198,35 +198,59 @@ function pagelines_theme_settings_scripts() {
 	
 	// Add Body Class
 	add_filter( 'admin_body_class', 'pagelines_admin_body_class' );
-	
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js' );
-	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js' ); 
+
+	wp_enqueue_script( 'jquery-ajaxupload', PL_ADMIN_JS . '/jquery.ajaxupload.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'jquery-cookie', PL_ADMIN_JS . '/jquery.ckie.js', array( 'jquery' ), PL_CORE_VERSION ); 
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js' );
+	wp_enqueue_script( 'script-pagelines-settings', PL_ADMIN_JS . '/script.settings.js', array( 'jquery' ), PL_CORE_VERSION );
 
-	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array( 'jquery' ) ); // just has highlight effect
+	wp_enqueue_script( 'jquery-ui-effects', PL_ADMIN_JS . '/jquery.effects.js', array( 'jquery' ), PL_CORE_VERSION ); // just has highlight effect
 	wp_enqueue_script( 'jquery-ui-draggable' );	
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js' );	
+	wp_enqueue_script( 'script-pagelines-common', PL_ADMIN_JS . '/script.common.js', array( 'jquery' ), PL_CORE_VERSION );	
+	
+	// Prettify
+	wp_enqueue_script( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-css', PL_ADMIN_JS . '/codemirror/css/css.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-less', PL_ADMIN_JS . '/codemirror/less/less.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-js', PL_ADMIN_JS . '/codemirror/javascript/javascript.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-xml', PL_ADMIN_JS . '/codemirror/xml/xml.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_script( 'codemirror-html', PL_ADMIN_JS . '/codemirror/htmlmixed/htmlmixed.js', array( 'jquery' ), PL_CORE_VERSION );
+	wp_enqueue_style( 'codemirror', PL_ADMIN_JS . '/codemirror/codemirror.css' );
 	
 	// Color Picker
-	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js' );
+	wp_enqueue_script( 'colorpicker-js', PL_ADMIN_JS . '/colorpicker/js/colorpicker.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'colorpicker', PL_ADMIN_JS . '/colorpicker/css/colorpicker.css' ); 
 
-	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array( 'jquery' ) );
+	wp_enqueue_script( 'jquery-colorbox', PL_ADMIN_JS . '/colorbox/jquery.colorbox-min.js', array( 'jquery' ), PL_CORE_VERSION );
 	wp_enqueue_style( 'colorbox', PL_ADMIN_JS . '/colorbox/colorbox.css' ); 	
 	
 	wp_enqueue_script( 'thickbox' );	
 	wp_enqueue_style( 'thickbox' ); 
 	
-	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js' );
+	wp_enqueue_script( 'jquery-layout', PL_ADMIN_JS . '/jquery.layout.js', array( 'jquery' ), PL_CORE_VERSION );
 	
 	// PageLines CSS objects
 	pagelines_load_css_relative( 'css/objects.css', 'pagelines-objects' );
 	
+	$custom_css = array(
+
+			'lineNumbers'	=>	true,
+			'mode'	=> 'text/x-less',
+			'lineWrapping'	=> true,	
+	);
+	
+	$headers = array(
+
+			'lineNumbers'	=>	true,
+			'mode'	=> 'text/html',
+			'lineWrapping'	=> true,
+	);	
+	
+	wp_localize_script( 'script-pagelines-common', 'cm_customcss', apply_filters( 'pagelines_customcss_cm_options', $custom_css ) );
+	wp_localize_script( 'script-pagelines-common', 'cm_headers', apply_filters( 'pagelines_headerscripts_cm_options', $headers ) );
 }
 
 add_action( 'admin_head', 'load_head' );
@@ -237,12 +261,9 @@ add_action( 'admin_head', 'load_head' );
  *
  */
 function load_head(){
-
-	// CSS Objects
-	printf( '<link rel="stylesheet" href="%s/objects.css?ver=%s" type="text/css" media="screen" />', PL_CSS, CORE_VERSION );
 	
 	// Admin CSS
-	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, CORE_VERSION );
+	printf( '<link rel="stylesheet" href="%s/admin.css?ver=%s" type="text/css" media="screen" />', PL_ADMIN_CSS, PL_CORE_VERSION );
 	
 	
 	
@@ -348,11 +369,11 @@ function pagelines_admin_confirms(){
 	$confirms = array();
 	
 	if( isset( $_GET['settings-updated'] ) )
-		$confirms[]['text'] = sprintf( __( "%s Settings Saved. &nbsp;<a class='sh_preview' href='%s/' target='_blank'>View Your Site &rarr;</a>", 'pagelines' ), NICECHILDTHEMENAME, home_url() );
+		$confirms[]['text'] = sprintf( __( "%s Settings Saved. &nbsp;<a class='sh_preview' href='%s/' target='_blank'>View Your Site &rarr;</a>", 'pagelines' ), PL_NICECHILDTHEMENAME, home_url() );
 	if( isset($_GET['pageaction']) ){
 	
 		if( $_GET['pageaction']=='activated' && !isset($_GET['settings-updated']) ){
-			$confirms['activated']['text'] = sprintf( __( 'Congratulations! %s Has Been Successfully Activated.', 'pagelines' ), NICECHILDTHEMENAME );
+			$confirms['activated']['text'] = sprintf( __( 'Congratulations! %s Has Been Successfully Activated.', 'pagelines' ), PL_NICECHILDTHEMENAME );
 			$confirms['activated']['class'] = 'activated';
 		}
 	
@@ -441,7 +462,7 @@ function pagelines_admin_confirms(){
 function pagelines_draw_confirms(){ 
 	
 	$confirms = pagelines_admin_confirms();
-	$save_text = sprintf( '%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank">View Your Site &rarr;</a>', NICECHILDTHEMENAME, home_url());
+	$save_text = sprintf( '%s Settings Saved. &nbsp;<a class="btag" href="%s/" target="_blank">View Your Site &rarr;</a>', PL_NICECHILDTHEMENAME, home_url());
 	printf( '<div id="message" class="confirmation slideup_message fade c_ajax"><div class="confirmation-pad c_response">%s</div></div>', $save_text);
 
 	if( !empty( $confirms ) ){
@@ -523,4 +544,84 @@ function pagelines_error_messages(){
 	
 <?php 	endforeach;	
 	endif;
+}
+
+$custom_attach = new PLImageUploader();
+
+class PLImageUploader{
+	function __construct() {
+		if ( isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'pl-custom-attach' ) {
+			
+			$this->option_id = (isset( $_REQUEST['oid'] )) ? $_REQUEST['oid'] : '';
+
+			add_filter( 'attachment_fields_to_edit', array( $this, 'attachment_fields_to_edit' ), 15, 2 );
+			add_filter( 'media_upload_tabs', array( $this, 'filter_upload_tabs' ) );
+			add_filter( 'media_upload_mime_type_links', '__return_empty_array' );
+			add_action( 'media_upload_library' , array( $this, 'the_js' ), 15 );
+		}
+	}
+
+	
+	function the_js(){
+		?>
+		
+		<script type="text/javascript">
+		jQuery(document).ready(function(){ 
+			jQuery('.pl-frame-button').on('click', function(){
+				
+				var optID = '#'+jQuery(this).data('selector')
+				var previewSel = '.pre_'+jQuery(this).data('selector')
+				var imgURL = jQuery(this).data('imgurl')
+				
+				jQuery(optID, top.document).val(imgURL)
+				jQuery(previewSel, top.document).attr('src', imgURL)
+				parent.eval('tb_remove()')
+			});
+		}); 
+		</script>
+		</script>
+		
+		<?php
+	}
+	
+	/**
+	 * Replace default attachment actions with "Set as header" link.
+	 *
+	 * @since 3.4.0
+	 */
+	function attachment_fields_to_edit( $form_fields, $post ) {
+		
+		$form_fields = array();
+		
+		$attach_id = $post->ID;
+		
+		$image_url = wp_get_attachment_url($attach_id);
+		
+		$form_fields['buttons'] = array( 
+			'tr' => sprintf(
+						'<tr class="submit"><td></td>
+							<td>
+							<span class="pl-frame-button  admin-blue button" title="3212" data-selector="%s" data-imgurl="%s">%s</span>
+							</td></tr>',  
+							$this->option_id,
+							$image_url,
+							__( 'Select This Image For Option', 'pagelines' )
+					)	
+		);
+		$form_fields['context'] = array( 
+			'input' => 'hidden', 
+			'value' => 'pl-custom-attach' 
+		);
+
+		return $form_fields;
+	}
+
+	/**
+	 * Leave only "Media Library" tab in the uploader window.
+	 *
+	 * @since 3.4.0
+	 */
+	function filter_upload_tabs() {
+		return array( 'library' => __('Media Library', 'pagelines') );
+	}
 }
