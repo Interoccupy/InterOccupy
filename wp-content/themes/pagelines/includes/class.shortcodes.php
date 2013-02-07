@@ -194,13 +194,16 @@ class PageLines_ShortCodes {
 	    // or with options
 	    // [googlemap width="200" height="200" address="San Francisco, CA 92109"] 
 	function googleMaps( $atts, $content = null ) {
-	       extract( shortcode_atts( array(
-	          "width"       =>  '480',
-	          "height"      =>  '480',
-	          "address"   =>   ''
-	       ), $atts ) );
-	       $src = "http://maps.google.com/maps?f=q&source=s_q&hl=en&q=".$address;
-	       return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
+	
+		 extract( shortcode_atts( array(
+
+		 'width'	=> '480',
+		 'height'	=> '480',
+		 'locale'	=> 'en',
+		 'address'	=> ''
+	 ), $atts ) );
+	 $src = "http://maps.google.com/maps?f=q&source=s_q&hl=".$locale."&q=".$address;
+	 return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'&amp;output=embed"></iframe>';
 	}
 
 	// 5. GOOGLE CHARTS  //////////////////////////////////////////////////
@@ -1323,13 +1326,14 @@ class PageLines_ShortCodes {
 					});
 				</script><?php
  
-		   		printf( '<div id="modal_%6$s" class="modal hide fade" style="display:none;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal">Close</a></div></div><a data-toggle="modal" href="#modal_%6$s" class="%2$s %2$s-%3$s">%5$s</a>',
+		   		printf( '<div id="modal_%6$s" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-header"><a class="close" data-dismiss="modal" aria-hidden="true">×</a><h3>%s</h3></div><div class="modal-body"><p>%4$s</p></div><div class="modal-footer"><a href="#" class="btn btn-%3$s" data-dismiss="modal" aria-hidden="true">%7$s</a></div></div><a data-toggle="modal" role="button" href="#modal_%6$s" class="%2$s %2$s-%3$s">%5$s</a>',
 				$title,
 				$type,
 				$colortype,
 				do_shortcode( $content ),
 				$label,
-				$hash
+				$hash,
+				__( 'Close', 'pagelines' )
 		        );
  
         	return ob_get_clean();

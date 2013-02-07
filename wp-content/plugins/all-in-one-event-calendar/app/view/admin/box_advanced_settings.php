@@ -5,7 +5,6 @@
 <div class="description"><?php _e( 'Optional. Provide a <a href="http://api.jquery.com/category/selectors/" target="_blank">jQuery selector</a> that evaluates to a single DOM element. Replaces any existing markup found within target. If left empty, calendar is shown in normal page content container.', AI1EC_PLUGIN_NAME ) ?></div>
 
 <?php if( $display_event_platform ): ?>
-  <br class="clear" />
   <label for="event_platform">
     <input class="checkbox" name="event_platform" id="event_platform" type="checkbox" value="1"
       <?php echo $event_platform; ?>
@@ -16,7 +15,6 @@
     <?php endif; ?>
   </label>
 
-  <br class="clear" />
   <label for="event_platform_strict">
     <input class="checkbox" name="event_platform_strict" id="event_platform_strict" type="checkbox" value="1"
       <?php echo $event_platform_strict; ?> />
@@ -24,5 +22,7 @@
     <div class="description"><?php _e( 'Prevents plugins from adding menu items unrelated to calendar/media/user management', AI1EC_PLUGIN_NAME ); ?></div>
   </label>
 <?php endif; ?>
+
+<div class="clear"></div>
 
 <?php do_action( 'ai1ec_advanced_settings_after' ); ?>

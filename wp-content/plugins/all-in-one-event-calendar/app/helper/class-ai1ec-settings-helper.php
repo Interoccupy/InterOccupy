@@ -10,7 +10,7 @@
  * Ai1ec_Settings_Helper class
  *
  * @package Helpers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Settings_Helper {
 	/**
@@ -136,27 +136,46 @@ class Ai1ec_Settings_Helper {
 	}
 
 	/**
-	 * get_view_dropdown function
+	 * get_view_options function
 	 *
 	 * @return void
 	 **/
-	function get_view_dropdown( $view = null ) {
+	function get_view_options( $view = null ) {
+		global $ai1ec_settings;
+
 		ob_start();
 		?>
-		<select name="default_calendar_view">
-			<option value="oneday" <?php echo $view == 'oneday' ? 'selected' : '' ?>>
-				<?php _e( 'Day', AI1EC_PLUGIN_NAME ) ?>
-			</option>
-			<option value="month" <?php echo $view == 'month' ? 'selected' : '' ?>>
-				<?php _e( 'Month', AI1EC_PLUGIN_NAME ) ?>
-			</option>
-			<option value="week" <?php echo $view == 'week' ? 'selected' : '' ?>>
-				<?php _e( 'Week', AI1EC_PLUGIN_NAME ) ?>
-			</option>
-			<option value="agenda" <?php echo $view == 'agenda' ? 'selected' : '' ?>>
-				<?php _e( 'Agenda', AI1EC_PLUGIN_NAME ) ?>
-			</option>
-		</select>
+		<div>
+			<table>
+				<tbody>
+					<tr class="ai1ec-admin-view-head">
+						<td></td>
+						<td>Enabled</td>
+						<td>Default</td>
+					</tr>
+					<?php foreach ( Ai1ec_Settings::$view_names as $key => $name ) {
+						$this_view_bool = 'view_' . $key . '_enabled';
+						$is_view_enabled = $ai1ec_settings->$this_view_bool;
+						?>
+						<tr>
+							<td>
+								<?php _e( $name ) ?>
+							</td>
+							<td class="ai1ec-control-table-column">
+								<input class="checkbox toggle-view" type="checkbox" name="<?php echo $this_view_bool ?>" value="1"
+									<?php echo $is_view_enabled ? 'checked="checked"' : ''; ?> />
+							</td>
+							<td class="ai1ec-control-table-column">
+								<input class="toggle-default-view" type="radio" name="default_calendar_view" value="<?php echo $key ?>"
+									<?php if ( $ai1ec_settings->default_calendar_view == $key ) : echo 'checked="checked"'; endif; ?>>
+							</td>
+						</tr>
+					<?php } ?>
+
+				</tbody>
+			</table>
+
+		</div>
 		<?php
 		return ob_get_clean();
 	}
@@ -320,6 +339,7 @@ class Ai1ec_Settings_Helper {
       __( 'Calendar', AI1EC_PLUGIN_NAME )
     );
     $week_start_day                 = $this->get_week_dropdown( get_option( 'start_of_week' ) );
+    $posterboard_events_per_page    = $ai1ec_settings->posterboard_events_per_page;
     $agenda_events_per_page         = $ai1ec_settings->agenda_events_per_page;
     $include_events_in_rss          =
       '<input type="checkbox" name="include_events_in_rss"
@@ -336,9 +356,8 @@ class Ai1ec_Settings_Helper {
     $geo_region_biasing             = $ai1ec_settings->geo_region_biasing ? 'checked=checked' : '';
     $input_date_format              = $this->get_date_format_dropdown( $ai1ec_settings->input_date_format );
     $input_24h_time                 = $ai1ec_settings->input_24h_time ? 'checked=checked' : '';
-    $default_calendar_view          = $this->get_view_dropdown( $ai1ec_settings->default_calendar_view );
+    $default_calendar_view          = $this->get_view_options( $ai1ec_settings->default_calendar_view );
     $timezone_control               = $this->get_timezone_dropdown( $ai1ec_settings->timezone );
-    $allow_statistics               = $ai1ec_settings->allow_statistics ? 'checked=checked' : '';
     $disable_autocompletion         = $ai1ec_settings->disable_autocompletion ? 'checked=checked' : '';
     $show_location_in_title         = $ai1ec_settings->show_location_in_title ? 'checked=checked' : '';
     $show_year_in_agenda_dates      = $ai1ec_settings->show_year_in_agenda_dates ? 'checked=checked' : '';
@@ -347,6 +366,7 @@ class Ai1ec_Settings_Helper {
       'calendar_page'                 => $calendar_page,
       'default_calendar_view'         => $default_calendar_view,
       'week_start_day'                => $week_start_day,
+      'posterboard_events_per_page'   => $posterboard_events_per_page,
       'agenda_events_per_page'        => $agenda_events_per_page,
       'exclude_from_search'           => $exclude_from_search,
       'show_publish_button'           => $show_publish_button,
@@ -360,7 +380,6 @@ class Ai1ec_Settings_Helper {
       'show_timezone'                 => ! get_option( 'timezone_string' ),
       'timezone_control'              => $timezone_control,
       'geo_region_biasing'            => $geo_region_biasing,
-      'allow_statistics'              => $allow_statistics,
       'disable_autocompletion'	      => $disable_autocompletion,
       'show_location_in_title'	      => $show_location_in_title,
       'show_year_in_agenda_dates'     => $show_year_in_agenda_dates,
@@ -385,7 +404,7 @@ class Ai1ec_Settings_Helper {
       'calendar_css_selector'   => $ai1ec_settings->calendar_css_selector,
       'event_platform'          => $event_platform,
       'event_platform_disabled' => $event_platform_disabled,
-			'event_platform_strict'   => $event_platform_strict,
+      'event_platform_strict'   => $event_platform_strict,
       'display_event_platform'  => is_super_admin(),
 	  );
 	  $ai1ec_view_helper->display_admin( 'box_advanced_settings.php', $args );
@@ -398,31 +417,23 @@ class Ai1ec_Settings_Helper {
 	 */
 	function feeds_meta_box( $object, $box )
 	{
-		global $ai1ec_view_helper,
-		       $ai1ec_settings_helper,
-		       $ai1ec_settings;
+		global $ai1ec_view_helper;
 
-		$args = array(
-			'cron_freq'          => $ai1ec_settings_helper->get_cron_freq_dropdown( $ai1ec_settings->cron_freq ),
-			'event_categories'   => $ai1ec_settings_helper->get_event_categories_select(),
-			'feed_rows'          => $ai1ec_settings_helper->get_feed_rows()
-		);
-		$ai1ec_view_helper->display_admin( 'box_feeds.php', $args );
+		$ai1ec_view_helper->display_admin( 'box_feeds.php' );
 	}
-
 	/**
-	 * Renders the contents of the Seed Studio Support meta box.
+	 * Renders the contents of the Support meta box.
 	 *
 	 * @return void
 	 */
-	function the_seed_studio_meta_box( $object, $box ) {
+	function support_meta_box( $object, $box ) {
 		global $ai1ec_view_helper;
 		include_once( ABSPATH . WPINC . '/feed.php' );
 		// Initialize new feed
 		$newsItems = array();
 		$feed      = fetch_feed( AI1EC_RSS_FEED );
 		$newsItems = is_wp_error( $feed ) ? array() : $feed->get_items();
-		$ai1ec_view_helper->display_admin( 'box_the_seed_studio.php', array( 'news' => $newsItems ) );
+		$ai1ec_view_helper->display_admin( 'box_support.php', array( 'news' => $newsItems ) );
 	}
 
   /**

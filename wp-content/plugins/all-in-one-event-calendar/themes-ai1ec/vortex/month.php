@@ -50,6 +50,7 @@
 											data-end-truncated="<?php echo $event->end_truncated ? 'true' : 'false'; ?>"
 										<?php endif; ?>
 										class="ai1ec-event-container
+											ai1ec-popup-summary-parent
 											ai1ec-event-id-<?php echo $event->post_id ?>
 											ai1ec-event-instance-id-<?php echo $event->instance_id ?>
 											<?php if ( $event->allday ) echo 'ai1ec-allday' ?>
@@ -58,44 +59,44 @@
 										<?php // Insert post ID for use by JavaScript filtering later ?>
 										<input type="hidden" class="ai1ec-post-id" value="<?php echo $event->post_id ?>" />
 
-										<div class="ai1ec-event-popup">
-											<div class="ai1ec-event-summary">
+										<div class="ai1ec-event <?php if( $event->post_id == $active_event ) echo 'ai1ec-active-event' ?>" style="<?php echo $event->color_style ?>">
+											<span class="ai1ec-event-title"><?php echo esc_html( apply_filters( 'the_title', $event->post->post_title ) ) ?></span>
+											<?php if( ! $event->allday ): ?>
+												<span class="ai1ec-event-time"><?php echo esc_html( $event->short_start_time ) ?></span>
+											<?php endif ?>
+										</div>
+
+										<div class="ai1ec-popup-summary-wrap">
+											<div class="ai1ec-popup-summary">
+
 												<?php if( $event->category_colors ): ?>
 												  <div class="ai1ec-category-colors"><?php echo $event->category_colors ?></div>
 												<?php endif ?>
-												<?php if( $event->post_excerpt ): ?>
-													<strong><?php _e( 'Summary:', AI1EC_PLUGIN_NAME ) ?></strong>
-													<p><?php echo esc_html( $event->post_excerpt ) ?></p>
-												<?php endif ?>
-												<div class="ai1ec-read-more"><?php esc_html_e( 'click anywhere for details', AI1EC_PLUGIN_NAME ) ?></div>
-											</div>
-											<div class="ai1ec-event-popup-bg">
-												<?php if( ! $event->allday ): ?>
-													<span class="ai1ec-event-time"><?php echo esc_html( $event->short_start_time ) ?></span>
-												<?php endif ?>
-												<span class="ai1ec-event-title">
+
+												<span class="ai1ec-popup-title">
 												  <?php if( function_exists( 'mb_strimwidth' ) ) : ?>
 												    <?php echo esc_html( mb_strimwidth( apply_filters( 'the_title', $event->post->post_title ), 0, 35, '...' ) ) ?></span>
 												  <?php else : ?>
 												    <?php $read_more = strlen( apply_filters( 'the_title', $event->post->post_title ) ) > 35 ? '...' : '' ?>
-                            <?php echo esc_html( substr( apply_filters( 'the_title', $event->post->post_title ), 0, 35 ) . $read_more );  ?>
+													<?php echo esc_html( substr( apply_filters( 'the_title', $event->post->post_title ), 0, 35 ) . $read_more );  ?>
 												  <?php endif; ?>
 													<?php if ( $show_location_in_title && isset( $event->venue ) && $event->venue != '' ): ?>
 														<span class="ai1ec-event-location"><?php echo esc_html( sprintf( __( '@ %s', AI1EC_PLUGIN_NAME ), $event->venue ) ); ?></span>
 													<?php endif; ?>
 												</span>
-												<?php if( $event->allday ): ?>
-													<small><?php esc_html_e( '(all-day)', AI1EC_PLUGIN_NAME ) ?></small>
+												<?php if( ! $event->allday ): ?>
+													<div class="ai1ec-event-time"><?php echo esc_html( $event->short_start_time ) ?></div>
 												<?php endif ?>
-											</div>
-										</div><!-- .event-popup -->
+												<?php if( $event->allday ): ?>
+													<div><small><?php esc_html_e( '(all-day)', AI1EC_PLUGIN_NAME ) ?></small></div>
+												<?php endif ?>
 
-										<div class="ai1ec-event <?php if( $event->post_id == $active_event ) echo 'ai1ec-active-event' ?>" style="<?php echo $event->color_style ?>">
-											<?php if( ! $event->allday ): ?>
-												<span class="ai1ec-event-time"><?php echo esc_html( $event->short_start_time ) ?></span>
-											<?php endif ?>
-											<span class="ai1ec-event-title"><?php echo esc_html( apply_filters( 'the_title', $event->post->post_title ) ) ?></span>
-										</div>
+												<?php if( $event->post_excerpt ): ?>
+													<p class="ai1ec-popup-excerpt"><?php echo esc_html( $event->post_excerpt ) ?></p>
+												<?php endif ?>
+
+											</div><!-- .ai1ec-popup-summary -->
+										</div><!-- .ai1ec-popup-summary-wrap -->
 
 									</a>
 								<?php endforeach // events ?>

@@ -10,7 +10,7 @@
  * Ai1ec_Events_Controller class
  *
  * @package Controllers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Events_Controller {
 	/**
@@ -55,7 +55,7 @@ class Ai1ec_Events_Controller {
 	 * @return bool | int
 	 **/
 	function delete_post( $pid ) {
-		global $wpdb;
+		global $wpdb, $ai1ec_importer_plugin_helper;
 
 		$sql = "SELECT
 							ID
@@ -67,6 +67,9 @@ class Ai1ec_Events_Controller {
 
 		// is this post an event?
 		if( $wpdb->get_var( $wpdb->prepare( $sql, $pid ) ) ) {
+			// We need to pass an event object to the importer plugins to clean up.
+			$ai1ec_event = new Ai1ec_Event( $pid );
+			$ai1ec_importer_plugin_helper->handle_post_event( $ai1ec_event, 'delete' );
 			$table_name = $wpdb->prefix . 'ai1ec_events';
 			$sql = "DELETE FROM
 								$table_name
@@ -85,7 +88,6 @@ class Ai1ec_Events_Controller {
 		}
 		return true;
 	}
-
 	/**
 	 * init function
 	 *
@@ -96,71 +98,9 @@ class Ai1ec_Events_Controller {
 	 **/
 	public function init()
 	{
-		global $ai1ec_events_helper, $ai1ec_settings, $wp_locale, $ai1ec_view_helper;
-
+		global $ai1ec_view_helper;
 		// Initialize dashboard view
 		if( is_admin() ) {
-			// ======
-			// = JS =
-			// ======
-			// Include timespan helper functions
-			$ai1ec_view_helper->admin_enqueue_script( 'jquery.calendrical', 'jquery.calendrical.js', array( 'jquery' ) );
-			// Include timespan plugin
-			$ai1ec_view_helper->admin_enqueue_script( 'jquery.timespan', 'jquery.timespan.js', array( 'jquery', 'jquery.calendrical' ) );
-			// Include timespan plugin
-			$ai1ec_view_helper->admin_enqueue_script( 'jquery.inputdate', 'jquery.inputdate.js', array( 'jquery', 'jquery.calendrical' ) );
-			// Include Google Maps API
-			wp_enqueue_script( 'gmap_api', 'http://maps.google.com/maps/api/js?sensor=false&language=' . $ai1ec_events_helper->get_lang() );
-			// Include autocomplete_geomod plugin
-			$ai1ec_view_helper->admin_enqueue_script( 'autocomplete_geomod', 'jquery.autocomplete_geomod.js', array( 'jquery' ) );
-			// Include geo_autocomplete plugin
-			$ai1ec_view_helper->admin_enqueue_script( 'geo_autocomplete', 'geo_autocomplete.js', array( 'jquery', 'autocomplete_geomod' ) );
-			// Include element selector function
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-element-selector', 'element-selector.js', array( 'jquery' ) );
-			// Include custom utils object
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-utils', 'utils.js', array( 'jquery' ) );
-			// Include jQuery Tools form elements
-			$ai1ec_view_helper->admin_enqueue_script( 'jquery.tools', 'jquery.tools.min.js', array( 'jquery' ) );
-			// Include add new event script
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-blockui', 'jquery.blockUI.js', array( 'jquery' ) );
-			// Include date picker plugin
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-datepicker', 'datepicker.js', array( 'jquery' ) );
-
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-add_new_event', 'add_new_event.js', array( 'jquery',
-			                                                                                         'jquery.timespan',
-			                                                                                         'ai1ec-element-selector',
-			                                                                                         'jquery.tools',
-			                                                                                         'ai1ec-blockui',
-			                                                                                         'ai1ec-datepicker' ) );
-
-			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-color-picker', 'colorpicker.js', array( 'jquery' ) );
-
-			// Supply custom value to JavaScript from PHP
-			wp_localize_script( 'ai1ec-add_new_event', 'ai1ec_add_new_event', array(
-				// Current time, used for date/time pickers
-				'now'                          => $ai1ec_events_helper->gmt_to_local( time() ),
-				// Date format for date pickers
-				'date_format'                  => $ai1ec_settings->input_date_format,
-				// Names for months in date picker header (escaping is done in wp_localize_script)
-				'month_names'                  => implode( ',', $wp_locale->month ),
-				// Names for days in date picker header (escaping is done in wp_localize_script)
-				'day_names'                    => implode( ',', $wp_locale->weekday_initial ),
-				// Start the week on this day in the date picker
-				'week_start_day'               => $ai1ec_settings->week_start_day,
-				// 24h time format for time pickers
-				'twentyfour_hour'              => $ai1ec_settings->input_24h_time,
-				// Set region biasing for geo_autocomplete plugin
-				'region'                       => ( $ai1ec_settings->geo_region_biasing ) ? $ai1ec_events_helper->get_region() : '',
-				// ICS feed error messages
-				'duplicate_feed_message'       => esc_html__( 'This feed is already being imported.', AI1EC_PLUGIN_NAME ),
-				'invalid_url_message'          => esc_html__( 'Please enter a valid iCalendar URL.', AI1EC_PLUGIN_NAME ),
-				'disable_autocompletion'       => $ai1ec_settings->disable_autocompletion,
-				'error_message_not_valid_lat'  => __( 'Please enter a valid latitude. A valid latitude is comprised between +90 and -90.', AI1EC_PLUGIN_NAME ),
-				'error_message_not_valid_long' => __( 'Please enter a valid longitude. A valid longitude is comprised between +180 and -180.', AI1EC_PLUGIN_NAME ),
-				'error_message_not_entered_lat'  => __( 'When the "Input coordinates" checkbox is checked, "Latitude" is a required field.', AI1EC_PLUGIN_NAME ),
-				'error_message_not_entered_long' => __( 'When the "Input coordinates" checkbox is checked, "Longitude" is a required field.', AI1EC_PLUGIN_NAME ),
-			) );
-
 			// =======
 			// = CSS =
 			// =======
@@ -172,30 +112,23 @@ class Ai1ec_Events_Controller {
 			$ai1ec_view_helper->admin_enqueue_style( 'ai1ec_add_new_event', 'add_new_event.css' );
 			// include datepicker style
 			$ai1ec_view_helper->admin_enqueue_style( 'ai1ec_datepicker', 'datepicker.css' );
+			// include plugins style
+			$ai1ec_view_helper->admin_enqueue_style( 'ai1ec_plugins_common', 'plugins/plugins-common.css' );
 		}
 		// Initialize front-end view
 		else
 		{
-			// ======
-			// = JS =
-			// ======
-			$ai1ec_view_helper->theme_enqueue_script( 'ai1ec-event', 'event.min.js', array( 'jquery' ) );
-			// Supply custom value to JavaScript from PHP
-			wp_localize_script( 'ai1ec-event', 'ai1ec_event', array(
-				// Language for Google Map
-				'language' => $ai1ec_events_helper->get_lang()
-			) );
-
 			// =======
 			// = CSS =
 			// =======
-			$ai1ec_view_helper->theme_enqueue_style( 'ai1ec-general', 'general.css' );
+			$ai1ec_view_helper->theme_enqueue_style( 'ai1ec-general', 'style.css' );
 			$ai1ec_view_helper->theme_enqueue_style( 'ai1ec-event', 'event.css' );
 			// Load the print style only if the parameter print is set to true.
 			if( isset( $_GET['print'] ) && $_GET['print'] === 'true' ) {
 				$ai1ec_view_helper->theme_enqueue_style( 'ai1ec-print', 'print.css' );
 			}
 		}
+
 	}
 
 	/**
@@ -207,10 +140,11 @@ class Ai1ec_Events_Controller {
 	 **/
 	function meta_box_view() {
 		global $ai1ec_view_helper,
-					 $ai1ec_events_helper,
-					 $post,
-					 $wpdb,
-					 $ai1ec_settings;
+		       $ai1ec_events_helper,
+		       $post,
+		       $wpdb,
+		       $ai1ec_settings,
+		       $ai1ec_importer_plugin_helper;
 
 		// ==================
 		// = Default values =
@@ -286,6 +220,7 @@ class Ai1ec_Events_Controller {
 			$exdate           = empty( $event->exception_dates )  ? '' : $ai1ec_events_helper->exception_dates_to_local( $event->exception_dates );
 			$repeating_event  = empty( $rrule )  ? false : true;
 			$exclude_event    = empty( $exrule ) ? false : true;
+			$facebook_status  = $event->facebook_status;
 
 			if( $repeating_event )
 				$rrule_text = $ai1ec_events_helper->rrule_to_text( $rrule );
@@ -386,7 +321,7 @@ class Ai1ec_Events_Controller {
 	 * @return void
 	 **/
 	function save_post( $post_id, $post ) {
-		global $wpdb, $ai1ec_events_helper;
+		global $wpdb, $ai1ec_events_helper, $ai1ec_importer_plugin_helper;
 
 		// verify this came from the our screen and with proper authorization,
 		// because save_post can be triggered at other times
@@ -475,6 +410,11 @@ class Ai1ec_Events_Controller {
 		$event->show_coordinates    = $show_coordinates;
 		$event->longitude           = trim( $longitude ) !== '' ? (float) $longitude : NULL;
 		$event->latitude            = trim( $latitude ) !== '' ? (float) $latitude : NULL;
+		// if we are not saving a draft, give the event to the plugins
+		if( $post->post_status !== 'draft' ) {
+			$ai1ec_importer_plugin_helper->handle_post_event( $event, 'save' );
+		}
+
 
 		$event->save( ! $is_new );
 
@@ -526,7 +466,6 @@ class Ai1ec_Events_Controller {
 	function event_content( $content )
 	{
 		global $ai1ec_events_helper;
-
 		if( get_post_type() == AI1EC_POST_TYPE ) {
 			$event = $ai1ec_events_helper->get_event( get_the_ID() );
 			$content = $this->get_view( $event, $content );
@@ -606,7 +545,6 @@ class Ai1ec_Events_Controller {
 		} else {
 			$this->multi_view( $event );
 		}
-
 		echo $content;
 
 		if( is_single() )

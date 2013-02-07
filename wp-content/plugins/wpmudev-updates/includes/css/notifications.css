@@ -128,44 +128,9 @@ div.wpmudev-new, div.wpmudev-message, div.wpdv-msg {
   }
   div.wpmudev-new img { float:left; margin-right:20px; }
 
-  div.dev-cta-wrap a.button-primary, div#wpmudev_widget a.button-primary, a#api-add, a#wdv-upgrade, a.wdv-upgrade {
-    font-size:1em;
-    float:left;
-    margin-right:10px;
-    color: rgb(231,238,251);
-    text-decoration:none;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-shadow: 0 -1px 0 #000000;
-    padding:8px 18px;
-    border:none;
-    border-radius:0;
-    background: rgb(7,67,112); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(7,67,112,1) 0%, rgba(5,50,84,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(7,67,112,1)), color-stop(100%,rgba(5,50,84,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%); /* IE10+ */
-    background: linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#074370', endColorstr='#053254',GradientType=0 ); /* IE6-9 */
-  }
-
-  div.dev-cta-wrap a.button-primary:hover, div#wpmudev_widget a.button-primary:hover,  a#api-add:hover, a#wdv-upgrade:hover  {
-    color:#ffffff;
-    cursor:pointer;
-    background: rgb(9,82,135); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(9,82,135,1) 0%, rgba(6,65,107,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(9,82,135,1)), color-stop(100%,rgba(6,65,107,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(9,82,135,1) 0%,rgba(6,65,107,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(9,82,135,1) 0%,rgba(6,65,107,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(9,82,135,1) 0%,rgba(6,65,107,1) 100%); /* IE10+ */
-    background: linear-gradient(top,  rgba(9,82,135,1) 0%,rgba(6,65,107,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#095287', endColorstr='#06416b',GradientType=0 ); /* IE6-9 */
-  }
-
-  a#api-add, a#wdv-upgrade { float:right; margin:0 0 0 5px; }
+  a#api-add, a#wdv-upgrade { float:right; margin:0 0 0 5px; padding: 0 20px; }
 	a#wdv-upgrade { margin-top:2px; }
-	blockquote a#wdv-upgrade { margin-left:0; }
+	blockquote a#wdv-upgrade { margin-left:0; padding: 12px 20px;}
   a#wdv-release-info, div#wpmudev_widget a#wdv-release-info {
   	background:none;
   	color: #3ebae8;
@@ -258,4 +223,63 @@ div#message, div.updated, div.settings-error, div#setting-error-settings_updated
 
 div.dev-widget-content > div.squish { border:none; padding:0; }
 
-/* 18246-1349541355-au */
+/* new button rules */
+.wpmu-button, input.wpmu-button {
+  padding: 12px 20px;
+  background-color: transparent;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  font-weight: bold;
+  font-family: Helvetica Neue, helvetica, sans-serif !important;
+  text-rendering: optimizeLegibility;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -moz-box-shadow: 0 1px 0 #001c33, inset 0 1px 0 #004f8c;
+  -webkit-box-shadow: 0 1px 0 #001c33, inset 0 1px 0 #004f8c;
+  box-shadow: 0 1px 0 #001c33, inset 0 1px 0 #004f8c;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMzg2NiIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwNDg3ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+  background-image: -moz-linear-gradient(bottom, #003866 0%, #00487f 100%);
+  background-image: -o-linear-gradient(bottom, #003866 0%, #00487f 100%);
+  background-image: -webkit-linear-gradient(bottom, #003866 0%, #00487f 100%);
+  background-image: linear-gradient(bottom, #003866 0%, #00487f 100%);
+  color: #e2ecf4;
+  font-size: 14px;
+  text-shadow: 0 -1px 0 #002a4c;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wpmu-button:hover, input.wpmu-button:hover {
+  cursor: pointer;
+  color: #01B1F3;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwM2Y3MiIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwNGY4YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+  background-image: -moz-linear-gradient(bottom, #003f72 0%, #004f8c 100%);
+  background-image: -o-linear-gradient(bottom, #003f72 0%, #004f8c 100%);
+  background-image: -webkit-linear-gradient(bottom, #003f72 0%, #004f8c 100%);
+  background-image: linear-gradient(bottom, #003f72 0%, #004f8c 100%);
+}
+
+.wpmu-button:active, input.wpmu-button:active {
+  outline: none;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iaGF0MCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHgxPSI1MCUiIHkxPSIxMDAlIiB4Mj0iNTAlIiB5Mj0iLTEuNDIxMDg1NDcxNTIwMmUtMTQlIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwNDg3ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMzg2NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgIDwvbGluZWFyR3JhZGllbnQ+Cgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
+  background-image: -moz-linear-gradient(bottom, #00487f 0%, #003866 100%);
+  background-image: -o-linear-gradient(bottom, #00487f 0%, #003866 100%);
+  background-image: -webkit-linear-gradient(bottom, #00487f 0%, #003866 100%);
+  background-image: linear-gradient(bottom, #00487f 0%, #003866 100%);
+}
+
+#wdv-release-buttons, #wpdv-dash-release { overflow:auto; clear:both; margin-top: 10px; }
+#wdv-release-buttons a { margin-right: 20px; float: left; }
+#wdv-release-info { position: relative; top: 12px;}
+a.quick-link { background-color: #BDCEDB; font-size: 13px; font-weight: bold; padding:3px 10px; border-radius: 3px; margin-right: 10px; margin-top: 10px; display: inline-block; }
+
+#wpdv-dash-links .update-plugins { padding: 2px 5px; background-color: #003F71; border-radius: 10px; color: white; font-weight: normal; font-size: 11px; }
+#wpdv-dash-release div p { margin-bottom: 4px; }
+#wdv-release-buttons { width: 260px; float: left; clear: none; margin-top: 0; }
+
+/* 18246-1357354020-au */

@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: All-in-One Calendar by Then.ly
- * Plugin URI: http://then.ly/
- * Description: A calendar system with month, week, day, agenda views, upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
- * Author: Then.ly
- * Author URI: http://then.ly/
- * Version: 1.7.1 Premium
+ * Plugin Name: All-in-One Event Calendar by Timely
+ * Plugin URI: http://time.ly/
+ * Description: A calendar system with month, week, day, agenda, posterboard views, upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
+ * Author: Timely
+ * Author URI: http://time.ly/
+ * Version: 1.8.4-premium
  */
 @set_time_limit( 0 );
 @ini_set( 'memory_limit',           '256M' );
@@ -24,27 +24,26 @@ define( 'AI1EC_PLUGIN_BASENAME',    plugin_basename( __FILE__ ) );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1EC_VERSION',            '1.7.1' );
+define( 'AI1EC_VERSION',            '1.8.4-premium' );
 
 // ====================
 // = Database Version =
 // ====================
-define( 'AI1EC_DB_VERSION',         110 );
-
+define( 'AI1EC_DB_VERSION',         112 );
 // ==========================
 // = Bundled themes version =
 // ==========================
-define( 'AI1EC_THEMES_VERSION',     4 );
+define( 'AI1EC_THEMES_VERSION',     7 );
 
 // ================
 // = Cron Version =
 // ================
-define( 'AI1EC_CRON_VERSION',       102 );
+define( 'AI1EC_CRON_VERSION',       103 );
 define( 'AI1EC_N_CRON_VERSION',     101 );
 define( 'AI1EC_N_CRON_FREQ',        'daily' );
-define( 'AI1EC_U_CRON_VERSION',     104 );
+define( 'AI1EC_U_CRON_VERSION',     106 );
 define( 'AI1EC_U_CRON_FREQ',        'hourly' );
-define( 'AI1EC_UPDATES_URL',        'http://then.ly/updates.json' );
+define( 'AI1EC_UPDATES_URL',        'http://time.ly/latest-version.json' );
 
 // ===============
 // = Plugin Path =
@@ -171,6 +170,11 @@ define( 'AI1EC_POST_TYPE',          'ai1ec_event' );
 // =======================================================
 define( 'AI1EC_THEME_SELECTION_BASE_URL', 'themes.php?page=' . AI1EC_PLUGIN_NAME . '-themes' );
 
+// ======================================================
+// = INSTALL THEMES PAGE BASE URL (wrap in admin_url()) =
+// ======================================================
+define( 'AI1EC_INSTALL_THEMES_BASE_URL', 'themes.php?page=' . AI1EC_PLUGIN_NAME . '-install-themes' );
+
 // =====================================================
 // = UPDATE THEMES PAGE BASE URL (wrap in admin_url()) =
 // =====================================================
@@ -219,13 +223,30 @@ define( 'AI1EC_DEFAULT_THEME_URL',  AI1EC_THEMES_URL . '/' . AI1EC_DEFAULT_THEME
 // ================
 // = RSS FEED URL =
 // ================
-define( 'AI1EC_RSS_FEED',           'http://feeds.feedburner.com/ai1ec' );
+define( 'AI1EC_RSS_FEED',           'http://time.ly/feed/' );
 
 // ======================================
 // = FAKE CATEGORY ID FOR CALENDAR PAGE =
 // ======================================
 define( 'AI1EC_FAKE_CATEGORY_ID',   -4113473042 ); // Numeric-only 1337-speak of AI1EC_CALENDAR - ID must be numeric
 
+// =============================================
+// = DIRECTORY FOR EVENT IMPORTERS PLUGINS     =
+// =============================================
+
+
+// ======================================
+// = EVENT IMPORTERS PLUGINS PATH       =
+// ======================================
+define( 'AI1EC_IMPORT_PLUGIN_PATH',     AI1EC_APP_PATH . DIRECTORY_SEPARATOR . 'plugins' );
+// ========================================
+// = EVENT IMPORTERS PLUGINS INCLUDE PATH =
+// ========================================
+define( 'AI1EC_IMPORT_PLUGIN_INC_PATH', AI1EC_IMPORT_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'inc');
+// ========================================
+// = FACEBOOK PLUGIN INCLUDE PATH         =
+// ========================================
+define( 'AI1EC_FACEBOOK_PLUGIN_INC_PATH', AI1EC_IMPORT_PLUGIN_INC_PATH . DIRECTORY_SEPARATOR . 'facebook');
 // ==============
 // = SCRIPT URL =
 // ==============
@@ -257,14 +278,16 @@ define( 'AI1EC_EXPORT_URL',         $tmp . "&controller=ai1ec_exporter_controlle
 // super-administrators), and sets default WordPress settings appropriate for
 // pure event management.
 define( 'AI1EC_EVENT_PLATFORM',     FALSE );
-
+// Use alternative cron Version to bypass problems in wp_remot_* calls
+if( ! defined( 'ALTERNATE_WP_CRON' ) ) {
+	define( 'ALTERNATE_WP_CRON', true );
+}
 // ====================================
 // = Include iCal parsers and helpers =
 // ====================================
 if( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) {
 	// Parser that requires PHP v5.3.0 or up
-	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.10.23/iCalcreator.class.php' );
-	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.10.23//iCalUtilityFunctions.class.php' );
+	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.12/iCalcreator.class.php' );
 } else {
 	// Parser that works on PHP versions below 5.3.0
 	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.10/iCalcreator.class.php' );
@@ -297,7 +320,10 @@ function ai1ec_autoload( $class_name )
 		AI1EC_VIEW_PATH,
 		AI1EC_ADMIN_THEME_PATH,
 		get_option( 'ai1ec_current_theme_path', AI1EC_DEFAULT_THEME_PATH ),
-		AI1EC_DEFAULT_THEME_PATH
+		AI1EC_DEFAULT_THEME_PATH,
+		AI1EC_IMPORT_PLUGIN_PATH,
+		AI1EC_IMPORT_PLUGIN_INC_PATH,
+		AI1EC_FACEBOOK_PLUGIN_INC_PATH
 	);
 
 	// remove duplicates from the paths array
@@ -334,7 +360,6 @@ global $ai1ec_settings;
 
 $ai1ec_settings = Ai1ec_Settings::get_instance();
 
-
 // ================================
 // = Initialize and setup HELPERS =
 // ================================
@@ -345,16 +370,18 @@ global $ai1ec_view_helper,
        $ai1ec_events_helper,
        $ai1ec_importer_helper,
        $ai1ec_exporter_helper,
-       $ai1ec_platform_helper;
+       $ai1ec_platform_helper,
+       $ai1ec_importer_plugin_helper;
 
-$ai1ec_view_helper     = Ai1ec_View_Helper::get_instance();
-$ai1ec_settings_helper = Ai1ec_Settings_Helper::get_instance();
-$ai1ec_calendar_helper = Ai1ec_Calendar_Helper::get_instance();
-$ai1ec_app_helper      = Ai1ec_App_Helper::get_instance();
-$ai1ec_events_helper   = Ai1ec_Events_Helper::get_instance();
-$ai1ec_importer_helper = Ai1ec_Importer_Helper::get_instance();
-$ai1ec_exporter_helper = Ai1ec_Exporter_Helper::get_instance();
-$ai1ec_platform_helper = Ai1ec_Platform_Helper::get_instance();
+$ai1ec_view_helper            = Ai1ec_View_Helper::get_instance();
+$ai1ec_settings_helper        = Ai1ec_Settings_Helper::get_instance();
+$ai1ec_calendar_helper        = Ai1ec_Calendar_Helper::get_instance();
+$ai1ec_app_helper             = Ai1ec_App_Helper::get_instance();
+$ai1ec_events_helper          = Ai1ec_Events_Helper::get_instance();
+$ai1ec_importer_helper        = Ai1ec_Importer_Helper::get_instance();
+$ai1ec_exporter_helper        = Ai1ec_Exporter_Helper::get_instance();
+$ai1ec_platform_helper        = Ai1ec_Platform_Helper::get_instance();
+$ai1ec_importer_plugin_helper = Ai1ec_Importer_Plugin_Helper::get_instance();
 
 // ====================================
 // = Initialize and setup CONTROLLERS =

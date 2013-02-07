@@ -5,12 +5,11 @@
 //
 //  Created by The Seed Studio on 2011-07-13.
 //
-
 /**
  * Ai1ec_App_Controller class
  *
  * @package Controllers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_App_Controller {
 	/**
@@ -39,6 +38,18 @@ class Ai1ec_App_Controller {
 	 * @var null | string
 	 **/
 	private $page_content = NULL;
+	/**
+	 * The scripts that must be echoed in the footer for the admin pages
+	 * 
+	 * @var string
+	 */
+	private $scripts_in_footer = '';
+	/**
+	 * The scripts that must be echoed in the footer for the frontend
+	 * 
+	 * @var string
+	 */
+	private $scripts_in_footer_frontend = '';
 
 	/**
 	 * get_instance function
@@ -70,7 +81,8 @@ class Ai1ec_App_Controller {
 		       $ai1ec_exporter_controller,
 		       $ai1ec_settings_controller,
 		       $ai1ec_settings,
-		       $ai1ec_themes_controller;
+		       $ai1ec_themes_controller,
+		       $ai1ec_importer_plugin_helper;
 
 		// register_activation_hook
 		register_activation_hook( AI1EC_PLUGIN_NAME . '/' . AI1EC_PLUGIN_NAME . '.php', array( &$this, 'activation_hook' ) );
@@ -84,21 +96,28 @@ class Ai1ec_App_Controller {
 		// Install/update database schema as necessary
 		$this->install_schema();
 
-		// Install/update cron as necessary
-		$this->install_cron();
-
 		// Enable stats collection
 		$this->install_n_cron();
 
+
+		// Enable plugins for importing events from external sources
+		$this->install_plugins();
+
+
 		// Enable checking for cron updates
 		$this->install_u_cron();
+		
 
 		// Continue loading hooks only if themes are installed. Otherwise display a
 		// notification on the backend with instructions how to install themes.
 		if( ! $ai1ec_themes_controller->are_themes_available() ) {
-			add_action( 'admin_notices', array( &$ai1ec_app_helper, 'admin_notices' ) );
+			// Enables the hidden themes installer page
+			add_action( 'admin_menu', array( &$ai1ec_themes_controller, 'register_theme_installer' ), 1 );
+			// Redirects the user to install theme page
+			add_action( 'admin_menu', array( &$this, 'check_themes' ), 2 );
 			return;
 		}
+
 
 		// ===========
 		// = ACTIONS =
@@ -115,6 +134,14 @@ class Ai1ec_App_Controller {
 		add_action( 'init',                                     array( &$ai1ec_events_controller, 'init' ) );
 		// Load plugin text domain
 		add_action( 'init',                                     array( &$this, 'load_textdomain' ) );
+		// Load back-end javascript files
+		add_action( 'init',                                     array( &$this, 'load_admin_js' ) );
+		// Load the scripts for the backend for wordpress version < 3.3
+		add_action( 'admin_footer',                             array( $this, 'print_admin_script_footer_for_wordpress_32' ) );
+		// Load the scripts for the frontend for wordpress version < 3.3
+		add_action( 'wp_footer',                                array( $this, 'print_frontend_script_footer_for_wordpress_32' ) );
+		// Set an action to load front-end javascript
+		add_action( 'ai1ec_load_frontend_js',                   array( &$this, 'load_frontend_js' ), 10, 1 );
 		// Check if themes are installed
 		add_action( 'init',                                     array( &$ai1ec_themes_controller, 'check_themes' ) );
 		// Register The Event Calendar importer
@@ -141,8 +168,6 @@ class Ai1ec_App_Controller {
 		add_action( 'save_post',                                array( &$ai1ec_events_controller, 'save_post' ), 10, 2 );
 		// Delete event data when post is deleted
 		add_action( 'delete_post',                              array( &$ai1ec_events_controller, 'delete_post' ) );
-		// Cron job hook
-		add_action( 'ai1ec_cron',                               array( &$ai1ec_importer_controller, 'cron' ) );
 		// Notification cron job hook
 		add_action( 'ai1ec_n_cron',                             array( &$ai1ec_exporter_controller, 'n_cron' ) );
 		// Updates cron job hook
@@ -195,14 +220,6 @@ class Ai1ec_App_Controller {
 		// ========
 		// = AJAX =
 		// ========
-		// Add iCalendar feed
-		add_action( 'wp_ajax_ai1ec_add_ics',    array( &$ai1ec_settings_controller, 'add_ics_feed' ) );
-		// Delete iCalendar feed
-		add_action( 'wp_ajax_ai1ec_delete_ics', array( &$ai1ec_settings_controller, 'delete_ics_feed' ) );
-		// Flush iCalendar feed
-		add_action( 'wp_ajax_ai1ec_flush_ics',  array( &$ai1ec_settings_controller, 'flush_ics_feed' ) );
-		// Update iCalendar feed
-		add_action( 'wp_ajax_ai1ec_update_ics', array( &$ai1ec_settings_controller, 'update_ics_feed' ) );
 
 		// RRule to Text
 		add_action( 'wp_ajax_ai1ec_rrule_to_text', array( &$ai1ec_events_helper, 'convert_rrule_to_text' ) );
@@ -211,14 +228,245 @@ class Ai1ec_App_Controller {
 		add_action( 'wp_ajax_ai1ec_get_repeat_box', array( &$ai1ec_events_helper, 'get_repeat_box' ) );
 		add_action( 'wp_ajax_ai1ec_get_date_picker_box', array( &$ai1ec_events_helper, 'get_date_picker_box' ) );
 
-		// Disable notification
+		// Disable notifications
 		add_action( 'wp_ajax_ai1ec_disable_notification', array( &$ai1ec_settings_controller, 'disable_notification' ) );
+		add_action( 'wp_ajax_ai1ec_disable_intro_video', array( &$ai1ec_settings_controller, 'disable_intro_video' ) );
 
 		// ==============
 		// = Shortcodes =
 		// ==============
 		add_shortcode( 'ai1ec', array( &$ai1ec_events_helper, 'shortcode' ) );
 
+	}
+	/**
+	 * Load javascript files for frontend pages.
+	 *
+	 * @param $is_calendar_page boolean Wheter we are displaying the calendar or not
+	 */
+	public function load_frontend_js( $is_calendar_page ) {
+		// Get translation data
+		$data = $this->get_translation_data();
+		global $ai1ec_settings,
+		       $ai1ec_view_helper,
+		       $ai1ec_calendar_controller;
+		// Load requirejs
+		$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_requirejs', 'require.js' );
+
+		// We need to specify the location of the main.js file.
+		add_filter( 'clean_url', array( $this, 'add_data_main' ), 11, 1 );
+		// ======
+		// = JS =
+		// ======
+		if( $this->check_if_single_event_page() === TRUE ) {
+			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_event_category', 'pages/event.js', array( 'ai1ec_requirejs' ), true );
+			// This is needed by gmaps.
+			$this->localize_script_for_requirejs( 'ai1ec_event_category', 'ai1ec_config', $data, true );
+		}
+		if( $is_calendar_page === TRUE ) {
+			// Require the correct script to load
+			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_calendar_requirejs', 'pages/calendar.js', array( 'ai1ec_requirejs' ), true );
+			// now it's time to load custom functions from the themes
+			try {
+				$ai1ec_view_helper->theme_enqueue_script( 'ai1ec_add_new_event_require', "pages/calendar.js", array( 'ai1ec_requirejs' ), true );
+			}
+			catch ( Ai1ec_File_Not_Found $e ) {
+				// There is no custom file to load.
+			}
+			$ai1ec_calendar_controller->load_js_translations();
+		}
+		$this->load_require_js_config();
+	}
+	/**
+	 * Add the data-main attribute
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public function add_data_main( $url ) {
+		if ( FALSE === strpos( $url, 'require.js' ) ) {
+			return $url;
+		}
+		$data_main = AI1EC_ADMIN_THEME_JS_URL . '/main.js';
+		//Must be a ', not "!
+		return "$url' data-main='$data_main";
+	}
+	/**
+	*	Check if we are in the calendar feeds page
+	*
+	* @return boolean TRUE if we are in the calendar feeds page FALSE otherwise
+	*/
+	private function check_if_calendar_feeds_page() {
+		$path_details = pathinfo( $_SERVER["SCRIPT_NAME"] );
+		$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : FALSE;
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : FALSE;
+		if( $post_type === FALSE || $page === FALSE ) {
+			return FALSE;
+		}
+		$is_calendar_feed_page = $path_details['basename'] === 'edit.php' &&
+		                         $post_type                === 'ai1ec_event' &&
+		                         $page                     === 'all-in-one-event-calendar-feeds';
+		return $is_calendar_feed_page;
+	}
+	/**
+	* check if we are editing an event
+	*
+	* @return boolean TRUE if we are editing an event FALSE otherwise
+	*/
+	private function check_if_editing_event() {
+		$path_details = pathinfo( $_SERVER["SCRIPT_NAME"] );
+		$post_id = isset( $_GET['post'] ) ? $_GET['post'] : FALSE;
+		$action = isset( $_GET['action'] ) ? $_GET['action'] : FALSE;
+		if( $post_id === FALSE || $action === FALSE ) {
+			return FALSE;
+		}
+		$editing = $path_details['basename'] === 'post.php' &&
+		           $action                   === 'edit' &&
+		           get_post_type( $post_id ) === AI1EC_POST_TYPE;
+		return $editing;
+	}
+	/**
+	 * check if we are creating a new event
+	 *
+	 * @return boolean TRUE if we are creating a new event FALSE otherwise
+	 */
+	private function check_if_creating_new_event() {
+		$path_details = pathinfo( $_SERVER["SCRIPT_NAME"] );
+		$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+		return $path_details['basename'] === 'post-new.php' && $post_type === AI1EC_POST_TYPE;
+	}
+	/**
+	* Check if we are accessing the settings page
+	*
+	* @return boolean TRUE if we are accessing the settings page FALSE otherwise
+	*/
+	private function check_if_calendar_settings_page() {
+		$path_details = pathinfo( $_SERVER["SCRIPT_NAME"] );
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
+		return $path_details['basename'] === 'options-general.php' && $page === AI1EC_PLUGIN_NAME . '-settings';
+	}
+	/**
+	* Check if we are accessing the events category page
+	*
+	* @return boolean TRUE if we are accessing the events category page FALSE otherwise
+	*/
+	private function check_if_edit_event_categories() {
+		$path_details = pathinfo( $_SERVER["SCRIPT_NAME"] );
+		$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+		return $path_details['basename'] === 'edit-tags.php' && $post_type === AI1EC_POST_TYPE;
+	}
+	/**
+	 * Check if we are accessing a single event page
+	 *
+	 * @return boolean TRUE if we are accessing a single event page FALSE otherwise
+	 */
+	private function check_if_single_event_page() {
+		return get_post_type() === AI1EC_POST_TYPE;
+	}
+	/**
+	 * create the array that's needed for translation and passing data
+	 *
+	 * @return $data array the dynamic data array
+	 */
+	private function get_translation_data() {
+		global $ai1ec_events_helper,
+		       $ai1ec_settings,
+		       $wp_locale,
+		       $ai1ec_view_helper,
+		       $ai1ec_importer_plugin_helper;
+		$data = array(
+				'select_one_option'              => __( 'Select at least one user  group / page to subscribe', AI1EC_PLUGIN_NAME ),
+				'error_no_response'              => __( 'An unexpected error occurred, try reloading the page', AI1EC_PLUGIN_NAME ),
+				'no_more_subscription'           => __( 'No subscriptions yet.', AI1EC_PLUGIN_NAME ),
+				'no_more_than_ten'               => __( 'Please select no more than ten users / groups / pages at a time to avoid overloading Facebook Requests', AI1EC_PLUGIN_NAME ),
+				// ICS feed error messages
+				'duplicate_feed_message'         => esc_html__( 'This feed is already being imported.', AI1EC_PLUGIN_NAME ),
+				'invalid_url_message'            => esc_html__( 'Please enter a valid iCalendar URL.', AI1EC_PLUGIN_NAME ),
+				// Current time, used for date/time pickers
+				'now'                            => $ai1ec_events_helper->gmt_to_local( time() ),
+				// Date format for date pickers
+				'date_format'                    => $ai1ec_settings->input_date_format,
+				// Names for months in date picker header (escaping is done in wp_localize_script)
+				'month_names'                    => implode( ',', $wp_locale->month ),
+				// Names for days in date picker header (escaping is done in wp_localize_script)
+				'day_names'                      => implode( ',', $wp_locale->weekday_initial ),
+				// Start the week on this day in the date picker
+				'week_start_day'                 => $ai1ec_settings->week_start_day,
+				// 24h time format for time pickers
+				'twentyfour_hour'                => $ai1ec_settings->input_24h_time,
+				// Set region biasing for geo_autocomplete plugin
+				'region'                         => ( $ai1ec_settings->geo_region_biasing ) ? $ai1ec_events_helper->get_region() : '',
+				'disable_autocompletion'         => $ai1ec_settings->disable_autocompletion,
+				'error_message_not_valid_lat'    => __( 'Please enter a valid latitude. A valid latitude is comprised between +90 and -90.', AI1EC_PLUGIN_NAME ),
+				'error_message_not_valid_long'   => __( 'Please enter a valid longitude. A valid longitude is comprised between +180 and -180.', AI1EC_PLUGIN_NAME ),
+				'error_message_not_entered_lat'  => __( 'When the "Input coordinates" checkbox is checked, "Latitude" is a required field.', AI1EC_PLUGIN_NAME ),
+				'error_message_not_entered_long' => __( 'When the "Input coordinates" checkbox is checked, "Longitude" is a required field.', AI1EC_PLUGIN_NAME ),
+				'gmaps_language'                 => $ai1ec_events_helper->get_lang(),
+				// This function will be set later if needed
+				'page'                           => '',
+				'page_on_front_description'      => __( 'This setting cannot be changed in All-in-One Event Calendar Platform mode.', AI1EC_PLUGIN_NAME ),
+				// if the user is the super admin we disable this later
+				'strict_mode'                    => $ai1ec_settings->event_platform_strict,
+				'platform_active'                => $ai1ec_settings->event_platform_active,
+				'facebook_logged_in'             => $ai1ec_importer_plugin_helper->check_if_we_have_a_valid_facebook_access_token(),
+				'app_id_and_secret_are_required' => __( "You must specify both an app id and app secret to connect to Facebook", AI1EC_PLUGIN_NAME ),
+		);
+		return $data;
+	}
+	/**
+	 * Load the required javascript files
+	 *
+	 */
+	public function load_admin_js() {
+		global $ai1ec_view_helper,
+		       $ai1ec_settings;
+		// Initialize dashboard view
+		$data = $this->get_translation_data();
+		if( is_admin() ) {
+			// Load requirejs
+			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_requirejs', 'require.js', array( 'postbox' ) );
+
+			// We need to specify the location of the main.js file.
+			add_filter( 'clean_url', array( $this, 'add_data_main' ), 11, 1 );
+			// Load common backend scripts
+			$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_common_backend', 'pages/common_backend.js', array( 'ai1ec_requirejs' ), true );
+
+			// Do not further modify UI for super admins.
+			if( is_super_admin() ) {
+				$data['strict_mode'] = FALSE;
+			}
+			$script_to_load = FALSE;
+
+			// Start the scripts for the Calendar feeds pages
+			if( $this->check_if_calendar_feeds_page() === TRUE ) {
+
+				// Load script for the importer plugins
+				$script_to_load = 'calendar_feeds.js';
+				// Set the page
+				$data['page'] = $ai1ec_settings->settings_page;
+			}
+			// Start the scripts for the event category page
+			if( $this->check_if_edit_event_categories() === TRUE ) {
+				// Load script required when editing categories
+				$script_to_load = 'event_category.js';
+			}
+			// Load the js needed when you edit an event / add a new event
+			if( $this->check_if_creating_new_event() === TRUE || $this->check_if_editing_event() === TRUE ) {
+				// Load script for adding / modifying events
+				$script_to_load = 'add_new_event.js';
+			}
+			// Set a variable if you are in the calendar settings page
+			if( $this->check_if_calendar_settings_page() === TRUE ) {
+				// Set the page
+				$data['page'] = $ai1ec_settings->settings_page;
+				$script_to_load = 'admin_settings.js';
+			}
+			if( $script_to_load !== FALSE ) {
+				$ai1ec_view_helper->admin_enqueue_script( 'ai1ec_add_new_event_require', "pages/$script_to_load", array( 'ai1ec_requirejs' ), true );
+			}
+		}
+		// Load the config module. Loading it before the common back_end script assure us that it's available for all the other scripts.
+		$this->localize_script_for_requirejs( 'ai1ec_common_backend' , 'ai1ec_config', $data);
+		$this->load_require_js_config();
 	}
 
 	/**
@@ -309,6 +557,9 @@ class Ai1ec_App_Controller {
 					show_coordinates  tinyint(1),
 					latitude          decimal(20,15),
 					longitude         decimal(20,15),
+					facebook_eid      bigint(20),
+					facebook_user     bigint(20),
+					facebook_status   varchar(1) NOT NULL DEFAULT '',
 					PRIMARY KEY  (post_id)
 				) CHARACTER SET utf8;";
 
@@ -322,18 +573,6 @@ class Ai1ec_App_Controller {
 					start   datetime NOT NULL,
 					end     datetime NOT NULL,
 					PRIMARY KEY  (id)
-				) CHARACTER SET utf8;";
-
-			// ======================
-			// = Create table feeds =
-			// ======================
-			$table_name = $wpdb->prefix . 'ai1ec_event_feeds';
-			$sql .= "CREATE TABLE $table_name (
-					feed_id       bigint(20) NOT NULL AUTO_INCREMENT,
-					feed_url      varchar(255) NOT NULL,
-					feed_category bigint(20) NOT NULL,
-					feed_tags     varchar(255) NOT NULL,
-					PRIMARY KEY  (feed_id)
 				) CHARACTER SET utf8;";
 
 			// ================================
@@ -352,26 +591,27 @@ class Ai1ec_App_Controller {
 			update_option( 'ai1ec_db_version', AI1EC_DB_VERSION );
 		}
 	}
-
 	/**
-	 * install_cron function
+	 *  This function scans the connector plugins directory and adds the plugin to the plugin helper
 	 *
-	 * This function sets up the cron job for updating the events, and upgrades it if it is out of date.
-	 *
-	 * @return void
-	 **/
-	function install_cron() {
-		// If existing CRON version is not consistent with current plugin's version,
-		// or does not exist, then create/update cron using
-		if( get_option( 'ai1ec_cron_version' ) != AI1EC_CRON_VERSION ) {
-			global $ai1ec_settings;
-			// delete our scheduled crons
-			wp_clear_scheduled_hook( 'ai1ec_cron' );
-			// set the new cron
-			wp_schedule_event( time(), $ai1ec_settings->cron_freq, 'ai1ec_cron' );
-			// update the cron version
-			update_option( 'ai1ec_cron_version', AI1EC_CRON_VERSION );
+	 */
+	function install_plugins() {
+		global $ai1ec_importer_plugin_helper;
+
+		// Scan the plugin directory for php files
+		foreach ( glob( AI1EC_IMPORT_PLUGIN_PATH . "/*.php" ) as $filename ) {
+			// Require the file
+			require_once $filename;
+			// The class name should be the same as the php file
+			$class_name = str_replace( '.php', '', $filename );
+			$class_name = str_replace( AI1EC_IMPORT_PLUGIN_PATH . '/', '', $class_name );
+			// If the class exist
+			if ( class_exists( $class_name ) &&  is_subclass_of( $class_name, 'Ai1ec_Connector_Plugin' ) ) {
+				// Instantiate a new object and add it as a plugin. In the constructor the plugin will add his hooks.
+				$ai1ec_importer_plugin_helper->add_plugin( new $class_name() );
+			}
 		}
+		$ai1ec_importer_plugin_helper->sort_plugins();
 	}
 
 	/**
@@ -387,7 +627,7 @@ class Ai1ec_App_Controller {
 		// if stats are disabled, cancel the cron
 		if( $ai1ec_settings->allow_statistics == false ) {
 			// delete our scheduled crons
-			wp_clear_scheduled_hook( 'ai1ec_n_cron_version' );
+			wp_clear_scheduled_hook( 'ai1ec_n_cron' );
 
 			// remove the cron version
 			delete_option( 'ai1ec_n_cron_version' );
@@ -420,7 +660,7 @@ class Ai1ec_App_Controller {
 		// or does not exist, then create/update cron using
 		if( get_option( 'ai1ec_u_cron_version' ) != AI1EC_U_CRON_VERSION ) {
 			// delete our scheduled crons
-			wp_clear_scheduled_hook( 'ai1ec_u_cron_version' );
+			wp_clear_scheduled_hook( 'ai1ec_u_cron' );
 			// reset flags
 			update_option( 'ai1ec_update_available', 0 );
 			update_option( 'ai1ec_update_message', '' );
@@ -487,21 +727,19 @@ class Ai1ec_App_Controller {
 		add_action( "load-{$ai1ec_settings->settings_page}", array( &$ai1ec_settings_helper, 'add_settings_meta_boxes') );
 		// Load our plugin's meta boxes.
 		add_action( "load-{$ai1ec_settings->settings_page}", array( &$ai1ec_settings_controller, 'add_settings_meta_boxes' ) );
-
 		// ========================
 		// = Calendar Update Page =
 		// ========================
 		add_submenu_page(
-			'edit.php?post_type=' . AI1EC_POST_TYPE,
-			__( 'Upgrade', AI1EC_PLUGIN_NAME ),
-			__( 'Upgrade', AI1EC_PLUGIN_NAME ),
-			'update_plugins',
-			AI1EC_PLUGIN_NAME . '-upgrade',
-			array( &$this, 'upgrade' )
+				'edit.php?post_type=' . AI1EC_POST_TYPE . '',
+				__( 'Upgrade', AI1EC_PLUGIN_NAME ),
+				__( 'Upgrade', AI1EC_PLUGIN_NAME ),
+				'update_plugins',
+				AI1EC_PLUGIN_NAME . '-upgrade',
+				array( &$this, 'upgrade' )
 		);
 		remove_submenu_page( 'edit.php?post_type=' . AI1EC_POST_TYPE, AI1EC_PLUGIN_NAME . '-upgrade' );
 	}
-
 	/**
 	 * route_request function
 	 *
@@ -523,6 +761,8 @@ class Ai1ec_App_Controller {
 		if( isset( $post->post_content ) ) {
 			preg_match( "/\[(\[?)(ai1ec)\b([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/s", $post->post_content, $out );
 		}
+		// This is needed to load the correct javascript
+		$is_calendar_page = FALSE;
 
 		// Find out if the calendar page ID is defined, and we're on it
 		if( $ai1ec_settings->calendar_page_id &&
@@ -541,6 +781,8 @@ class Ai1ec_App_Controller {
 				// Replace page content - make sure it happens at (almost) the very end of
 				// page content filters (some themes are overly ambitious here)
 				add_filter( 'the_content', array( &$this, 'append_content' ), PHP_INT_MAX - 1 );
+				// Tell the javascript loader to load the js for the calendar
+				$is_calendar_page = TRUE;
 			}
 		} else if( isset( $out[2] ) && $out[2] == 'ai1ec' ) {
 			// if content has [ai1ec] shortcode, display the calendar page
@@ -551,6 +793,9 @@ class Ai1ec_App_Controller {
 				ob_start();
 				if( isset( $attr["view"] ) && ! empty( $attr["view"] ) ) {
 					switch( $attr["view"] ) {
+						case "posterboard":
+							$_REQUEST["action"] = "ai1ec_posterboard";
+							break;
 						case "monthly":
 							$_REQUEST["action"] = "ai1ec_month";
 							break;
@@ -566,10 +811,12 @@ class Ai1ec_App_Controller {
 				// Parse categories by name
 				if( isset( $attr["cat_name"] ) && ! empty( $attr["cat_name"] ) ) {
 					foreach( explode( ',', $attr["cat_name"] ) as $c ) {
-						$cid = get_term_by( "name", $c, "events_categories" );
+						$cid = get_term_by( "name", trim( $c ), "events_categories" );
 						if( $cid !== false ) {
 							// if term was found, include it
-							$_REQUEST["ai1ec_cat_ids"] = $cid->term_id . ',';
+							$_REQUEST["ai1ec_cat_ids"] = isset( $_REQUEST["ai1ec_cat_ids"] ) ?
+							                             $_REQUEST["ai1ec_cat_ids"] . $cid->term_id . ',' :
+							                             $cid->term_id . ',';
 						}
 					}
 					// remove last comma only if there is some content in the var
@@ -589,10 +836,12 @@ class Ai1ec_App_Controller {
 				// Parse tags by name
 				if( isset( $attr["tag_name"] ) && ! empty( $attr["tag_name"] ) ) {
 					foreach( explode( ',', $attr["tag_name"] ) as $t ) {
-						$tid = get_term_by( "name", $t, "events_tags" );
+						$tid = get_term_by( "name", trim( $t ), "events_tags" );
 						if( $tid !== false ) {
 							// if term was found, include it
-							$_REQUEST["ai1ec_tag_ids"] = $tid->term_id . ',';
+							$_REQUEST["ai1ec_tag_ids"] = isset( $_REQUEST["ai1ec_tag_ids"] ) ?
+							                             $_REQUEST["ai1ec_tag_ids"] . $tid->term_id . ',' :
+							                             $tid->term_id . ',';
 						}
 					}
 					// remove last comma only if there is some content in the var
@@ -623,8 +872,12 @@ class Ai1ec_App_Controller {
 				// Replace page content - make sure it happens at (almost) the very end of
 				// page content filters (some themes are overly ambitious here)
 				add_filter( 'the_content', array( &$this, 'append_content' ), PHP_INT_MAX - 1 );
+				// Tell the javascript loader to load the js for the calendar
+				$is_calendar_page = TRUE;
 			}
 		}
+		// Load the correct javascript
+		do_action( 'ai1ec_load_frontend_js', $is_calendar_page );
 	}
 
 	/**
@@ -666,11 +919,84 @@ class Ai1ec_App_Controller {
 		// the calendar container div
 		if( in_the_loop() )
 			$content =
-				'<div id="ai1ec-container" class="ai1ec-container thenly">' .
+				'<div id="ai1ec-container" class="ai1ec-container timely">' .
 				$content . $this->page_content .
 				'</div>';
 
 		return $content;
+	}
+
+	/**
+	 * Defines a simple module that can be later imported by require js. Useful for translations and so on.
+	 *
+	 * @param string $handle The script handle that was registered or used in script-loader
+	 * @param string $object_name Name for the created requirejs module. This is passed directly so it should be qualified JS variable /[a-zA-Z0-9_]+/
+	 * @param array $l10n Associative PHP array containing the translated strings. HTML entities will be converted and the array will be JSON encoded.
+	 * @param boolean $frontend Whether the localization is for frontend scripts or backend. Used only in wordpress < 3.3
+	 * @return bool Whether the localization was added successfully.
+	 */
+	function localize_script_for_requirejs( $handle, $object_name, $l10n, $frontend = false ) {
+		global $wp_scripts;
+		if ( ! is_a( $wp_scripts, 'WP_Scripts' ) ) {
+			if ( ! did_action( 'init' ) )
+				_doing_it_wrong( __FUNCTION__, sprintf( __( 'Scripts and styles should not be registered or enqueued until the %1$s, %2$s, or %3$s hooks.' ),
+						'<code>wp_enqueue_scripts</code>', '<code>admin_enqueue_scripts</code>', '<code>init</code>' ), '3.3' );
+			return false;
+		}
+		foreach ( (array) $l10n as $key => $value ) {
+			if ( !is_scalar($value) )
+				continue;
+
+			$l10n[$key] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8');
+		}
+		$json_data = json_encode( $l10n );
+		$script = "timely.define( '$object_name', $json_data );";
+		// Check if the get_data method exist
+		if( method_exists( $wp_scripts, 'get_data' ) ) {
+			// we are >= 3.3
+			$data = $wp_scripts->get_data( $handle, 'data' );
+			
+			if ( !empty( $data ) )
+				$script = "$data\n$script";
+			return $wp_scripts->add_data( $handle, 'data', $script );
+		} else {
+			// we are < 3.3
+			$script_to_print = '';
+			$script_to_print .= "<script type='text/javascript'>\n";
+			$script_to_print .= "/* <![CDATA[ */\n";
+			$script_to_print .= $script;
+			$script_to_print .= "/* ]]> */\n";
+			$script_to_print .= "</script>\n";
+			if( $frontend === true ) {
+				$this->scripts_in_footer_frontend .= $script_to_print;
+			} else {
+				$this->scripts_in_footer .= $script_to_print;
+			}
+			return true;
+		}
+	}
+	/**
+	 * echo the scripts in the footer for the admin. Since this action is enqueued with priority 10
+	 * this will happen before the script that requires javascript for the page is loaded as 
+	 * scripts are loaded with priority = 20 and i need this script before that ( because that script use this as a dependency )
+	 */
+	public function print_admin_script_footer_for_wordpress_32() {
+		echo $this->scripts_in_footer;
+	}
+	/**
+	 * echo the scripts in the footer for the frontend. Since this action is enqueued with priority 10
+	 * this will happen before the script that requires javascript for the page is loaded as
+	 * scripts are loaded with priority = 20 and i need this script before that ( because that script use this as a dependency )
+	 */
+	public function print_frontend_script_footer_for_wordpress_32() {
+		echo $this->scripts_in_footer_frontend;
+	}
+	/**
+	 * Loads requirejs configuration before loading requirejs. This should assure that when we load the page script requirejs has a config
+	 *
+	 */
+	private function load_require_js_config() {
+		return;
 	}
 
 	/**
@@ -683,19 +1009,37 @@ class Ai1ec_App_Controller {
 		if ( ! current_user_can( 'update_plugins' ) )
 			wp_die( __( 'You do not have sufficient permissions to update plugins for this site.' ) );
 
-		if( ! isset( $_REQUEST["package"] ) || empty( $_REQUEST["package"] ) )
-			wp_die( __( 'Download package is needed and was not supplied. Go to http://then.ly/ to download the newest plugin version' ) );
+		if(
+			! isset( $_REQUEST["package"] ) ||
+			empty( $_REQUEST["package"] ) ||
+			! isset( $_REQUEST["plugin_name"] ) ||
+			empty( $_REQUEST["plugin_name"] )
+		) {
+			wp_die( __( 'Download package is needed and was not supplied. Visit <a href="http://time.ly/" target="_blank">time.ly</a> to download the newest version of the plugin.' ) );
+		}
 
 		// use our custom class
 		$upgrader = new Ai1ec_Updater();
 		// update the plugin
-		$upgrader->upgrade( 'all-in-one-event-calendar', $_REQUEST["package"] );
+		$upgrader->upgrade( $_REQUEST["plugin_name"], $_REQUEST["package"] );
 		// clear update notification
 		update_option( 'ai1ec_update_available', 0 );
 		update_option( 'ai1ec_update_message', '' );
 		update_option( 'ai1ec_package_url', '' );
-		// give user a way out of the page
-		echo '<a href="' . admin_url( 'edit.php?post_type=' . AI1EC_POST_TYPE ) . '">Continue here</a>';
+		update_option( 'ai1ec_plugin_name', '' );
+	}
+
+	/**
+	 * check_themes function
+	 *
+	 * This function checks if the user is not on install themes page
+	 * and redirects the user to that page
+	 *
+	 * @return void
+	 **/
+	function check_themes() {
+		if( ! isset( $_REQUEST["page"] ) || $_REQUEST["page"] != AI1EC_PLUGIN_NAME . '-install-themes' )
+			wp_redirect( admin_url( AI1EC_INSTALL_THEMES_BASE_URL ) );
 	}
 }
 // END class

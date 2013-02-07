@@ -1,5 +1,5 @@
 <?php
-class Wdcab_AdminFormRenderer {
+class ub_Wdcab_AdminFormRenderer {
 
 	function _get_option ($key=false, $pfx='wdcab') {
 		$opts = ub_get_option($pfx);
@@ -30,7 +30,7 @@ class Wdcab_AdminFormRenderer {
 	}
 
 	function create_title_box () {
-		$value = $this->_get_option('title');
+		$value = esc_attr(stripslashes($this->_get_option('title')));
 		echo "<input type='text' class='widefat' name='wdcab[title]' value='{$value}' />";
 		_e('<p>If you\'d like to use an image instead of text, please paste the full URL of your image in the box (starting with <code>http://</code> - e.g. <code>http://example.com/myimage.gif</code>).</p><p>For best results, make sure your image has a transparent background and is no more than 28px high.</p>', 'ub');
 	}
@@ -71,6 +71,18 @@ class Wdcab_AdminFormRenderer {
 		;
 	}
 
+	function create_title_link_target_box () {
+		$value = $this->_get_option('title_link_target');
+
+		if(empty($value)) {
+			$value = '_self';
+		}
+
+		echo
+			"<input type='text' id='title_link_target' size='48' name='wdcab[title_link_target]' value='{$value}' />"
+		;
+	}
+
 	function create_links_box () {
 		$steps = $this->_get_option('links');
 		$steps = is_array($steps) ? $steps : array();
@@ -82,7 +94,7 @@ class Wdcab_AdminFormRenderer {
 				'<h4>' .
 					'<span class="wdcab_step_count">' . $count . '</span>' .
 					':&nbsp;' .
-					'<span class="wdcab_step_title">' . $step['title'] . '</span>' .
+					'<span class="wdcab_step_title">' . stripslashes($step['title']) . '</span>' .
 				'</h4>' .
 				'<div class="wdcab_step_actions">' .
 					'<a href="#" class="wdcab_step_delete">' . __('Delete', 'ub') . '</a>' .
@@ -91,7 +103,8 @@ class Wdcab_AdminFormRenderer {
 				'</div>' .
 				'<input type="hidden" class="wdcab_step_url" name="wdcab[links][' . $count . '][url]" value="' . $step['url'] . '" />' .
 				'<input type="hidden" class="wdcab_step_url_type" name="wdcab[links][' . $count . '][url_type]" value="' . $step['url_type'] . '" />' .
-				'<input type="hidden" class="wdcab_step_title" name="wdcab[links][' . $count . '][title]" value="' . $step['title'] . '" />' .
+				'<input type="hidden" class="wdcab_step_title" name="wdcab[links][' . $count . '][title]" value="' . esc_attr(stripslashes($step['title'])) . '" />' .
+				'<input type="hidden" class="wdcab_step_target" name="wdcab[links][' . $count . '][target]" value="' . esc_attr(stripslashes( (isset($step['target']) ? $step['target'] : ''))) . '" />' .
 			"</li>\n";
 			$count++;
 		}
@@ -112,6 +125,9 @@ class Wdcab_AdminFormRenderer {
 		// Title
 		echo '<label for="wdcab_last_wizard_step_title">' . __('Title:', 'ub') . '</label>';
 		echo "<input type='text' class='widefat' id='wdcab_last_wizard_step_title' name='wdcab[links][_last_][title]' /> <br />";
+
+		echo '<label for="wdcab_last_wizard_step_title">' . __('Link target:', 'ub') . '</label>';
+		echo "<input type='text' class='widefat' id='wdcab_last_wizard_step_target' name='wdcab[links][_last_][target]' value='_self' /> <br />";
 
 		echo "<input type='submit' value='" . __('Add', 'ub') . "' />";
 	}

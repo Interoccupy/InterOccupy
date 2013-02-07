@@ -44,7 +44,9 @@ function remove_taxonomy( $taxonomy ) {
 // = Trigger Uninstall process only if WP_UNINSTALL_PLUGIN is defined =
 // ====================================================================
 if( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	global $wpdb, $wp_filesystem;
+	
+	global $wpdb, $wp_filesystem, $ai1ec_importer_plugin_helper;
+
 
 	// Delete event categories taxonomy
 	remove_taxonomy( 'events_categories' );
@@ -55,6 +57,7 @@ if( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	// Delete db version
 	delete_option( 'ai1ec_db_version' );
 
+
 	// Delete core themes version
 	delete_option( 'ai1ec_themes_version' );
 
@@ -63,9 +66,18 @@ if( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 	// Delete settings
 	delete_option( 'ai1ec_settings' );
+	
+	// Remove statistics version
+	delete_option( 'ai1ec_n_cron_version' );
+	
+	// Remove update cron version 
+	delete_option( 'ai1ec_u_cron_version' );
+	
+	// Delete scheduled update cron
+	wp_clear_scheduled_hook( 'ai1ec_u_cron' );
 
-	// Delete scheduled cron
-	wp_clear_scheduled_hook( 'ai1ec_cron' );
+	// Delete our scheduled statistics cron
+	wp_clear_scheduled_hook( 'ai1ec_n_cron' );
 
 	// Delete events
 	$table_name = $wpdb->prefix . 'ai1ec_events';
@@ -98,4 +110,7 @@ if( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 			$wp_filesystem->delete( $themes_dir, true );
 		}
 	}
+	// Let the plugin run their uninstall procedures
+	$ai1ec_importer_plugin_helper->run_uninstall_procedures();
+
 }

@@ -53,17 +53,17 @@ function origin_theme_meta_box() { ?>
 		<!-- Favicon upload -->
 		<tr class="favicon_url">
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'origin_favicon_url' ); ?>"><?php _e( 'Favicon:', 'origin' ); ?></label>
+				<label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_favicon_url' ) ); ?>"><?php _e( 'Favicon:', 'origin' ); ?></label>
 			</th>
 			<td>
-				<input type="text" id="<?php echo hybrid_settings_field_id( 'origin_favicon_url' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_favicon_url' ); ?>" value="<?php echo esc_attr( hybrid_get_setting( 'origin_favicon_url' ) ); ?>" />
+				<input type="text" id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_favicon_url' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_favicon_url' ) ); ?>" value="<?php echo esc_url( hybrid_get_setting( 'origin_favicon_url' ) ); ?>" />
 				<input id="origin_favicon_upload_button" class="button" type="button" value="Upload" />
 				<br />
 				<span class="description"><?php _e( 'Upload favicon image (recommended max size: 32x32).', 'origin' ); ?></span>
 				
 				<?php /* Display uploaded image */
 				if ( hybrid_get_setting( 'origin_favicon_url' ) ) { ?>
-                    <p><img src="<?php echo hybrid_get_setting( 'origin_favicon_url' ); ?>" alt=""/></p>
+                    <p><img src="<?php echo esc_url( hybrid_get_setting( 'origin_favicon_url' ) ); ?>" alt=""/></p>
 				<?php } ?>
 			</td>
 		</tr>
@@ -71,17 +71,17 @@ function origin_theme_meta_box() { ?>
 		<!-- Logo upload -->
 		<tr class="logo_url">
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'origin_logo_url' ); ?>"><?php _e( 'Logo:', 'origin' ); ?></label>
+				<label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_logo_url' ) ); ?>"><?php _e( 'Logo:', 'origin' ); ?></label>
 			</th>
 			<td>
-				<input type="text" id="<?php echo hybrid_settings_field_id( 'origin_logo_url' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_logo_url' ); ?>" value="<?php echo esc_attr( hybrid_get_setting( 'origin_logo_url' ) ); ?>" />
+				<input type="text" id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_logo_url' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_logo_url' ) ); ?>" value="<?php echo esc_url( hybrid_get_setting( 'origin_logo_url' ) ); ?>" />
 				<input id="origin_logo_upload_button" class="button" type="button" value="Upload" />
 				<br />
 				<span class="description"><?php _e( 'Upload logo image (recommended max width: 200px).', 'origin' ); ?></span>
 				
 				<?php /* Display uploaded image */
 				if ( hybrid_get_setting( 'origin_logo_url' ) ) { ?>
-                    <p><img src="<?php echo hybrid_get_setting( 'origin_logo_url' ); ?>" alt=""/></p>
+                    <p><img src="<?php echo esc_url( hybrid_get_setting( 'origin_logo_url' ) ); ?>" alt=""/></p>
 				<?php } ?>
 			</td>
 		</tr>		
@@ -89,19 +89,19 @@ function origin_theme_meta_box() { ?>
 		<!-- Font family -->
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'origin_font_family' ); ?>"><?php _e( 'Font family:', 'origin' ); ?></label>
+				<label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_font_family' ) ); ?>"><?php _e( 'Font family:', 'origin' ); ?></label>
 			</th>
 			<td>
-			    <select id="<?php echo hybrid_settings_field_id( 'origin_font_family' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_font_family' ); ?>">
-				<option value="Bitter" <?php echo hybrid_get_setting( 'origin_font_family', 'Bitter' ) == 'Bitter' ? 'selected="selected"' : '' ?>> <?php echo __( 'Bitter', 'origin' ) ?> </option>
-				<option value="Georgia" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Georgia' ? 'selected="selected"' : '' ?>> <?php echo __( 'Georgia', 'origin' ) ?> </option>
-				<option value="Droid Serif" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Droid Serif' ? 'selected="selected"' : '' ?>> <?php echo __( 'Droid Serif', 'origin' ) ?> </option>				
-				<option value="Helvetica" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Helvetica' ? 'selected="selected"' : '' ?>> <?php echo __( 'Helvetica', 'origin' ) ?> </option>
-				<option value="Istok Web" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Istok Web' ? 'selected="selected"' : '' ?>> <?php echo __( 'Istok Web', 'origin' ) ?> </option>
-				<option value="Arial" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Arial' ? 'selected="selected"' : '' ?>> <?php echo __( 'Arial', 'origin' ) ?> </option>
-				<option value="Verdana" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Verdana' ? 'selected="selected"' : '' ?>> <?php echo __( 'Verdana', 'origin' ) ?> </option>
-				<option value="Lucida Sans Unicode" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Lucida Sans Unicode' ? 'selected="selected"' : '' ?>> <?php echo __( 'Lucida Sans Unicode', 'origin' ) ?> </option>
-				<option value="Droid Sans" <?php echo hybrid_get_setting( 'origin_font_family' ) == 'Droid Sans' ? 'selected="selected"' : '' ?>> <?php echo __( 'Droid Sans', 'origin' ) ?> </option>
+			    <select id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_font_family' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_font_family' ) ); ?>">
+				<option value="Bitter" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Bitter' ); ?>> <?php echo __( 'Bitter', 'origin' ) ?> </option>
+				<option value="Georgia" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Georgia' ); ?>> <?php echo __( 'Georgia', 'origin' ) ?> </option>
+				<option value="Droid Serif" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Droid Serif' ); ?>> <?php echo __( 'Droid Serif', 'origin' ) ?> </option>				
+				<option value="Helvetica" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Helvetica' ); ?>> <?php echo __( 'Helvetica', 'origin' ) ?> </option>
+				<option value="Istok Web" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Istok Web' ); ?>> <?php echo __( 'Istok Web', 'origin' ) ?> </option>
+				<option value="Arial" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Arial' ); ?>> <?php echo __( 'Arial', 'origin' ) ?> </option>
+				<option value="Verdana" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Verdana' ); ?>> <?php echo __( 'Verdana', 'origin' ) ?> </option>
+				<option value="Lucida Sans Unicode" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Lucida Sans Unicode' ); ?>> <?php echo __( 'Lucida Sans Unicode', 'origin' ) ?> </option>
+				<option value="Droid Sans" <?php selected( hybrid_get_setting( 'origin_font_family' ), 'Droid Sans' ); ?>> <?php echo __( 'Droid Sans', 'origin' ) ?> </option>
 			    </select>
 			</td>
 		</tr>
@@ -109,17 +109,17 @@ function origin_theme_meta_box() { ?>
 		<!-- Font size -->
 		<tr>
 			<th>
-			    <label for="<?php echo hybrid_settings_field_id( 'origin_font_size' ); ?>"><?php _e( 'Font size:', 'origin' ); ?></label>
+			    <label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_font_size' ) ); ?>"><?php _e( 'Font size:', 'origin' ); ?></label>
 			</th>
 			<td>
-			    <select id="<?php echo hybrid_settings_field_id( 'origin_font_size' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_font_size' ); ?>">
-				<option value="16" <?php echo hybrid_get_setting( 'origin_font_size', '16' ) == '16' ? 'selected="selected"' : '' ?>> <?php echo __( 'default', 'origin' ) ?> </option>
-				<option value="17" <?php echo hybrid_get_setting( 'origin_font_size', '17' ) == '17' ? 'selected="selected"' : '' ?>> <?php echo __( '17', 'origin' ) ?> </option>
-				<option value="16" <?php echo hybrid_get_setting( 'origin_font_size', '16' ) == '16' ? 'selected="selected"' : '' ?>> <?php echo __( '16', 'origin' ) ?> </option>
-				<option value="15" <?php echo hybrid_get_setting( 'origin_font_size' ) == '15' ? 'selected="selected"' : '' ?>> <?php echo __( '15', 'origin' ) ?> </option>
-				<option value="14" <?php echo hybrid_get_setting( 'origin_font_size' ) == '14' ? 'selected="selected"' : '' ?>> <?php echo __( '14', 'origin' ) ?> </option>				
-				<option value="13" <?php echo hybrid_get_setting( 'origin_font_size' ) == '13' ? 'selected="selected"' : '' ?>> <?php echo __( '13', 'origin' ) ?> </option>
-				<option value="12" <?php echo hybrid_get_setting( 'origin_font_size' ) == '12' ? 'selected="selected"' : '' ?>> <?php echo __( '12', 'origin' ) ?> </option>
+			    <select id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_font_size' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_font_size' ) ); ?>">
+				<option value="16" <?php selected( hybrid_get_setting( 'origin_font_size' ), '16' ); ?>> <?php echo __( 'default', 'origin' ) ?> </option>
+				<option value="17" <?php selected( hybrid_get_setting( 'origin_font_size' ), '17' ); ?>> <?php echo __( '17', 'origin' ) ?> </option>
+				<option value="16" <?php selected( hybrid_get_setting( 'origin_font_size' ), '16' ); ?>> <?php echo __( '16', 'origin' ) ?> </option>
+				<option value="15" <?php selected( hybrid_get_setting( 'origin_font_size' ), '15' ); ?>> <?php echo __( '15', 'origin' ) ?> </option>
+				<option value="14" <?php selected( hybrid_get_setting( 'origin_font_size' ), '14' ); ?>> <?php echo __( '14', 'origin' ) ?> </option>				
+				<option value="13" <?php selected( hybrid_get_setting( 'origin_font_size' ), '13' ); ?>> <?php echo __( '13', 'origin' ) ?> </option>
+				<option value="12" <?php selected( hybrid_get_setting( 'origin_font_size' ), '12' ); ?>> <?php echo __( '12', 'origin' ) ?> </option>
 			    </select>
 			    <span class="description"><?php _e( 'The base font size in pixels.', 'origin' ); ?></span>
 			</td>
@@ -128,10 +128,10 @@ function origin_theme_meta_box() { ?>
 		<!-- Link color -->
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'origin_link_color' ); ?>"><?php _e( 'Link color:', 'origin' ); ?></label>
+				<label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_link_color' ) ); ?>"><?php _e( 'Link color:', 'origin' ); ?></label>
 			</th>
 			<td>
-				<input type="text" id="<?php echo hybrid_settings_field_id( 'origin_link_color' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_link_color' ); ?>" size="8" value="<?php echo ( hybrid_get_setting( 'origin_link_color' ) ) ? esc_attr( hybrid_get_setting( 'origin_link_color' ) ) : '#dd5424'; ?>" data-hex="true" />
+				<input type="text" id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_link_color' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_link_color' ) ); ?>" size="8" value="<?php echo ( hybrid_get_setting( 'origin_link_color' ) ) ? esc_attr( hybrid_get_setting( 'origin_link_color' ) ) : '#dd5424'; ?>" data-hex="true" />
 				<div id="colorpicker_link_color"></div>
 				<span class="description"><?php _e( 'Set the theme link color.', 'origin' ); ?></span>
 			</td>
@@ -140,10 +140,10 @@ function origin_theme_meta_box() { ?>
 		<!-- Custom CSS -->
 		<tr>
 			<th>
-				<label for="<?php echo hybrid_settings_field_id( 'origin_custom_css' ); ?>"><?php _e( 'Custom CSS:', 'origin' ); ?></label>
+				<label for="<?php echo esc_attr( hybrid_settings_field_id( 'origin_custom_css' ) ); ?>"><?php _e( 'Custom CSS:', 'origin' ); ?></label>
 			</th>
 			<td>
-				<textarea id="<?php echo hybrid_settings_field_id( 'origin_custom_css' ); ?>" name="<?php echo hybrid_settings_field_name( 'origin_custom_css' ); ?>" cols="60" rows="8"><?php echo wp_htmledit_pre( stripslashes( hybrid_get_setting( 'origin_custom_css' ) ) ); ?></textarea>
+				<textarea id="<?php echo esc_attr( hybrid_settings_field_id( 'origin_custom_css' ) ); ?>" name="<?php echo esc_attr( hybrid_settings_field_name( 'origin_custom_css' ) ); ?>" cols="60" rows="8"><?php echo wp_htmledit_pre( stripslashes( hybrid_get_setting( 'origin_custom_css' ) ) ); ?></textarea>
 				<span class="description"><?php _e( 'Add your custom CSS here. It would overwrite any default or custom theme settings.', 'origin' ); ?></span>
 			</td>
 		</tr>

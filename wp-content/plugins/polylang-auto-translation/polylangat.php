@@ -1,12 +1,14 @@
 <?php
 /*
-Plugin Name: Polylang Auto Translate
+Plugin Name: Polylang Auto Translation
 Plugin URI: http://moutons.ch
-Description: Add auto-translation functionnality to Polylang plugin.
-Version: 0.1
+Description: Add auto-translation functionality to the Polylang plugin.
+Text Domain: polylangat
+Version: 0.2
 Author: El Khalifa Karim
 Author URI: http://moutons.ch
 License: GPL2
+Tags: translation
 */
 
 /*  Copyright 2011-2012 K. El Khalifa
@@ -31,32 +33,79 @@ class PolylangAT {
     
     
     public function __construct() {
+        load_default_textdomain();
+        load_plugin_textdomain('polylang', false, basename( dirname( __FILE__ ) ) . '/../polylang/languages' );
         load_plugin_textdomain('polylangat', false, basename( dirname( __FILE__ ) ) . '/languages' );
-        add_action('add_meta_boxes', array(&$this, 'add_meta_boxes'));
+        if(is_admin()) {
+            add_action('add_meta_boxes', array(&$this, 'add_meta_boxes'));
+
+            add_action('wp_ajax_do_autotranslation', array(&$this, 'do_autotranslation_callback'));
+            
+            add_action('wp_ajax_do_autotranslationform', array(&$this, 'do_autotranslationform_callback'));
+            
+            add_action("plugins_loaded", array(&$this, 'load_scripts'));
+            
+            
+            
+            
+        }       
+    }
+    
+    public function load_scripts() {
         
-        add_action('admin_print_footer_scripts', array(&$this,'do_autotranslation_javascript'));
-        add_action('wp_ajax_do_autotranslation', array(&$this, 'do_autotranslation_callback'));
+        wp_enqueue_script('polylangAtScript', plugins_url('/js/polylangat.js', __FILE__), array('jquery'));
+        
+        $translation_array = array( 'title' =>__("Title"), 'text' => __("Content"), "attachment_caption" => __('Caption'), "attachment_alt" => __( 'Alternative Text' ), "attachment_content" => __( 'Description' ), "loading_image_url" => admin_url( 'images/loading.gif'), "traduction" => __("Translation", "polylang") );
+        wp_localize_script( 'polylangAtScript', 'plautotranslate', $translation_array );
+        
+        
         
     }
     
     // adds the Language box in the 'Edit Post' and 'Edit Page' panels (as well as in custom post types panels)
     public function add_meta_boxes($post_type) {
+        /* translators: Plugin main name */
         add_meta_box('plat_box', __("Auto-translate", "polylangat"), array(&$this,'getForm'), $post_type, 'side', 'high');
     }
     
     public function getForm() {
         global $post_ID;
+        global $polylang;
+        
         $post_type = get_post_type($post_ID);
 
         $lang = ($lg = $this->get_post_language($post_ID)) ? $lg : (isset($_GET['new_lang']) ? $this->get_language($_GET['new_lang']) : $this->get_default_language());
 
-        echo '<p><em>' . sprintf(__("%s from the article in %s.", 'polylangat'),
+        /* translators: %1$s is the auto-transaltion button and %2$s is the language select box  */
+        echo '<p><em>' . sprintf(__('%1$s from the article in %2$s.', 'polylangat'),
+                
+        /* translators: The label of the Translate button  */
             '<input type="submit" id="auto-translate" name="auto-translate" value="' . __('Translate', 'polylangat') . '" />',
             $this->dropdown_languages(array('name' => 'post_autotranslate_lang_choice', 'class' => '', 'selected' => $lang ? $lang->slug : ''))
         ) . '</em></p>' .
+                
+            /* translators: label before the field list to translate */
             '<p><em>' . __("Automatically translate:", "polylangat") . '</em></p>
-            <p><input type="checkbox" class="polylangat_wtt" name="polylangat_title_can_change" id="polylangat_title_can_change" checked="checked" /> ' . __("the title", "polylangat") . '<br />
-               <input type="checkbox" class="polylangat_wtt" name="polylangat_text_can_change" id="polylangat_text_can_change" checked="checked" /> ' . __("the text", "polylangat") . '</p>';
+                <div id="checkboxescontenttotranslate"></div>
+                
+<input type="hidden" name="to" id="auto-translate-to" value="' . $polylang->get_post_language($post_ID)->slug . '" />
+<input type="hidden" name="post_id" id="auto-translate-post_id" value="' . $post_ID . '" />
+
+
+<div id="polylang-auto-translation-accordion">' .
+                
+/* translators: Title of the translation services section */
+'<h3>' . __("Translation Services", "polylangat") . '</h3>
+<div>
+    <ul>
+        <li style="font-size: 22px;"><input type="radio" name="service" checked="checked" value="myMemory" /> <img src="' . plugins_url( 'images/mymemory.png' , __FILE__ ). '" alt="myMemory" /></li>
+        <li style="font-size: 22px;"><input type="radio" name="service" value="GoogleTranslation" /> <img src="' . plugins_url( 'images/google.png' , __FILE__ ). '" alt="Google Translate" /></li>
+    </ul>
+</div>
+</div>
+
+
+';
     }
     
     
@@ -140,156 +189,116 @@ class PolylangAT {
     }
     // among the post and its translations, returns the id of the post which is in $lang
     function get_post($post_id, $lang) {
-            $post_lang = $this->get_post_language($post_id);
-            if (!$lang || !$post_lang)
-                    return false;
-
-            $lang = $this->get_language($lang);
-            return $post_lang->term_id == $lang->term_id ? $post_id : $this->get_translation('post', $post_id, $lang);
-    }
-        
-    
-    public function do_autotranslation_javascript() {
-        ?>
-        <script type="text/javascript" >
-        jQuery(document).ready(function($) {
-            jQuery("#auto-translate").click(function(event) {
-                event.preventDefault();
-                
-                $(".polylangat-notice").remove();
-                
-                if($(".polylangat_wtt:checked").length > 0) {
-                
-                    $("#content-html").click();
-
-                    var data = {
-                            action: 'do_autotranslation',
-                            to_lang: $("#post_lang_choice").val(),
-                            from_lang: $("#post_autotranslate_lang_choice option:selected").attr("title"),
-                            post_id: $("#post_autotranslate_lang_choice").val()
-                    };
-
-
-
-                    $.ajax({
-                        type: 'POST',
-                        url: ajaxurl,
-                        data: data,
-                        success: function(response) {
-                            $("#content").val(response);
-                            if($("#content").css("display") == "none") {
-                                if(tinymce.editors.length) {
-                                    tinymce.editors[0].setContent(response.text);
-                                }
-                            } else {
-                                $("#content").val(response.text);
-                            }
-                            $("#title").focus().val(response.title);
-                        },
-                        dataType: "json"
-                    });
-                } else {
-                    var alertdiv = $('<div class="polylangat-notice error below-h2"><p>' + <?php echo json_encode(__("Please tick at least one translation options.", "polylangat")); ?> + '</p></div>');
-                    $('.wrap > h2').after(alertdiv);
-                    
-     
-                }
+        $post_lang = $this->get_post_language($post_id);
+        if (!$lang || !$post_lang)
                 return false;
-            });
-            
-            jQuery(".polylangat_wtt").click(function() {
-                if($(".polylangat_wtt:checked").length > 0) {
-                    $(".polylangat-notice").remove();
-                }
-            });
-               
-        });
-        </script>
-        <?php
-    }
 
-        
+        $lang = $this->get_language($lang);
+        return $post_lang->term_id == $lang->term_id ? $post_id : $this->get_translation('post', $post_id, $lang);
+    }  
         
         
 
     public function do_autotranslation_callback() {
-
-        $post = get_post($_REQUEST["post_id"], ARRAY_A);
-
-        $output = array('title' => '', 'text' => '');
         
-        $title = $post["post_title"];
-        $text = $post["post_content"];
-        $from = $_REQUEST["from_lang"];
-        $to = $_REQUEST["to_lang"];
-        $url = "http://mymemory.translated.net/api/get";
-        $limit = 80;
-        
-        
-        $ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST,true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,array('q'=>"{$title}",'langpair'=>"{$from}|{$to}"));
-        
-        $response = curl_exec($ch);
-        
-        if($response !== false) {
-            $json = json_decode($response, true);
-            if(isset($json["responseData"]["translatedText"])) {
-                $output["title"] = $json["responseData"]["translatedText"];
-            }
+        if(session_id() == '') {
+            session_start();
         }
-        curl_close($ch);
         
         
-        // the text be carefull of the limitation of 1500 bytes !
+
+        if(!isset($_REQUEST["engine"])) {
+            $_REQUEST["engine"] = "myMemory";
+        }
+        $engine = $_REQUEST["engine"];
         
-        $texts = explode("\n", $text);
         
-        $to_translate = array('');
-        $i = 0;
-        while($i < sizeof($texts)) {
-            if(strlen($to_translate[sizeof($to_translate) - 1] . $texts[$i]) > $limit) {
-                $to_translate[] = $texts[$i] . " ___ ";
+        preg_match("/polylangat_can_change\[(.*)\]/", $_REQUEST["what"], $match);
+        
+        $what = $match[1];
+        
+        if(!isset($_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what])) {
+            if(!isset($_REQUEST["text"])) {
+                $post = get_post(pll_get_post($_REQUEST["post_id"], $_REQUEST["from_lang"]), ARRAY_A);
             } else {
-                 $to_translate[sizeof($to_translate) - 1] .= $texts[$i] . " ___ ";
+                $w_hat = $what;
+                $what = "free";
             }
-            
-            $i++;
+            $totranslate = '';
+
+            switch($what) {
+                case "title":
+                    $totranslate = $post["post_title"];
+                    break;
+                case "attachment_caption":
+                    $totranslate = $post["post_excerpt"];
+                    break;
+                case "attachment_alt":
+                    $totranslate = get_post_meta($_REQUEST["post_id"], '_wp_attachment_image_alt', true);
+                    break;
+                case "attachment_content":
+                    $totranslate = $post["post_content"];
+                    break;
+                case "content":
+                    $totranslate = $post["post_content"];
+                    break;
+                case "free":
+                    $totranslate  = $_REQUEST["text"];
+                    $what = $w_hat;
+                    break;
+            }
+
+            $texts = array_reverse(explode("\n", $totranslate));
+
+            $_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what] = array("texts" => $texts, "size"=>sizeof($texts));//$to_translate;
+        }
+        $totranslate = array_pop($_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what]["texts"]);
+
+        if(trim($totranslate) != '') {
+
+            include_once(dirname(__FILE__) . "/class/" . $engine . ".php");
+            $translator = new $engine();
+            $translated = $translator->translate($totranslate, $_REQUEST["from_lang"], $_REQUEST["to_lang"]);
+
+        } else {
+            $translated = '';
         }
         
-
-        foreach($to_translate as $text) {
-            if(strlen(trim($text)) > 0) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HEADER, false);
-                curl_setopt($ch, CURLOPT_POST,true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS,array('q'=>"{$text}",'langpair'=>"{$from}|{$to}"));
-
-                $response = curl_exec($ch);
-
-                if($response !== false) {
-
-                    $json = json_decode($response, true);
-                    if(isset($json["responseData"]["translatedText"])) {
-                        $output["text"] .= str_replace("___", "
-" , $json["responseData"]["translatedText"] . "
-");
-
-                    }
-                }
-                curl_close($ch);
-            }
-        }
-
-        echo json_encode($output);
         
-
+        echo json_encode(array("engine" => $engine,"target" => $what, 'translation' => trim($translated), 'total' => $_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what]["size"] , 'remaining' => sizeof($_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what]["texts"])));
+        
+        if(sizeof($_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what]["texts"]) == 0) {
+            unset($_SESSION["polylang-auto-translate_remaining"][$_REQUEST["post_id"]][$what]);
+        }
 	die(); // this is required to return a proper result
+    }
+    
+    function do_autotranslationform_callback() {
+        global $polylang;
+        
+        $post_type = get_post_type($post_ID);
+
+        $lang = ($lg = $this->get_post_language($post_ID)) ? $lg : (isset($_GET['new_lang']) ? $this->get_language($_GET['new_lang']) : $this->get_default_language());
+
+        echo '<hr /><div id="icon-tools" class="icon32"></div><h1>' . __("Auto-translate", "polylangat") . '</h1><p><em>' . 
+            sprintf(
+                    
+        /* translators: %1$s is the translate button, %2$s is the list of fields to transalte, %3$s is the radio button String , %4$s is the radio button  translations, %5$s is the language select box, %6$s are the translation services checkboxes*/
+                __('%1$s %2$s from the %3$s or %4$s in %5$s using: %6$s', 'polylangat'),
+                    '<input type="submit" class="button" id="auto-translate" name="auto-translate" value="' . __('Translate', 'polylangat') . '" />',
+                    '<div id="checkboxescontentwhattotranslate"></div>',
+                    
+                    '<input type="radio" name="original-string-from" value="column-string" checked="checked" /> ' . __('String', 'polylang'),
+                    '<input type="radio" name="original-string-from" value="column-translations" /> ' . __('Translations', 'polylang'),
+                    
+                    
+                    $this->dropdown_languages(array('name' => 'post_autotranslate_lang_choice','value' => 'slug', 'class' => '', 'selected' => $lang ? $lang->slug : '')),
+                    '<input type="radio" name="service" checked="checked" value="myMemory" /> <img src="' . plugins_url( 'images/mymemory.png' , __FILE__ ). '" alt="myMemory" />
+                    <input type="radio" name="service" value="GoogleTranslation" /> <img src="' . plugins_url( 'images/google.png' , __FILE__ ). '" alt="Google Translate" />'
+                ) .
+                '</em>' .     '
+            </p>';
+        die();
     }
     
 }

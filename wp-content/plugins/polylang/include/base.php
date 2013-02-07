@@ -10,6 +10,7 @@ abstract class Polylang_Base {
 
 	// used to cache results
 	private $languages_list = array();
+	private $language = array();
 	private $links = array();
 
 	function __construct() {
@@ -62,13 +63,17 @@ abstract class Polylang_Base {
 	}
 
 	// returns the language by its id or its slug
-	// Note: it seems that a numeric value is better for performance (3.2.1)
+	// Note: it seems that get_term_by slug is not cached (3.2.1)
 	function get_language($value) {
-		$lang = is_object($value) ? $value :
-			((is_numeric($value) || (int) $value) ? get_term((int) $value, 'language') :
-			(is_string($value) ? get_term_by('slug', $value , 'language') : // seems it is not cached in 3.2.1
-			false));
-		return isset($lang) && $lang && !is_wp_error($lang) ? $lang : false;
+		if (is_object($value))
+			return $value;
+
+		if (isset($this->language[$value]))
+			return $this->language[$value];
+
+		$lang = (is_numeric($value) || (int) $value) ? get_term((int) $value, 'language') :
+			(is_string($value) ? get_term_by('slug', $value , 'language') : false);
+		return isset($lang) && $lang && !is_wp_error($lang) ? ($this->language[$value] = $lang) : false;
 	}
 
 	// saves translations for posts or terms
@@ -112,8 +117,9 @@ abstract class Polylang_Base {
 
 	// returns an array of translations of a post or term
 	function get_translations($type, $id) {
+		$type = ($type == 'post' || in_array($type, $this->post_types)) ? 'post' : (($type == 'term' || in_array($type, $this->taxonomies)) ? 'term' : false);
 		// maybe_unserialize due to useless serialization in versions < 0.9
-		return maybe_unserialize(get_metadata($type, $id, '_translations', true)); 
+		return $type ? maybe_unserialize(get_metadata($type, $id, '_translations', true)) : array(); 
 	}
 
 	// store the post language in the database
@@ -153,7 +159,7 @@ abstract class Polylang_Base {
 			$term_id = $value;
 		elseif (is_string($value) && $taxonomy)
 			$term_id = get_term_by('slug', $value , $taxonomy)->term_id;
-		return $term_id ? $this->get_language(get_metadata('term', $term_id, '_language', true)) : false;
+		return isset($term_id) && $term_id ? $this->get_language(get_metadata('term', $term_id, '_language', true)) : false;
 	}
 
 	// among the term and its translations, returns the id of the term which is in $lang
@@ -254,8 +260,21 @@ abstract class Polylang_Base {
 	function _terms_clauses($clauses, $lang) {
 		global $wpdb;
 		if (isset($lang) && $lang) {
-			$clauses['join'] .= $wpdb->prepare(" LEFT JOIN $wpdb->termmeta AS pll_tm ON t.term_id = pll_tm.term_id");
-			$clauses['where'] .= $wpdb->prepare(" AND pll_tm.meta_key = '_language' AND pll_tm.meta_value IN ($lang->term_id)");
+			// the query is coming from Polylang and the $lang is an object
+			if (is_object($lang))
+				$languages = esc_sql($lang->term_id);
+
+			// the query is coming from outside with 'lang' parameter and $lang is a comma separated list of slugs (or an array of slugs)
+			else {
+				$languages = is_array($lang) ? $lang : explode(',', $lang);
+				$languages = "'" . implode("','", array_map( 'sanitize_title_for_query', $languages)) . "'";
+				$languages = $wpdb->get_col("SELECT $wpdb->term_taxonomy.term_id FROM $wpdb->term_taxonomy
+					INNER JOIN $wpdb->terms USING (term_id) WHERE taxonomy = 'language' AND $wpdb->terms.slug IN ($languages)"); // get ids from slugs
+				$languages = esc_sql(implode(',', $languages));
+			}
+
+			$clauses['join'] .= " LEFT JOIN $wpdb->termmeta AS pll_tm ON t.term_id = pll_tm.term_id";
+			$clauses['where'] .= " AND pll_tm.meta_key = '_language' AND pll_tm.meta_value IN ($languages)";
 		}
 		return $clauses;
 	}

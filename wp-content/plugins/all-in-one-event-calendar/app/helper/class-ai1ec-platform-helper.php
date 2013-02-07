@@ -10,7 +10,7 @@
  * Ai1ec_Platform_Helper class
  *
  * @package Helpers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Platform_Helper {
 	/**
@@ -239,7 +239,7 @@ class Ai1ec_Platform_Helper {
 			echo "<p><a href='options-privacy.php' title='$title'>$content</a></p>";
 		}
 
-		$msg = sprintf( __('You are using <span class="b">All-in-One Calendar %s</span>.'), AI1EC_VERSION );
+		$msg = sprintf( __('You are using <span class="b">All-in-One Event Calendar %s</span>.'), AI1EC_VERSION );
 		echo "<span id='wp-version-message'>$msg</span>";
 
 
@@ -257,32 +257,8 @@ class Ai1ec_Platform_Helper {
 		global $ai1ec_view_helper,
 		       $ai1ec_settings_helper,
 		       $ai1ec_settings;
-
-		// ============================================
-		// = All admin screens, including Super Admin =
-		// ============================================
-		// Scripts.
-		$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-platform-all', 'platform-all.js', array( 'jquery' ), TRUE );
-		wp_localize_script( 'ai1ec-platform-all', 'ai1ec_platform_all', array(
-			'page_on_front_description' => __( 'This setting cannot be changed in All-in-One Calendar Platform mode.', AI1EC_PLUGIN_NAME ),
-		) );
-
-		// Do not further modify UI for super admins.
-		if( current_user_can( 'super_admin' ) ) {
-			return;
-		}
-
-		// =====================
-		// = All admin screens =
-		// =====================
-		// Scripts.
-		$ai1ec_view_helper->admin_enqueue_script( 'ai1ec-platform', 'platform.js', array( 'jquery' ), TRUE );
-		wp_localize_script( 'ai1ec-platform', 'ai1ec_platform', array(
-			'strict_mode' => $ai1ec_settings->event_platform_strict,
-		) );
 		// Styles.
 		$ai1ec_view_helper->admin_enqueue_style( 'ai1ec-platform', 'platform.css' );
-
 		// ==================
 		// = Dashboard only =
 		// ==================
@@ -290,7 +266,7 @@ class Ai1ec_Platform_Helper {
 			// Styles.
 			$ai1ec_view_helper->admin_enqueue_style( 'ai1ec-settings', 'settings.css' );
 			$ai1ec_view_helper->admin_enqueue_style( 'ai1ec-dashboard', 'dashboard.css' );
-			$ai1ec_view_helper->admin_enqueue_style( 'thenly-bootstrap', 'bootstrap.min.css' );
+			$ai1ec_view_helper->admin_enqueue_style( 'timely-bootstrap', 'bootstrap.min.css' );
 		}
 	}
 

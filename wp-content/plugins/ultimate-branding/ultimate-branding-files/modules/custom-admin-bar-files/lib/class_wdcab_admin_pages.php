@@ -2,9 +2,9 @@
 /**
  * Handles all Admin access functionality.
  */
-class Wdcab_AdminPages {
+class ub_Wdcab_AdminPages {
 
-	function Wdcab_AdminPages () {
+	function ub_Wdcab_AdminPages () {
 		$this->__construct();
 	}
 
@@ -48,13 +48,16 @@ class Wdcab_AdminPages {
 	function register_settings () {
 		global $wp_version;
 		$version = preg_replace('/-.*$/', '', $wp_version);
-		$form = new Wdcab_AdminFormRenderer;
+		$form = new ub_Wdcab_AdminFormRenderer;
 
 		register_setting('wdcab', 'wdcab');
 		add_settings_section('wdcab_settings', __('Settings', 'ub'), create_function('', ''), 'wdcab_options');
 		add_settings_field('wdcab_enable', __('Enable Custom entry', 'ub'), array($form, 'create_enabled_box'), 'wdcab_options', 'wdcab_settings');
 		add_settings_field('wdcab_title', __('Entry title <br /><small>(text or image)</small>', 'ub'), array($form, 'create_title_box'), 'wdcab_options', 'wdcab_settings');
 		add_settings_field('wdcab_title_link', __('Title link leads to', 'ub'), array($form, 'create_title_link_box'), 'wdcab_options', 'wdcab_settings');
+
+		add_settings_field('wdcab_title_link_opens', __('Title link target', 'ub'), array($form, 'create_title_link_target_box'), 'wdcab_options', 'wdcab_settings');
+
 		add_settings_field('wdcab_add_step', __('Add new link', 'ub'), array($form, 'create_add_link_box'), 'wdcab_options', 'wdcab_settings');
 		add_settings_field('wdcab_links', __('Configure Links', 'ub'), array($form, 'create_links_box'), 'wdcab_options', 'wdcab_settings');
 		if (version_compare($version, '3.3', '>=')) {

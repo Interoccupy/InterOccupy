@@ -126,9 +126,8 @@ function pl_comment_form_js() {
 }
 add_action( 'wp_enqueue_scripts', 'pagelines_register_js' );
 function pagelines_register_js() {
-
 	
-	wp_register_script( 'pagelines-bootstrap-all', PL_JS . '/script.bootstrap.min.js', array( 'jquery' ), '2.0.3', true );
+	wp_register_script( 'pagelines-bootstrap-all', PL_JS . '/script.bootstrap.min.js', array( 'jquery' ), '2.2.1', true );
 	wp_register_script( 'pagelines-blocks', PL_JS . '/script.blocks.js', array('jquery'), '1.0.1', true );
 	wp_register_script( 'pagelines-supersize', PL_JS . '/script.supersize.js', array( 'jquery' ), '3.1.3', false );
 }
@@ -178,4 +177,15 @@ function pagelines_check_less_reset() {
 	if( isset( $_GET['pl_reset_less'] ) && ! defined( 'PL_CSS_FLUSH' ) )
 		do_action( 'extend_flush' );
 
+}
+
+add_action( 'wp_head', 'pagelines_google_author_head' );
+
+function pagelines_google_author_head() {
+	global $post;
+	if( ! is_page() && ! is_single() && ! is_author() )
+		return;
+	$google_profile = get_the_author_meta( 'google_profile', $post->post_author );
+	if ( '' != $google_profile )
+		printf( '<link rel="author" href="%s" />%s', $google_profile, "\n" );
 }

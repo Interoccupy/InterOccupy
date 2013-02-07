@@ -16,10 +16,10 @@
 			<strong><?php echo $tags; ?></strong>
 		</div>
 	<?php endif ?>
-	<input type="button" class="button ai1ec_delete_ics" value="<?php _e( '× Delete', AI1EC_PLUGIN_NAME ); ?>" />
-	<input type="button" class="button ai1ec_update_ics" value="<?php _e( 'Update', AI1EC_PLUGIN_NAME ); ?>" />
+	<input type="button" class="button ai1ec_delete_ics" value="<?php _e( '× Remove', AI1EC_PLUGIN_NAME ); ?>" />
+	<input type="button" class="button ai1ec_update_ics" value="<?php _e( 'Refresh', AI1EC_PLUGIN_NAME ); ?>" />
 	<?php if( $events ): ?>
-		<input type="button" class="button ai1ec_flush_ics" value="<?php printf( _n( 'Flush 1 event', 'Flush %s events', $events, AI1EC_PLUGIN_NAME ), $events ) ?>" />
+		<input type="hidden" class="ai1ec_flush_ics" value="<?php echo $events ?>" />
 	<?php endif ?>
 	<img src="images/wpspin_light.gif" class="ajax-loading" alt="" />
 </div>

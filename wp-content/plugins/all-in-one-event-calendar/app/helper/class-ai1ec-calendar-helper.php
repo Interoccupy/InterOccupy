@@ -10,7 +10,7 @@
  * Ai1ec_Calendar_Helper class
  *
  * @package Helpers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Calendar_Helper {
 	/**
@@ -631,6 +631,47 @@ class Ai1ec_Calendar_Helper {
 	}
 
 	/**
+	 * get_posterboard_date_array function
+	 *
+	 * Breaks down the given ordered array of event objects into dates, and
+	 * outputs an ordered array of two-element associative arrays in the
+	 * following format:
+	 *	key: localized UNIX timestamp of date
+	 *	value:
+	 *		['events'] => two-element associatative array broken down thus:
+	 *			['allday'] => all-day events occurring on this day
+	 *			['notallday'] => all other events occurring on this day
+	 *		['today'] => whether or not this date is today
+	 *
+	 * @param array $events
+	 *
+	 * @return array
+	 **/
+	function get_posterboard_date_array( $events ) {
+		global $ai1ec_events_helper;
+
+		$dates = array();
+
+		// Classify each event into a date/allday category
+		foreach( $events as $event ) {
+			$date = $ai1ec_events_helper->gmt_to_local( $event->start );
+			$date = $ai1ec_events_helper->gmgetdate( $date );
+			$timestamp = gmmktime( 0, 0, 0, $date['mon'], $date['mday'], $date['year'] );
+			$category = $event->allday||$event->multiday ? 'allday' : 'notallday';
+			$dates[$timestamp]['events'][$category][] = $event;
+		}
+
+		// Flag today
+		$today = $ai1ec_events_helper->gmt_to_local( time() );
+		$today = $ai1ec_events_helper->gmgetdate( $today );
+		$today = gmmktime( 0, 0, 0, $today['mon'], $today['mday'], $today['year'] );
+		if( isset( $dates[$today] ) )
+			$dates[$today]['today'] = true;
+
+		return $dates;
+	}
+
+	/**
 	 * get_agenda_date_array function
 	 *
 	 * Breaks down the given ordered array of event objects into dates, and
@@ -670,6 +711,8 @@ class Ai1ec_Calendar_Helper {
 
 		return $dates;
 	}
+
+
 
 	/**
 	 * get_calendar_url function
@@ -745,6 +788,31 @@ class Ai1ec_Calendar_Helper {
 
 					$url .= "ai1ec_page_offset=$page_offset";
 					break;
+
+				case 'posterboard':
+					// Find out how many event instances are between today's first
+					// instance and the desired event's instance
+					$now = $ai1ec_events_helper->local_to_gmt( time() );
+					$after_today = $event->end >= $now;
+					$query = $wpdb->prepare(
+						"SELECT COUNT(*) FROM {$wpdb->prefix}ai1ec_events e " .
+							"INNER JOIN $wpdb->posts p ON e.post_id = p.ID " .
+							"INNER JOIN {$wpdb->prefix}ai1ec_event_instances i ON e.post_id = i.post_id " .
+						"WHERE post_type = '" . AI1EC_POST_TYPE . "' " .
+						"AND post_status = 'publish' " .
+						( $after_today
+							? "AND i.end >= FROM_UNIXTIME( %d ) AND i.end < FROM_UNIXTIME( %d ) "
+							: "AND i.start < FROM_UNIXTIME( %d ) AND i.start >= FROM_UNIXTIME( %d ) "
+						) .
+						"ORDER BY i.start ASC",
+						array( $now, $after_today ? $event->end : $event->start ) );
+					$count = $wpdb->get_var( $query );
+					// ( $count - 1 ) below solves boundary case for first event of each posterboard page
+					$page_offset = intval( ( $count - 1 ) / $ai1ec_settings->posterboard_events_per_page );
+					if( ! $after_today ) $page_offset = -1 - $page_offset;
+
+					$url .= "ai1ec_page_offset=$page_offset";
+					break;
 			}
 
 			$url .= "&ai1ec_active_event=$event->post_id";
@@ -785,6 +853,44 @@ class Ai1ec_Calendar_Helper {
 			}
 		}
 		return $weekdays;
+	}
+
+	/**
+	 * get_posterboard_pagination_links function
+	 *
+	 * Returns an associative array of two links for the posterboard view of the
+	 * calendar: previous page (if previous events exist), next page (if next
+	 * events exist), in that order.
+	 * Each element' is an associative array containing the link ID ['id'],
+	 * text ['text'] and value to assign to link's href ['href'].
+	 *
+	 * @param int $cur_offset page offset of posterboard view, needed for hrefs
+	 * @param int $prev       whether there are more events before the current page
+	 * @param int $next       whether there are more events after the current page
+	 *
+	 * @return array          array of link information as described above
+	 **/
+	function get_posterboard_pagination_links( $cur_offset, $prev = false, $next = false ) {
+		global $ai1ec_settings;
+
+		$links = array();
+
+		if( $prev ) {
+			$links['prev'] = array(
+				'id' => 'ai1ec-prev-page',
+				'text' => sprintf( __( '« Previous Events', AI1EC_PLUGIN_NAME ), $ai1ec_settings->posterboard_events_per_page ),
+				'href' => '#action=ai1ec_posterboard&ai1ec_page_offset=' . ( $cur_offset - 1 ),
+			);
+		}
+		if( $next ) {
+			$links['next'] = array(
+				'id' => 'ai1ec-next-page',
+				'text' => sprintf( __( 'Next Events »', AI1EC_PLUGIN_NAME ), $ai1ec_settings->posterboard_events_per_page ),
+				'href' => '#action=ai1ec_posterboard&ai1ec_page_offset=' . ( $cur_offset + 1 ),
+			);
+		}
+
+		return $links;
 	}
 
 	/**

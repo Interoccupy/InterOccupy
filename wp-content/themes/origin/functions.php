@@ -2,9 +2,9 @@
 /**
  * @package Origin
  * @subpackage Functions
- * @version 0.3.5
- * @author DevPress
- * @link http://devpress.com
+ * @version 0.4
+ * @author Galin Simeonov
+ * @link http://alienwp.com
  * @license http://www.gnu.org/licenses/gpl-2.0.html
  */
 
@@ -61,9 +61,6 @@ function origin_theme_setup() {
         
 	/* Filter the pagination trail arguments. */
 	add_filter( 'loop_pagination_args', 'origin_pagination_args' );
-        
-	/* Remove links from entry titles (shortcodes) for singular */
-	add_filter( "{$prefix}_entry_title", 'origin_entry_title_shortcode' );
 	
 	/* Filter the comments arguments */
 	add_filter( "{$prefix}_list_comments_args", 'origin_comments_args' );	
@@ -179,34 +176,6 @@ function origin_pagination_args( $args ) {
 	$args['next_text'] = __( 'Next &rarr;', 'origin' );
 
 	return $args;
-}
-
-
-/**
- * Remove links from entry titles (shortcodes) 
- *
- */
-function origin_entry_title_shortcode( $title ) {
-	
-	global $post;
-
-	if ( is_front_page() && !is_home() )
-		$title = the_title( '<h2 class="' . esc_attr( $post->post_type ) . '-title entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h2>', false );
-		
-	elseif ( is_singular() )
-		$title = the_title( '<h1 class="' . esc_attr( $post->post_type ) . '-title entry-title">', '</h1>', false );
-		
-	elseif ( 'link_category' == get_query_var( 'taxonomy' ) )
-		$title = false;
-		
-	else
-		$title = the_title( '<h2 class="entry-title"><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h2>', false );
-	
-	/* If there's no post title, return a clickable '(Untitled)'. */
-	if ( empty( $title ) && !is_singular() && 'link_category' !== get_query_var( 'taxonomy' ) )
-		$title = '<h2 class="entry-title no-entry-title"><a href="' . get_permalink() . '" rel="bookmark">' . __( '(Untitled)', 'origin' ) . '</a></h2>';	
-	
-	return $title;
 }
 
 /**

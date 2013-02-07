@@ -1,0 +1,24 @@
+
+@contrast = darken( @pl-base, @invert-dark );
+@contrast2 = lighten( @contrast,  2.5 );
+@contrast3 = darken( @contrast,  2 );
+@dark = darken( @contrast, 7 );
+@light = lighten( @contrast, 7 );
+
+.pl_reader_container, .pl_nav{
+	background: @contrast;
+	color: @pl-text;
+}
+	.reader-content{
+		background: @contrast2;
+	}
+	.readernav span.readerselected, .readernav span:hover{
+		background: @contrast3;
+	}
+	.readernav ul li{
+		border-bottom: 1px solid @light;
+	}
+	.readernav ul li span{
+		border-bottom: 1px solid @dark;
+	}
+	

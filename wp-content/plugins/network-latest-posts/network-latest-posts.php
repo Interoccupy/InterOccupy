@@ -3,7 +3,7 @@
 Plugin Name: Network Latest Posts
 Plugin URI: http://en.8elite.com/network-latest-posts
 Description: Display the latest posts from the blogs in your network using it as a function, shortcode or widget.
-Version: 3.0.4
+Version: 3.5.4
 Author: L'Elite
 Author URI: http://laelite.info/
  */
@@ -74,6 +74,63 @@ Author URI: http://laelite.info/
  * **** Missing meta-info spotted
  * **** Missing site name Widget
  *
+ * -- skepticblogsnet
+ * --- Functionalities proposed:
+ * ---- Override CSS classes for the wrapper tag
+ *
+ * -- Ricardoweb
+ * --- Bug spotted $post_type should be $custom_post_type
+ *
+ * -- Jason Willis
+ * --- Spotted deprecated functions register_sidebar_widget and register_widget_control
+ *
+ * -- Owagu
+ * --- Bug spotted, custom post types didn't accept multiple values
+ *
+ * -- cyberdemon8
+ * --- Patched for wp_register_sidebar_widget & wp_register_widget_control
+ *
+ * -- Kobus
+ * --- Functionalities proposed:
+ * ---- Random posts
+ *
+ * -- Aircut
+ * --- Spotted an issue with Visual Composer plugin, their shortcodes were not being
+ *     stripped out from excerpts
+ *
+ * -- Snapalot
+ * --- Spotted an issue when placing NLPosts right before comments section, comments were
+ *     added to different posts
+ *
+ * -- aaronbennett2097
+ * --- Functionalities proposed:
+ * ----- Thumbnails from Custom Fields
+ *
+ * -- kkalvaa
+ * --- Spotted auto_excerpt bug
+ *
+ * -- James
+ * --- Proposed ignore posts
+ *
+ * -- Anton Channing
+ * --- Spotted blog IDs were missing from element classes
+ *
+ * -- Julien Dizdar
+ * --- Spotted a bug in sorting parameters
+ *
+ * -- kkalvaa
+ * --- Spotted ignored strings by translation files, this problem was due to
+ * --- a loading hierarchy problem
+ *
+ * -- Gerard Bik
+ * -- Proposed display post content instead of excerpts
+ *
+ * -- ThorHammer
+ * --- Spotted a warning when NLPosts couldn't find posts.
+ *
+ * -- Claas Augner
+ * **** Patch to correctly format dates for localization.
+ *
  * That's it, let the fun begin!
  *
  */
@@ -96,25 +153,35 @@ require_once dirname( __FILE__ ) . '/network-latest-posts-widget.php';
  * -- @thumbnail_wh       : Thumbnails size, width and height in pixels, while using the shortcode or a function this parameter must be passed like: '80x80'
  * -- @thumbnail_class    : Thumbnail class, set a custom class (alignleft, alignright, center, etc)
  * -- @thumbnail_filler   : Placeholder to use if the post's thumbnail couldn't be found, options: placeholder, kittens, puppies (what?.. I can be funny sometimes)
+ * -- @thumbnail_custom   : Pull thumbnails from custom fields
+ * -- @thumbnail_field    : Specify the custom field for thumbnail URL
+ * -- @thumbnail_url      : Custom thumbnail URL
  * -- @custom_post_type   : Specify a custom post type: post, page or something-you-invented
  * -- @category           : Category or categories you want to display. Ex: cats,dogs means, retrieve posts containing the categories cats or dogs
  * -- @tag                : Same as categoy WordPress treats both taxonomies the same way; by the way, you can pass one or many (separated by commas)
  * -- @paginate           : Display results by pages, if used then the parameter posts_per_page must be specified, otherwise pagination won't be displayed
  * -- @posts_per_page     : Set the number of posts to display by page (paginate must be activated)
+ * -- @display_content    : When true then post content will be displayed instead of excertps
  * -- @excerpt_length     : Set the excerpt's length in case you think it's too long for your needs Ex: 40 means, 40 words
  * -- @auto_excerpt       : If true then it will generate an excerpt from the post content, it's useful for those who forget to use the Excerpt field in the post edition page
  * -- @excerpt_trail      : Set the type of trail you want to append to the excerpts: text, image. The text will be _more_, the image is inside the plugin's img directory and it's called excerpt_trail.png
  * -- @full_meta          : Display the date and the author of the post, for the date/time each blog time format will be used
  * -- @sort_by_date       : Sorting capabilities, this will take all posts found (regardless their blogs) and sort them in order of recency, putting newest first
- * -- @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest
+ * -- @sort_by_blog       : Sort by blog ID
+ * -- @sorting_order      : Specify the sorting order: 'newer' means from newest to oldest posts, 'older' means from oldest to newest. Asc and desc for blog IDs
  * -- @sorting_limit      : Limit the number of posts to display. Ex: 5 means display 5 posts from all those found (even if 20 were found, only 5 will be displayed)
  * -- @post_status        : Specify the status of the posts you want to display: publish, new, pending, draft, auto-draft, future, private, inherit, trash
  * -- @css_style          : Use a custom CSS style instead of the one included by default, useful if you want to customize the front-end display: filename (without extension), this file must be located where your active theme CSS style is located
+ * -- @wrapper_list_css   : Custom CSS classes for the list wrapper
+ * -- @wrapper_block_css  : Custom CSS classes for the block wrapper
  * -- @instance           : This parameter is intended to differenciate each instance of the widget/shortcode/function you use, it's required in order for the asynchronous pagination links to work
+ * -- @random             : Pull random posts (possible values: true or false, false by default)
+ * -- @post_ignore        : Post ID(s) to ignore (default null) comma separated values ex: 1 or 1,2,3 > ignore posts ID 1 or 1,2,3 (post ID 1 = Hello World)
  */
 function network_latest_posts( $parameters ) {
     // Global variables
     global $wpdb;
+    //global $nlp_time_frame;
     // Default values
     $defaults = array(
         'title'            => NULL,          // Widget title
@@ -128,21 +195,30 @@ function network_latest_posts( $parameters ) {
         'thumbnail_wh'     => '80x80',       // Thumbnail Width & Height in pixels
         'thumbnail_class'  => NULL,          // Thumbnail CSS class
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
+        'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
+        'thumbnail_field'  => NULL,          // Custom field containing image url
+        'thumbnail_url'    => NULL,          // Custom thumbnail URL
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
         'paginate'         => FALSE,         // Paginate results
         'posts_per_page'   => NULL,          // Number of posts per page (paginate must be activated)
+        'display_content'  => FALSE,         // Display post content (when false, excerpts will be displayed)
         'excerpt_length'   => NULL,          // Excerpt's length
         'auto_excerpt'     => FALSE,         // Generate excerpt from content
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
         'full_meta'        => FALSE,         // Display full metadata
         'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
+        'sort_by_blog'     => FALSE,         // Sort by Blog ID
+        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog ID
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
-        'css_style'        => NULL,          // Customized CSS _filename_ (ex: custom_style)
-        'instance'         => NULL           // Instance identifier, used to uniquely differenciate each shortcode or widget used
+        'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
+        'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
+        'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
+        'instance'         => NULL,          // Instance identifier, used to uniquely differenciate each shortcode or widget used
+        'random'           => FALSE,         // Pull random posts (true or false)
+        'post_ignore'      => NULL           // Post ID(s) to ignore
     );
     // Parse & merge parameters with the defaults
     $settings = wp_parse_args( $parameters, $defaults );
@@ -156,8 +232,8 @@ function network_latest_posts( $parameters ) {
     // If no instance was set, make one
     if( empty($instance) ) { $instance = 'default'; }
     // HTML Tags
-    $html_tags = nlp_display_type($display_type, $instance);
-    // If Customized CSS
+    $html_tags = nlp_display_type($display_type, $instance, $wrapper_list_css, $wrapper_block_css);
+    // If Custom CSS
     if( !empty($css_style) ) {
         // If RTL
         if( is_rtl() ) {
@@ -235,6 +311,14 @@ function network_latest_posts( $parameters ) {
             $category = str_split($category,strlen($category));
         }
     }
+    // If multiple post type found, set an array
+    if( preg_match("/,/",$custom_post_type) ) {
+        $custom_post_type = explode(",",$custom_post_type);
+    } else {
+        if( !empty($category) ) {
+            $custom_post_type = str_split($custom_post_type,strlen($custom_post_type));
+        }
+    }
     // Paranoid ;)
     $time_frame = (int)$time_frame;
     // Get the list of blogs in order of most recent update, get only public and nonarchived/spam/mature/deleted
@@ -266,6 +350,16 @@ function network_latest_posts( $parameters ) {
                     $ignore ORDER BY last_updated DESC");
         }
     }
+    // Ignore one or many posts
+    // if the user passes one value
+    if( !preg_match("/,/",$post_ignore) ) {
+        // Always clean this stuff ;) (oh.. told you I'm a paranoid)
+        $post_ignore = array( 0 => (int)htmlspecialchars($post_ignore) );
+    // if the user passes more than one value separated by commas
+    } else {
+        // create an array
+        $post_ignore = explode(",",$post_ignore);
+    }
     // If it found something
     if( $blogs ) {
         // Count blogs found
@@ -276,6 +370,8 @@ function network_latest_posts( $parameters ) {
             ${'blog_url_'.$blog_key} = get_blog_option($blog_key,'siteurl');
             ${'blog_name_'.$blog_key} = get_blog_option($blog_key,'blogname');
             ${'date_format_'.$blog_key} = get_blog_option($blog_key,'date_format');
+            // Orderby
+            if( $random == 'true' ) { $orderby = 'rand'; } else { $orderby = 'post_date'; }
             // Categories or Tags
             if( !empty($category) && !empty($tag) ) {
                 $args = array(
@@ -294,7 +390,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Categories only
@@ -309,7 +406,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Tags only
@@ -324,7 +422,8 @@ function network_latest_posts( $parameters ) {
                     ),
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Everything by Default
@@ -333,12 +432,13 @@ function network_latest_posts( $parameters ) {
                 $args = array(
                     'numberposts' => $number_posts,
                     'post_status' => $post_status,
-                    'post_type' => $post_type
+                    'post_type' => $custom_post_type,
+                    'orderby' => $orderby
                 );
             }
             // Switch to the blog
             switch_to_blog($blog_key);
-            // Get the posts
+            // Get posts
             ${'posts_'.$blog_key} = get_posts($args);
             // Check if posts with the defined criteria were found
             if( empty(${'posts_'.$blog_key}) ) {
@@ -351,9 +451,21 @@ function network_latest_posts( $parameters ) {
             foreach( ${'posts_'.$blog_key} as $post ) {
                 // Access all post data
                 setup_postdata($post);
-                // Put everything inside another array using the modified date as
-                // the array keys
-                $all_posts[$post->post_modified] = $post;
+                // Sort by blog ID
+                if( $sort_by_blog == 'true' ) {
+                    // Ignore Posts
+                    if( !in_array( $post->ID, $post_ignore ) ) {
+                        // Put inside another array and use blog ID as keys
+                        $all_posts[$blog_key.$post->post_modified] = $post;
+                    }
+                } else {
+                    // Ignore Posts
+                    if( !in_array( $post->ID, $post_ignore ) ) {
+                        // Put everything inside another array using the modified date as
+                        // the array keys
+                        $all_posts[$post->post_modified] = $post;
+                    }
+                }
                 // The guid is the only value which can differenciate a post from
                 // others in the whole network
                 $all_permalinks[$post->guid] = get_blog_permalink($blog_key, $post->ID);
@@ -362,52 +474,95 @@ function network_latest_posts( $parameters ) {
             // Back the current blog
             restore_current_blog();
         }
+        // If no content was found
+        if( empty($all_posts) ) {
+            // Nothing to do here, let people know and get out of here
+            echo "<div class='alert'><p>".__("Sorry, I couldn't find any recent posts matching your parameters.","trans-nlp")."</p></div>";
+            return;
+        }
         // Sort by date (regardless blog IDs)
-        if( $sort_by_date ) {
+        if( $sort_by_date == 'true' ) {
             // Sorting order (newer / older)
             if( !empty($sorting_order) ) {
                 switch( $sorting_order ) {
                     // From newest to oldest
                     case "newer":
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // From oldest to newest
                     case "older":
                         // Sort the array
-                        ksort($all_posts);
+                        @ksort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                     // Newest to oldest by default
                     default:
                         // Sort the array
-                        krsort($all_posts);
+                        @krsort($all_posts);
                         // Limit the number of posts
                         if( !empty($sorting_limit) ) {
-                            $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                         }
                         break;
                 }
             } else {
                 // Sort the array
-                krsort($all_posts);
+                @krsort($all_posts);
                 // Limit the number of posts
                 if( !empty($sorting_limit) ) {
-                    $all_posts = array_slice($all_posts,0,$sorting_limit,true);
+                    $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
                 }
             }
         }
-        // If no content was found
-        if( empty($all_posts) ) {
-            // Close the door and get out of here
-            return;
+        // Sort by blog ID
+        if( $sort_by_blog == 'true' ) {
+            // Sorting order (newer / older)
+            if( !empty($sorting_order) ) {
+                switch( $sorting_order ) {
+                    // Ascendant
+                    case "asc":
+                        // Sort the array
+                        @ksort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                    // Descendant
+                    case "desc":
+                        // Sort the array
+                        @krsort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                    // Newest to oldest by default
+                    default:
+                        // Sort the array
+                        @krsort($all_posts);
+                        // Limit the number of posts
+                        if( !empty($sorting_limit) ) {
+                            $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
+                        }
+                        break;
+                }
+            } else {
+                // Sort the array
+                @ksort($all_posts);
+                // Limit the number of posts
+                if( !empty($sorting_limit) ) {
+                    $all_posts = @array_slice($all_posts,0,$sorting_limit,true);
+                }
+            }
         }
         // Open content box
         echo $html_tags['content_o'];
@@ -433,7 +588,9 @@ function network_latest_posts( $parameters ) {
             // Print out the posts
             foreach( $pages[$pag-1] as $field ) {
                 // Open item box
-                echo $html_tags['item_o'];
+                $item_o = $html_tags['item_o'];
+                $item_o = str_replace("'>"," nlposts-siteid-".$all_blogkeys[$field->guid]."'>", $item_o);
+                echo $item_o;
                 // Thumbnails
                 if( $thumbnail === 'true' ) {
                     // Open thumbnail container
@@ -445,8 +602,19 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    // Get the thumbnail
-                    $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class));
+                    if( $thumbnail_custom != 'true' && $thumbnail_field == NULL ) {
+                        // Get the thumbnail
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
+                    } else {
+                        $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
+                        if( !empty( $thumbnail_custom_field ) ) {
+                            // Get custom thumbnail
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." alt='".$field->post_title."' title='".$field->post_title."' />";
+                        } else {
+                            // Get the regular thumbnail
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
+                        }
+                    }
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail
@@ -466,6 +634,13 @@ function network_latest_posts( $parameters ) {
                             // More fun Puppies thanks to PlaceDog
                             case 'puppies':
                                 echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placedog.com/".$thumbnail_size[0]."/".$thumbnail_size[1]."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                break;
+                            case 'custom':
+                                if( !empty( $thumbnail_url ) ) {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='".$thumbnail_url."' alt='".$field->post_title."' title='".$field->post_title."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]."' /></a>";
+                                } else {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placehold.it/".$thumbnail_wh."&text=".$field->post_title."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                }
                                 break;
                             // Boring by default ;)
                             default:
@@ -487,8 +662,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -500,7 +674,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -508,16 +682,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -539,8 +717,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -552,7 +729,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -560,16 +737,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -588,8 +769,8 @@ function network_latest_posts( $parameters ) {
             echo paginate_links( array(
                 'base' => add_query_arg( 'pag', '%#%' ),
                 'format' => '',
-                'prev_text' => __('&laquo;'),
-                'next_text' => __('&raquo;'),
+                'prev_text' => __('&laquo;','trans-nlp'),
+                'next_text' => __('&raquo;','trans-nlp'),
                 'total' => $total,
                 'current' => $pag,
                 'type' => 'list'
@@ -625,7 +806,9 @@ function network_latest_posts( $parameters ) {
             // Print out the posts
             foreach( $all_posts as $field ) {
                 // Open item box
-                echo $html_tags['item_o'];
+                $item_o = $html_tags['item_o'];
+                $item_o = str_replace("'>"," nlposts-siteid-".$all_blogkeys[$field->guid]."'>", $item_o);
+                echo $item_o;
                 // Thumbnails
                 if( $thumbnail === 'true' ) {
                     // Open thumbnail container
@@ -637,8 +820,19 @@ function network_latest_posts( $parameters ) {
                     // Put the dimensions into an array
                     $thumbnail_size = str_replace('x',',',$thumbnail_wh);
                     $thumbnail_size = explode(',',$thumbnail_size);
-                    // Get the thumbnail
-                    $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' => $thumbnail_class));
+                    if( $thumbnail_custom != 'true' && $thumbnail_field == NULL ) {
+                        // Get the thumbnail
+                        $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
+                    } else {
+                        $thumbnail_custom_field = get_post_meta($field->ID, $thumbnail_field, true);
+                        if( !empty( $thumbnail_custom_field ) ) {
+                            // Get custom thumbnail
+                            $thumb_html = "<img src='".$thumbnail_custom_field."' width='".$thumbnail_size[0]."' height='".$thumbnail_size[1]." alt='".$field->post_title."' title='".$field->post_title."' />";
+                        } else {
+                            // Get the regular thumbnail
+                            $thumb_html = get_the_post_thumbnail($field->ID,$thumbnail_size,array('class' =>$thumbnail_class, 'alt' => $field->post_title, 'title' => $field->post_title));
+                        }
+                    }
                     // If there is a thumbnail
                     if( !empty($thumb_html) ) {
                         // Display the thumbnail
@@ -658,6 +852,13 @@ function network_latest_posts( $parameters ) {
                             // More fun Puppies thanks to PlaceDog
                             case 'puppies':
                                 echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placedog.com/".$thumbnail_size[0]."/".$thumbnail_size[1]."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                break;
+                            case 'custom':
+                                if( !empty( $thumbnail_url ) ) {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='".$thumbnail_url."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                } else {
+                                    echo "<a href='".$all_permalinks[$field->guid]."'><img src='http://placehold.it/".$thumbnail_wh."&text=".$field->post_title."' alt='".$field->post_title."' title='".$field->post_title."' /></a>";
+                                }
                                 break;
                             // Boring by default ;)
                             default:
@@ -679,8 +880,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -692,7 +892,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -700,15 +900,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -730,8 +935,7 @@ function network_latest_posts( $parameters ) {
                         // Set metainfo
                         $author = get_user_by('id',$field->post_author);
                         $format = (string)${'date_format_'.$all_blogkeys[$field->guid]};
-                        $dateobj = new DateTime(trim($field->post_date));
-                        $datepost = $dateobj->format("$format");
+                        $datepost = date_i18n($format, strtotime(trim( $field->post_date) ) );
                         $blog_name = '<a href="'.${'blog_url_'.$all_blogkeys[$field->guid]}.'">'.${'blog_name_'.$all_blogkeys[$field->guid]}."</a>";
                         // The network's root (main blog) is called 'blog',
                         // so we have to set this up because the url ignores the root's subdirectory
@@ -743,7 +947,7 @@ function network_latest_posts( $parameters ) {
                             $author_url = ${'blog_url_'.$all_blogkeys[$field->guid]}.'/author/'.$author->user_login;
                         }
                         // Print metainfo
-                        echo $blog_name . ' - ' . __('Published on') . ' ' . $datepost . ' ' . __('by') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
+                        echo $blog_name . ' - ' . __('Published on','trans-nlp') . ' ' . $datepost . ' ' . __('by','trans-nlp') . ' ' . '<a href="' . $author_url . '">' . $author->display_name . '</a>';
                         // Close meta box
                         echo $html_tags['meta_c'];
                     }
@@ -751,15 +955,20 @@ function network_latest_posts( $parameters ) {
                     if( $title_only === 'false' ) {
                         // Open excerpt wrapper
                         echo $html_tags['excerpt_o'];
-                        // Custom Excerpt
-                        if( $auto_excerpt == FALSE ) {
-                            // Print out the excerpt
-                            echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
-                        // Extract excerpt from content
+                        // Display excerpts or content
+                        if( $display_content != 'true' ) {
+                            // Custom Excerpt
+                            if( $auto_excerpt != 'true' ) {
+                                // Print out the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Extract excerpt from content
+                            } else {
+                                // Get the excerpt
+                                echo nlp_custom_excerpt($excerpt_length, $field->post_content, $all_permalinks[$field->guid],$excerpt_trail);
+                            }
                         } else {
-                            // Get the excerpt
-                            $auto_excerpt = nlp_auto_excerpt($field->post_content, $excerpt_length, $all_permalinks[$field->guid],$excerpt_trail);
-                            echo nlp_custom_excerpt($excerpt_length, $auto_excerpt, $all_permalinks[$field->guid],$excerpt_trail);
+                            // Display post content
+                            echo nl2br( do_shortcode( $field->post_content ) );
                         }
                         // Close excerpt wrapper
                         echo $html_tags['excerpt_c'];
@@ -774,6 +983,8 @@ function network_latest_posts( $parameters ) {
             echo $html_tags['content_c'];
         }
     }
+    // Reset post data
+    wp_reset_postdata();
 }
 
 /* Shortcode function
@@ -839,105 +1050,42 @@ add_shortcode('nlposts','network_latest_posts_shortcode');
  * return customized @excerpt
  */
 function nlp_custom_excerpt($count, $content, $permalink, $excerpt_trail){
-    // Return the content unchanged
-    if($count == 0 || $count == 'null') {
-        // Clean the content
-        $content = strip_tags($content);
-        // Get the words
-        $words = explode(' ', $content);
-        // Pop everything
-        array_pop($words);
-        // Add trailing dots
-        array_push($words, '...');
-        // Add white spaces
-        $content = implode(' ', $words);
-        // Strip shortcodes
-        $content = strip_tags(strip_shortcodes($content));
-        // Add the trail
-        switch( $excerpt_trail ) {
-            // Text
-            case 'text':
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-            // Image
-            case 'image':
-                $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
-                break;
-            // Text by default
-            default:
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-        }
-        return $content;
-    // Customize the excerpt
-    } else {
-        // Clean the content
-        $content = strip_tags($content);
-        // Extract the contet
-        $content = substr($content, 0, $count);
-        // Get the words
-        $words = explode(' ', $content);
-        // Pop everything
-        array_pop($words);
-        // Add trailing dots
-        array_push($words, '...');
-        // Add white spaces
-        $content = implode(' ', $words);
-        // Strip shortcodes
-        $content = strip_tags(strip_shortcodes($content));
-        // Add the trail
-        switch( $excerpt_trail ) {
-            // Text
-            case 'text':
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-            // Image
-            case 'image':
-                $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
-                break;
-            // Text by default
-            default:
-                $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
-                break;
-        }
-        // Return the excerpt
-        return $content;
-    }
-}
-
-/* Auto excerpt extraction
- * @content: Post content
- * @excerpt_length: Number of characters/words
- * @permalink: Link to the post
- * return auto-generated @content
- */
-function nlp_auto_excerpt($content, $excerpt_length, $permalink, $excerpt_trail){
-    // If excerpt_length wasn't specified, set 40 characters/words by default
-    if( $excerpt_length == 'null' || empty($excerpt_length) || $excerpt_length == null ) { $excerpt_length = 40; }
-    // Explode white spaces
-    $words = explode(' ', $content, $excerpt_length + 1);
-    // Count words
-    if(count($words) > $excerpt_length) {
-        // Pop the content
-        array_pop($words);
-        // Add white spaces
-        $content = implode(' ', $words);
-    }
-    // Strip shortcodes
-    $content = strip_tags(strip_shortcodes($content));
+    if($count == 0 || $count == 'null') { $count = 55; }
+    /* Strip shortcodes
+     * Due to an incompatibility issue between Visual Composer
+     * and WordPress strip_shortcodes hook, I'm stripping
+     * shortcodes using regex. (27-09-2012)
+     *
+     * $content = strip_tags(strip_shortcodes($content));
+     *
+     * replaced by
+     *
+     * $content = preg_replace("/\[(.*?)\]/i", '', $content);
+     * $content = strip_tags($content);
+     */
+    $content = preg_replace("/\[(.*?)\]/i", '', $content);
+    $content = strip_tags($content);
+    // Get the words
+    $words = explode(' ', $content, $count + 1);
+    // Pop everything
+    array_pop($words);
+    // Add trailing dots
+    array_push($words, '...');
+    // Add white spaces
+    $content = implode(' ', $words);
     // Add the trail
     switch( $excerpt_trail ) {
         // Text
         case 'text':
-            $content = $content.'...<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
+            $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
             break;
         // Image
         case 'image':
-            $content = $content.'...<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
+            $content = $content.'<a href="'.$permalink.'"><img src="'.plugins_url('/img/excerpt_trail.png', __FILE__) .'" alt="'.__('more','trans-nlp').'" title="'.__('more','trans-nlp').'" /></a>';
             break;
         // Text by default
         default:
-            $content = $content.'...<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
+            $content = $content.'<a href="'.$permalink.'">'.__('more','trans-nlp').'</a>';
             break;
     }
     // Return the excerpt
@@ -949,7 +1097,7 @@ function nlp_auto_excerpt($content, $excerpt_length, $permalink, $excerpt_trail)
  * @display_type: ulist, olist, block, inline
  * return @html_tags
  */
-function nlp_display_type($display_type, $instance) {
+function nlp_display_type($display_type, $instance, $wrapper_list_css, $wrapper_block_css) {
     // Instances
     if( !empty($instance) ) { $nlp_instance = "nlp-instance-$instance"; }
     // Display Types
@@ -957,7 +1105,7 @@ function nlp_display_type($display_type, $instance) {
         // Unordered list
         case "ulist":
             $html_tags = array(
-                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist $wrapper_list_css'>",
                 'wrapper_c' => "</ul>",
                 'wtitle_o' => "<h2 class='nlposts-ulist-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -982,7 +1130,7 @@ function nlp_display_type($display_type, $instance) {
         // Ordered list
         case "olist":
             $html_tags = array(
-                'wrapper_o' => "<ol class='nlposts-wrapper nlposts-olist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ol class='nlposts-wrapper nlposts-olist $wrapper_list_css'>",
                 'wrapper_c' => "</ol>",
                 'wtitle_o' => "<h2 class='nlposts-olist-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -1007,7 +1155,7 @@ function nlp_display_type($display_type, $instance) {
         // Block
         case "block":
             $html_tags = array(
-                'wrapper_o' => "<div class='nlposts-wrapper nlposts-block container'>",
+                'wrapper_o' => "<div class='nlposts-wrapper nlposts-block $wrapper_block_css'>",
                 'wrapper_c' => "</div>",
                 'wtitle_o' => "<h2 class='nlposts-block-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -1032,7 +1180,7 @@ function nlp_display_type($display_type, $instance) {
         default:
             // Unordered list
             $html_tags = array(
-                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist nav nav-tabs nav-stacked'>",
+                'wrapper_o' => "<ul class='nlposts-wrapper nlposts-ulist $wrapper_list_css'>",
                 'wrapper_c' => "</ul>",
                 'wtitle_o' => "<h2 class='nlposts-ulist-wtitle'>",
                 'wtitle_c' => "</h2>",
@@ -1069,17 +1217,21 @@ function network_latest_posts_init() {
     if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
         return;
     // Register functions
-    register_sidebar_widget(__("Network Latest Posts"),"network_latest_posts_widget");
-    register_widget_control(__("Network Latest Posts"),"network_latest_posts_control");
-    register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
+    wp_register_sidebar_widget('nlposts-sb-widget',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_widget");
+    wp_register_widget_control('nlposts-control',__("Network Latest Posts",'trans-nlp'),"network_latest_posts_control");
     wp_register_style('nlpcss-form', plugins_url('/css/form_style.css', __FILE__));
     wp_enqueue_style('nlpcss-form');
+    register_uninstall_hook(__FILE__, 'network_latest_posts_uninstall');
     // Load plugins
     wp_enqueue_script('jquery');
+}
+/* 
+ * Load Languages
+ */
+function nlp_load_languages() {
     // Set the textdomain for translation purposes
     load_plugin_textdomain('trans-nlp', false, basename( dirname( __FILE__ ) ) . '/languages');
 }
-
 // Load CSS Styles
 function nlp_load_styles($css_style) {
     if( !empty($css_style) ) {
@@ -1160,11 +1312,12 @@ function nlp_shortcode_plugin($plugin_array) {
    $plugin_array['nlposts'] = plugin_dir_url(__FILE__) .'js/nlp_tinymce_button.js';
    return $plugin_array;
 }
-
 // Hook the shortcode button into TinyMCE
 add_action('init', 'nlp_shortcode_button');
 // Load styles
 add_action('wp_head','nlp_load_styles',10,1);
 // Run this stuff
-add_action("plugins_loaded","network_latest_posts_init");
+add_action("admin_enqueue_scripts","network_latest_posts_init");
+// Languages
+add_action('plugins_loaded', 'nlp_load_languages');
 ?>

@@ -1,4 +1,4 @@
-<!-- START All-in-One Calendar Plugin - Version <?php echo AI1EC_VERSION ?> -->
+<!-- START All-in-One Event Calendar Plugin - Version <?php echo AI1EC_VERSION ?> -->
 <table class="ai1ec-calendar-toolbar">
   <tbody>
     <tr>
@@ -7,15 +7,14 @@
         <div id="ai1ec-view-dropdown" class="btn-group">
           <a id="ai1ec-current-view" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <img src="<?php echo $this->get_theme_img_url( "$current_view-view.png" ); ?>" alt="<?php echo $view_names[$current_view]; ?>" />
-            <?php echo $view_names[$current_view]; ?>
-            <span class="caret"></span>
+              <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <?php foreach( $view_names as $key => $val ): ?>
+            <?php foreach( $available_views as $key => $val ): ?>
               <li>
                 <a id="ai1ec-view-<?php echo $key; ?>" class="ai1ec-load-view <?php echo $key; ?>"
                   href="#action=ai1ec_<?php echo $key; ?>&amp;ai1ec_post_ids=<?php echo $selected_post_ids; ?>">
-                  <img src="<?php echo $this->get_theme_img_url( "$key-view.png" ); ?>" alt="<?php echo $val; ?>" />
+                  <img src="<?php echo $this->get_theme_img_url( $key . "-view.png" ); ?>" alt="<?php echo $val; ?>" />
                   <?php echo $val; ?>
                 </a>
               </li>
@@ -122,4 +121,4 @@
     <?php _e( 'Subscribe in Google Calendar', AI1EC_PLUGIN_NAME ) ?>
   </a>
 <?php endif ?>
-<!-- END All-in-One Calendar Plugin -->
+<!-- END All-in-One Event Calendar Plugin -->

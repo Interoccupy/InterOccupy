@@ -4,6 +4,56 @@
 
 ********************************************************
 
+
+Version 2.4
+
+	- NEW - Upgrade the PageLinesFont to FontAwesome v3.
+	- NEW - Make css save directory filterable: pagelines_css_upload_dir.
+	- NEW - Added @pl-min-height variable to LESS system.
+	- NEW - Add Google Plus! profile to HEAD of page.
+	- NEW - Enable dropdown on hover for navbar.
+	- CORE - Load shims with // fixes ssl issues.
+	- CORE - Load google fonts with // fixes ssl issues.
+	- CORE - Make all navbar options translatable.
+	- CORE - Update LESS plugin and use class_exists to check if already loaded.
+	- Bugs - Remove supersize loader.
+	- Bugs - LESS: Fix hardcoded tooltip colours.
+	- Bugs - LESS: Typo in masthead.
+	- Bugs - LESS: Fixed bugs in forms.less and progressbars.less and dropdowns.less.
+	- Bugs - LESS: Modals media queries were missing.
+	- Bugs - LESS: Load responsive last.
+		
+Version 2.3.8
+
+	- Bugs - Use enqueue properly.
+	- CORE - Better POSIX check, plus filter added to override 'render_css_posix_'. 
+
+Version 2.3.7
+
+	- CORE - Update Bootstrap core js.
+	- CORE - Update css/less system to work with wp 3.5 MU sites.
+	- CORE - Make pledit filterable. 'pagelines_pledit_filter'
+	- CORE - Clear cache on sections dragged.
+	- CORE - Attempt to clear super cache and w3 cache files on save.
+	- CORE - Added some debugging info.
+	- Bugs - Use clearfix() Fixes the 5px blank space bug.
+	- Bugs - Navbar fix on touchscreens.
+	- Bugs - Fix PHP warning if sections plugin is not installed.
+	- Bugs - CPT post-meta options were being ignored.
+
+Version 2.3.6
+
+	- Bugs - Plus themes bug fixed.
+	- Bugs - Watermark url if box is blank.
+	- Bugs - Add locale to googlemaps shortcode.
+	- Bugs - Noposts section was not selectable in 404 page area.
+	- Bugs - removed polylang check ( uses ICL code anyway ).
+	- Bugs - Fix Pinterest button, props nick + mikey.
+	- Bugs - Fix offset in grids props nick.	
+	- Bugs - Add CPT support to is_pagelines_special() and make filterable, props Evan.
+	- CORE - Updated plprint() and made it LESS friendly.
+	- CORE - LESS_FILE_MODE is on by defualt now.
+
 Version 2.3.5
 
 	- Bugs - Fix LESS validation and \'escape\' bug in customcss box.

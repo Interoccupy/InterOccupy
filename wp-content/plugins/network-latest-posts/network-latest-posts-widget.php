@@ -1,7 +1,7 @@
 <?php
 /*
     Network Latest Posts Widget
-    Version 3.0.4
+    Version 3.5
     Author L'Elite
     Author URI http://laelite.info/
  */
@@ -42,21 +42,29 @@ class NLposts_Widget extends WP_Widget {
         'thumbnail_wh'     => '80x80',       // Thumbnail Width & Height in pixels
         'thumbnail_class'  => NULL,          // Thumbnail CSS class
         'thumbnail_filler' => 'placeholder', // Replacement image for posts without thumbnail (placeholder, kittens, puppies)
+        'thumbnail_custom' => FALSE,         // Pull thumbnails from custom fields
+        'thumbnail_field'  => NULL,          // Custom field containing image url
+        'thumbnail_url'    => NULL,          // Custom thumbnail URL
         'custom_post_type' => 'post',        // Type of posts to display
         'category'         => NULL,          // Category(ies) to display
         'tag'              => NULL,          // Tag(s) to display
         'paginate'         => FALSE,         // Paginate results
-        'posts_per_page'   => NULL,          // Number of posts per page (paginate needs to be active)
+        'posts_per_page'   => NULL,          // Number of posts per page (paginate must be activated)
+        'display_content'  => FALSE,         // Display post content instead of excerpt
         'excerpt_length'   => NULL,          // Excerpt's length
         'auto_excerpt'     => FALSE,         // Generate excerpt from content
         'excerpt_trail'    => 'text',        // Excerpt's trailing element: text, image
         'full_meta'        => FALSE,         // Display full metadata
         'sort_by_date'     => FALSE,         // Display the latest posts first regardless of the blog they come from
-        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older)
+        'sort_by_blog'     => FALSE,         // Sort by Blog ID
+        'sorting_order'    => NULL,          // Sort posts from Newest to Oldest or vice versa (newer / older), asc / desc for blog ID
         'sorting_limit'    => NULL,          // Limit the number of sorted posts to display
         'post_status'      => 'publish',     // Post status (publish, new, pending, draft, auto-draft, future, private, inherit, trash)
-        'css_style'        => NULL,          // Customized CSS _filename_ (ex: custom_style)
-        'instance'         => NULL           // Instance identifier, used to uniquely differenciate each widget
+        'css_style'        => NULL,          // Custom CSS _filename_ (ex: custom_style)
+        'wrapper_list_css' => 'nav nav-tabs nav-stacked', // Custom CSS classes for the list wrapper
+        'wrapper_block_css'=> 'content',     // Custom CSS classes for the block wrapper
+        'random'           => FALSE,         // Pull random posts (true or false)
+        'post_ignore'      => NULL           // Post ID(s) to ignore
     );
 
     /*
@@ -183,20 +191,29 @@ class NLposts_Widget extends WP_Widget {
         $instance['thumbnail_h']      = (int)$new_instance['thumbnail_h'];
         $instance['thumbnail_class']  = strip_tags($new_instance['thumbnail_class']);
         $instance['thumbnail_filler'] = strip_tags($new_instance['thumbnail_filler']);
+        $instance['thumbnail_custom'] = strip_tags($new_instance['thumbnail_custom']);
+        $instance['thumbnail_field']  = strip_tags($new_instance['thumbnail_field']);
+        $instance['thumbnail_url']  = strip_tags($new_instance['thumbnail_url']);
         $instance['custom_post_type'] = strip_tags($new_instance['custom_post_type']);
         $instance['category']         = strip_tags($new_instance['category']);
         $instance['tag']              = strip_tags($new_instance['tag']);
         $instance['paginate']         = strip_tags($new_instance['paginate']);
         $instance['posts_per_page']   = (int)$new_instance['posts_per_page'];
+        $instance['display_content']  = strip_tags($new_instance['display_content']);
         $instance['excerpt_length']   = (int)$new_instance['excerpt_length'];
         $instance['auto_excerpt']     = strip_tags($new_instance['auto_excerpt']);
         $instance['full_meta']        = strip_tags($new_instance['full_meta']);
         $instance['sort_by_date']     = strip_tags($new_instance['sort_by_date']);
+        $instance['sort_by_blog']     = strip_tags($new_instance['sort_by_blog']);
         $instance['sorting_order']    = strip_tags($new_instance['sorting_order']);
         $instance['sorting_limit']    = (int)$new_instance['sorting_limit'];
         $instance['post_status']      = strip_tags($new_instance['post_status']);
         $instance['excerpt_trail']    = strip_tags($new_instance['excerpt_trail']);
         $instance['css_style']        = strip_tags($new_instance['css_style']);
+        $instance['wrapper_list_css'] = strip_tags($new_instance['wrapper_list_css']);
+        $instance['wrapper_block_css']= strip_tags($new_instance['wrapper_block_css']);
+        $instance['random']           = strip_tags($new_instance['random']);
+        $instance['post_ignore']      = strip_tags($new_instance['post_ignore']);
         // Width by default
         if( $instance['thumbnail_w'] == '0' ) { $instance['thumbnail_w'] = '80'; }
         // Height by default
@@ -237,6 +254,11 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('number_posts')."'>" . __('Number of Posts by Blog','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' size='3' id='".$this->get_field_id('number_posts')."' name='".$this->get_field_name('number_posts')."' value='$number_posts' />";
+        $widget_form.= $br;
+        // post_ignore
+        $widget_form.= "<label for='".$this->get_field_id('post_ignore')."'>" . __('Post ID(s) to Ignore','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('post_ignore')."' name='".$this->get_field_name('post_ignore')."' value='$post_ignore' />";
         $widget_form.= $br;
         // time_frame
         $widget_form.= "<label for='".$this->get_field_id('time_frame')."'>" . __('Time Frame in Days','trans-nlp') . "</label>";
@@ -403,32 +425,66 @@ class NLposts_Widget extends WP_Widget {
                 $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Kittens
             case 'kittens':
                 $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens' selected='selected'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Puppies
             case 'puppies':
                 $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies' selected='selected'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
+                break;
+            // Custom
+            case 'custom':
+                $widget_form.= "<option value='placeholder'>" . __('Placeholder','trans-nlp') . "</option>";
+                $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
+                $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom' selected='selected'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
             // Boring by default ;)
             default:
                 $widget_form.= "<option value='placeholder' selected='selected'>" . __('Placeholder','trans-nlp') . "</option>";
                 $widget_form.= "<option value='kittens'>" . __('Kittens','trans-nlp') . "</option>";
                 $widget_form.= "<option value='puppies'>" . __('Puppies','trans-nlp') . "</option>";
+                $widget_form.= "<option value='custom'>" . __('Custom', 'trans-nlp') . "</option>";
                 break;
         }
         $widget_form.= "</select>";
+        // Custom Thumbnail URL
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_url')."'>" . __('Custom Thumbnail URL','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_url')."' name='".$this->get_field_name('thumbnail_url')."' value='$thumbnail_url' />";
         // thumbnail_class
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('thumbnail_class')."'>" . __('Thumbnail Class','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_class')."' name='".$this->get_field_name('thumbnail_class')."' value='$thumbnail_class' />";
+        // thumbnail_custom
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_custom')."'>" . __('Custom Thumbnail','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('thumbnail_custom')."' name='".$this->get_field_name('thumbnail_custom')."'>";
+        if( $thumbnail_custom == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
+        // thumbnail_field
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('thumbnail_field')."'>" . __('Thumbnail Custom Field','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('thumbnail_field')."' name='".$this->get_field_name('thumbnail_field')."' value='$thumbnail_field' />";
         // custom_post_type
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('custom_post_type')."'>" . __('Custom Post Type','trans-nlp') . "</label>";
@@ -470,6 +526,20 @@ class NLposts_Widget extends WP_Widget {
         $widget_form.= "<label for='".$this->get_field_id('posts_per_page')."'>" . __('Posts per Page','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('posts_per_page')."' name='".$this->get_field_name('posts_per_page')."' value='$posts_per_page' />";
+        // display_content
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('display_content')."'>" . __('Display Content','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('display_content')."' name='".$this->get_field_name('display_content')."'>";
+        if( $display_content == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
+        $widget_form.= $br;
         // excerpt_length
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('excerpt_length')."'>" . __('Excerpt Length','trans-nlp') . "</label>";
@@ -514,17 +584,47 @@ class NLposts_Widget extends WP_Widget {
             $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
         }
         $widget_form.= "</select>";
+        // sort_by_blog
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('sort_by_blog')."'>" . __('Sort by Blog ID','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('sort_by_blog')."' name='".$this->get_field_name('sort_by_blog')."'>";
+        if( $sort_by_blog == 'true' ) {
+            $widget_form.= "<option value='true' selected='selected'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false'>" . __('No','trans-nlp') . "</option>";
+        } else {
+            $widget_form.= "<option value='true'>" . __('Yes','trans-nlp') . "</option>";
+            $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
+        }
+        $widget_form.= "</select>";
         // sorting_order
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('sorting_order')."'>" . __('Sorting Order','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<select id='".$this->get_field_id('sorting_order')."' name='".$this->get_field_name('sorting_order')."'>";
-        if( $sorting_order == 'newer' || empty($sorting_order) ) {
-            $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
-            $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+        if( $sort_by_date == 'true' ) {
+            if( $sorting_order == 'newer' || empty($sorting_order) ) {
+                $widget_form.= "<option value='newer' selected='selected'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+                $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            } else {
+                $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
+                $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            }
         } else {
             $widget_form.= "<option value='newer'>" . __('Newest to Oldest','trans-nlp') . "</option>";
-            $widget_form.= "<option value='older' selected='selected'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+            $widget_form.= "<option value='older'>" . __('Oldest to Newest','trans-nlp') . "</option>";
+        }
+        if( $sort_by_blog == 'true' ) {
+            if( $sorting_order == 'asc' || empty($sorting_order) ) {
+                $widget_form.= "<option value='asc' selected='selected'>" . __('Ascendant','trans-nlp') . "</option>";
+                $widget_form.= "<option value='desc'>" . __('Descendant','trans-nlp') . "</option>";
+            } else {
+                $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+                $widget_form.= "<option value='desc' selected='selected'>" . __('Descendant','trans-nlp') . "</option>";
+            }
+        } else {
+            $widget_form.= "<option value='asc'>" . __('Ascendant','trans-nlp') . "</option>";
+            $widget_form.= "<option value='desc'>" . __('Descendant','trans-nlp') . "</option>";
         }
         $widget_form.= "</select>";
         // sorting_limit
@@ -550,11 +650,34 @@ class NLposts_Widget extends WP_Widget {
             $widget_form.= "<option value='false' selected='selected'>" . __('No','trans-nlp') . "</option>";
         }
         $widget_form.= "</select>";
+        $widget_form.= $br;
+        // Pull random posts
+        $widget_form.= "<label for='".$this->get_field_id('random')."'>". __('Random Posts','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<select id='".$this->get_field_id('random')."' name='".$this->get_field_name('random')."'>";
+        if( $random == 'true' ) {
+            $widget_form.="<option value='true' selected='selected'>Yes</option>";
+            $widget_form.="<option value='false'>No</option>";
+        } else {
+            $widget_form.="<option value='true'>Yes</option>";
+            $widget_form.="<option value='false' selected='selected'>No</option>";
+        }
+        $widget_form.= "</select>";
         // css_style
         $widget_form.= $br;
         $widget_form.= "<label for='".$this->get_field_id('css_style')."'>" . __('Custom CSS Filename','trans-nlp') . "</label>";
         $widget_form.= $br;
         $widget_form.= "<input type='text' id='".$this->get_field_id('css_style')."' name='".$this->get_field_name('css_style')."' value='$css_style' />";
+        // wrapper_list_css
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('wrapper_list_css')."'>" . __('Custom CSS Class for the list wrapper','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('wrapper_list_css')."' name='".$this->get_field_name('wrapper_list_css')."' value='$wrapper_list_css' />";
+        // wrapper_block_css
+        $widget_form.= $br;
+        $widget_form.= "<label for='".$this->get_field_id('wrapper_block_css')."'>" . __('Custom CSS Class for the block wrapper','trans-nlp') . "</label>";
+        $widget_form.= $br;
+        $widget_form.= "<input type='text' id='".$this->get_field_id('wrapper_block_css')."' name='".$this->get_field_name('wrapper_block_css')."' value='$wrapper_block_css' />";
         $widget_form.= $p_c;
         echo $widget_form;
     }

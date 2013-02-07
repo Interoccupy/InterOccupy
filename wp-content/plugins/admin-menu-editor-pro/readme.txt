@@ -3,15 +3,15 @@ Contributors: whiteshadow
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A6P9S6CE3SRSW
 Tags: admin, dashboard, menu, security, wpmu
 Requires at least: 3.3
-Tested up to: 3.4.2
-Stable tag: 1.40
+Tested up to: 3.5
+Stable tag: 1.70
 
 Lets you directly edit the WordPress admin menu. You can re-order, hide or rename existing menus, add custom menus and more.
 
 == Description ==
 Pro version of the Admin Menu Editor plugin. Lets you manually edit the Dashboard menu. You can reorder the menus, show/hide specific items, change access rights, and more. 
 
-[Get the latest version here.](http://w-shadow.com/admin-menu-editor-pro/updates/)
+[Get the latest version here.](http://adminmenueditor.com/updates/)
 
 **Pro Version Features**
 
@@ -78,7 +78,27 @@ Here are some usage tips and other things that can be good to know when using th
 
 == Changelog ==
 
-[Get the latest version here.](http://w-shadow.com/admin-menu-editor-pro/updates/)
+[Get the latest version here.](http://adminmenueditor.com/updates/)
+
+= 1.70 =
+* Added the ability to create menu separators in submenus.
+* Fixed a bug where the height of the IFrame element generated for menus set to display in a frame would be limited to 300px (WP 3.5).
+* Fixed a rare "call to a member function function get_virtual_caps() on a non-object" error.
+* Fixed a couple of layout glitches that would make the editor sidebar display incorrectly in WP 3.5.
+* Fixed: Ensure that the correct menu item gets highlighted when adding a new item of a custom post type, even if there's no "Add New {Thing}" entry in the admin menu. This fixes the bug where clicking the "Add New" button in WooCommerce -> Coupons would highlight the Posts -> Add New menu.
+* Other minor fixes.
+* Tested on WordPress 3.5 (RC6).
+
+= 1.60 =
+* Added a number of small optimizations. On some systems menu output time is reduced by almost 30%.
+* Fixed a couple of PHP warnings caused by a bug in the custom update checker.
+* Fixed a conflict with plugins that use an old version of the custom update checker.
+* Changed how the plugin treats situations where multiple menu items have the same URL. Now either all of them will show up in the final menu or none will. However, it's still best to keep your menu free from duplicate items to avoid ambiguity.
+
+= 1.50 =
+* Added support for fully automatic plugin upgrades. You will need to enter a license key to enable this feature.
+* Existing users will get a license key when they download this version. New users will get one in their purchase confirmation email.
+* Added a "Check for updates" link to the plugin's entry in the "Plugins" page.
 
 = 1.40 =
 * Added a new way to view and set per-role permissions. There's now a role selector at the top of the menu editor page, and selecting a role grays out any menu items that role can't access. You can also change menu permissions for the currently selected role via checkboxes in menu titles.

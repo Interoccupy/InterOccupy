@@ -13,7 +13,12 @@
 			<div class="metabox-holder">
 				<div class="post-box-container column-1-ai1ec left-side">
 					<?php do_meta_boxes( $settings_page, 'left-side', null ); ?>
-					<?php submit_button( esc_attr__( 'Update Settings', AI1EC_PLUGIN_NAME ), 'primary', 'ai1ec_save_settings' ); ?>
+					<?php
+						// Show the submit button only in the settings page and not in the Feeds page.
+						if ( $calendar_settings ) { 
+							submit_button( esc_attr__( 'Update Settings', AI1EC_PLUGIN_NAME ), 'primary', 'ai1ec_save_settings' ); 
+						}
+							?>
 				</div>
 				<div class="post-box-container column-2-ai1ec right-side"><?php do_meta_boxes( $settings_page, 'right-side', null ); ?></div>
 			</div>

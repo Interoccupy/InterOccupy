@@ -24,8 +24,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-function wdcab_add_to_admin_bar () {
-	$opts = get_site_option('wdcab');
+function ub_wdcab_add_to_admin_bar () {
+	$opts = ub_get_option('wdcab');
 	if (!@$opts['enabled']) return false;
 	if (!@$opts['title']) return false;
 	//if (!@$opts['links'] || !is_array($opts['links'])) return false;
@@ -40,31 +40,58 @@ function wdcab_add_to_admin_bar () {
 	else $link = esc_url($link);
 
 	global $wp_admin_bar;
-	$wp_admin_bar->add_menu(array(
-		'id' => 'wdcab_root',
-		'title' => $title,
-		'href' => $link,
-	));
+
+	if(isset($link['title_link_target']) && !empty($link['title_link_target'])) {
+		$wp_admin_bar->add_menu(array(
+			'id' => 'wdcab_root',
+			'title' => stripslashes($title),
+			'href' => $link,
+			'meta' => array( 'target' => $link['title_link_target'] ),
+		));
+	} else {
+		$wp_admin_bar->add_menu(array(
+			'id' => 'wdcab_root',
+			'title' => stripslashes($title),
+			'href' => $link,
+		));
+	}
 
 	foreach ($opts['links'] as $link) {
 		$href = false;
 		switch ($link['url_type']) {
-			case "admin": $href = admin_url($link['url']); break;
-			case "site": $href = site_url($link['url']); break;
-			case "external": $href = $link['url']; break;
+			case "admin": 		$href = admin_url($link['url']);
+								break;
+
+			case "site": 		$href = site_url($link['url']);
+								break;
+
+			case "external": 	$href = $link['url'];
+								break;
 		}
 		if (!$href) continue;
-		$wp_admin_bar->add_menu(array(
-			'parent' => 'wdcab_root',
-			'id' => 'wdcab_' . preg_replace('/[^-a-z0-9]/', '-', strtolower($link['title'])),
-			'title' => $link['title'],
-			'href' => $href,
-		));
+
+		if(isset($link['target']) && !empty($link['target'])) {
+			$wp_admin_bar->add_menu(array(
+				'parent' => 'wdcab_root',
+				'id' => 'wdcab_' . preg_replace('/[^-a-z0-9]/', '-', strtolower($link['title'])),
+				'title' => stripslashes($link['title']),
+				'href' => $href,
+				'meta' =>  array( 'target' => $link['target'] ),
+			));
+		} else {
+			$wp_admin_bar->add_menu(array(
+				'parent' => 'wdcab_root',
+				'id' => 'wdcab_' . preg_replace('/[^-a-z0-9]/', '-', strtolower($link['title'])),
+				'title' => stripslashes($link['title']),
+				'href' => $href,
+			));
+		}
+
 	}
 
 }
 
-function wdcab_remove_from_admin_bar () {
+function ub_wdcab_remove_from_admin_bar () {
 	global $wp_version;
 	$version = preg_replace('/-.*$/', '', $wp_version);
 	if (version_compare($version, '3.3', '>=')) {
@@ -80,8 +107,8 @@ function wdcab_remove_from_admin_bar () {
 
 require_once( ub_files_dir('modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php') );
 require_once( ub_files_dir('modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php' ) );
-$wdcab_adminpages = new Wdcab_AdminPages();
+$ub_wdcab_adminpages = new ub_Wdcab_AdminPages();
 
 
-add_action('admin_bar_menu', 'wdcab_add_to_admin_bar', 1);
-add_action('admin_bar_menu', 'wdcab_remove_from_admin_bar', 999);
+add_action('admin_bar_menu', 'ub_wdcab_add_to_admin_bar', 1);
+add_action('admin_bar_menu', 'ub_wdcab_remove_from_admin_bar', 999);

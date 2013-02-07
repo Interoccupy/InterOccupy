@@ -10,7 +10,7 @@
  * Ai1ec_Events_Helper class
  *
  * @package Helpers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Events_Helper {
 	/**
@@ -1329,6 +1329,40 @@ class Ai1ec_Events_Helper {
 				return 'color: ' . $color . ' !important;';
 		}
 
+		return '';
+	}
+
+	/**
+	 * get_event_text_color function
+	 *
+	 * Returns the style attribute assigning the category color style to an event.
+	 *
+	 * @param int $term_id The Event Category's term ID
+	 * @param bool $allday Whether the event is all-day
+	 * @return string
+	 **/
+	function get_event_category_text_color( $term_id ) {
+		$color = $this->get_category_color( $term_id );
+		if( ! is_null( $color ) && ! empty( $color ) ) {
+			return 'style="color: ' . $color . ';"';
+		}
+		return '';
+	}
+
+	/**
+	 * get_event_category_bg_color function
+	 *
+	 * Returns the style attribute assigning the category color style to an event.
+	 *
+	 * @param int $term_id The Event Category's term ID
+	 * @param bool $allday Whether the event is all-day
+	 * @return string
+	 **/
+	function get_event_category_bg_color( $term_id ) {
+		$color = $this->get_category_color( $term_id );
+		if( ! is_null( $color ) && ! empty( $color ) ) {
+			return 'style="background-color: ' . $color . ';"';
+		}
 		return '';
 	}
 

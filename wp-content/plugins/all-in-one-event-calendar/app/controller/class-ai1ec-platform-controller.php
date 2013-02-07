@@ -12,7 +12,7 @@
  * platform.
  *
  * @package Controllers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Platform_Controller {
 	/**

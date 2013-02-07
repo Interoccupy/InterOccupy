@@ -10,7 +10,7 @@
  * Ai1ec_Event class
  *
  * @package Models
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Event {
 	/**
@@ -177,6 +177,27 @@ class Ai1ec_Event {
 	var $latitude;
 
 	/**
+	 * facebook_eid class variable
+	 *
+	 * @var bigint
+	 **/
+	var $facebook_eid;
+
+	/**
+	 * facebook_user class variable
+	 *
+	 * @var bigint
+	 **/
+	var $facebook_user;
+
+	/**
+	 * facebook_status class variable
+	 *
+	 * @var char
+	 **/
+	var $facebook_status;
+
+	/**
 	 * contact_name class variable
 	 *
 	 * @var string
@@ -287,6 +308,20 @@ class Ai1ec_Event {
 	private $color_style;
 
 	/**
+	 * category_text_color class variable
+	 *
+	 * @var string
+	 **/
+	private $category_text_color;
+
+	/**
+	 * category_bg_color class variable
+	 *
+	 * @var string
+	 **/
+	private $category_bg_color;
+
+	/**
 	 * faded_color class variable
 	 *
 	 * @var string
@@ -345,7 +380,7 @@ class Ai1ec_Event {
 			$select_sql     = "e.post_id, e.recurrence_rules, e.exception_rules, e.allday, " .
 			                  "e.recurrence_dates, e.exception_dates, e.venue, e.country, e.address, e.city, e.province, e.postal_code, " .
 			                  "e.show_map, e.contact_name, e.contact_phone, e.contact_email, e.cost, e.ical_feed_url, e.ical_source_url, " .
-			                  "e.ical_organizer, e.ical_contact, e.ical_uid, e.longitude, e.latitude, e.show_coordinates, " .
+			                  "e.ical_organizer, e.ical_contact, e.ical_uid, e.longitude, e.latitude, e.show_coordinates, e.facebook_eid, e.facebook_status, e.facebook_user, " .
 			                  "GROUP_CONCAT( ttc.term_id ) AS categories, " .
 			                  "GROUP_CONCAT( ttt.term_id ) AS tags ";
 
@@ -641,6 +676,30 @@ class Ai1ec_Event {
 		    }
 			  return $this->color_style;
 
+			// ======================================
+			// = Style attribute for event bg color =
+			// ======================================
+			case 'category_bg_color':
+			  if( $this->category_bg_color === null ) {
+			    $categories = wp_get_post_terms( $this->post_id, 'events_categories' );
+			    if( $categories && ! empty( $categories ) ) {
+			      $this->category_bg_color = $ai1ec_events_helper->get_event_category_bg_color( $categories[0]->term_id, $this->allday || $this->multiday );
+			    }
+		    }
+			  return $this->category_bg_color;
+
+			// ======================================
+			// = Style attribute for event bg color =
+			// ======================================
+			case 'category_text_color':
+			  if( $this->category_text_color === null ) {
+			    $categories = wp_get_post_terms( $this->post_id, 'events_categories' );
+			    if( $categories && ! empty( $categories ) ) {
+			      $this->category_text_color = $ai1ec_events_helper->get_event_category_text_color( $categories[0]->term_id, $this->allday || $this->multiday );
+			    }
+		    }
+			  return $this->category_text_color;
+
       // =========================================
       // = Faded version of event category color =
       // =========================================
@@ -703,6 +762,14 @@ class Ai1ec_Event {
 				return '<strong>' . esc_html( $ai1ec_events_helper->exdate_to_text( $this->exception_dates  ) ) . '</strong>';
 		}
 	}
+	/**
+	 * Returns the correct formatting to store the date on the db depending if its a timestamp or if its a datetime string like '2012-06-25'
+	 *
+	 * @param mixed string / numeric $date
+	 */
+	private function return_format_for_dates( $date ) {
+		return is_numeric( $date ) ? 'FROM_UNIXTIME( %d )' : '%s';
+	}
 
 	/**
 	 * save function
@@ -725,6 +792,9 @@ class Ai1ec_Event {
 		// ===========================
 		// = Insert events meta data =
 		// ===========================
+		// Set facebook user and eid to 0 if they are not set, otherwise they will be set to '' since we use %s for big ints
+		$facebook_eid  = isset( $this->facebook_eid ) ? $this->facebook_eid : 0;
+		$facebook_user = isset( $this->facebook_user ) ? $this->facebook_user : 0;
 		$columns = array(
 			'post_id'          => $this->post_id,
 			'start'            => $this->start,
@@ -751,6 +821,9 @@ class Ai1ec_Event {
 			'show_coordinates' => $this->show_coordinates,
 			'latitude'         => $this->latitude,
 			'longitude'        => $this->longitude,
+			'facebook_eid'     => $facebook_eid,
+			'facebook_user'    => $facebook_user,
+			'facebook_status'  => $this->facebook_status,
 		);
 
 		$format = array(
@@ -779,6 +852,9 @@ class Ai1ec_Event {
 			'%d',
 			'%f',
 			'%f',
+			'%s',
+			'%s',
+			'%s',
 		);
 
 		$table_name = $wpdb->prefix . 'ai1ec_events';

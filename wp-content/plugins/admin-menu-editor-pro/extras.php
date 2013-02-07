@@ -1,6 +1,9 @@
 <?php
 
 class wsMenuEditorExtras {
+	/** @var WPMenuEditor */
+	private $wp_menu_editor;
+
 	private $framed_pages;
 	private $ozhs_new_window_menus;
 	protected $export_settings;
@@ -9,13 +12,18 @@ class wsMenuEditorExtras {
 	private $secret = '1kuh432KwnufZ891432uhg32';
 
 	private $disable_virtual_caps = false;
-	
-  /**
-   * Class constructor.
-   *
-   * @return void
-   */
-	function wsMenuEditorExtras(){
+
+	private $username_cache = array();
+
+	/**
+	 * Class constructor.
+	 *
+	 * @param WPMenuEditor $wp_menu_editor
+	 * @return void
+	 */
+	function wsMenuEditorExtras($wp_menu_editor){
+		$this->wp_menu_editor = $wp_menu_editor;
+
 		//Allow the usage of shortcodes in the admin menu
 		add_filter('custom_admin_menu', array(&$this, 'do_shortcodes'));
 		add_filter('custom_admin_submenu', array(&$this, 'do_shortcodes'));
@@ -51,6 +59,9 @@ class wsMenuEditorExtras {
 		$this->framed_pages = array();		
 		add_filter('custom_admin_menu', array(&$this, 'create_framed_menu'));
 		add_filter('custom_admin_submenu', array(&$this, 'create_framed_item'), 10, 2);
+
+		//Handle submenu separators.
+		add_filter('custom_admin_submenu', array($this, 'create_submenu_separator'));
 		
 		//Import/export settings
 		$this->export_settings = array(
@@ -90,13 +101,16 @@ class wsMenuEditorExtras {
 		//Enable advanced capability operations (OR, AND, NOT) for internal use.
 		add_filter('admin_menu_editor-current_user_can', array($this, 'grant_computed_caps_to_current_user'), 10, 2);
 
-		//Custom per-role and per-user acces settings (distinct from the "extra capability" field.
-		add_filter('custom_admin_menu', array($this, 'apply_custom_access'));
-		add_filter('custom_admin_submenu', array($this, 'apply_custom_access'));
+		//Custom per-role and per-user access settings (distinct from the "extra capability" field.
+		add_filter('custom_admin_menu_capability', array($this, 'apply_custom_access'), 10, 2);
 
 		//Role access: Grant virtual capabilities to roles/users that need them to access certain menus.
 		add_filter('user_has_cap', array($this, 'grant_virtual_caps_to_user'), 10, 3);
 		add_filter('role_has_cap', array($this, 'grant_virtual_caps_to_role'), 10, 3);
+
+		//License management
+		add_filter('wslm_license_ui_title-admin-menu-editor-pro', array($this, 'license_ui_title'));
+		add_action('wslm_license_ui_logo-admin-menu-editor-pro', array($this, 'license_ui_logo'));
 	}
 	
   /**
@@ -107,13 +121,13 @@ class wsMenuEditorExtras {
    */
 	function do_shortcodes($item){
 		foreach($item as $field => $value){
-			if ( is_string($value) ){
+			if ( is_string($value) && (strpos($value, '[') !== false) ){
 				$item[$field] = do_shortcode($value);
 			}
 		}
 		return $item;
 	}
-	
+
   /**
    * Get the value of one of our extra shortcodes
    *
@@ -323,7 +337,8 @@ class wsMenuEditorExtras {
 		?>
 		<div class="wrap">
 		<h2><?php echo $heading; ?></h2>
-		<iframe 
+		<!--suppress HtmlUnknownAttribute "frameborder" is in fact allowed here -->
+			<iframe
 			src="<?php echo esc_attr($item['file']); ?>" 
 			style="border: none; width: 100%; min-height:300px;"
 			id="ws-framed-page"
@@ -333,9 +348,9 @@ class wsMenuEditorExtras {
 		<script type="text/javascript">
 		function wsResizeFrame(){
 			var $ = jQuery;
-			var footer = $('#footer');
+			var footer = $('#footer, #wpfooter');
 			var frame = $('#ws-framed-page');
-			frame.height( footer.offset().top - frame.offset().top - 10 );
+			frame.height( footer.offset().top - frame.offset().top - footer.outerHeight() );
 		}
 		
 		jQuery(function($){
@@ -429,8 +444,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
      * @return void
      */
 	function ajax_export_custom_menu(){
-		global $wp_menu_editor; /** @var WPMenuEditor $wp_menu_editor */
-		
+		$wp_menu_editor = $this->wp_menu_editor;
 		if (!$wp_menu_editor->current_user_can_edit_menu() || !check_ajax_referer('export_custom_menu', false, false)){
 			die( $wp_menu_editor->json_encode( array(
 				'error' => __("You're not allowed to do that!", 'admin-menu-editor') 
@@ -514,7 +528,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 * @return void
 	 */
 	function menu_editor_header($action = ''){
-		global $wp_menu_editor;
+		$wp_menu_editor = $this->wp_menu_editor;
 		
 		//Handle menu download requests
 		if ( $action == 'download_menu' ){
@@ -623,15 +637,27 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 		if ( count($args) < 2 ){
 			return $allcaps;
 		}
-		$id = intval($args[1]);
+		$user_id = intval($args[1]);
 		
 		//Get the username & add it as a valid cap
-		$user = get_userdata($id);
-		if ( $user && isset($user->user_login) && is_string($user->user_login) ){
-			$allcaps['user:' . $user->user_login] = true;
+		$username = $this->get_username_by_id($user_id);
+		if ( $username !== null ){
+			$allcaps['user:' . $username] = true;
 		}
 				
 		return $allcaps;
+	}
+
+	private function get_username_by_id($user_id) {
+		if ( !array_key_exists($user_id, $this->username_cache) ) {
+			$user = get_userdata($user_id);
+			if ( $user && isset($user->user_login) && is_string($user->user_login) ){
+				$this->username_cache[$user_id] = $user->user_login;
+			} else {
+				$this->username_cache[$user_id] = null;
+			}
+		}
+		return $this->username_cache[$user_id];
 	}
 
 	/**
@@ -640,14 +666,17 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 * If the user can't access this menu, this method will change the required
 	 * capability to "do_not_allow". Otherwise, it will be left unmodified.
 	 *
-	 * @param array $item Menu item.
-	 * @return array Modified menu item.
+	 * Callback for the 'custom_admin_menu_capability' filter.
+	 *
+	 * @param string $required_capability
+	 * @param array $item
+	 * @return string
 	 */
-	function apply_custom_access($item) {
+	public function apply_custom_access($required_capability, $item) {
 		if ( ! $this->current_user_is_granted_access($item) ) {
-			$item['access_level'] = 'do_not_allow';
+			$required_capability = 'do_not_allow';
 		}
-		return $item;
+		return $required_capability;
 	}
 
 	/**
@@ -671,9 +700,8 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 			$user = wp_get_current_user();
 
 			//If this user is specifically allowed/forbidden, use that setting.
-			/** @var string $user->user_login Data from wp_users is supplied by a __get() method on WP_User. */
-			if ( isset($grants['user:' . $user->user_login]) ) {
-				$has_access = $grants['user:' . $user->user_login];
+			if ( isset($grants['user:' . $user->get('user_login')]) ) {
+				$has_access = $grants['user:' . $user->get('user_login')];
 			}
 
 			//Or if they're a super admin, allow *everything* unless explicitly denied.
@@ -725,8 +753,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 * @return array Filtered list of capabilities.
 	 */
 	function grant_virtual_caps_to_user($capabilities, $required_caps, $args){
-		/** @var WPMenuEditor $wp_menu_editor */
-		global $wp_menu_editor;
+		$wp_menu_editor = $this->wp_menu_editor;
 
 		if ( $this->disable_virtual_caps ) {
 			return $capabilities;
@@ -779,8 +806,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 * @return array Filtered capability list.
 	 */
 	function grant_virtual_caps_to_role($capabilities, $required_cap, $role_id){
-		/** @var WPMenuEditor $wp_menu_editor */
-		global $wp_menu_editor;
+		$wp_menu_editor = $this->wp_menu_editor;
 
 		if ( $this->disable_virtual_caps ) {
 			return $capabilities;
@@ -801,12 +827,12 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 *
 	 * @uses wsMenuEditorExtras::current_user_can_computed()
 	 *
-	 * @param bool $allow Ignored.
+	 * @param bool $allow The return value of current_user_can($capablity).
 	 * @param string $capability The capability to check for.
 	 * @return bool Whether the user has the specified capability.
 	 */
 	function grant_computed_caps_to_current_user($allow, $capability) {
-		return $this->current_user_can_computed($capability);
+		return $this->current_user_can_computed($capability, $allow);
 	}
 
 	/**
@@ -824,9 +850,10 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	 * @uses current_user_can() Uses the capability checking function from WordPress core.
 	 *
 	 * @param string $capability
+	 * @param bool $default
 	 * @return bool
 	 */
-	private function current_user_can_computed($capability) {
+	private function current_user_can_computed($capability, $default = null) {
 		$or_operator = ',';
 		if ( strpos($capability, $or_operator) !== false ) {
 			$allow = false;
@@ -858,7 +885,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 			return true;
 		}
 
-		return current_user_can($capability);
+		return isset($default) ? $default : current_user_can($capability);
 	}
 
 	function output_menu_dropzone($type = 'menu') {
@@ -915,16 +942,48 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 	function is_pro_version($value){
 		return true;
 	}
+
+	function license_ui_title($title) {
+		$title = 'Admin Menu Editor Pro License';
+		return $title;
+	}
+
+	function license_ui_logo() {
+		printf(
+			'<p style="text-align: center; margin: 30px 0;"><img src="%s"></p>',
+			esc_attr(plugins_url('images/logo-medium.png', __FILE__))
+		);
+	}
+
+	/**
+	 * Format separator items located in sub-menus.
+	 * See /css/admin.css for the relevant styles.
+	 *
+	 * @param array $item Submenu item.
+	 * @return array
+	 */
+	public function create_submenu_separator($item) {
+		static $separator_num = 1;
+		if ( $item['separator'] ) {
+			$item['menu_title'] = '<hr class="ws-submenu-separator">';
+			$item['file'] = '#submenu-separator-' . ($separator_num++);
+		}
+		return $item;
+	}
 }
 
-//Initialize extras
-$wsMenuEditorExtras = new wsMenuEditorExtras();
+if ( isset($wp_menu_editor) && !defined('WP_UNINSTALL_PLUGIN') ) {
+	//Initialize extras
+	$wsMenuEditorExtras = new wsMenuEditorExtras($wp_menu_editor);
+}
+
+if ( !defined('IS_DEMO_MODE') && !defined('IS_MASTER_MODE') ) {
 
 //Load the custom update checker (requires PHP 5)
 if ( (version_compare(PHP_VERSION, '5.0.0', '>=')) && (is_admin() || (defined('DOING_CRON') && constant('DOING_CRON'))) && isset($wp_menu_editor) ){
 	require 'plugin-updates/plugin-update-checker.php';
-	$ameProUpdateChecker = new PluginUpdateChecker(
-		'http://adminmenueditor.com/admin-menu-editor-pro.json',
+	$ameProUpdateChecker = PucFactory::buildUpdateChecker(
+		'http://adminmenueditor.com/?get_metadata_for=admin-menu-editor-pro',
 		$wp_menu_editor->plugin_file, //Note: This variable is set in the framework constructor
 		'admin-menu-editor-pro',
 		12,                        //check every 12 hours
@@ -936,4 +995,18 @@ if ( (version_compare(PHP_VERSION, '5.0.0', '>=')) && (is_admin() || (defined('D
 		wp_clear_scheduled_hook('check_plugin_updates-admin-menu-editor-pro');
 	}
 	register_deactivation_hook($wp_menu_editor->plugin_file, 'wsDisableAmeCron');
+}
+
+//Load the license manager.
+require 'license-manager/LicenseManager.php';
+$ameProLicenseManager = new Wslm_LicenseManagerClient(array(
+	'api_url' => 'http://adminmenueditor.com/licensing_api/',
+	'product_slug' => 'admin-menu-editor-pro',
+	'license_scope' => Wslm_LicenseManagerClient::LICENSE_SCOPE_NETWORK,
+	'update_checker' => isset($ameProUpdateChecker) ? $ameProUpdateChecker : null,
+));
+if ( isset($wp_menu_editor) ) {
+	$ameLicensingUi = new Wslm_BasicPluginLicensingUI($ameProLicenseManager, $wp_menu_editor->plugin_file);
+}
+
 }

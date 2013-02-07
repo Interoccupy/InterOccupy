@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the PageLines Framework package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PageLines Framework 2.3.5\n"
+"Project-Id-Version: PageLines Framework 2.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pagelines\n"
-"POT-Creation-Date: 2012-10-29 22:13:21+00:00\n"
+"POT-Creation-Date: 2013-01-18 02:08:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,43 +68,47 @@ msgstr ""
 msgid "Main Column"
 msgstr ""
 
-#: includes/class.shortcodes.php:309
+#: includes/class.shortcodes.php:312
 msgid "<span class='editpage sc'>Edit</span>"
 msgstr ""
 
-#: includes/class.shortcodes.php:359
+#: includes/class.shortcodes.php:362
 msgid "Tagged With: "
 msgstr ""
 
-#: includes/class.shortcodes.php:383
+#: includes/class.shortcodes.php:386
 msgid "Type: "
 msgstr ""
 
-#: includes/class.shortcodes.php:414 includes/library.wordpress.php:11
+#: includes/class.shortcodes.php:417 includes/library.wordpress.php:11
 msgid "Add Comment"
 msgstr ""
 
-#: includes/class.shortcodes.php:415
+#: includes/class.shortcodes.php:418
 msgid "<span class='num'>1</span> Comment"
 msgstr ""
 
-#: includes/class.shortcodes.php:416
+#: includes/class.shortcodes.php:419
 msgid "<span class='num'>%</span> Comments"
 msgstr ""
 
-#: includes/class.shortcodes.php:493
+#: includes/class.shortcodes.php:496
 msgid "Visit %s&#8217;s website"
 msgstr ""
 
-#: includes/class.render.css.php:137 includes/class.render.css.php:591
+#: includes/class.shortcodes.php:1336
+msgid "Close"
+msgstr ""
+
+#: includes/class.render.css.php:135 includes/class.render.css.php:595
 msgid "%s/* CSS was compiled at %s and took %s seconds using %sMB of unicorn dust%s.*/"
 msgstr ""
 
-#: includes/class.render.css.php:223
+#: includes/class.render.css.php:231
 msgid "LESS Compile error!"
 msgstr ""
 
-#: includes/class.render.css.php:230
+#: includes/class.render.css.php:238
 msgid "Error in %s Less code: %s"
 msgstr ""
 
@@ -124,35 +128,35 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: includes/library.functions.php:248
+#: includes/library.functions.php:256
 msgid "Sorry, but you don&#8217;t have the administrative privileges needed to do this."
 msgstr ""
 
-#: includes/library.functions.php:494
+#: includes/library.functions.php:502
 msgid "Add links using WordPress menus in your site admin."
 msgstr ""
 
-#: includes/library.functions.php:964
+#: includes/library.functions.php:970
 msgid "Error: Please make sure the Twitter account is <a href='%s'>public</a>."
 msgstr ""
 
-#: includes/library.functions.php:968
+#: includes/library.functions.php:974
 msgid "Error 403: Your IP is being rate limited by Twitter."
 msgstr ""
 
-#: includes/library.functions.php:972
+#: includes/library.functions.php:978
 msgid "Error 404: Your username was not found on Twitter."
 msgstr ""
 
-#: includes/library.functions.php:976
+#: includes/library.functions.php:982
 msgid "Error 420: Your IP is being rate limited by Twitter."
 msgstr ""
 
-#: includes/library.functions.php:980
+#: includes/library.functions.php:986
 msgid "Error 502: Twitter is being upgraded."
 msgstr ""
 
-#: includes/library.functions.php:984
+#: includes/library.functions.php:990
 msgid "Unknown Twitter error."
 msgstr ""
 
@@ -188,8 +192,8 @@ msgstr ""
 msgid "Sidebar Wrap"
 msgstr ""
 
-#: includes/class.template.php:1122 admin/actions.admin.php:294
-#: admin/actions.admin.php:313
+#: includes/class.template.php:1122 admin/actions.admin.php:296
+#: admin/actions.admin.php:315
 msgid "Default"
 msgstr ""
 
@@ -258,7 +262,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: includes/class.objects.php:155
+#: includes/class.objects.php:158
 msgid "edit"
 msgstr ""
 
@@ -1381,7 +1385,7 @@ msgid "Current Install Class"
 msgstr ""
 
 #: includes/config.options.php:943
-msgid "Add a special \"body\" class to this install of PageLines"
+msgid "Add a special body class to this install of PageLines"
 msgstr ""
 
 #: includes/config.options.php:944
@@ -1583,7 +1587,7 @@ msgid "<div class='pagination'><span class='desc'>pages:</span><ul>"
 msgstr ""
 
 #: includes/class.posts.php:263
-msgid "<span class=\"note\">Tagged with &rarr;</span> "
+msgid "<span class='note'>Tagged with &rarr;</span> "
 msgstr ""
 
 #: includes/class.posts.php:424
@@ -1904,7 +1908,7 @@ msgstr ""
 msgid "Upload Error: %s"
 msgstr ""
 
-#: admin/actions.admin.php:304
+#: admin/actions.admin.php:306
 msgid "No Template Assigned"
 msgstr ""
 
@@ -1925,7 +1929,7 @@ msgid "Clone"
 msgstr ""
 
 #: admin/class.ui.templates.php:510
-msgid "Clone <span class=\"sss-tag\">(PRO)</span>"
+msgid "Clone <span class='sss-tag'>(PRO)</span>"
 msgstr ""
 
 #: admin/class.ui.templates.php:524
@@ -1989,11 +1993,11 @@ msgid "Use draggable sections to control the design of your site's templates."
 msgstr ""
 
 #: admin/actions.options.php:35
-msgid "Drag <span class=\"spamp\">&amp;</span> Drop"
+msgid "Drag <span class='spamp'>&amp;</span> Drop"
 msgstr ""
 
 #: admin/actions.options.php:89
-msgid "Drag <span class=\"spamp\">&amp;</span> Drop Template Setup"
+msgid "Drag <span class='spamp'>&amp;</span> Drop Template Setup"
 msgstr ""
 
 #: admin/actions.options.php:111
@@ -2237,7 +2241,7 @@ msgid "Video - Build A Site in 10 Minutes"
 msgstr ""
 
 #: admin/class.welcome.php:69
-msgid "In this video <a href=\"http://nickhaskins.com/\">Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines"
+msgid "In this video <a href='http://nickhaskins.com/'>Nick</a> shows you how to build a beautiful site in 10 minutes with PageLines"
 msgstr ""
 
 #: admin/class.welcome.php:83
@@ -3014,7 +3018,7 @@ msgid "NextGen Gallery"
 msgstr ""
 
 #: sections/carousel/section.php:122
-msgid "Hook: \"pagelines_carousel_list\""
+msgid "Hook: pagelines_carousel_list"
 msgstr ""
 
 #: sections/carousel/section.php:124
@@ -3217,6 +3221,34 @@ msgstr ""
 msgid "Use this feature to add the NavBar section as a fixed navigation bar on the top of your site.<br/><br/><strong>Notes:</strong> <br/>1. Only visible in Fixed Mode.<br/>2. Image Height is constricted to a maximum 29px."
 msgstr ""
 
+#: sections/navbar/section.php:67
+msgid "Fixed NavBar - Select Theme"
+msgstr ""
+
+#: sections/navbar/section.php:69 sections/navbar/section.php:81
+msgid "Black Transparent (Default)"
+msgstr ""
+
+#: sections/navbar/section.php:70 sections/navbar/section.php:82
+msgid "Blue"
+msgstr ""
+
+#: sections/navbar/section.php:71 sections/navbar/section.php:83
+msgid "Light Grey"
+msgstr ""
+
+#: sections/navbar/section.php:72 sections/navbar/section.php:84
+msgid "Orange"
+msgstr ""
+
+#: sections/navbar/section.php:73 sections/navbar/section.php:85
+msgid "Red"
+msgstr ""
+
+#: sections/navbar/section.php:79
+msgid "Standard NavBar - Select Theme"
+msgstr ""
+
 #: sections/navbar/section.php:89
 msgid "NavBar and Fixed NavBar Theme"
 msgstr ""
@@ -3227,6 +3259,14 @@ msgstr ""
 
 #: sections/navbar/section.php:91
 msgid "The NavBar comes with several color options. Select one to automatically configure."
+msgstr ""
+
+#: sections/navbar/section.php:102
+msgid "Fixed NavBar - Select Menu"
+msgstr ""
+
+#: sections/navbar/section.php:107
+msgid "Standard NavBar - Select Menu"
 msgstr ""
 
 #: sections/navbar/section.php:110
@@ -3241,27 +3281,47 @@ msgstr ""
 msgid "The NavBar uses WordPress menus. Select one for use."
 msgstr ""
 
-#: sections/navbar/section.php:134
-msgid "Configure Options for NavBars"
+#: sections/navbar/section.php:122
+msgid "Activate dropdowns on hover."
+msgstr ""
+
+#: sections/navbar/section.php:126
+msgid "Fixed NavBar - Align Menu Right? (Defaults Left)"
+msgstr ""
+
+#: sections/navbar/section.php:129
+msgid "Fixed NavBar - Hide Searchform?"
+msgstr ""
+
+#: sections/navbar/section.php:132
+msgid "Standard NavBar - Align Menu Right? (Defaults Left)"
 msgstr ""
 
 #: sections/navbar/section.php:135
+msgid "Standard NavBar - Hide Searchform?"
+msgstr ""
+
+#: sections/navbar/section.php:138
+msgid "Configure Options for NavBars"
+msgstr ""
+
+#: sections/navbar/section.php:139
 msgid "NavBar and Fixed NavBar Configuration Options"
 msgstr ""
 
-#: sections/navbar/section.php:136
+#: sections/navbar/section.php:140
 msgid "Control various appearance options for the NavBars"
 msgstr ""
 
-#: sections/navbar/section.php:143
+#: sections/navbar/section.php:145 sections/navbar/section.php:146
 msgid "NavBar Title"
 msgstr ""
 
-#: sections/navbar/section.php:144
+#: sections/navbar/section.php:147
 msgid "Applies text to NavBar on small screens. Not available on Fixed NavBar"
 msgstr ""
 
-#: sections/navbar/section.php:145
+#: sections/navbar/section.php:148
 msgid "Add text to the NavBar to serve as a title, but only displayed on small screens."
 msgstr ""
 
@@ -3306,7 +3366,7 @@ msgid "Enable Feature Metapanel on Posts?"
 msgstr ""
 
 #: sections/features/section.php:39
-msgid "Feature Section - Enable \"Post-As-Feature\" Control Metapanel"
+msgid "Feature Section - Enable Post-As-Feature Control Metapanel"
 msgstr ""
 
 #: sections/features/section.php:40
@@ -3410,7 +3470,7 @@ msgid "Enter Feature Link URL"
 msgstr ""
 
 #: sections/features/section.php:607
-msgid "Adds a \"More\" link to your text. If you have \"Full Width Background Image\" mode selected, the entire slide will be linked."
+msgid "Adds a More link to your text. If you have Full Width Background Image mode selected, the entire slide will be linked."
 msgstr ""
 
 #: sections/features/section.php:611
@@ -3775,7 +3835,7 @@ msgid "Only The Image, No Text"
 msgstr ""
 
 #: sections/boxes/section.php:187
-msgid "Box Thumb Style (optional - defaults to \"At Left\")"
+msgid "Box Thumb Style (optional - defaults to Image At Left)"
 msgstr ""
 
 #: sections/boxes/section.php:194
@@ -3807,7 +3867,7 @@ msgid "More Link Text"
 msgstr ""
 
 #: sections/boxes/section.php:243
-msgid "Enter text for \"more\" links on linked box elements for this page."
+msgid "Enter text for More links on linked box elements for this page."
 msgstr ""
 
 #: sections/boxes/section.php:244

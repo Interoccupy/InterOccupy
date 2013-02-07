@@ -1,0 +1,57 @@
+/* Layout */
+.readernav{
+	width: 30%;
+	float: left;
+	position:relative;
+}
+.reader-content-container {
+	
+	float: left;
+	width: 100%;
+	margin-left: -30%;
+	
+}
+	.reader-content{		
+		margin-left: 30%;
+		min-height: 300px;
+	}
+		.reader-content-pad{
+			padding: 6%;
+			min-height: 300px;
+		}
+/* Header/Footer */
+
+.readerheader {
+	padding: 10px 15px;
+}
+.readerfooter {
+	padding: 10px 15px;
+}
+
+
+/* List */
+#questionlist{ list-style-type: none; }
+
+	.readernav-pad { 
+		padding-bottom: 2em;
+	}
+
+		.readernav li span, .readernav li a {
+			font-size: 1.1em;
+			display: block;
+			padding: 8px 8px 8px 15px;
+			cursor: pointer;
+		}
+		
+
+/* Content */
+
+	#answerlist li.readeranswer {
+		display:none;
+	}
+	#answerlist li.readerdefault {
+		display: block;
+		padding: 7%;
+	}
+		.readerdefault h2{font-size: 3em}
+		.readerdefault p{font-size: 1.2em; line-height: 1.6em}

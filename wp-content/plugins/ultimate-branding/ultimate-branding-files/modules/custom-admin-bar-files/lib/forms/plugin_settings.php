@@ -19,6 +19,10 @@
 		<label>URL</label>
 			<input class="widefat" id="wdcab_step_edit_dialog_url" />
 	</p>
+	<p>
+		<label>Target</label>
+			<input class="widefat" id="wdcab_step_edit_dialog_target" />
+	</p>
 </div>
 
 <style type="text/css">
@@ -91,10 +95,14 @@ $(".wdcab_step_edit").click(function () {
 
 	var $urlType = $parent.find('input:hidden.wdcab_step_url_type');
 
+	var $urlTarget = $parent.find('input:hidden.wdcab_step_target');
+
 	$("#wdcab_step_edit_dialog_title").val($title.val());
 	$("#wdcab_step_edit_dialog_url").val($url.val());
 
 	$("#wdcab_step_edit_dialog_url_type").text($urlType.val());
+
+	$("#wdcab_step_edit_dialog_target").val($urlTarget.val());
 
 	$("#wdcab_step_edit_dialog").dialog({
 		"title": $title.val(),
@@ -104,6 +112,7 @@ $(".wdcab_step_edit").click(function () {
 			$title.val($("#wdcab_step_edit_dialog_title").val());
 			$titleSpan.html($("#wdcab_step_edit_dialog_title").val());
 			$url.val($("#wdcab_step_edit_dialog_url").val());
+			$urlTarget.val($("#wdcab_step_edit_dialog_target").val());
 		}
 	});
 

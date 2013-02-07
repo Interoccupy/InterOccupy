@@ -2,6 +2,8 @@
 
 // all modifications of the WordPress admin ui
 class Polylang_Admin_Filters extends Polylang_Admin_Base {
+	private $pre_term_name; // used to store the term name before creating a slug if needed
+
 	function __construct() {
 		parent::__construct();
 
@@ -65,7 +67,8 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 			add_action('wp_ajax_media_lang_choice', array(&$this,'media_lang_choice'));
 
 			// adds actions related to languages when creating, saving or deleting media
-			add_filter('attachment_fields_to_save', array(&$this, 'save_media'));
+			add_action('add_attachment', array(&$this, 'add_attachment'));
+			add_filter('attachment_fields_to_save', array(&$this, 'save_media'), 10, 2);
 			add_action('delete_attachment', array(&$this, 'delete_post'));
 			add_filter('wp_delete_file', array(&$this, 'wp_delete_file'));
 
@@ -96,6 +99,8 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		add_filter('wp_dropdown_cats', array(&$this, 'wp_dropdown_cats'));
 		add_action('create_term', array(&$this, 'save_term'), 10, 3);
 		add_action('edit_term', array(&$this, 'save_term'), 10, 3);
+		add_filter('pre_term_name', array(&$this, 'pre_term_name'));
+		add_filter('pre_term_slug', array(&$this, 'pre_term_slug'), 10, 2);
 
 		// ajax response for edit term form
 		add_action('wp_ajax_term_lang_choice', array(&$this,'term_lang_choice'));
@@ -213,21 +218,24 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		}
 
 		// filters the list of media by language when uploading from post
-		if ($GLOBALS['pagenow'] == 'media-upload.php' && isset($_GET['post_id']) && $lang = $this->get_post_language($_GET['post_id']))
+		if (($GLOBALS['pagenow'] == 'media-upload.php' || // WP < 3.5
+			($GLOBALS['pagenow'] == 'admin-ajax.php' && isset($_REQUEST['action']) && $_REQUEST['action'] == 'query-attachments')) && // WP 3.5+
+			isset($_REQUEST['post_id']) && $lang = $this->get_post_language($_REQUEST['post_id']))
 			$query->set('lang', $lang->slug);
 
-		if (!isset($qvars['lang']) && $lg = get_user_meta(get_current_user_id(), 'pll_filter_content', true))
+		if (isset($qvars['post_type']) && in_array($qvars['post_type'], $this->post_types) &&
+			!isset($qvars['lang']) && $lg = get_user_meta(get_current_user_id(), 'pll_filter_content', true))
 			$qvars['lang'] = $lg;
 
-		if (isset($qvars['lang']) && $qvars['lang'] == 'all')
+		if ((isset($qvars['post_type']) && !in_array($qvars['post_type'], $this->post_types)) || (isset($qvars['lang']) && $qvars['lang'] == 'all'))
 			unset ($qvars['lang']);
 
 		return $query;
 	}
 
-	// adds the Language box in the 'Edit Post' and 'Edit Page' panels (as well as in custom post types panels)
+	// adds the Language box in the 'Edit Post' and 'Edit Page' panels (as well as in custom post types panels) but not in the 'Edit media' panel
 	function add_meta_boxes($post_type) {
-		if (in_array($post_type, $this->post_types))
+		if (in_array($post_type, array_diff($this->post_types, array('attachment'))))
 			add_meta_box('ml_box', __('Languages','polylang'), array(&$this,'post_language'), $post_type, 'side', 'high');
 
 		// replace tag metabox by our own
@@ -486,6 +494,8 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 					foreach ($terms as $term) {
 						if ($term_id = $this->get_term($term->term_id, $_POST['post_lang_choice']))
 							$newterms[] = (int) $term_id; // cast is important otherwise we get 'numeric' tags
+						elseif (!is_wp_error($term_info = wp_insert_term($term->name, $tax))) // create the term in the correct language
+							$newterms[] = (int) $term_info['term_id'];
 					}
 					wp_set_object_terms($post_id, $newterms, $tax);
 				}
@@ -502,7 +512,7 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		$this->save_translations('post', $post_id, $translations);
 
 		// STOP synchronisation if unwanted
-		if (!$this->options['sync'])
+		if (!isset($this->options['sync']) || !$this->options['sync'])
 			return;
 
 		// synchronise terms and metas in translations
@@ -535,13 +545,8 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 
 	// adds the language field and translations tables in the 'Edit Media' panel
 	function attachment_fields_to_edit($fields, $post) {
-		$screen = get_current_screen();
 		$post_id = $post->ID;
 		$lang = $this->get_post_language($post_id);
-
-		// fills with the post language when uploading from post, otherwise the default language
- 		if (!$lang)
-			$lang = $post->post_parent ? $this->get_post_language($post->post_parent) : $this->get_default_language();
 
 		$fields['language'] = array(
 			'label' => __('Language', 'polylang'),
@@ -554,7 +559,8 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		);
 
 		// don't show translations except on edit media panel
-		if ($screen->base == 'media') {
+		// media.php for WP < 3.5 and post.php for WP 3.5+
+		if (in_array($GLOBALS['pagenow'], array('media.php', 'post.php'))) {
 		if ($lang) {
 				ob_start();
 				include PLL_INC . '/media-translations.php';
@@ -611,17 +617,31 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		if (!$translations && $lang = $this->get_post_language($post_id))
 			$translations[$lang->slug] = $post_id;
 
-		$this->set_post_language($tr_id, $_GET['new_lang']);
 		$translations[$_GET['new_lang']] = $tr_id;
 		$this->save_translations('post', $tr_id, $translations);
 
-		wp_redirect(admin_url("media.php?attachment_id=$tr_id&action=edit"));
+		wp_redirect(admin_url(sprintf(version_compare($GLOBALS['wp_version'], '3.5', '<') ?
+			'media.php?attachment_id=%d&action=edit' : 'post.php?post=%d&action=edit', $tr_id)));
 		exit;
 	}
 
+	// sets the language of a new attachment
+	function add_attachment($post_id) {
+		if (isset($_GET['new_lang']) && $_GET['new_lang']) // created as a translation from an existing attachment
+			$lang = $_GET['new_lang'];
+		else {
+			$post = get_post($post_id);
+			if (isset($post->post_parent) && $post->post_parent) // upload in the "Add media" modal when editing a post
+				$lang = $this->get_post_language($post->post_parent);
+		}
+
+		$this->set_post_language($post_id, isset($lang) ? $lang : $this->get_default_language());		
+	}
+
 	// called when a media is saved
-	// the language is automatically saved by WP
-	function save_media($post) {
+	function save_media($post, $attachment) {
+		$this->set_post_language($post['ID'], $attachment['language']); // FIXME the language is no more automatically saved by WP since WP 3.5
+
 		$this->delete_translation('post', $post['ID']);
 
 		// save translations after checking the translated media is in the right language
@@ -659,6 +679,10 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 			if (!in_array($tax, $this->taxonomies))
 				return $clauses;
 		}
+
+		// if get_terms is queried with a 'lang' parameter
+		if (isset($args['lang']) && $args['lang'])
+			return $this->_terms_clauses($clauses, $args['lang']);
 
 		if (function_exists('get_current_screen'))
 			$screen = get_current_screen(); // since WP 3.1, may not be available the first time(s) get_terms is called
@@ -830,7 +854,7 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		// synchronize translations of this term in all posts
 
 		// STOP synchronisation if unwanted
-		if (!$this->options['sync'])
+		if (!isset($this->options['sync']) || !$this->options['sync'])
 			return;
 
 		// get all posts associated to this term
@@ -873,6 +897,17 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 				array('parent'=> isset($term_parent) ? $term_parent : 0),
 				array('term_taxonomy_id' => get_term($tr_id, $taxonomy)->term_taxonomy_id));
 		}
+	}
+
+	// stores the term name for use in pre_term_slug
+	function pre_term_name($name) {
+		return $this->pre_term_name = $name;
+	}
+
+	// creates the term slug in case the term already exists in another language
+	function pre_term_slug($slug, $taxonomy) {
+		return !$slug && in_array($taxonomy, $this->taxonomies) && ($name = sanitize_title($this->pre_term_name)) && term_exists($name, $taxonomy) ?
+			$name.'-'.$this->get_language($_POST['term_lang_choice'])->slug : $slug;
 	}
 
 	// called when a category or post tag is deleted
@@ -942,10 +977,14 @@ class Polylang_Admin_Filters extends Polylang_Admin_Base {
 		if ('publish' != $new_status || 'publish' == $old_status || 'page' != $post->post_type || ! empty($post->post_parent))
 			return;
 
-		// get all the menus in the post language
-		$menus = array();
 		$lang = $this->get_post_language($post->ID);
 		$menu_lang = get_option('polylang_nav_menus');
+
+		if (!$lang || !$menu_lang)
+			return;
+
+		// get all the menus in the post language
+		$menus = array();
 		foreach ($menu_lang as $menu) {
 			if (isset($menu[$lang->slug]))
 				$menus[] = $menu[$lang->slug];

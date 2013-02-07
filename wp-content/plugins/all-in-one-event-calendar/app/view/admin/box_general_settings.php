@@ -6,18 +6,23 @@
 <div class="alignleft"><?php echo $calendar_page ?></div>
 <br class="clear" />
 
-<label class="textinput" for="default_calendar_view"><?php _e( 'Default calendar view:', AI1EC_PLUGIN_NAME ) ?></label>
-<?php echo $default_calendar_view ?>
-<br class="clear" />
-
 <?php if( $show_timezone ) : ?>
-  <label class="textinput" for="default_calendar_view"><?php _e( 'Timezone:', AI1EC_PLUGIN_NAME ) ?></label>
+  <label class="textinput" for="timezone"><?php _e( 'Timezone:', AI1EC_PLUGIN_NAME ) ?></label>
   <?php echo $timezone_control ?>
 <?php endif; ?>
 <br class="clear" />
 
 <label class="textinput" for="week_start_day"><?php _e( 'Week starts on', AI1EC_PLUGIN_NAME ) ?></label>
 <?php echo $week_start_day ?>
+<br class="clear" />
+
+<div class="ai1ec-admin-view-settings">
+	<label><?php _e( 'Available Views:', AI1EC_PLUGIN_NAME ) ?></label>
+	<?php echo $default_calendar_view ?>
+</div>
+
+<label class="textinput" for="posterboard_events_per_page"><?php _e( 'Posterboard pages show at most', AI1EC_PLUGIN_NAME ) ?></label>
+<input name="posterboard_events_per_page" id="posterboard_events_per_page" type="text" size="1" value="<?php echo esc_attr( $posterboard_events_per_page ) ?>" />&nbsp;<?php _e( 'events', AI1EC_PLUGIN_NAME ) ?>
 <br class="clear" />
 
 <label class="textinput" for="agenda_events_per_page"><?php _e( 'Agenda pages show at most', AI1EC_PLUGIN_NAME ) ?></label>
@@ -99,14 +104,6 @@
 <label for="show_publish_button">
 <input class="checkbox" name="show_publish_button" id="show_publish_button" type="checkbox" value="1" <?php echo $show_publish_button ?> />
 <?php _e( 'Display <strong>Publish</strong> at bottom of Edit Event form', AI1EC_PLUGIN_NAME ) ?>
-</label>
-<br class="clear" />
-
-<h2><?php _e( 'Sharing Data', AI1EC_PLUGIN_NAME ) ?></h2>
-
-<label for="allow_statistics">
-<input class="checkbox" name="allow_statistics" id="allow_statistics" type="checkbox" value="1" <?php echo $allow_statistics ?> />
-<?php _e( 'Allow Then.ly to collect calendar statistics', AI1EC_PLUGIN_NAME ) ?>
 </label>
 <br class="clear" />
 

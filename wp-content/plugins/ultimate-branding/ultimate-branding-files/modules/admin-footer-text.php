@@ -43,12 +43,12 @@ if( !function_exists( 'esc_textarea' ) ) {
 	}
 }
 
-class Admin_Footer_Text {
+class ub_Admin_Footer_Text {
 
 	var $admin_footer_text_default = '';
 	var $update_text_default = '';
 
-	function Admin_Footer_Text() {
+	function ub_Admin_Footer_Text() {
 		$this->__construct();
 	}
 
@@ -57,7 +57,7 @@ class Admin_Footer_Text {
 		add_action( 'ultimatebranding_settings_menu_footer', array(&$this, 'output_admin_options') );
 		add_filter( 'ultimatebranding_settings_menu_footer_process', array(&$this, 'update_admin_options'), 10, 1 );
 
-		add_filter( 'admin_footer_text', array( &$this, 'output' ), 1, 1 );
+		add_filter( 'admin_footer_text', array( &$this, 'output' ), 99, 1 );
 
 		add_filter( 'update_footer' , array( &$this, 'blank_version' ), 99 );
 
@@ -156,5 +156,5 @@ class Admin_Footer_Text {
 
 }
 
-$ub_adminfootertext = new Admin_Footer_Text();
+$ub_adminfootertext = new ub_Admin_Footer_Text();
 

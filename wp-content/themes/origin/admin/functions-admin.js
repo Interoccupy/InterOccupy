@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {
+
+    var formfield;
               
     // Upload image         
     $('#origin_favicon_upload_button, #origin_logo_upload_button').click(function() {
@@ -11,10 +13,16 @@ jQuery(document).ready(function($) {
     });
 
     // Insert the image url into the input field
-    window.send_to_editor = function(html) {       
-        fileurl = $('img', html).attr('src');  
-        $('#' + formfield).val(fileurl);     
-        tb_remove();
+    window.original_send_to_editor = window.send_to_editor;
+    window.send_to_editor = function(html) {  
+        if (formfield) {      
+            fileurl = $('img', html).attr('src');  
+            $('#' + formfield).val(fileurl);     
+            tb_remove();
+            formfield = '';
+        } else {
+            window.original_send_to_editor(html);
+        }
     } 
 
     // Colorpicker

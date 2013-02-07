@@ -3,7 +3,7 @@
 Plugin Name: Options Framework
 Plugin URI: http://www.wptheming.com
 Description: A framework for building theme options.
-Version: 1.3
+Version: 1.4
 Author: Devin Price
 Author URI: http://www.wptheming.com
 License: GPLv2
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 /* Basic plugin definitions */
 
-define('OPTIONS_FRAMEWORK_VERSION', '1.3');
+define('OPTIONS_FRAMEWORK_VERSION', '1.4');
 define('OPTIONS_FRAMEWORK_URL', plugin_dir_url( __FILE__ ));
 
 load_plugin_textdomain( 'optionsframework', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
@@ -194,7 +194,6 @@ function optionsframework_page_capability( $capability ) {
 	return 'edit_theme_options';
 }
 
-
 /*
  * Adds default options to the database if they aren't already present.
  * May update this later to load only on plugin activation, or theme
@@ -262,7 +261,10 @@ if ( !function_exists( 'optionsframework_add_page' ) ) {
 
 function optionsframework_load_styles() {
 	wp_enqueue_style('optionsframework', OPTIONS_FRAMEWORK_URL.'css/optionsframework.css');
-	wp_enqueue_style('color-picker', OPTIONS_FRAMEWORK_URL.'css/colorpicker.css');
+	if ( !wp_style_is( 'wp-color-picker','registered' ) ) {
+		wp_register_style('wp-color-picker', OPTIONS_FRAMEWORK_URL.'css/color-picker.min.css');
+	}
+	wp_enqueue_style( 'wp-color-picker' );
 }
 
 /* Loads the javascript */
@@ -272,17 +274,28 @@ function optionsframework_load_scripts($hook) {
 	if ( 'appearance_page_options-framework' != $hook )
         return;
 
-	// Enqueued scripts
-	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('color-picker', OPTIONS_FRAMEWORK_URL .'js/colorpicker.js', array('jquery'));
-	wp_enqueue_script('options-custom', OPTIONS_FRAMEWORK_URL .'js/options-custom.js', array('jquery'));
+	// Enqueue colorpicker scripts for versions below 3.5
+	// for compatibility
+	
+	if ( !wp_script_is( 'wp-color-picker', 'registered' ) ) {
+		wp_register_script( 'iris', OPTIONS_FRAMEWORK_URL . 'js/iris.min.js', array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
+		wp_register_script( 'wp-color-picker', OPTIONS_FRAMEWORK_URL . 'js/color-picker.min.js', array( 'jquery', 'iris' ) );
+		$colorpicker_l10n = array(
+			'clear' => __( 'Clear' ),
+			'defaultString' => __( 'Default' ),
+			'pick' => __( 'Select Color' )
+		);
+		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
+	}
+	
+	// Enqueue custom option panel JS
+	wp_enqueue_script( 'options-custom', OPTIONS_FRAMEWORK_URL . 'js/options-custom.js', array( 'jquery','wp-color-picker' ) );
 
 	// Inline scripts from options-interface.php
-	add_action('admin_head', 'of_admin_head');
+	add_action( 'admin_head', 'of_admin_head' );
 }
 
 function of_admin_head() {
-
 	// Hook to add custom scripts
 	do_action( 'optionsframework_custom_scripts' );
 }
@@ -299,10 +312,9 @@ function of_admin_head() {
  *
  */
 
-if ( !function_exists( 'optionsframework_page' ) ) {
-	function optionsframework_page() {
-		settings_errors();
-?>
+if ( !function_exists( 'optionsframework_page' ) ) :
+function optionsframework_page() {
+	settings_errors(); ?>
 
 	<div id="optionsframework-wrap" class="wrap">
     <?php screen_icon( 'themes' ); ?>
@@ -327,8 +339,8 @@ if ( !function_exists( 'optionsframework_page' ) ) {
 	</div> <!-- / .wrap -->
 	
 <?php
-	}
 }
+endif;
 
 /**
  * Validate Options.
@@ -391,12 +403,22 @@ function optionsframework_validate( $input ) {
 			$clean[$id] = apply_filters( 'of_sanitize_' . $option['type'], $input[$id], $option );
 		}
 	}
-
-	add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'optionsframework' ), 'updated fade' );
+	
+	// Hook to run after validation
+	do_action( 'optionsframework_after_validate', $clean );
 	
 	return $clean;
-
 }
+
+/**
+ * Display message when options have been saved
+ */
+ 
+function optionsframework_save_options_notice() {
+	add_settings_error( 'options-framework', 'save_options', __( 'Options saved.', 'optionsframework' ), 'updated fade' );
+}
+
+add_action( 'optionsframework_after_validate', 'optionsframework_save_options_notice' );
 
 /**
  * Format Configuration Array.
@@ -448,7 +470,7 @@ function optionsframework_adminbar() {
 		));
 }
 
-if ( ! function_exists( 'of_get_option' ) ) {
+if ( ! function_exists( 'of_get_option' ) ) :
 
 	/**
 	 * Get Option.
@@ -473,7 +495,7 @@ if ( ! function_exists( 'of_get_option' ) ) {
 
 		return $default;
 	}
-}
+endif;
 
 /**
  * Wrapper for optionsframework_options()

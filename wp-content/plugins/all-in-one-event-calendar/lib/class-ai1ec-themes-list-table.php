@@ -205,7 +205,7 @@ class Ai1ec_Themes_List_Table extends WP_List_Table {
 			// else, fallthrough. install_themes doesn't help if you can't enable it.
 		} else {
 			if ( current_user_can( 'install_themes' ) ) {
-				printf( __( 'You only have one theme installed right now. You can choose from many free themes in the then.ly Theme Directory at any time: ' .
+				printf( __( 'You only have one theme installed right now. You can choose from many free themes in the Timely Theme Directory at any time: ' .
                     'just click on the <a href="%s">Install Themes</a> tab above.', AI1EC_PLUGIN_NAME ),
                 admin_url( AI1EC_THEME_SELECTION_BASE_URL ) );
 
@@ -532,7 +532,7 @@ class Ai1ec_Themes_List_Table extends WP_List_Table {
 
 		return $features;
 	}
-	
+
 	/**
 	 * switch_theme_folders_start function
 	 *

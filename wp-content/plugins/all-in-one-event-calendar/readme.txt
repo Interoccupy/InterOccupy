@@ -1,25 +1,26 @@
 === All-in-One Event Calendar ===
 Contributors: theseed, hubrik, vtowel, yani.iliev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9JJMUW48W2ED8
-Tags: calendar, event, events, ics, ics calendar, ical-feed, ics feed, wordpress ics importer, wordpress ical importer, upcoming events, todo, notes, journal, freebusy, availability, web calendar, web events, webcal, google calendar, ical, iCalendar, all-in-one, ai1ec, google calendar sync, ical sync, events sync, holiday calendar, calendar 2011, events 2011, widget, events widget, upcoming events widget, calendar widget, agenda widget
+Tags: calendar, event, events, ics, ics calendar, ical-feed, ics feed, wordpress ics importer, wordpress ical importer, upcoming events, todo, notes, journal, freebusy, availability, web calendar, web events, webcal, google calendar, ical, iCalendar, all-in-one, ai1ec, google calendar sync, ical sync, events sync, holiday calendar, calendar 2011, events 2011, widget, events widget, upcoming events widget, calendar widget, agenda widget, posterboard
 Requires at least: 3.2
-Tested up to: 3.4
-Stable tag: 1.7.1
+Tested up to: 3.4.1
+Stable tag: 1.8.4-premium
+License: EULA.license
 
-A calendar system with month, week, agenda views, upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
+A calendar system with many views, upcoming events widget, color-coded categories, recurrence, and import/export of facebook events and .ics feeds.
 
 == Description ==
 
-Welcome to the [All-in-One Event Calendar Plugin](http://then.ly/), from [Then.ly](http://then.ly/). The All-in-One Event Calendar is a new way to list your events in WordPress and easily share them with the rest of the world.
+Welcome to the [All-in-One Event Calendar Plugin](http://time.ly/), from [Timely](http://time.ly/). The All-in-One Event Calendar is a new way to list your events in WordPress and easily share them with the rest of the world.
 
 Our new calendar system combines a clean visual design, solid architectural patterns and a powerful set of features to create the most advanced calendar system available for WordPress. Best of all: it’s completely free.
 
-Download the free Premium version at [then.ly](http://then.ly/) and choose from 3 custom designed themes for your Calendar, or develop your own!
+Download the free Premium version at [time.ly](http://time.ly/) and choose from 3 custom designed themes for your Calendar, or develop your own! Also includes Posterboard view, Facebook integration, refactored JavaScript and more. 
 
-**New in version 1.7:** 
-* Bug fixes: JavaScript, theme compatibility, slider conflicts, date selectors
-* Multi-day event UI fixes
-* Un-minified css for easier editing
+**New in version 1.8:**
+* Posterboard view option for all themes
+* Facebook Integration: Import events from friends, groups, and pages. Export to your Facebook Events
+* Refactored JavaScript: Better integration with plugins and themes
 
 = Calendar Features For Users =
 
@@ -30,9 +31,10 @@ This plugin has many features we hope will prove useful to users, including:
 * Easy **sharing** with Google Calendar, Apple iCal, MS Outlook and any other system that accepts iCalendar (.ics) feeds
 * Embedded **Google Maps**
 * **Color-coded** events based on category
-* **Month**, **week**, **day** and **agenda** views
+* **Month**, **week**, **day**, **agenda**, and **posterboard** views
 * **Upcoming Events** widget
 * Direct links to **filtered calendar views**
+* **Facebook** integration
 
 = Features for Website and Blog Owners =
 
@@ -54,22 +56,23 @@ The All-in-One Event Calendar Plugin also has a few features that will prove use
 * Your calendar can be embedded into a WordPress page without needing to create template files or modify the theme
 
 = Video =
-https://vimeo.com/41738066
+
+http://www.youtube.com/watch?v=XJ-KHOqBKuQ
 
 = Helpful Links =
 
-* [**Check out the DEMO »**](http://demo.theseednetwork.com/)
-* [**Get help from our Help Desk »**](http://help.then.ly)
+* [**Get help from our Help Desk »**](http://help.time.ly)
 
 == Frequently Asked Questions ==
 
-[**Get help from our Help Desk »**](http://help.then.ly)
+[**Get help from our Help Desk »**](http://help.time.ly)
 
 = Shortcodes =
 
 * Monthly view: **[ai1ec view="monthly"]**
 * Weekly view: **[ai1ec view="weekly"]**
 * Agenda view: **[ai1ec view="agenda"]**
+* Posterboard view: **[ai1ec view="posterboard"]**
 * Default view as per settings: **[ai1ec]**
 
 * Filter by event category name: **[ai1ec cat_name="halloween"]**
@@ -86,6 +89,29 @@ https://vimeo.com/41738066
 * Filter by post ids (separate ids by comma): **[ai1ec post_id="1, 2"]**
 
 == Changelog ==
+
+= Version 1.8.4-premium =
+* Adds WordPress 3.5 compatibility
+
+= Version 1.8.3-premium =
+* Fixed an issue with google maps
+* Fixed an sql problem in duplicate controller
+* Fixed an upgrade theme issue
+
+= Version 1.8.2-premium =
+* Added compatibility when the official Facebook plugin is installed
+
+= Version 1.8.1-premium =
+* Added support for WordPress v3.2 - WP_Scripts::get_data method didn't exist before WP v3.3
+
+= Version 1.8-premium =
+* "Posterboard" view option for event display
+* Ability to have only certain calendar views enabled
+* Refactored Javascript to reduce conflicts with themes and plugins
+* Facebook Integration - Import and Export events to Facebook
+* Front End UI enhancements
+* Updated ical parser
+
 = Version 1.7.1 Premium =
 * AIOEC-186 AIOEC-195: Added compatibility for WordPress 3.4
 * AIOEC-120: Internet Explorer - admin + frontend UI compatibility
@@ -317,7 +343,7 @@ To place the calendar in a DOM/HTML element besides the default page content con
 == Upgrade Notice ==
 
 = 1.6 Premium =
-The All-in-One Event Calendar can only be upgraded to the Premium version from version 1.6 and above, or by downloading directly from [then.ly](http://then.ly/).
+The All-in-One Event Calendar can only be upgraded to the Premium version from version 1.6 and above, or by downloading directly from [time.ly](http://time.ly/).
 
 = 1.0.3 =
 When upgrading to from below `1.0.3` you must reactivate the plugin.

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Branding\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-14 01:17+0100\n"
-"PO-Revision-Date: 2012-06-14 01:17+0100\n"
+"POT-Creation-Date: 2013-01-13 15:11+0100\n"
+"PO-Revision-Date: 2013-01-13 15:12+0100\n"
 "Last-Translator: Barry <barry@mapinated.com>\n"
 "Language-Team: Incsub <contact@incsub.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: ultimate-branding-files/classes/class.help.php:94
-#: ultimate-branding-files/classes/ubadmin.php:351
+#: ultimate-branding-files/classes/ubadmin.php:436
 msgid "Dashboard"
 msgstr ""
 
@@ -23,14 +23,14 @@ msgid "Custom Site Generator"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:122
-#: ultimate-branding-files/classes/ubadmin.php:746
+#: ultimate-branding-files/classes/ubadmin.php:859
 #: ultimate-branding-files/help/contextual.footer.php:1
 msgid "Custom Footer Content"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:136
-#: ultimate-branding-files/classes/ubadmin.php:172
-#: ultimate-branding-files/classes/ubadmin.php:370
+#: ultimate-branding-files/classes/ubadmin.php:250
+#: ultimate-branding-files/classes/ubadmin.php:455
 msgid "Permalinks Menu"
 msgstr ""
 
@@ -39,157 +39,180 @@ msgid "Network Text Change"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:164
-#: ultimate-branding-files/classes/ubadmin.php:169
-#: ultimate-branding-files/classes/ubadmin.php:368
+#: ultimate-branding-files/classes/ubadmin.php:247
+#: ultimate-branding-files/classes/ubadmin.php:453
 msgid "Widgets"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:179
-#: ultimate-branding-files/classes/ubadmin.php:605
+#: ultimate-branding-files/classes/ubadmin.php:718
 #: ultimate-branding-files/help/contextual.images.php:1
 msgid "Custom Images"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:194
-#: ultimate-branding-files/classes/ubadmin.php:699
+#: ultimate-branding-files/classes/ubadmin.php:812
 #: ultimate-branding-files/help/contextual.help.php:1
 msgid "Custom Help Content"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:209
-#: ultimate-branding-files/classes/ubadmin.php:652
+#: ultimate-branding-files/classes/ubadmin.php:765
 #: ultimate-branding-files/help/contextual.adminbar.php:1
 msgid "Custom Admin Bar"
 msgstr ""
 
 #: ultimate-branding-files/classes/class.help.php:224
-#: ultimate-branding-files/classes/ubadmin.php:983
+#: ultimate-branding-files/classes/ubadmin.php:1097
 msgid "Custom CSS"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:126
+#: ultimate-branding-files/classes/ubadmin.php:204
 msgid "<b>[Ultimate Branding]</b> Plugin only works in Multisite."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:135
+#: ultimate-branding-files/classes/ubadmin.php:213
 #, php-format
 msgid "<b>[Ultimate Branding]</b> Please deactivate the following plugin(s) to make Ultimate Branding to work: %s"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:145
-#: ultimate-branding-files/classes/ubadmin.php:450
-#: ultimate-branding-files/classes/ubadmin.php:466
+#: ultimate-branding-files/classes/ubadmin.php:223
+#: ultimate-branding-files/classes/ubadmin.php:535
+#: ultimate-branding-files/classes/ubadmin.php:572
 msgid "Branding"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:154
-#: ultimate-branding-files/classes/ubadmin.php:356
+#: ultimate-branding-files/classes/ubadmin.php:232
+#: ultimate-branding-files/classes/ubadmin.php:441
 msgid "Images"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:157
-#: ultimate-branding-files/classes/ubadmin.php:358
+#: ultimate-branding-files/classes/ubadmin.php:235
+#: ultimate-branding-files/classes/ubadmin.php:443
 msgid "Admin Bar"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:160
-#: ultimate-branding-files/classes/ubadmin.php:360
+#: ultimate-branding-files/classes/ubadmin.php:238
+#: ultimate-branding-files/classes/ubadmin.php:445
 msgid "Help Content"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:164
-#: ultimate-branding-files/classes/ubadmin.php:363
+#: ultimate-branding-files/classes/ubadmin.php:242
+#: ultimate-branding-files/classes/ubadmin.php:448
 msgid "Footer Content"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:175
-#: ultimate-branding-files/classes/ubadmin.php:372
+#: ultimate-branding-files/classes/ubadmin.php:253
+#: ultimate-branding-files/classes/ubadmin.php:457
 msgid "Site Generator"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:178
-#: ultimate-branding-files/classes/ubadmin.php:374
+#: ultimate-branding-files/classes/ubadmin.php:256
+#: ultimate-branding-files/classes/ubadmin.php:459
 msgid "Text Change"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:182
-#: ultimate-branding-files/classes/ubadmin.php:377
+#: ultimate-branding-files/classes/ubadmin.php:260
+#: ultimate-branding-files/classes/ubadmin.php:462
 msgid "CSS"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:489
+#: ultimate-branding-files/classes/ubadmin.php:557
+msgid "Notifications"
+msgstr ""
+
+#: ultimate-branding-files/classes/ubadmin.php:560
+msgid "Please deactivate the following plugin(s) to make Ultimate Branding to work:"
+msgstr ""
+
+#: ultimate-branding-files/classes/ubadmin.php:595
 msgid "Module Status"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:527
-#: ultimate-branding-files/classes/ubadmin.php:531
+#: ultimate-branding-files/classes/ubadmin.php:633
+#: ultimate-branding-files/classes/ubadmin.php:637
 msgid "Available Modules"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:558
+#: ultimate-branding-files/classes/ubadmin.php:634
+#: ultimate-branding-files/classes/ubadmin.php:638
+msgid "Enable All"
+msgstr ""
+
+#: ultimate-branding-files/classes/ubadmin.php:669
 msgid "Disable"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:571
+#: ultimate-branding-files/classes/ubadmin.php:683
 msgid "Enable"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:581
+#: ultimate-branding-files/classes/ubadmin.php:694
 msgid "No modules avaiable."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:598
-#: ultimate-branding-files/classes/ubadmin.php:645
-#: ultimate-branding-files/classes/ubadmin.php:692
-#: ultimate-branding-files/classes/ubadmin.php:739
-#: ultimate-branding-files/classes/ubadmin.php:786
-#: ultimate-branding-files/classes/ubadmin.php:833
-#: ultimate-branding-files/classes/ubadmin.php:880
-#: ultimate-branding-files/classes/ubadmin.php:927
-#: ultimate-branding-files/classes/ubadmin.php:976
+#: ultimate-branding-files/classes/ubadmin.php:711
+#: ultimate-branding-files/classes/ubadmin.php:758
+#: ultimate-branding-files/classes/ubadmin.php:805
+#: ultimate-branding-files/classes/ubadmin.php:852
+#: ultimate-branding-files/classes/ubadmin.php:899
+#: ultimate-branding-files/classes/ubadmin.php:946
+#: ultimate-branding-files/classes/ubadmin.php:993
+#: ultimate-branding-files/classes/ubadmin.php:1040
+#: ultimate-branding-files/classes/ubadmin.php:1090
 msgid "Changes saved."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:599
-#: ultimate-branding-files/classes/ubadmin.php:646
-#: ultimate-branding-files/classes/ubadmin.php:787
-#: ultimate-branding-files/classes/ubadmin.php:834
+#: ultimate-branding-files/classes/ubadmin.php:712
+#: ultimate-branding-files/classes/ubadmin.php:759
+#: ultimate-branding-files/classes/ubadmin.php:900
+#: ultimate-branding-files/classes/ubadmin.php:947
 msgid "There was an error uploading the file, please try again."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:693
-#: ultimate-branding-files/classes/ubadmin.php:740
-#: ultimate-branding-files/classes/ubadmin.php:881
+#: ultimate-branding-files/classes/ubadmin.php:806
+#: ultimate-branding-files/classes/ubadmin.php:853
+#: ultimate-branding-files/classes/ubadmin.php:994
 msgid "Changes could not be saved."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:793
+#: ultimate-branding-files/classes/ubadmin.php:906
 #: ultimate-branding-files/help/contextual.widgets.php:1
 msgid "Custom Widgets"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:840
+#: ultimate-branding-files/classes/ubadmin.php:953
 #: ultimate-branding-files/help/contextual.permalinks.php:1
 msgid "Remove Permalinks Menu"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:887
+#: ultimate-branding-files/classes/ubadmin.php:1000
 #: ultimate-branding-files/help/contextual.sitegenerator.php:1
 msgid "Custom Site Generator Content"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:928
-#: ultimate-branding-files/classes/ubadmin.php:977
+#: ultimate-branding-files/classes/ubadmin.php:1041
+#: ultimate-branding-files/classes/ubadmin.php:1091
 msgid "There was an error, please try again."
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:934
+#: ultimate-branding-files/classes/ubadmin.php:1047
 #: ultimate-branding-files/help/contextual.textchange.php:1
 msgid "Network Wide Text Change"
 msgstr ""
 
-#: ultimate-branding-files/classes/ubadmin.php:935
+#: ultimate-branding-files/classes/ubadmin.php:1048
 msgid "Add New"
+msgstr ""
+
+#: ultimate-branding-files/external/wpmudev-dash-notification.php:57
+#, php-format
+msgid "Easily get updates, support, and one-click WPMU DEV plugin/theme installations right from in your dashboard - <strong><a href=\"%s\" title=\"Install Now &raquo;\">install the free WPMU DEV Dashboard plugin</a></strong>. &nbsp;&nbsp;&nbsp;<small><a href=\"http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/\">(find out more)</a></small>"
+msgstr ""
+
+#: ultimate-branding-files/external/wpmudev-dash-notification.php:61
+#, php-format
+msgid "Updates, Support, Premium Plugins, Community - <strong><a href=\"%s\" title=\"Activate Now &raquo;\">activate the WPMU DEV Dashboard plugin now</a></strong>."
 msgstr ""
 
 #: ultimate-branding-files/help/contextual.adminbar.php:3
@@ -375,10 +398,6 @@ msgstr ""
 msgid "HTML Allowed."
 msgstr ""
 
-#: ultimate-branding-files/modules/admin-help-content.php:55
-msgid "You can change the content in this Help drop-down by going to Branding > Help Content."
-msgstr ""
-
 #: ultimate-branding-files/modules/admin-help-content.php:126
 msgid "Admin Help"
 msgstr ""
@@ -456,35 +475,35 @@ msgstr ""
 msgid "What is added here will be added to the header of the login page for every site."
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:78
-#: ultimate-branding-files/modules/login-image.php:130
+#: ultimate-branding-files/modules/favicons.php:89
+#: ultimate-branding-files/modules/login-image.php:155
 msgid "The GD image library is not installed."
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:142
+#: ultimate-branding-files/modules/favicons.php:169
 msgid "This is the image that is displayed as a Favicon - "
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:143
-#: ultimate-branding-files/modules/login-image.php:194
+#: ultimate-branding-files/modules/favicons.php:170
+#: ultimate-branding-files/modules/login-image.php:235
 msgid "Reset the image"
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:149
+#: ultimate-branding-files/modules/favicons.php:176
 msgid "None set"
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:154
-#: ultimate-branding-files/modules/login-image.php:205
+#: ultimate-branding-files/modules/favicons.php:181
+#: ultimate-branding-files/modules/login-image.php:247
 msgid "Change Image"
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:160
+#: ultimate-branding-files/modules/favicons.php:187
 msgid "Image must be 500KB maximum. It will be cropped to 16px wide and 16px tall. For best results use an image of this size. Allowed Formats: jpeg, gif, and png"
 msgstr ""
 
-#: ultimate-branding-files/modules/favicons.php:161
-#: ultimate-branding-files/modules/login-image.php:212
+#: ultimate-branding-files/modules/favicons.php:188
+#: ultimate-branding-files/modules/login-image.php:254
 msgid "Note that gif animations will not be preserved."
 msgstr ""
 
@@ -492,11 +511,11 @@ msgstr ""
 msgid "What is added here will be shown on every blog or site in your network. You can add tracking code, embeds, terms of service links, etc."
 msgstr ""
 
-#: ultimate-branding-files/modules/login-image.php:193
+#: ultimate-branding-files/modules/login-image.php:234
 msgid "This is the image that is displayed on the login page (wp-login.php) - "
 msgstr ""
 
-#: ultimate-branding-files/modules/login-image.php:211
+#: ultimate-branding-files/modules/login-image.php:253
 msgid "Image must be 500KB maximum. It will be cropped to 310px wide and 70px tall. For best results use an image of this size. Allowed Formats: jpeg, gif, and png"
 msgstr ""
 
@@ -509,32 +528,32 @@ msgid "Log in/out, admin, feed and powered-by links"
 msgstr ""
 
 #: ultimate-branding-files/modules/rebranded-meta-widget.php:69
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:74
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:77
 msgid "Meta"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:87
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:98
 msgid "Syndicate this site using RSS 2.0"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:87
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:98
 msgid "Entries <abbr title=\"Really Simple Syndication\">RSS</abbr>"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:88
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:99
 msgid "The latest comments to all posts in RSS"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:88
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:99
 msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:89
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:100
 #, php-format
 msgid "Powered by %s"
 msgstr ""
 
-#: ultimate-branding-files/modules/rebranded-meta-widget.php:107
+#: ultimate-branding-files/modules/rebranded-meta-widget.php:118
 msgid "Title:"
 msgstr ""
 
@@ -686,55 +705,59 @@ msgstr ""
 msgid "This URL"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:88
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:100
 msgid "Delete"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:90
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:102
 msgid "Edit"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:99
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:112
 msgid "<p>Drag and drop links to sort them into the order you want.</p>"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:104
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:117
 msgid "URL:"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:106
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:119
 msgid "Administrative page (e.g. \"post-new.php\" or \"themes.php\")"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:107
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:120
 msgid "Site page (e.g. \"/\" or \"/2007-06-05/an-old-post\")"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:108
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:121
 msgid "External page (e.g. \"http://www/example.com/2007-06-05/an-old-post\")"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:109
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:122
 msgid "Preview:"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:121
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:129
+msgid "Link target:"
+msgstr ""
+
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:137
 msgid "WordPress menu"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:122
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:138
 msgid "Site menu"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:123
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:139
 msgid "My Sites"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:125
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:141
 msgid "Comments"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:126
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_form_renderer.php:142
 msgid "Updates"
 msgstr ""
 
@@ -754,15 +777,19 @@ msgstr ""
 msgid "Title link leads to"
 msgstr ""
 
-#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php:58
-msgid "Add new link"
-msgstr ""
-
 #: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php:59
-msgid "Configure Links"
+msgid "Title link target"
 msgstr ""
 
 #: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php:61
+msgid "Add new link"
+msgstr ""
+
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php:62
+msgid "Configure Links"
+msgstr ""
+
+#: ultimate-branding-files/modules/custom-admin-bar-files/lib/class_wdcab_admin_pages.php:64
 msgid "Disable WordPress menu items"
 msgstr ""
 

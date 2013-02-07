@@ -10,7 +10,7 @@
  * Ai1ec_View_Helper class
  *
  * @package Helpers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_View_Helper {
 	/**
@@ -68,39 +68,32 @@ class Ai1ec_View_Helper {
 			wp_enqueue_script( $name, $file, $deps, AI1EC_VERSION, $in_footer );
 		}
 	}
-
 	/**
-   * Enqueue a script from the theme resources directory.
-   *
-   * @param string $name Unique identifer for the script
-   * @param string $file Filename of the script
-   * @param array $deps Dependencies of the script
-   * @param bool $in_footer Whether to add the script to the footer of the page
-   *
-	 * @return void
+	 * Looks in the currently selected theme folder if there is the js file otherwise it falls back to the default template
+	 *
+	 * @param string $file the file to look for
+	 *
+	 * @throws Ai1ec_File_Not_Found if the file is not found
+	 *
+	 * @return string $file the path to the js file
 	 */
-	function theme_enqueue_script( $name, $file, $deps = array(), $in_footer = FALSE  ) {
-    global $ai1ec_themes_controller;
-
-		if( ! $file || empty( $file ) ) {
-			throw new Ai1ec_File_Not_Provided( "You need to specify a script file." );
-		}
-
-    // template path
-    $active_template_path = $ai1ec_themes_controller->active_template_path();
-    // template url
-    $active_template_url = $ai1ec_themes_controller->active_template_url();
+	public function get_path_of_js_file_to_load( $file ) {
+		global $ai1ec_themes_controller;
+		// template path
+		$active_template_path = $ai1ec_themes_controller->active_template_path();
+		// template url
+		$active_template_url = $ai1ec_themes_controller->active_template_url();
 
 		// look for the file in the active theme
 		$themes_root = array(
-			(object) array(
-				'path' => $active_template_path . '/' . AI1EC_JS_FOLDER,
-				'url'  => $active_template_url . '/' . AI1EC_JS_FOLDER
-			),
-			(object) array(
-				'path' => AI1EC_DEFAULT_THEME_PATH . '/' . AI1EC_JS_FOLDER,
-				'url'  => AI1EC_DEFAULT_THEME_URL . '/' . AI1EC_JS_FOLDER
-			),
+				(object) array(
+						'path' => $active_template_path . '/' . AI1EC_JS_FOLDER,
+						'url'  => $active_template_url . '/' . AI1EC_JS_FOLDER
+				),
+				(object) array(
+						'path' => AI1EC_DEFAULT_THEME_PATH . '/' . AI1EC_JS_FOLDER,
+						'url'  => AI1EC_DEFAULT_THEME_URL . '/' . AI1EC_JS_FOLDER
+				),
 		);
 
 		$file_found = false;
@@ -119,20 +112,43 @@ class Ai1ec_View_Helper {
 				break;
 			}
 		}
-
 		if( $file_found === false ) {
 			throw new Ai1ec_File_Not_Found( "The specified file '" . $file . "' doesn't exist." );
+		} else {
+			return $file;
 		}
-		else {
+	}
+
+	/**
+   * Enqueue a script from the theme resources directory.
+   *
+   * @param string $name Unique identifer for the script
+   * @param string $file Filename of the script
+   * @param array $deps Dependencies of the script
+   * @param bool $in_footer Whether to add the script to the footer of the page
+   *
+	 * @return void
+	 */
+	function theme_enqueue_script( $name, $file, $deps = array(), $in_footer = FALSE  ) {
+
+
+		if( ! $file || empty( $file ) ) {
+			throw new Ai1ec_File_Not_Provided( "You need to specify a script file." );
+		}
+
+		try {
+			$file_path = $this->get_path_of_js_file_to_load( $file );
 			// Append core themes version to version string to make sure recently
 			// updated files are used.
 			wp_enqueue_script(
-				$name,
-				$file,
-				$deps,
-				AI1EC_VERSION . '-' . get_option( 'ai1ec_themes_version', 1 ),
-				$in_footer
+					$name,
+					$file_path,
+					$deps,
+					AI1EC_VERSION . '-' . get_option( 'ai1ec_themes_version', 1 ),
+					$in_footer
 			);
+		} catch ( Ai1ec_File_Not_Found  $e ) {
+			throw $e;
 		}
 	}
 
@@ -180,8 +196,16 @@ class Ai1ec_View_Helper {
 				'url'  => $active_template_url . '/' . AI1EC_CSS_FOLDER
 			),
 			(object) array(
+				'path' => $active_template_path,
+				'url'  => $active_template_url
+			),
+			(object) array(
 				'path' => AI1EC_DEFAULT_THEME_PATH . '/' . AI1EC_CSS_FOLDER,
 				'url'  => AI1EC_DEFAULT_THEME_URL . '/' . AI1EC_CSS_FOLDER
+			),
+			(object) array(
+				'path' => AI1EC_DEFAULT_THEME_PATH,
+				'url'  => AI1EC_DEFAULT_THEME_URL
 			),
 		);
 

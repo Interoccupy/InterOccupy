@@ -2,7 +2,7 @@
 
 /**
  * @author W-Shadow 
- * @copyright 2009
+ * @copyright 2012
  *
  * The uninstallation script.
  */
@@ -22,4 +22,11 @@ if( defined( 'ABSPATH') && defined('WP_UNINSTALL_PLUGIN') ) {
         delete_metadata('user', 0, 'ame_show_hints', '', true);
     }
 
+	//Remove license data (if any).
+	if ( file_exists(dirname(__FILE__) . '/extras.php') ) {
+		require_once dirname(__FILE__) . '/extras.php';
+		if ( isset($ameProLicenseManager) ) {
+			$ameProLicenseManager->unlicenseThisSite();
+		}
+	}
 }

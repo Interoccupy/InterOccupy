@@ -8,7 +8,7 @@ Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add auto-translation functionnality to Polylang plugin.
+Add auto-translation functionnality to the Polylang plugin.
 
 == Description ==
 
@@ -24,19 +24,30 @@ e.g.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
-
-
+You will found some notice on http://moutons.ch in a few times.
 
 == Screenshots ==
 
-1. The Polylang Auto-translation admin panel in WordPress 3.3.1.
+1. The Polylang Auto-translation Meta Box in WordPress 3.5
+2. The Polylang Auto-Translation Plugin in the Strings Translation panel of Polylang.
 
 == Changelog ==
+
+= 0.2 =
+* Now you can choose between Google Translation and myMemory translate services
+* Refactoring the javascript calls.
+* Improve the translation algorithm.
+* Show informations about the translation processus
+* Now you can auto - translate the Strings in the Polylang panel
+* Added auto-translation of Medias Panel.
 
 = 0.1 =
 * Plug with polylang 0.9.4
 
 == Upgrade Notice ==
+
+= 0.2 =
+This version fixes the translation timeout problems from myMemory than can happend
 
 = 0.1 =
 First release.

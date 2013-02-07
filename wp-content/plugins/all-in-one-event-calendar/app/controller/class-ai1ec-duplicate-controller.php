@@ -10,7 +10,7 @@
  * Ai1ec_Duplicate_Controller class
  *
  * @package Controllers
- * @author The Seed Studio
+ * @author time.ly
  **/
 class Ai1ec_Duplicate_Controller {
 	/**
@@ -27,7 +27,7 @@ class Ai1ec_Duplicate_Controller {
 	 *
 	 * Default constructor
 	 **/
-	private function __construct() { 
+	private function __construct() {
 		// ===========
 		// = ACTIONS =
 		// ===========
@@ -36,10 +36,10 @@ class Ai1ec_Duplicate_Controller {
 
 		// Using our action hooks to copy taxonomies
 		add_action( 'dp_duplicate_post' , array( $this , 'duplicate_post_copy_post_taxonomies' ), 10 , 2 );
-	
+
 		// Using our action hooks to copy meta fields
 		add_action( 'dp_duplicate_post' , array( $this , 'duplicate_post_copy_post_meta_info' ), 10 , 2 );
-		
+
 		// Using our action hooks to copy attachments
 		add_action( 'dp_duplicate_post' , array( $this , 'duplicate_post_copy_attachments' ), 10 , 2 );
 
@@ -48,10 +48,10 @@ class Ai1ec_Duplicate_Controller {
 
 		// Using  action hooks to for custom duplicate bulk action
 		add_action( 'admin_footer-edit.php' , array( $this , 'duplicate_custom_bulk_admin_footer' ));
-		
+
 		// Using  action hooks to for custom duplicate bulk action
 		add_action( 'load-edit.php' , array( $this , 'duplicate_custom_bulk_action' ));
-			
+
 		// ===========
 		// = FILTERS =
 		// ===========
@@ -73,12 +73,12 @@ class Ai1ec_Duplicate_Controller {
 
 		return self::$_instance;
 	}
-	
+
 	/**
 	* Add the link to action list for post_row_actions
 	*/
 	function duplicate_post_make_duplicate_link_row($actions, $post) {
-		
+
 		if( $post->post_type == "ai1ec_event" ) {
 			$actions['clone'] = '<a href="'.$this->duplicate_post_get_clone_post_link( $post->ID , 'display', false).'" title="'
 			. esc_attr(__("Clone this item", AI1EC_PLUGIN_NAME))
@@ -100,27 +100,27 @@ class Ai1ec_Duplicate_Controller {
 	 * @return string
 	 */
 	function duplicate_post_get_clone_post_link( $id = 0, $context = 'display', $draft = true ) {
-	
+
 		if ( !$post = &get_post( $id ) )
 			return;
-	
+
 		if ( $draft )
 			$action_name = "duplicate_post_save_as_new_post_draft";
 		else
 			$action_name = "duplicate_post_save_as_new_post";
-	
+
 		if ( 'display' == $context )
 			$action = '?action=' . $action_name . '&amp;post=' . $post->ID;
 		else
 			$action = '?action=' . $action_name . '&post=' . $post->ID;
-	
+
 		$post_type_object = get_post_type_object( $post->post_type );
 		if ( !$post_type_object )
 			return;
-	
+
 		return apply_filters( 'duplicate_post_get_clone_post_link', admin_url( "admin.php". $action ), $post->ID , $context );
 	}
-	
+
 	/**
 	 * Display duplicate post link for post.
 	 *
@@ -132,18 +132,18 @@ class Ai1ec_Duplicate_Controller {
 	function duplicate_post_clone_post_link( $link = null, $before = '', $after = '', $id = 0 ) {
 		if ( !$post = &get_post( $id ) )
 			return;
-	
+
 		if ( !$url = duplicate_post_get_clone_post_link( $post->ID ) )
 			return;
-	
+
 		if ( null === $link )
 			$link = __( 'Copy to a new draft' , AI1EC_PLUGIN_NAME );
-	
+
 		$post_type_obj = get_post_type_object( $post->post_type );
 		$link = '<a class="post-clone-link" href="' . $url . '" title="'
 		. esc_attr(__( "Copy to a new draft" , AI1EC_PLUGIN_NAME ))
 		.'">' . $link . '</a>';
-		
+
 		echo $before . apply_filters( 'duplicate_post_clone_post_link', $link, $post->ID ) . $after;
 	}
 	/**
@@ -156,10 +156,10 @@ class Ai1ec_Duplicate_Controller {
 	function duplicate_post_get_original( $id = 0 , $output = OBJECT ) {
 		if ( !$post = &get_post( $id ) )
 			return;
-			
+
 		$original_ID = get_post_meta( $post->ID , '_dp_original' );
 		if (empty( $original_ID )) return null;
-		
+
 		$original_post = &get_post( $original_ID[0] ,  $output );
 		return $original_post;
 	}
@@ -167,7 +167,7 @@ class Ai1ec_Duplicate_Controller {
 	/**
 	 * Connect actions to functions
 	 */
-	
+
 	/*
 	 * This function calls the creation of a new copy of the selected post (as a draft)
 	 * then redirects to the edit post screen
@@ -175,7 +175,7 @@ class Ai1ec_Duplicate_Controller {
 	function duplicate_post_save_as_new_post_draft() {
 		$this->duplicate_post_save_as_new_post( 'draft' );
 	}
-	
+
 	/*
 	 * This function calls the creation of a new copy of the selected post (by default preserving the original publish status)
 	 * then redirects to the post list
@@ -184,15 +184,15 @@ class Ai1ec_Duplicate_Controller {
 		if (! ( isset( $_GET['post'] ) || isset( $_POST['post'] )  || ( isset( $_REQUEST['action'] ) && 'duplicate_post_save_as_new_post' == $_REQUEST['action'] ) ) ) {
 			wp_die(__('No post to duplicate has been supplied!', AI1EC_PLUGIN_NAME ) );
 		}
-	
+
 		// Get the original post
 		$id = ( isset( $_GET['post'] ) ? $_GET['post'] : $_POST['post'] );
 		$post = get_post( $id );
-	
+
 		// Copy the post and insert it
 		if ( isset( $post ) && $post != null ) {
 			$new_id = $this->duplicate_post_create_duplicate( $post , $status );
-	
+
 			if ( $status == '') {
 				// Redirect to the post list screen
 				wp_redirect( admin_url( 'edit.php?post_type='.$post->post_type ) );
@@ -201,13 +201,13 @@ class Ai1ec_Duplicate_Controller {
 				wp_redirect( admin_url( 'post.php?action=edit&post=' . $new_id ) );
 			}
 			exit;
-	
+
 		} else {
 			$post_type_obj = get_post_type_object( $post->post_type );
 			wp_die( esc_attr( __( 'Copy creation failed, could not find original:' , AI1EC_PLUGIN_NAME ) ) . ' ' . $id );
 		}
 	}
-	
+
 	/**
 	 * Get the currently registered user
 	 */
@@ -219,12 +219,16 @@ class Ai1ec_Duplicate_Controller {
 			get_currentuserinfo();
 			return $userdata;
 		} else {
-			$user_login = $_COOKIE[ USER_COOKIE ];
-			$current_user = $wpdb->get_results( "SELECT * FROM $wpdb->users WHERE user_login='$user_login'" );
+			global $wpdb;
+			$query        = $wpdb->prepare(
+				'SELECT * FROM ' . $wpdb->users . ' WHERE user_login = %s',
+				$_COOKIE[ USER_COOKIE ]
+			);
+			$current_user = $wpdb->get_results( $query );
 			return $current_user;
 		}
 	}
-	
+
 	/**
 	 * Copy the taxonomies of a post to another post
 	 */
@@ -233,10 +237,10 @@ class Ai1ec_Duplicate_Controller {
 		if ( isset( $wpdb->terms ) ) {
 			// Clear default category (added by wp_insert_post)
 			wp_set_object_terms( $new_id , NULL, 'category' );
-	
+
 			$post_taxonomies = get_object_taxonomies( $post->post_type );
 			//$taxonomies_blacklist = get_option('duplicate_post_taxonomies_blacklist');
-			//if ( $taxonomies_blacklist == "" ) 
+			//if ( $taxonomies_blacklist == "" )
 			$taxonomies_blacklist = array();
 			$taxonomies = array_diff( $post_taxonomies , $taxonomies_blacklist );
 			foreach ( $taxonomies as $taxonomy ) {
@@ -249,7 +253,7 @@ class Ai1ec_Duplicate_Controller {
 			}
 		}
 	}
-	
+
 
 	/**
 	 * Copy the meta information of a post to another post
@@ -257,14 +261,14 @@ class Ai1ec_Duplicate_Controller {
 	function duplicate_post_copy_post_meta_info( $new_id , $post ) {
 		global $ai1ec_events_controller;
 		$ai1ec_events_controller->save_post( $new_id , $post );
-		
+
 		$post_meta_keys = get_post_custom_keys( $post->ID );
 		if ( empty( $post_meta_keys ) ) return;
 		//$meta_blacklist = explode(",",get_option('duplicate_post_blacklist'));
-		//if ( $meta_blacklist == "" ) 
+		//if ( $meta_blacklist == "" )
 		$meta_blacklist = array();
 		$meta_keys = array_diff( $post_meta_keys, $meta_blacklist );
-	
+
 		foreach ( $meta_keys as $meta_key ) {
 			$meta_values = get_post_custom_values( $meta_key, $post->ID );
 			foreach ( $meta_values as $meta_value ) {
@@ -273,11 +277,11 @@ class Ai1ec_Duplicate_Controller {
 			}
 		}
 	}
-	
+
 	/**
-	 * duplicate all event meta values 
+	 * duplicate all event meta values
 	 * */
-	 
+
 	function duplicate_event_meta( $new_id , $post ) {
 		global $ai1ec_view_helper,
 				 $ai1ec_events_helper,
@@ -316,7 +320,7 @@ class Ai1ec_Duplicate_Controller {
 
 			// Existing event was found. Initialize form values with values from
 			// event object.
-			$allday           = $event->allday;				     
+			$allday           = $event->allday;
 			$all_day_event    = $event->allday ? 'checked="checked"' : '';
 
 			$start_timestamp  = $ai1ec_events_helper->gmt_to_local( $event->start );
@@ -346,16 +350,16 @@ class Ai1ec_Duplicate_Controller {
 
 			if( $exclude_event )
 				$exrule_text = $ai1ec_events_helper->rrule_to_text( $exrule );
-				
-				
-			// save to new darft event 
-			
-			
+
+
+			// save to new darft event
+
+
 			$is_new = true;
 			$event = new Ai1ec_Event();
 			$event->post_id = $new_id;
-			
-	
+
+
 			$event->start               = $ai1ec_events_helper->local_to_gmt( $start_timestamp );
 			$event->end                 = $ai1ec_events_helper->local_to_gmt( $end_timestamp );
 			$event->allday              = $allday;
@@ -374,34 +378,34 @@ class Ai1ec_Duplicate_Controller {
 			$event->exception_rules     = $exrule;
 			$event->exception_dates     = $exdate;
 			$event->save( ! $is_new );
-			
+
 			/*
 			$ai1ec_events_helper->delete_event_cache( $new_id );
 			$ai1ec_events_helper->cache_event( $event );
 			*/
-				
+
 		}
 		catch( Ai1ec_Event_Not_Found $e ) {
 			// Event does not exist.
 			// Leave form fields undefined (= zero-length strings)
 			$event = null;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Copy the attachments
 	 * It simply copies the table entries, actual file won't be duplicated
 	 */
 	function duplicate_post_copy_attachments( $new_id , $post ) {
-		//if (get_option('duplicate_post_copyattachments') == 0) return; 
-		
+		//if (get_option('duplicate_post_copyattachments') == 0) return;
+
 		// get old attachments
 		$attachments = get_posts( array( 'post_type' => 'attachment' , 'numberposts' => -1 , 'post_status' => null , 'post_parent' => $post->ID ) );
 		// clone old attachments
 		foreach ( $attachments as $att ) {
-			$new_att_author = duplicate_post_get_current_user();
-	
+			$new_att_author = $this->duplicate_post_get_current_user();
+
 			$new_att = array (
 				'menu_order'     => $att->menu_order,
 				'comment_status' => $att->comment_status,
@@ -419,25 +423,25 @@ class Ai1ec_Duplicate_Controller {
 				'post_status'    => $att->post_status,
 				'post_title'     => $att->post_title,
 				'post_type'      => $att->post_type,
-				'to_ping'        => $att->to_ping 
+				'to_ping'        => $att->to_ping
 			);
-	
+
 			$new_att_id = wp_insert_post( $new_att );
-	
+
 			// get and apply a unique slug
 			$att_name = wp_unique_post_slug( $att->post_name , $new_att_id , $att->post_status , $att->post_type , $new_id );
 			$new_att = array();
 			$new_att['ID']        = $new_att_id;
 			$new_att['post_name'] = $att_name;
-	
+
 			wp_update_post( $new_att );
-			
+
 			// call hooks to copy attachement metadata
 			do_action( 'dp_duplicate_post', $new_att_id, $att );
 		}
 	}
-	
-	
+
+
 	/**
 	 * Create a duplicate from a post
 	 */
@@ -446,10 +450,10 @@ class Ai1ec_Duplicate_Controller {
 			$suffix = get_option('duplicate_post_title_suffix');
 			if ( !empty($prefix)) $prefix.= " ";
 			if ( !empty($prefix)) $suffix = " ".$suffix;
-		*/	
+		*/
 		$status = 'draft';
-		$new_post_author = $this-> duplicate_post_get_current_user();
-	
+		$new_post_author = $this->duplicate_post_get_current_user();
+
 		$new_post = array(
 		'menu_order'     => $post->menu_order,
 		'comment_status' => $post->comment_status,
@@ -465,80 +469,80 @@ class Ai1ec_Duplicate_Controller {
 		'post_status'    => $new_post_status = ( empty( $status ) )? $post->post_status: $status,
 		'post_title'     => $post->post_title,
 		'post_type'      => $post->post_type,
-		'to_ping'        => $post->to_ping 
+		'to_ping'        => $post->to_ping
 		);
-	
+
 		$new_post_id = wp_insert_post( $new_post );
-	
-	
+
+
 		// If you have written a plugin which uses non-WP database tables to save
 		// information about a post you can hook this action to dupe that data.
 		if ( $post->post_type == 'page' || ( function_exists( 'is_post_type_hierarchical' ) && is_post_type_hierarchical( $post->post_type )))
 			do_action( 'dp_duplicate_page' , $new_post_id , $post );
 		else
 			do_action( 'dp_duplicate_post' , $new_post_id , $post );
-	
+
 		delete_post_meta( $new_post_id , '_dp_original' );
 		add_post_meta( $new_post_id , '_dp_original' , $post->ID );
-	
+
 		// If the copy gets immediately published, we have to set a proper slug.
 		if ( $new_post_status == 'publish' || $new_post_status == 'future' ) {
 			$post_name = wp_unique_post_slug( $post->post_name , $new_post_id , $new_post_status , $post->post_type , $post->post_parent );
-	
+
 			$new_post = array();
 			$new_post['ID']        = $new_post_id;
 			$new_post['post_name'] = $post_name;
-	
+
 			// Update the post into the database
 			wp_update_post( $new_post );
 		}
-	
+
 		return $new_post_id;
 	}
 
 
 	// =========================================
-	// = Bulk Duplicate Custom Action For Events 
+	// = Bulk Duplicate Custom Action For Events
 	// =========================================
 
 	/**
 	 * add clone bluk action in the dropdown
-	 * */ 
+	 * */
 	function duplicate_custom_bulk_admin_footer() {
 		global $post_type;
 		if( $post_type == 'ai1ec_event' ) {
 		?>
 			<script type="text/javascript">
 				jQuery(document).ready(function() {
-					
+
 					jQuery('<option>').val('clone').text('<?php _e( 'Clone' , AI1EC_PLUGIN_NAME )?>').appendTo("select[name='action']");
 					jQuery('<option>').val('clone').text('<?php _e( 'Clone' , AI1EC_PLUGIN_NAME )?>').appendTo("select[name='action2']");
-					
+
 				});
 			</script>
 		<?php
 		}
 	}
-	
+
 	/**
-	 * duplicate all selected post 
+	 * duplicate all selected post
 	 * */
-	
+
 	function duplicate_custom_bulk_action() {
 
 		// duplicate all selected post by top dropdown
 		if( isset( $_REQUEST['action']) && $_REQUEST['action'] == "clone" && !empty( $_REQUEST['post'] )) {
 			foreach( $_REQUEST['post'] as $row ) {
-				$this->duplicate_post_create_duplicate( get_post( $row ) );	
+				$this->duplicate_post_create_duplicate( get_post( $row ) );
 			}
 		}
-		
+
 		// duplicate all selected post by bottom dropdown
 		if(  isset( $_REQUEST['action2']) && $_REQUEST['action2'] == "clone" && !empty( $_REQUEST['post'] )) {
 			foreach( $_REQUEST['post'] as $row ) {
-				$this->duplicate_post_create_duplicate( get_post( $row ) );	
+				$this->duplicate_post_create_duplicate( get_post( $row ) );
 			}
-		}	
+		}
 	}
 }
 // END class

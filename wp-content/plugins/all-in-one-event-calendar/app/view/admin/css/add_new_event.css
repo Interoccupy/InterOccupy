@@ -393,6 +393,9 @@ ul.ai1ec_repeat_tabs li a.ai1ec_active {
 	width: 61px;
 	text-align: left;
 }
+.ai1ec_tab_content label:nth-of-type(2) {
+	text-align: right;
+}
 #ai1c_repeat_monthly_byday {
 	display: none;
 	float: left;
