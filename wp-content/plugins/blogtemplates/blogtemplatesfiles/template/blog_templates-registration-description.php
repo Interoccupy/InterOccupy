@@ -1,7 +1,7 @@
 <?php
 /**
- * Radio-box selection with descriptions template. 
- * 
+ * Radio-box selection with descriptions template.
+ *
  * Copy this file into your theme directory and edit away!
  * You can also use $templates array to iterate through your templates.
  */

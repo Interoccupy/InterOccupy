@@ -248,9 +248,10 @@ function randomMenuId(prefix, size){
 
 function outputWpMenu(menu){
 	var menuCopy = $.extend(true, {}, menu);
+	var menuBox = $('#ws_menu_box');
 
 	//Remove the current menu data
-	$('#ws_menu_box').empty();
+	menuBox.empty();
 	$('#ws_submenu_box').empty();
 
 	//Display the new menu
@@ -264,7 +265,7 @@ function outputWpMenu(menu){
 	}
 
 	//Automatically select the first top-level menu
-	$('#ws_menu_box .ws_menu:first').click();
+	menuBox.find('.ws_menu:first').click();
 }
 
 /*
@@ -284,10 +285,11 @@ function outputTopMenu(menu, afterNode){
 	//Create the menu widget
 	var menu_obj = buildMenuItem(menu, true);
 	menu_obj.data('submenu_id', submenu.attr('id'));
-	updateItemEditor(menu_obj);
+	submenu.data('parent_menu_id', menu_obj.attr('id'));
 
 	//Display
 	submenu.appendTo('#ws_submenu_box');
+	updateItemEditor(menu_obj);
 	if ( (typeof afterNode != 'undefined') && (afterNode != null) ){
 		$(afterNode).after(menu_obj);
 	} else {
@@ -384,9 +386,20 @@ function buildMenuItem(itemData, isTopLevel) {
 			'drop' : (function(event, ui){
 				var droppedItemData = readItemState(ui.draggable);
 				var new_item = buildMenuItem(droppedItemData, false);
+
+				var sourceSubmenu = ui.draggable.parent();
 				var submenu = $('#' + item.data('submenu_id'));
 				submenu.append(new_item);
-				ui.draggable.remove();
+
+				if ( !event.ctrlKey ) {
+					ui.draggable.remove();
+				}
+
+				updateItemEditor(new_item);
+
+				//Moving an item can change aggregate menu permissions. Update the UI accordingly.
+				updateParentAccessUi(submenu);
+				updateParentAccessUi(sourceSubmenu);
 			})
 		});
 	}
@@ -465,9 +478,6 @@ var knownMenuFields = {
 				    menuItem[fieldName] = getInputValue(field.find('.ws_field_value'));
 			    }
 		    });
-
-		    // Display new defaults, etc.
-		    updateItemEditor(containerNode);
 		}
 	}),
 
@@ -486,7 +496,7 @@ var knownMenuFields = {
 			return displayValue;
 		},
 
-		write: function(menuItem, value, input, containerNode) {
+		write: function(menuItem, value) {
 			// A menu must always have a non-empty URL. If the user deletes the current value,
 			// reset it to the old value.
 			if (value === '') {
@@ -497,7 +507,6 @@ var knownMenuFields = {
 				value = null;
 			}
 			menuItem.file = value;
-			updateItemEditor(containerNode);
 		}
 	}),
 
@@ -554,16 +563,44 @@ var knownMenuFields = {
 		onlyForTopMenus: true
 	}),
 
+	'icon_url' : $.extend({}, baseField, {
+		caption: 'Icon URL',
+		type : 'icon_selector',
+		advanced : true,
+		defaultValue: 'div',
+		onlyForTopMenus: true,
+
+		display: function(menuItem, displayValue, input) {
+			//Display the current icon in the selector.
+			var cssClass = getFieldValue(menuItem, 'css_class', '');
+			var iconUrl = getFieldValue(menuItem, 'icon_url', '');
+
+			var selectButton = input.closest('.ws_edit_field').find('.ws_select_icon');
+			var cssIcon = selectButton.find('.icon16');
+			var imageIcon = selectButton.find('img');
+
+			var matches = cssClass.match(/\bmenu-icon-([^\s]+)\b/);
+			//Icon URL take precedence over icon class.
+			if ( iconUrl && iconUrl !== 'none' && iconUrl !== 'div' ) {
+				cssIcon.hide();
+				imageIcon.prop('src', iconUrl).show();
+			} else if ( matches ) {
+				imageIcon.hide();
+				cssIcon.removeClass().addClass('icon16 icon-' + matches[1]).show();
+			} else {
+				//This menu has no icon at all. This is actually a valid state
+				//and WordPress will display a menu like that correctly.
+				imageIcon.hide();
+				cssIcon.removeClass().addClass('icon16').show();
+			}
+
+			return displayValue;
+		}
+	}),
+
 	'hookname' : $.extend({}, baseField, {
 		caption: 'Hook name',
 		advanced : true,
-		onlyForTopMenus: true
-	}),
-
-	'icon_url' : $.extend({}, baseField, {
-		caption: 'Icon URL',
-		advanced : true,
-		defaultValue: 'div',
 		onlyForTopMenus: true
 	})
 };
@@ -620,6 +657,7 @@ function buildEditboxField(entry, field_name, field_settings){
 
 	//Build a form field of the appropriate type
 	var inputBox = null;
+	var basicTextField = '<input type="text" class="ws_field_value">';
 	switch(field_settings.type){
 		case 'select':
 			inputBox = $('<select class="ws_field_value">');
@@ -646,9 +684,14 @@ function buildEditboxField(entry, field_name, field_settings){
                 .add('<input type="button" class="button ws_launch_access_editor" value="Edit...">');
 			break;
 
+		case 'icon_selector':
+			inputBox = $(basicTextField)
+                .add('<button class="button ws_select_icon" title="Select icon"><div class="icon16 icon-settings"></div><img src="" style="display:none;"></button>');
+			break;
+
 		case 'text':
 		default:
-			inputBox = $('<input type="text" class="ws_field_value">');
+			inputBox = $(basicTextField);
 	}
 
 
@@ -696,15 +739,56 @@ function updateActorAccessUi(containerNode) {
 		var hasAccess = actorCanAccessMenu(menuItem, selectedActor);
 
 		var checkbox = containerNode.find('.ws_actor_access_checkbox');
-		if (hasAccess) {
-			checkbox.attr('checked', 'checked');
+		checkbox.prop('checked', hasAccess);
+
+		//Display the checkbox differently if some items of this menu are hidden and some are visible,
+		//or if their permissions don't match this menu's permissions.
+		var submenuId = containerNode.data('submenu_id');
+		var submenuItems = submenuId ? $('#' + submenuId).children('.ws_container') : [];
+		if (!submenuId || submenuItems.length === 0) {
+			//This menu doesn't contain any items.
+			checkbox.prop('indeterminate', false);
 		} else {
-			checkbox.removeAttr('checked');
+			var differentPermissions = false;
+			submenuItems.each(function() {
+				var item = $(this).data('menu_item');
+				if ( !item ) { //Skip placeholder items created by drag & drop operations.
+					return true;
+				}
+				var hasSubmenuAccess = actorCanAccessMenu(item, selectedActor);
+				if (hasSubmenuAccess !== hasAccess) {
+					differentPermissions = true;
+					return false;
+				}
+				return true;
+			});
+
+			checkbox.prop('indeterminate', differentPermissions);
 		}
 
 		containerNode.toggleClass('ws_is_hidden_for_actor', !hasAccess);
 	} else {
 		containerNode.removeClass('ws_is_hidden_for_actor');
+	}
+}
+
+/**
+ * Like updateActorAccessUi() except it updates the specified menu's parent, not the menu itself.
+ * If the menu has no parent (i.e. it's a top-level menu), this function does nothing.
+ *
+ * @param containerNode Either a menu item or a submenu container.
+ */
+function updateParentAccessUi(containerNode) {
+	var submenu;
+	if ( containerNode.is('.ws_submenu') ) {
+		submenu = containerNode;
+	} else {
+		submenu = containerNode.parent();
+	}
+
+	var parentId = submenu.data('parent_menu_id');
+	if (parentId) {
+		updateActorAccessUi($('#' + parentId));
 	}
 }
 
@@ -832,7 +916,7 @@ function readMenuTreeState(){
 	var menu_position = 0;
 
 	//Gather all menus and their items
-	$('#ws_menu_box .ws_menu').each(function() {
+	$('#ws_menu_box').find('.ws_menu').each(function() {
 		var menu = readItemState(this, menu_position++);
 
 		//Attach the current menu to the main struct
@@ -906,7 +990,9 @@ function readAllFields(container){
 		//Get the name of this field
 		var field_name = field.data('field_name');
 		//Skip if unnamed
-		if (!field_name) return true;
+		if (!field_name) {
+			return true;
+		}
 
 		//Find the field (usually an input or select element).
 		var input_box = field.find('.ws_field_value');
@@ -917,6 +1003,7 @@ function readAllFields(container){
 		} else {
 			state[field_name] = getInputValue(input_box);
 		}
+		return true;
 	});
 
     //Permission settings are not stored in the visible access_level field (that's just for show),
@@ -994,6 +1081,15 @@ function setActorAccess(containerNode, actor, allowAccess) {
 }
 
 function setSelectedActor(actor) {
+	//Check if the specified actor really exists. The actor ID
+	//could be invalid if it was supplied by the user.
+	if (actor !== null) {
+		var newSelectedItem = $('a[href$="#'+ actor +'"]');
+		if (newSelectedItem.length === 0) {
+			return;
+		}
+	}
+
 	selectedActor = actor;
 
 	//Highlight the actor.
@@ -1003,19 +1099,20 @@ function setSelectedActor(actor) {
 	if (selectedActor == null) {
 		$('a.ws_no_actor').addClass('current');
 	} else {
-		$('a[href$="#'+ actor +'"]').addClass('current');
+		newSelectedItem.addClass('current');
 	}
 
 	//There are some UI elements that can be visible or hidden depending on whether an actor is selected.
-	$('#ws_menu_editor').toggleClass('ws_is_actor_view', (selectedActor != null));
+	var editorNode = $('#ws_menu_editor');
+	editorNode.toggleClass('ws_is_actor_view', (selectedActor != null));
 
 	//Update the menu item states to indicate whether they're accessible.
 	if (selectedActor != null) {
-		$('#ws_menu_editor .ws_container').each(function() {
+		editorNode.find('.ws_container').each(function() {
 			updateActorAccessUi($(this));
 		});
 	} else {
-		$('#ws_menu_editor .ws_is_hidden_for_actor').removeClass('ws_is_hidden_for_actor');
+		editorNode.find('.ws_is_hidden_for_actor').removeClass('ws_is_hidden_for_actor');
 	}
 }
 
@@ -1068,10 +1165,11 @@ $(document).ready(function(){
 	/***************************************************************************
 	                  Event handlers for editor widgets
 	 ***************************************************************************/
+	var menuEditorNode = $('#ws_menu_editor');
 
 	//Highlight the clicked menu item and show it's submenu
 	var currentVisibleSubmenu = null;
-    $('#ws_menu_editor .ws_container').live('click', (function () {
+    menuEditorNode.on('click', '.ws_container', (function () {
 		var container = $(this);
 		if ( container.hasClass('ws_active') ){
 			return;
@@ -1090,7 +1188,7 @@ $(document).ready(function(){
     }));
 
     //Show/hide a menu's properties
-    $('#ws_menu_editor .ws_edit_link').live('click', (function () {
+    menuEditorNode.on('click', '.ws_edit_link', (function () {
     	var container = $(this).parents('.ws_container').first();
 		var box = container.find('.ws_editbox');
 
@@ -1114,7 +1212,7 @@ $(document).ready(function(){
     }));
 
     //The "Default" button : Reset to default value when clicked
-    $('#ws_menu_editor .ws_reset_button').live('click', (function () {
+    menuEditorNode.on('click', '.ws_reset_button', (function () {
         //Find the field div (it holds the field name)
         var field = $(this).parents('.ws_edit_field');
 	    var fieldName = field.data('field_name');
@@ -1125,24 +1223,18 @@ $(document).ready(function(){
 			//Extract the default value from the menu item.
             var containerNode = field.closest('.ws_container');
 			var menuItem = containerNode.data('menu_item');
-			var defaultValue = itemTemplates.getDefaultValue(menuItem.template_id, fieldName);
 
-            if (fieldName == 'access_level') {
+			if (fieldName == 'access_level') {
 	            //This is a pretty nasty hack.
 	            menuItem.grant_access = {};
 	            menuItem.extra_capability = null;
-                updateItemEditor(containerNode);
-            } else {
-                //Set the value to the default, if one exists.
-                if (defaultValue !== null) {
-                    setInputValue(input, defaultValue);
-                    field.addClass('ws_input_default');
-                }
-
-                //Trigger the change event to ensure consistency
-                input.change();
             }
 
+			if (itemTemplates.hasDefaultValue(menuItem.template_id, fieldName)) {
+				menuItem[fieldName] = null;
+				updateItemEditor(containerNode);
+				updateParentAccessUi(containerNode);
+			}
 		}
 	}));
 
@@ -1188,13 +1280,13 @@ $(document).ready(function(){
 		    menuItem[fieldName] = value;
 	    }
 
-	    field.toggleClass('ws_input_default', (menuItem[fieldName] === null));
+	    updateItemEditor(containerNode);
+	    updateParentAccessUi(containerNode)
     }
-	$('#ws_menu_editor .ws_field_value').live('click', fieldValueChange);
-	$('#ws_menu_editor .ws_field_value').live('change', fieldValueChange);
+	menuEditorNode.on('click change', '.ws_field_value', fieldValueChange);
 
 	//Show/hide advanced fields
-	$('#ws_menu_editor .ws_toggle_advanced_fields').live('click', function(){
+	menuEditorNode.on('click', '.ws_toggle_advanced_fields', function(){
 		var self = $(this);
 		var advancedFields = self.parents('.ws_container').first().find('.ws_advanced');
 
@@ -1210,7 +1302,7 @@ $(document).ready(function(){
 	});
 
 	//Allow/forbid items in actor-specific views
-	$('#ws_menu_editor input.ws_actor_access_checkbox').live('click', function() {
+	menuEditorNode.on('click', 'input.ws_actor_access_checkbox', function() {
 		if (selectedActor == null) {
 			return;
 		}
@@ -1219,7 +1311,6 @@ $(document).ready(function(){
 
 		var containerNode = $(this).closest('.ws_container');
 		setActorAccess(containerNode, selectedActor, checked);
-		updateItemEditor(containerNode);
 
 		//Apply the same permissions to sub-menus.
 		var subMenuId = containerNode.data('submenu_id');
@@ -1230,6 +1321,9 @@ $(document).ready(function(){
 				updateItemEditor(node);
 			});
 		}
+
+		updateItemEditor(containerNode);
+		updateParentAccessUi(containerNode);
 	});
 
 	/*************************************************************************
@@ -1250,7 +1344,7 @@ $(document).ready(function(){
 		draggable: false
 	});
 
-	$('.ws_launch_access_editor').live('click', function() {
+	menuEditorNode.on('click', '.ws_launch_access_editor', function() {
 		var containerNode = $(this).parents('.ws_container').first();
 		var menuItem = containerNode.data('menu_item');
 
@@ -1287,13 +1381,14 @@ $(document).ready(function(){
 
 			alternate = (alternate == '') ? 'alternate' : '';
 
+			var cell = '<td>';
 			var row = $('<tr>').data('actor', actor).attr('class', alternate).append(
-				$('<td>').addClass('ws_column_role post-title').append(
+				$(cell).addClass('ws_column_role post-title').append(
 					$('<label>').attr('for', checkboxId).append(
 						$('<strong>').text(actorName)
 					)
 				),
-				$('<td>').addClass('ws_column_access').append(checkbox)
+				$(cell).addClass('ws_column_access').append(checkbox)
 			);
 
 			table.append(row);
@@ -1306,21 +1401,18 @@ $(document).ready(function(){
 		var itemHasSubmenus = containerNode.data('submenu_id') &&
 			$('#' + containerNode.data('submenu_id')).find('.ws_item').length > 0;
 		var hintIsEnabled = !wsEditorData.showHints.hasOwnProperty('ws_hint_menu_permissions') || wsEditorData.showHints['ws_hint_menu_permissions'];
-		if (hintIsEnabled && itemHasSubmenus) {
-			$('#ws_hint_menu_permissions').show();
-		} else {
-			$('#ws_hint_menu_permissions').hide();
-		}
+		$('#ws_hint_menu_permissions').toggle(hintIsEnabled && itemHasSubmenus);
 
 		//Warn the user if the required capability == role. Can't make it less restrictive.
+		var roleError = $('#ws_hardcoded_role_error');
 		if (requiredCap && AmeCapabilityManager.roleExists(requiredCap)) {
-			$('#ws_hardcoded_role_error').show();
+			roleError.show();
 			$('#ws_hardcoded_role_name').text(requiredCap);
 		} else {
-			$('#ws_hardcoded_role_error').hide();
+			roleError.hide();
 		}
 
-		$('#ws_menu_access_editor').dialog('open');
+		editor.dialog('open');
 	});
 
 	$('#ws_save_access_settings').click(function() {
@@ -1331,7 +1423,8 @@ $(document).ready(function(){
 		if (!$.isPlainObject(grantAccess)) {
 			grantAccess = {};
 		}
-		$('#ws_menu_access_editor .ws_role_table_body tbody tr').each(function() {
+		var editor = $('#ws_menu_access_editor');
+		editor.find('.ws_role_table_body tbody tr').each(function() {
 			var row = $(this);
 			var actor = row.data('actor');
 			grantAccess[actor] = row.find('input.ws_role_access').is(':checked');
@@ -1339,14 +1432,14 @@ $(document).ready(function(){
 		accessEditorState.menuItem.grant_access = grantAccess;
 
 		updateItemEditor(accessEditorState.containerNode);
-		$('#ws_menu_access_editor').dialog('close');
+		editor.dialog('close');
 	});
 
 	/***************************************************************************
 		              General dialog handlers
 	 ***************************************************************************/
 
-	$('.ws_close_dialog').live('click', function() {
+	$(document).on('click', '.ws_close_dialog', function() {
 		$(this).parents('.ui-dialog-content').dialog('close');
 	});
 
@@ -1453,14 +1546,183 @@ $(document).ready(function(){
 		}
 	});
 
+	/*************************************************************************
+	                           Icon selector
+	 *************************************************************************/
+	var iconSelector = $('#ws_icon_selector');
+	var currentIconButton = null; //Keep track of the last clicked icon button.
+
+	//When the user clicks one of the available icons, update the menu item.
+	iconSelector.on('click', '.ws_icon_option', function() {
+		var selectedIcon = $(this).addClass('ws_selected_icon');
+		iconSelector.hide();
+
+		//Assign the selected icon to the menu.
+		if (currentIconButton) {
+			var container = currentIconButton.closest('.ws_container');
+			var item = container.data('menu_item');
+
+			//Remove the existing icon class, if any.
+			var cssClass = getFieldValue(item, 'css_class', '');
+			cssClass = jsTrim( cssClass.replace(/\bmenu-icon-[^\s]+\b/, '') );
+
+			if (selectedIcon.data('icon-class')) {
+				//Add the new class.
+				cssClass = selectedIcon.data('icon-class') + ' ' + cssClass;
+				//Can't have both a class and an image or we'll get two overlapping icons.
+				item.icon_url = '';
+			} else if (selectedIcon.data('icon-url')) {
+				item.icon_url = selectedIcon.data('icon-url');
+			}
+			item.css_class = cssClass;
+
+			updateItemEditor(container);
+		}
+
+		currentIconButton = null;
+	});
+
+	//Show/hide the icon selector when the user clicks the icon button.
+	menuEditorNode.on('click', '.ws_select_icon', function() {
+		var button = $(this);
+		//Clicking the same button a second time hides the icon list.
+		if ( currentIconButton && button.is(currentIconButton) ) {
+			iconSelector.hide();
+			//noinspection JSUnusedAssignment
+			currentIconButton = null;
+			return;
+		}
+
+		currentIconButton = button;
+
+		var menuItem = currentIconButton.closest('.ws_container').data('menu_item');
+		var cssClass = getFieldValue(menuItem, 'css_class', '');
+		var iconUrl = getFieldValue(menuItem, 'icon_url', '');
+
+		var customImageOption = iconSelector.find('.ws_custom_image_icon').hide();
+
+		//Highlight the currently selected icon.
+		iconSelector.find('.ws_selected_icon').removeClass('ws_selected_icon');
+		var matches = cssClass.match(/\bmenu-icon-([^\s]+)\b/);
+		if ( iconUrl && iconUrl !== 'none' && iconUrl !== 'div' ) {
+			var currentIcon = iconSelector.find('.ws_icon_option img[src="' + iconUrl + '"]').first().closest('.ws_icon_option');
+			if ( currentIcon.length > 0 ) {
+				currentIcon.addClass('ws_selected_icon').show();
+			} else {
+				//Display and highlight the custom image.
+				customImageOption.find('img').prop('src', iconUrl);
+				customImageOption.addClass('ws_selected_icon').show().data('icon-url', iconUrl);
+			}
+		} else if ( matches ) {
+			//Highlight the icon that corresponds to the current CSS class.
+			iconSelector.find('.icon-' + matches[1]).closest('.ws_icon_option').addClass('ws_selected_icon');
+		}
+
+		iconSelector.show();
+		iconSelector.position({ //Requires jQuery UI.
+			my: 'right top',
+			at: 'right bottom',
+			of: button
+		});
+	});
+
+	//Alternatively, use the WordPress media uploader to select a custom icon.
+	//This code is based on the header selection script in /wp-admin/js/custom-header.js.
+	$('#ws_choose_icon_from_media').click(function(event) {
+		event.preventDefault();
+		var frame = null;
+
+		//This option is not usable on the demo site since the filesystem is usually read-only.
+		if (wsEditorData.isDemoMode) {
+			alert('Sorry, image upload is disabled in demo mode!');
+			return;
+		}
+
+        //If the media frame already exists, reopen it.
+        if ( frame ) {
+            frame.open();
+            return;
+        }
+
+        //Create a custom media frame.
+        frame = wp.media.frames.customAdminMenuIcon = wp.media({
+            //Set the title of the modal.
+            title: 'Choose a Custom Icon (16x16)',
+
+            //Tell it to show only images.
+            library: {
+                type: 'image'
+            },
+
+            //Customize the submit button.
+            button: {
+                text: 'Set as icon', //Button text.
+                close: true //Clicking the button closes the frame.
+            }
+        });
+
+        //When an image is selected, set it as the menu icon.
+        frame.on( 'select', function() {
+            //Grab the selected attachment.
+            var attachment = frame.state().get('selection').first();
+            //TODO: Warn the user if the image exceeds 16x16 pixels.
+
+	        //Set the menu icon to the attachment URL.
+            if (currentIconButton) {
+                var container = currentIconButton.closest('.ws_container');
+                var item = container.data('menu_item');
+
+                //Remove the existing icon class, if any.
+                var cssClass = getFieldValue(item, 'css_class', '');
+	            item.css_class = jsTrim( cssClass.replace(/\bmenu-icon-[^\s]+\b/, '') );
+
+	            //Set the new icon URL.
+	            item.icon_url = attachment.attributes.url;
+
+                updateItemEditor(container);
+            }
+
+            currentIconButton = null;
+        });
+
+		//If the user closes the frame by via Esc or the "X" button, clear up state.
+		frame.on('escape', function(){
+			currentIconButton = null;
+		});
+
+        frame.open();
+		iconSelector.hide();
+	});
+
+	//Hide the icon selector if the user clicks outside of it.
+	//Exception: Clicks on "Select icon" buttons are handled above.
+	$(document).on('mouseup', function(event) {
+		if ( !iconSelector.is(':visible') ) {
+			return;
+		}
+
+		if (
+			!iconSelector.is(event.target)
+			&& iconSelector.has(event.target).length === 0
+			&& $(event.target).closest('.ws_select_icon').length == 0
+		) {
+			iconSelector.hide();
+			currentIconButton = null;
+		}
+	});
+
 
     /*************************************************************************
 	                           Menu toolbar buttons
 	 *************************************************************************/
+    function getSelectedMenu() {
+	    return $('#ws_menu_box').find('.ws_active');
+    }
+
 	//Show/Hide menu
 	$('#ws_hide_menu').click(function () {
 		//Get the selected menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = getSelectedMenu();
 		if (!selection.length) return;
 
 		//Mark the menu as hidden/visible
@@ -1479,7 +1741,7 @@ $(document).ready(function(){
 	//Delete menu
 	$('#ws_delete_menu').click(function () {
 		//Get the selected menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = getSelectedMenu();
 		if (!selection.length) return;
 
 		if (confirm('Delete this menu?')){
@@ -1493,7 +1755,7 @@ $(document).ready(function(){
 	//Copy menu
 	$('#ws_copy_menu').click(function () {
 		//Get the selected menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = $('#ws_menu_box').find('.ws_active');
 		if (!selection.length) return;
 
 		//Store a copy of the current menu state in clipboard
@@ -1503,7 +1765,7 @@ $(document).ready(function(){
 	//Cut menu
 	$('#ws_cut_menu').click(function () {
 		//Get the selected menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = $('#ws_menu_box').find('.ws_active');
 		if (!selection.length) return;
 
 		//Store a copy of the current menu state in clipboard
@@ -1548,7 +1810,7 @@ $(document).ready(function(){
 		var menu = $.extend(true, {}, menu_in_clipboard);
 
 		//Get the selected menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = $('#ws_menu_box').find('.ws_active');
 		//Paste the menu after the selection.
 		pasteMenu(menu, (selection.length > 0) ? selection : null);
 	});
@@ -1574,7 +1836,7 @@ $(document).ready(function(){
 		}
 
 		//Insert the new menu
-		var selection = $('#ws_menu_box .ws_active');
+		var selection = $('#ws_menu_box').find('.ws_active');
 		var result = outputTopMenu(menu, (selection.length > 0) ? selection : null);
 
 		//The menus's editbox is always open
@@ -1602,7 +1864,7 @@ $(document).ready(function(){
 
 		if ( $(this).attr('id').indexOf('submenu') == -1 ) {
 			//Insert in the top-level menu.
-			var selection = $('#ws_menu_box .ws_active');
+			var selection = $('#ws_menu_box').find('.ws_active');
 			outputTopMenu(menu, (selection.length > 0) ? selection : null);
 		} else {
 			//Insert in the currently visible submenu.
@@ -1613,10 +1875,14 @@ $(document).ready(function(){
 	/*************************************************************************
 	                          Item toolbar buttons
 	 *************************************************************************/
+	function getSelectedSubmenuItem() {
+		return $('#ws_submenu_box').find('.ws_submenu:visible .ws_active');
+	}
+
 	//Show/Hide item
 	$('#ws_hide_item').click(function () {
 		//Get the selected item
-		var selection = $('#ws_submenu_box .ws_submenu:visible .ws_active');
+		var selection = getSelectedSubmenuItem();
 		if (!selection.length) return;
 
 		//Mark the item as hidden/visible
@@ -1625,22 +1891,24 @@ $(document).ready(function(){
 		setMenuFlag(selection, 'hidden', menuItem.hidden);
 	});
 
-	//Delete menu
+	//Delete item
 	$('#ws_delete_item').click(function () {
 		//Get the selected menu
-		var selection = $('#ws_submenu_box .ws_submenu:visible .ws_active');
+		var selection = getSelectedSubmenuItem();
 		if (!selection.length) return;
 
 		if (confirm('Delete this menu item?')){
+			var submenu = selection.parent();
 			//Delete the item
 			selection.remove();
+			updateParentAccessUi(submenu);
 		}
 	});
 
 	//Copy item
 	$('#ws_copy_item').click(function () {
 		//Get the selected item
-		var selection = $('#ws_submenu_box .ws_submenu:visible .ws_active');
+		var selection = getSelectedSubmenuItem();
 		if (!selection.length) return;
 
 		//Store a copy of item state in the clipboard
@@ -1650,14 +1918,16 @@ $(document).ready(function(){
 	//Cut item
 	$('#ws_cut_item').click(function () {
 		//Get the selected item
-		var selection = $('#ws_submenu_box .ws_submenu:visible .ws_active');
+		var selection = getSelectedSubmenuItem();
 		if (!selection.length) return;
 
 		//Store a copy of item state in the clipboard
 		menu_in_clipboard = readItemState(selection);
 
+		var submenu = selection.parent();
 		//Remove the original item
 		selection.remove();
+		updateParentAccessUi(submenu);
 	});
 
 	//Paste item
@@ -1675,7 +1945,7 @@ $(document).ready(function(){
 		newItems.unshift(buildMenuItem(item, false));
 
 		//Get the selected menu
-		var visibleSubmenu = $('#ws_submenu_box .ws_submenu:visible');
+		var visibleSubmenu = $('#ws_submenu_box').find('.ws_submenu:visible');
 		var selection = visibleSubmenu.find('.ws_active');
 		for(var i = 0; i < newItems.length; i++) {
 			if (selection.length > 0) {
@@ -1685,8 +1955,12 @@ $(document).ready(function(){
 				//Otherwise add the pasted items at the end
 				visibleSubmenu.append(newItems[i]);
 			}
+
+			updateItemEditor(newItems[i]);
 			newItems[i].show();
 		}
+
+		updateParentAccessUi(visibleSubmenu);
 	}
 
 	$('#ws_paste_item').click(function () {
@@ -1729,7 +2003,7 @@ $(document).ready(function(){
 		updateItemEditor(menu);
 
 		//Insert the item into the currently open submenu.
-		var visibleSubmenu = $('#ws_submenu_box .ws_submenu:visible');
+		var visibleSubmenu = $('#ws_submenu_box').find('.ws_submenu:visible');
 		var selection = visibleSubmenu.find('.ws_active');
 		if (selection.length > 0) {
 			selection.after(menu);
@@ -1739,13 +2013,15 @@ $(document).ready(function(){
 
 		//The items's editbox is always open
 		menu.find('.ws_edit_link').click();
+
+		updateParentAccessUi(menu);
 	});
 
-	function compareMenus(a, b){
-		function jsTrim(str){
-			return str.replace(/^\s+|\s+$/g, "");
-		}
+	function jsTrim(str){
+		return str.replace(/^\s+|\s+$/g, "");
+	}
 
+	function compareMenus(a, b){
 		var aTitle = jsTrim( $(a).find('.ws_item_title').text() );
 		var bTitle = jsTrim( $(b).find('.ws_item_title').text() );
 
@@ -1757,7 +2033,7 @@ $(document).ready(function(){
 
 	//Sort items in ascending order
 	$('#ws_sort_ascending').click(function () {
-		var submenu = $('#ws_submenu_box .ws_submenu:visible');
+		var submenu = $('#ws_submenu_box').find('.ws_submenu:visible');
 		if (submenu.length < 1) {
 			return; //Abort if no submenu visible
 		}
@@ -1767,7 +2043,7 @@ $(document).ready(function(){
 
 	//Sort items in descending order
 	$('#ws_sort_descending').click(function () {
-		var submenu = $('#ws_submenu_box .ws_submenu:visible');
+		var submenu = $('#ws_submenu_box').find('.ws_submenu:visible');
 		if (submenu.length < 1) {
 			return; //Abort if no submenu visible
 		}
@@ -1799,6 +2075,7 @@ $(document).ready(function(){
 						return false;
 					}
 				}
+				return true;
 			});
 
 			return foundItem;
@@ -1810,7 +2087,11 @@ $(document).ready(function(){
             if (myMenuItem == null) {
                 //This is OK - the missing menu item will be re-inserted automatically.
             } else if (!actorCanAccessMenu(myMenuItem, 'user:' + wsEditorData.currentUserLogin)) {
-                alert("Error: This configuration would make you unable to access the menu editor!");
+                alert(
+	                "Error: This configuration would make you unable to access the menu editor!\n\n" +
+	                "Please click either your role name or \"Current user (" + wsEditorData.currentUserLogin + ")\" "+
+	                "and enable the \"Menu Editor Pro\" menu item."
+                );
                 return;
             }
         }
@@ -1818,6 +2099,7 @@ $(document).ready(function(){
 		var data = encodeMenuAsJSON(tree);
 		$('#ws_data').val(data);
 		$('#ws_data_length').val(data.length);
+		$('#ws_selected_actor').val(selectedActor === null ? '' : selectedActor);
 		$('#ws_main_form').submit();
 	});
 
@@ -1907,21 +2189,16 @@ $(document).ready(function(){
 		//The "Upload" button is disabled until the user selects a file
 		$('#ws_start_import').attr('disabled', 'disabled');
 
-		$('#import_dialog .hide-when-uploading').show();
-
-		$('#import_dialog').dialog('open');
+		var importDialog = $('#import_dialog');
+		importDialog.find('.hide-when-uploading').show();
+		importDialog.dialog('open');
 	});
 
 	$('#import_file_selector').change(function(){
-		if ( $(this).val() ){
-			$('#ws_start_import').removeAttr('disabled');
-		} else {
-			$('#ws_start_import').attr('disabled', 'disabled');
-		}
+		$('#ws_start_import').prop('disabled', ! $(this).val() );
 	});
 
 	//AJAXify the upload form
-	//noinspection JSUnusedGlobalSymbols
 	$('#import_menu_form').ajaxForm({
 		dataType : 'json',
 		beforeSubmit: function(formData) {
@@ -1936,13 +2213,15 @@ $(document).ready(function(){
 				}
 			}
 
-			$('#import_dialog .hide-when-uploading').hide();
+			$('#import_dialog').find('.hide-when-uploading').hide();
 			$('#import_progress_notice').show();
 
 			$('#ws_start_import').attr('disabled', 'disabled');
+			return true;
 		},
 		success: function(data){
-			if ( !$('#import_dialog').dialog('isOpen') ){
+			var importDialog = $('#import_dialog');
+			if ( !importDialog.dialog('isOpen') ){
 				//Whoops, the user closed the dialog while the upload was in progress.
 				//Discard the response silently.
 				return;
@@ -1952,16 +2231,16 @@ $(document).ready(function(){
 				alert(data.error);
 				//Let the user try again
 				$('#import_menu_form').resetForm();
-				$('#import_dialog .hide-when-uploading').show();
+				importDialog.find('.hide-when-uploading').show();
 			}
 			$('#import_progress_notice').hide();
 
 			if ( (typeof data['tree'] != 'undefined') && data.tree ){
 				//Whee, we got back a (seemingly) valid menu. A veritable miracle!
 				//Lets load it into the editor.
-				$('#import_progress_notice2').show();
+				var progressNotice = $('#import_progress_notice2').show();
 				outputWpMenu(data.tree);
-				$('#import_progress_notice2').hide();
+				progressNotice.hide();
 				//Display a success notice, then automatically close the window after a few moments
 				$('#import_complete_notice').show();
 				setTimeout((function(){
@@ -1989,7 +2268,9 @@ $(document).ready(function(){
 			'drop' : (function(event, ui){
 				var droppedItemData = readItemState(ui.draggable);
 				pasteMenu(droppedItemData);
-				ui.draggable.remove();
+				if ( !event.ctrlKey ) {
+					ui.draggable.remove();
+				}
 			})
 		});
 
@@ -1998,7 +2279,7 @@ $(document).ready(function(){
 			'hoverClass' : 'ws_dropzone_hover',
 
 			'accept' : (function(thing){
-				var visibleSubmenu = $('#ws_submenu_box .ws_submenu:visible');
+				var visibleSubmenu = $('#ws_submenu_box').find('.ws_submenu:visible');
 				return (
 					//Accept top-level menus
 					thing.hasClass('ws_menu') &&
@@ -2011,7 +2292,9 @@ $(document).ready(function(){
 			'drop' : (function(event, ui){
 				var droppedItemData = readItemState(ui.draggable);
 				pasteItem(droppedItemData);
-				ui.draggable.remove();
+				if ( !event.ctrlKey ) {
+					ui.draggable.remove();
+				}
 			})
 		});
 	}
@@ -2042,7 +2325,6 @@ $(document).ready(function(){
 	//Build the list of available actors
 	var actorSelector = $('#ws_actor_selector').empty();
 	actorSelector.append('<li><a href="#" class="current ws_no_actor">All</a></li>');
-	selectedActor = null;
 
 	if (wsEditorData.wsMenuEditorPro) {
 		for(var actor in wsEditorData.actors) {
@@ -2058,6 +2340,12 @@ $(document).ready(function(){
 			);
 		}
 		actorSelector.show();
+
+		if ( wsEditorData.hasOwnProperty('selectedActor') && wsEditorData.selectedActor ) {
+			setSelectedActor(wsEditorData.selectedActor);
+		} else {
+			setSelectedActor(null);
+		}
 	}
 
 	$('li a', actorSelector).click(function(event) {
@@ -2094,12 +2382,13 @@ jQuery(function($){
 	//Update editor state when settings change
 	checkbox.click(function(){
 		wsEditorData.hideAdvancedSettings = $(this).attr('checked'); //Using '$(this)' instead of 'checkbox' due to jQuery bugs
+		var menuEditorNode = $('#ws_menu_editor');
 		if ( wsEditorData.hideAdvancedSettings ){
-			$('#ws_menu_editor div.ws_advanced').hide();
-			$('#ws_menu_editor a.ws_toggle_advanced_fields').text(wsEditorData.captionShowAdvanced).show();
+			menuEditorNode.find('div.ws_advanced').hide();
+			menuEditorNode.find('a.ws_toggle_advanced_fields').text(wsEditorData.captionShowAdvanced).show();
 		} else {
-			$('#ws_menu_editor div.ws_advanced').show();
-			$('#ws_menu_editor a.ws_toggle_advanced_fields').text(wsEditorData.captionHideAdvanced).hide();
+			menuEditorNode.find('div.ws_advanced').show();
+			menuEditorNode.find('a.ws_toggle_advanced_fields').text(wsEditorData.captionHideAdvanced).hide();
 		}
 
 		$.post(

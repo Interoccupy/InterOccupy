@@ -191,6 +191,9 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 			//Compatibility fix for Participants Database.
 			add_action("admin_print_scripts-$page", array($this, 'dequeue_pd_scripts'));
 
+			//Experimental compatibility fix for Ultimate TinyMCE
+			add_action("admin_print_scripts-$page", array($this, 'remove_ultimate_tinymce_qtags'));
+
 			//Make a placeholder for our screen options (hacky)
 			add_meta_box("ws-ame-screen-options", "You should never see this", '__return_false', $page);
 		}
@@ -373,6 +376,8 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 		wp_register_auto_versioned_script('jquery-sort', plugins_url('js/jquery.sort.js', $this->plugin_file), array('jquery'));
 		//qTip2 - jQuery tooltip plugin
 		wp_register_auto_versioned_script('jquery-qtip', plugins_url('js/jquery.qtip.min.js', $this->plugin_file), array('jquery'));
+		//jQuery Form plugin. This is a more recent version than the one included with WP.
+		wp_register_auto_versioned_script('ame-jquery-form', plugins_url('js/jquery.form.js', $this->plugin_file), array('jquery'));
 
 		//Editor's scripts
 		wp_register_auto_versioned_script(
@@ -380,11 +385,19 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 			plugins_url('js/menu-editor.js', $this->plugin_file),
 			array(
 				'jquery', 'jquery-ui-sortable', 'jquery-ui-dialog',
-				'jquery-form', 'jquery-ui-droppable', 'jquery-qtip',
+				'ame-jquery-form', 'jquery-ui-droppable', 'jquery-qtip',
 				'jquery-sort', 'jquery-json'
 			)
 		);
 		wp_enqueue_script('menu-editor');
+
+		//We use WordPress media uploader to let the user upload custom menu icons (WP 3.5+).
+		if ( function_exists('wp_enqueue_media') ) {
+			wp_enqueue_media();
+		}
+
+		//Remove the default jQuery Form plugin to prevent conflicts with our custom version.
+		wp_dequeue_script('jquery-form');
 
 		//Actors (roles and users) are used in the permissions UI, so we need to pass them along.
 		$actors = array();
@@ -405,17 +418,17 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 		$users = array();
 
 		$current_user = wp_get_current_user();
-		$users[$current_user->user_login] = array(
-			'user_login' => $current_user->user_login,
+		$users[$current_user->get('user_login')] = array(
+			'user_login' => $current_user->get('user_login'),
 			'id' => $current_user->ID,
 			'roles' => array_values($current_user->roles),
 			'capabilities' => $this->castValuesToBool($current_user->caps),
 			'is_super_admin' => is_multisite() && is_super_admin(),
 		);
 
-        $actors['user:' . $current_user->user_login] = sprintf(
+        $actors['user:' . $current_user->get('user_login')] = sprintf(
             'Current user (%s)',
-            $current_user->user_login
+            $current_user->get('user_login')
         );
 		//Note: Users do NOT get added to the actor list because that feature
 		//is not fully implemented.
@@ -445,9 +458,13 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 				'actors' => $actors,
 				'roles' => $roles,
 				'users' => $users,
-                'currentUserLogin' => $current_user->user_login,
+                'currentUserLogin' => $current_user->get('user_login'),
+                'selectedActor' => isset($this->get['selected_actor']) ? strval($this->get['selected_actor']) : null,
 
 				'showHints' => $this->get_hint_visibility(),
+
+			    'isDemoMode' => defined('IS_DEMO_MODE'),
+			    'isMasterMode' => defined('IS_MASTER_MODE'),
 			)
 		);
 	}
@@ -482,6 +499,10 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 		if ( is_plugin_active('participants-database/participants-database.php') ) {
 			wp_dequeue_script('settings_script');
 		}
+	}
+
+	public function remove_ultimate_tinymce_qtags() {
+		remove_action('admin_print_footer_scripts', 'jwl_ult_quicktags');
 	}
 
 	 /**
@@ -551,43 +572,36 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 	}
 	
 	/**
-	 * Fix the page title for moved plugin pages.
-	 * The 'admin_title' filter is only available in WP 3.1+
+	 * Apply the custom page title, if any.
+	 *
+	 * This is a callback for the "admin_title" filter. It will change the browser window/tab
+	 * title (i.e. <title>), but not the title displayed on the admin page itself.
 	 * 
 	 * @param string $admin_title The current admin title (full).
 	 * @param string $title The current page title. 
 	 * @return string New admin title.
 	 */
 	function hook_admin_title($admin_title, $title){
-		if ( empty($title) ){
-			$admin_title = $this->get_real_page_title() . $admin_title;
+		$item = $this->get_current_menu_item();
+		if ( $item === null ) {
+			return $admin_title;
 		}
+
+		//Check if the we have a custom title for this page.
+		$default_title = isset($item['defaults']['page_title']) ? $item['defaults']['page_title'] : '';
+		if ( !empty($item['page_title']) && $item['page_title'] != $default_title ) {
+			if ( empty($title) ) {
+				$admin_title = $item['page_title'] . $admin_title;
+			} else {
+				//Replace the first occurrence of the default title with the custom one.
+				$title_pos = strpos($admin_title, $title);
+				$admin_title = substr_replace($admin_title, $item['page_title'], $title_pos, strlen($title));
+			}
+		}
+
 		return $admin_title;
 	}
 	
-	/**
-	 * Get the correct page title for a plugin page that's been moved to a different menu.
-	 *  
-	 * @return string
-	 */
-	function get_real_page_title(){
-		global $title;
-		global $pagenow;
-		global $plugin_page;
-
-		//TODO: Consider using get_current_menu_item() here.
-		$real_title = $title;
-		if ( empty($title) && !empty($plugin_page) && !empty($pagenow) ){
-			$file = sprintf('%s?page=%s', $pagenow, $plugin_page);
-			if ( isset($this->title_lookups[$file]) ){
-				$real_title = esc_html( strip_tags( $this->title_lookups[$file] ) );
-			}
-		}
-		
-		return $real_title;
-	}	
-	
-
   /**
    * Populate a lookup array with default values (templates) from $menu and $submenu.
    * Used later to merge a custom menu with the native WordPress menu structure.
@@ -964,12 +978,31 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 			}
 		}
 
+		//Menus that have both a custom icon URL and a "menu-icon-*" class will get two overlapping icons.
+		//Fix this by automatically removing the class. The user can set a custom class attr. to override.
+		if (
+			ameMenuItem::is_default($item, 'css_class')
+			&& !ameMenuItem::is_default($item, 'icon_url')
+			&& !in_array($item['icon_url'], array('', 'none', 'div')) //Skip "no custom icon" icons.
+		) {
+			$new_classes = preg_replace('@\bmenu-icon-[^\s]+\b@', '', $item['defaults']['css_class']);
+			if ( $new_classes !== $item['defaults']['css_class'] ) {
+				$item['css_class'] = $new_classes;
+			}
+		}
+
 		//Apply defaults & filters
 		$item = ameMenuItem::apply_defaults($item);
 		$item = ameMenuItem::apply_filters($item, $item_type, $parent); //may cause side-effects
 
 		$item['access_level'] = $this->get_menu_capability($item);
 		$this->add_access_lookup($item, $item['access_level'], $item_type);
+
+		//Menus without a custom icon image should have it set to "none" (or "div" in older WP versions).
+		//See /wp-admin/menu-header.php for details on how this works.
+		if ( $item['icon_url'] === '' ) {
+			$item['icon_url'] = 'none';
+		}
 
 		//Used later to determine the current page based on URL.
 		$item['url'] = ameMenuItem::generate_url($item['file'], $parent);
@@ -1057,8 +1090,14 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 
 				//Save the custom menu
 				$this->set_custom_menu($menu);
-				//Redirect back to the editor and display the success message
-				wp_redirect( add_query_arg('message', 1, $url) );
+
+				//Redirect back to the editor and display the success message.
+				//Also, automatically select the last selected actor (convenience feature).
+				$query = array('message' => 1);
+				if ( isset($post['selected_actor']) && !empty($post['selected_actor']) ) {
+					$query['selected_actor'] = strval($post['selected_actor']);
+				}
+				wp_redirect( add_query_arg($query, $url) );
 				die();
 			} else {
 				$message = "Failed to save the menu. ";
@@ -1272,7 +1311,7 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 	private function user_can_access_current_page() {
 		$current_item = $this->get_current_menu_item();
 		if ( $current_item === null ) {
-			return true; //Let WordPres handle it.
+			return true; //Let WordPress handle it.
 		}
 		//Note: Per-role and per-user virtual caps will be applied by has_cap filters.
 		return $this->current_user_can($current_item['access_level']);
@@ -1298,6 +1337,13 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 	private function get_current_menu_item() {
 		if ( !is_admin() || empty($this->reverse_item_lookup)) {
 			return null;
+		}
+
+		//The current menu item doesn't change during a request, so we can cache it
+		//and avoid searching the entire menu every time.
+		static $cached_item = null;
+		if ( $cached_item !== null ) {
+			return $cached_item;
 		}
 
 		//Find an item where *all* query params match the current ones, with as few extraneous params as possible,
@@ -1350,6 +1396,7 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 			}
 		}
 
+		$cached_item = $best_item;
 		return $best_item;
 	}
 
@@ -1512,7 +1559,7 @@ class WPMenuEditor extends MenuEd_ShadowPluginFramework {
 			'ame-helper-style',
 			plugins_url('css/admin.css', $this->plugin_file),
 			array(),
-			'20121121'
+			'20130211'
 		);
 	}
 

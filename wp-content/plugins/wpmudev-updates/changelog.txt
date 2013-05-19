@@ -5,6 +5,16 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+3.2.6 - 4/30/2013
+----------------------------------------------------------------------
+- Fix WPMU DEV News dashboard widget
+- Support for WP 3.6 (jQuery 1.9)
+- Fix trailing whitespace issue
+
+3.2.5 - 1/23/2013
+----------------------------------------------------------------------
+- Fix double updating of themes when clicking "Update all Themes" on Updates page
+
 3.2.4 - 12/28/2012
 ----------------------------------------------------------------------
 - Handle WPMU DEV API connection problems more gracefully, with helpful error message
@@ -54,7 +64,7 @@ Change Log:
 3.1.2 - 6/23/2012
 ----------------------------------------------------------------------
 - Added filter logic to convert images and JS to use https when admin area is using ssl.
-- Modify permissions logic for admin menus. This should work correctly when the site has blocked install/update perms on plugins and themes. Like when setting DISALLOW_FILE_MODES in wp-config.php the Plugins and Themes sections are not displayed to the user. 
+- Modify permissions logic for admin menus. This should work correctly when the site has blocked install/update perms on plugins and themes. Like when setting DISALLOW_FILE_MODES in wp-config.php the Plugins and Themes sections are not displayed to the user.	   				 				 	
 - Improve handling of reset API keys
 - Fix permissions bug for some foreign language WP distributions
 
@@ -146,4 +156,5 @@ Added option to disable admin notices.
 ----------------------------------------------------------------------
 Initial Release.
 
-18246-1357354020-au
+
+18246-1367692155-au

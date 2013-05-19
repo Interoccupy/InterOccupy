@@ -13,7 +13,8 @@ function dk_speakup_confirm_email() {
 	// set WPML language
 	global $sitepress;
 	$lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
-	if ( function_exists( 'icl_t' ) ) {
+
+	if ( isset( $sitepress ) ) {
 		$sitepress->switch_lang( $lang, true );
 	}
 
@@ -67,7 +68,7 @@ function dk_speakup_confirm_email() {
 		<html>
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=' . get_bloginfo( "charset" ) . '" />
-			<meta http-equiv="refresh" content="10;' . home_url() . '"> 
+			<meta http-equiv="refresh" content="10;' . $the_petition->return_url . '"> 
 			<title>' . get_bloginfo( "name" ) . '</title>
 			<style type="text/css">
 				body {

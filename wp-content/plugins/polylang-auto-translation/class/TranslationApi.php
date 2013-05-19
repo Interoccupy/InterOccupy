@@ -17,7 +17,7 @@ class TranslationApi {
         if (preg_match_all("/\[.*\]/", $string , $shortcodes)) {
             $this->shortcodes = $shortcodes[0];
             foreach($this->shortcodes as $num => $tag) {
-                $string = str_replace($tag, "[" . (10000+ $num) . "]", $string);
+                $string = str_replace($tag, "[3x" . (10000+ $num) . "]", $string);
             }
         }
         
@@ -25,7 +25,7 @@ class TranslationApi {
         if(preg_match_all('@<[\/\!]*?[^<>]*?>@si', $string, $htmltags)) {
             $this->htmltags = $htmltags[0];
             foreach($this->htmltags as $num => $tag) {
-                $string = str_replace($tag, "[" . (1000+ $num) . "]", $string);
+                $string = str_replace($tag, "[3x" . (1000+ $num) . "]", $string);
             }
         }
         return $string;
@@ -34,11 +34,11 @@ class TranslationApi {
     public function replaceHTMLTagsShortcodes($string) {
          // replace the preserved html tags
         foreach($this->htmltags as $num => $tag) {
-            $string = str_replace("[" . (1000+ $num) . "]", $tag, $string);
+            $string = str_replace("[3x" . (1000+ $num) . "]", $tag, $string);
         }
         // and shortcodes
         foreach($this->shortcodes as $num => $tag) {
-            $string = str_replace("[" . (10000+ $num) . "]", $tag, $string);
+            $string = str_replace("[3x" . (10000+ $num) . "]", $tag, $string);
         }
         return $string;
     }

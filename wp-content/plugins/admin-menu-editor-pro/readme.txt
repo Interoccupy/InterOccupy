@@ -3,8 +3,8 @@ Contributors: whiteshadow
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A6P9S6CE3SRSW
 Tags: admin, dashboard, menu, security, wpmu
 Requires at least: 3.3
-Tested up to: 3.5
-Stable tag: 1.70
+Tested up to: 3.5.1
+Stable tag: 1.82
 
 Lets you directly edit the WordPress admin menu. You can re-order, hide or rename existing menus, add custom menus and more.
 
@@ -79,6 +79,30 @@ Here are some usage tips and other things that can be good to know when using th
 == Changelog ==
 
 [Get the latest version here.](http://adminmenueditor.com/updates/)
+
+= 1.82 =
+* Added an "Upgrade or renew license" link to the license information screen.
+* Added license expiration date (if applicable) to the license information screen.
+* Fixed plugin updates not showing up in ManageWP.
+* Fixed a rare bug where the icon selector would appear at the bottom of the page instead of next to the icon button.
+* Fixed incorrect icon alignment and checkboxes showing up in the wrong place when using the MP6 admin UI.
+* Removed "site token" from the license information screen.
+
+= 1.81 =
+* Added a workaround for a bug in BackupBuddy that would cause Admin Menu Editor Pro to check for updates much more often than it's supposed to.
+
+= 1.80 =
+* Added an icon drop-down that lets you pick one of the default WordPress menu icons or upload your own through the media library.
+* The editor will now automatically re-select the last selected role after saving a menu.
+* You can hold Ctrl while moving a menu item from a submenu to a top-level menu (or vice versa) to copy instead of moving.
+* Changed the way permission checkboxes are displayed for menus that have some visible and some hidden items.
+* Switched to a different, more subtle submenu separator style.
+* Moved the "Icon URL" field below the "CSS classes" field.
+* Made the "broken editor permissions" error message more helpful.
+* Fixed menus with custom icons sometimes displaying two overlapping icons.
+* Fixed the "Window title" setting not working for anything except custom menus.
+* Fixed a hard-to-identify bug where one user would get "$(...).ajaxForm is not a function" errors all the time.
+* Fixed compatibility issues with Ultimate TinyMCE.
 
 = 1.70 =
 * Added the ability to create menu separators in submenus.

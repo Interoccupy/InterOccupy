@@ -7,14 +7,14 @@ class WPMUDEV_Notifications_Output {
 		add_action( 'all_admin_notices', array( &$this, 'old_plugin_check' ) );
 		add_action( 'all_admin_notices', array( &$this, 'apikey_notice_output' ) );
 		add_action( 'all_admin_notices', array( &$this, 'admin_notice_output' ) );
-		
+
 		add_action( 'admin_footer', array( &$this, 'admin_footer_scripts' ) );
 		add_action( 'wp_ajax_wpmudev-dismiss', array( &$this, 'ajax_dismiss' ) );
 	}
 
 	function upgrade_notice_output() {
 		global $wpmudev_un;
-		
+
 		if ( current_user_can('update_plugins') ) {
 			//temporary dismissing
 			if ( get_site_option('wdp_un_dismissed_upgrade') && get_site_option('wdp_un_dismissed_upgrade') > time() )
@@ -25,7 +25,7 @@ class WPMUDEV_Notifications_Output {
 
 			if ( $count > 0 && !get_site_option('wdp_un_hide_upgrades') ) {
 				$data = $wpmudev_un->get_updates();
-				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');
+				$msg = !empty($data['text_admin_notice']) ? $data['text_admin_notice'] : __('<strong>WPMU DEV updates are available</strong>: These may be critical for the security or performance of this site so please review your available updates today &raquo;', 'wpmudev');	   				 				 	
 				echo '
 					<div class="update-nag">
 						<a href="' . $wpmudev_un->updates_url . '">' . $msg . '</a>
@@ -37,7 +37,7 @@ class WPMUDEV_Notifications_Output {
 
 	function apikey_notice_output() {
 		global $wpmudev_un;
-		
+
 		if ( current_user_can('update_plugins') ) {
 			if ( !$wpmudev_un->get_apikey() ) {
 				$link = $wpmudev_un->dashboard_url;
@@ -50,7 +50,7 @@ class WPMUDEV_Notifications_Output {
 							</h4>
 							<div class="clear"></div>
 						</div>
-	
+
 				</div>
 				<?php
 			}
@@ -62,7 +62,7 @@ class WPMUDEV_Notifications_Output {
 
 		if ( !current_user_can('update_plugins') || !$wpmudev_un->allowed_user() || !$wpmudev_un->get_apikey() || $current_screen->id == 'update-network' || $current_screen->id == 'update' )
 			return;
-		
+
 		//check delay
 		$delay = get_site_option('wdp_un_delay');
 		if (!$delay) {
@@ -71,7 +71,7 @@ class WPMUDEV_Notifications_Output {
 		}
 		if ($delay > time())
 			return;
-		
+
 		//handle ad messages
 		$data = $wpmudev_un->get_updates();
 		$dismissed = get_site_option('wdp_un_dismissed');
@@ -112,7 +112,7 @@ class WPMUDEV_Notifications_Output {
 					<?php echo strip_tags(stripslashes($msg), '<a><strong>'); ?>
 					</h4>
 					<a class="wpmudev-dismiss" data-key="dismiss" data-id="<?php echo $id; ?>" title="<?php _e('Dismiss this notice for one month', 'wpmudev'); ?>" href="<?php echo $wpmudev_un->dashboard_url; ?>&dismiss=<?php echo $id; ?>"><?php _e('Dismiss', 'wpmudev'); ?></a>
-					<div class="clear"></div>	
+					<div class="clear"></div>
 				</div>
 			</div>
 			<?php
@@ -135,7 +135,7 @@ class WPMUDEV_Notifications_Output {
 								</a>
 								<h4 id="wdv-release-title"><?php echo esc_html($project['name']); ?></h4>
 								<div id="wdv-release-desc"><?php echo esc_html($project['short_description']); ?></div>
-								<div class="dev-cta-wrap">									
+								<div class="dev-cta-wrap">
 									<?php if (!$wpmudev_un->get_apikey()) { //no api key yet
 										?><a id="wdv-release-install" href="<?php echo $wpmudev_un->dashboard_url; ?>" class="wpmu-button button-disabled" title="<?php _e('Setup your WPMU DEV account to install', 'wpmudev'); ?>"><i class="icon-download-alt icon-large"></i> <?php _e('INSTALL', 'wpmudev'); ?></a><?php
 									} else if ($url = $wpmudev_un->auto_install_url($data['latest_release'])) {
@@ -155,7 +155,7 @@ class WPMUDEV_Notifications_Output {
 				<?php
 			}
 		}
-		
+
 	}
 
 	function old_plugin_check() {
@@ -200,4 +200,3 @@ class WPMUDEV_Notifications_Output {
 }
 
 new WPMUDEV_Notifications_Output;
-?>

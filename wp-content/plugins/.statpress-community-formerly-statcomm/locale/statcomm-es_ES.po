@@ -1,0 +1,1821 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: statcomm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-17 13:21-0300\n"
+"PO-Revision-Date: 2013-02-17 23:16-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: F:/XAMPP/htdocs/multisite/wp-content/plugins/statcomm-multisite\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
+": \n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: statcomm.php:156
+msgid "Details"
+msgstr "Detalles"
+
+#: statcomm.php:157
+msgid "Spy"
+msgstr "Espía"
+
+#: statcomm.php:158
+#: statcomm.php:488
+#: statcomm.php:567
+msgid "Search"
+msgstr "Buscar"
+
+#: statcomm.php:159
+msgid "Export"
+msgstr "Exportar"
+
+#: statcomm.php:160
+#: statcomm.php:183
+#: statcomm.php:186
+#: statcomm.php:189
+msgid "Options"
+msgstr "Opciones"
+
+#: statcomm.php:161
+msgid "User Agents"
+msgstr "Navegador/cliente"
+
+#: statcomm.php:162
+msgid "HELP & Support"
+msgstr "Soporte y AYUDA"
+
+#: statcomm.php:164
+msgid "Migration"
+msgstr "Migración"
+
+#: statcomm.php:186
+msgid "UAS parser update"
+msgstr ""
+
+#: statcomm.php:189
+msgid "Statpress migration"
+msgstr "Migración desde Statpress"
+
+#: statcomm.php:270
+msgid "Error: not IP provided"
+msgstr "Error: No se ha indicado una IP"
+
+#: statcomm.php:342
+msgid "HELP"
+msgstr "AYUDA"
+
+#: statcomm.php:414
+msgid "Top days"
+msgstr "Días más activos"
+
+#: statcomm.php:417
+msgid "O.S."
+msgstr "Sistema operativo"
+
+#: statcomm.php:420
+#: statcomm.php:482
+msgid "Browser"
+msgstr "Navegador"
+
+#: statcomm.php:423
+msgid "Feeds"
+msgstr "Feeds"
+
+#: statcomm.php:426
+msgid "Search engines"
+msgstr "Motores de búsqueda"
+
+#: statcomm.php:429
+msgid "Top search terms"
+msgstr "Términos más buscados"
+
+#: statcomm.php:432
+msgid "Top referrer"
+msgstr "Procedencia más activa"
+
+#: statcomm.php:435
+msgid "Countries (domains)"
+msgstr "Países (dominios)"
+
+#: statcomm.php:438
+msgid "Spiders"
+msgstr "Rastreadores"
+
+#: statcomm.php:441
+msgid "Top pages"
+msgstr "Páginas más activas"
+
+#: statcomm.php:445
+msgid "Top Days - Unique visitors"
+msgstr "Días más activos, en visitantes únicos"
+
+#: statcomm.php:448
+msgid "Top Days - Pageviews"
+msgstr "Días más activos, en páginas vistas"
+
+#: statcomm.php:451
+msgid "Top IPs - Pageviews"
+msgstr "IPs más activos, en páginas vistas"
+
+#: statcomm.php:476
+msgid "URL Requested"
+msgstr "Enlace solicitado"
+
+#: statcomm.php:477
+msgid "Agent"
+msgstr "Agente"
+
+#: statcomm.php:478
+msgid "Referrer"
+msgstr "Procedencia"
+
+#: statcomm.php:479
+msgid "Search terms"
+msgstr "Términos de búsqueda"
+
+#: statcomm.php:480
+msgid "Search engine"
+msgstr "Motor de búsquedas"
+
+#: statcomm.php:481
+msgid "Operative system"
+msgstr "Sistema operativo"
+
+#: statcomm.php:483
+msgid "Spider"
+msgstr "Rastreador"
+
+#: statcomm.php:484
+#: statcomm.php:972
+msgid "IP"
+msgstr "IP"
+
+#: statcomm.php:485
+msgid "Status Code"
+msgstr "Estado"
+
+#: statcomm.php:495
+msgid "Field"
+msgstr "Campo"
+
+#: statcomm.php:510
+msgid "Group by"
+msgstr "Agrupar por"
+
+#: statcomm.php:511
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: statcomm.php:512
+msgid "if contains"
+msgstr "si contiene"
+
+#: statcomm.php:526
+msgid "sort by count if grouped"
+msgstr "ordenar por frecuencia si viene agrupado"
+
+#: statcomm.php:532
+msgid "include spiders/crawlers/bot"
+msgstr "incluir spiders/crawlers/bot"
+
+#: statcomm.php:538
+msgid "include feed"
+msgstr "incluir feed"
+
+#: statcomm.php:544
+msgid "SELECT DISTINCT"
+msgstr ""
+
+#: statcomm.php:553
+msgid "Limit results to"
+msgstr "Limitar los resultados a"
+
+#: statcomm.php:663
+msgid "Results"
+msgstr "Resultados"
+
+#: statcomm.php:677
+#: statcomm.php:973
+msgid "Count"
+msgstr "Frecuencia"
+
+#: statcomm.php:752
+msgid "Visits"
+msgstr "Visitas"
+
+#: statcomm.php:968
+msgid "Unknown User Agents"
+msgstr "Agentes desconocidos"
+
+#: statcomm.php:970
+msgid "Date"
+msgstr "Fecha"
+
+#: statcomm.php:971
+msgid "Last Time"
+msgstr "Última vez"
+
+#: statcomm.php:974
+msgid "User Agent"
+msgstr "Agente del usuario"
+
+#: uninstall.php:37
+#, php-format
+msgid "StatComm was unable to delete some table(s) from the network. <b>%s</b> created.<br/>Check if current database user has enough privileges to do so.<br/>All others settings were deleted.<br/>Click back in your browser to go the options settings, and try to remove the tables manually<br/>or ask an administrator to do it."
+msgstr "Statcomm no pudo borrar algunas tabla(s) desde la red. <b>%s</b> creado.<br/>Chequee si el usuario de la base de datos tiene suficientes privilegios para realizar la operación.<br/>Los otros settings fueron eliminados<br/>Pulse 'atrás' en su navegador para volver a las opciones, e intente borrar las tablas manualmente<br/>o pregunte a un administrador para hacerlo."
+
+#: uninstall.php:52
+#, php-format
+msgid "StatComm was unable to delete the statcomm table. <b>%s</b> created.<br/>Check if current database user has enough privileges to do so.<br/>All other settings were deleted.<br/>Click back in your browser to go the options settings, and try to remove the tables manually<br/>or ask an administrator to do it."
+msgstr "Statcomm no pudo borrar la tabla de statcomm. <b>%s</b> creado.<br/>Chequee si el usuario de la base de datos tiene suficientes privilegios para realizar la operación.<br/>Los otros settings fueron eliminados<br/>Pulse 'atrás' en su navegador para volver a las opciones, e intente borrar las tablas manualmente<br/>o pregunte a un administrador para hacerlo."
+
+#: classes/exportdatacsv.php:39
+#: classes/exportdatacsv.php:46
+msgid "Invalid From Date"
+msgstr "Fecha Desde inválida"
+
+#: classes/exportdatacsv.php:40
+#: classes/exportdatacsv.php:47
+msgid "Invalid To Date"
+msgstr "Fecha Hasta inválida"
+
+#: classes/exportdatacsv.php:48
+msgid "From Day needs to be set before Last Day!"
+msgstr "La fecha de Desde tiene que ser establecida antes que Hasta!"
+
+#: classes/geoipcity.php:303
+msgid "Africa"
+msgstr "Africa"
+
+#: classes/geoipcity.php:304
+msgid "Asia"
+msgstr "Asia"
+
+#: classes/geoipcity.php:305
+msgid "Europe"
+msgstr "Europa"
+
+#: classes/geoipcity.php:306
+msgid "North America"
+msgstr "Norte America"
+
+#: classes/geoipcity.php:307
+msgid "South America"
+msgstr "Sud America"
+
+#: classes/geoipcity.php:308
+msgid "Oceania"
+msgstr "Oceania"
+
+#: classes/geoipcity.php:309
+msgid "Antartica"
+msgstr "Antartida"
+
+#: classes/geoipupdate.php:43
+msgid "<h2>Gelocation Database Download</h2>"
+msgstr "<h2>Bajar base de Geolocalización</h2>"
+
+#: classes/geoipupdate.php:47
+msgid "Updating current local Maxmind GeoLiteCity database"
+msgstr "Actualizando la base de datos Maxmind GeoLiteCity actual"
+
+#: classes/geoipupdate.php:49
+msgid "Checking if Maxmind is in good conditions..."
+msgstr "Verificando si Maxmind está en buenas condiciones..."
+
+#: classes/geoipupdate.php:53
+msgid "Database is OK, trying to update..."
+msgstr "Base de datos OK, intentando actualizar..."
+
+#: classes/geoipupdate.php:58
+msgid "Database detected possibly corrupted, trying to replace..."
+msgstr "Base de datos detectada posiblemente corrupta, intentando reemplazar..."
+
+#: classes/geoipupdate.php:64
+msgid "Preparing a first time install of the Maxmind GeoLiteCity database"
+msgstr "Preparando primera instalación de la base de datos Maxmind GeoLiteCity"
+
+#: classes/geoipupdate.php:85
+msgid "Client error: unable to retrieve file date from server (curl no supported) "
+msgstr "Error a nivel del cliente: imposible de recuperar la fecha del archivo desde el servidor (no hay soporte de curl)"
+
+#: classes/geoipupdate.php:86
+msgid "Your server does not have curl activated"
+msgstr "Su servidor no tiene curl activado"
+
+#: classes/geoipupdate.php:111
+msgid "Skipped checking (only once every "
+msgstr "Se omite chequeo (solo una vez cada"
+
+#: classes/geoipupdate.php:112
+#, fuzzy
+msgid " days)"
+msgstr "Días más activos"
+
+#: classes/geoipupdate.php:126
+#, fuzzy
+msgid "Return to Network Options menu"
+msgstr "Volver al menu de opciones"
+
+#: classes/geoipupdate.php:130
+msgid "Return to Options menu"
+msgstr "Volver al menu de opciones"
+
+#: classes/geoipupdate.php:140
+msgid "GeoliteCity size is about 10 MB."
+msgstr "La base de datos GeoliteCity mide alrededor de 10MB"
+
+#: classes/geoipupdate.php:141
+msgid "The download time depends on your server download speed."
+msgstr "El tiempo de bajada depende de la velocidad de bajada de su servidor."
+
+#: classes/geoipupdate.php:142
+msgid "A timeout can happen if the download takes more than 2 minutes."
+msgstr "Un timeout puede producirse si la bajada demora mas de 2 minutos"
+
+#: classes/geoipupdate.php:143
+msgid "Getting file from server..."
+msgstr "Obteniendo el archivo desde el servidor..."
+
+#: classes/geoipupdate.php:163
+msgid "Could not save gzip file to disk or file not found. Permissions problems?"
+msgstr "No se pudo salvar el archivo gzip a disco o el archivo no se encuentra. Posible problema de permisos?"
+
+#: classes/geoipupdate.php:175
+msgid "Could not save GeoLiteCity.dat to disk or file not found. Permissions problems?"
+msgstr "No se pudo salvar GeoLiteCity.dat a disco o el archivo no se encuentra. Posible problema de permisos?"
+
+#: classes/geoipupdate.php:179
+msgid "GeoLiteCity.dat successfully saved and ready to use"
+msgstr "GeoLiteCity.dat exitosamente guardado y pronto para usarse"
+
+#: classes/geoipupdate.php:201
+#, fuzzy, php-format
+msgid "Client error when retrieving file:(%d) - %s"
+msgstr "Error del cliente al recuperar el archiv:($code) - $errMsg"
+
+#: classes/geoipupdate.php:204
+#: classes/geoipupdate.php:215
+msgid "Error details:"
+msgstr "Detalles del error:"
+
+#: classes/geoipupdate.php:212
+#, fuzzy, php-format
+msgid "Server error when retrieving file:(%d) - %s"
+msgstr "Error en el servidor al recuperar el archivo: ($code) - $errMsg"
+
+#: classes/geoipupdate.php:228
+msgid "You have the latest available Maxmind GeoLiteCity database"
+msgstr "Tienes la base de datos Maxmind GeoLiteCity más reciente"
+
+#: classes/geoipupdate.php:233
+#, php-format
+msgid "Maxmind database last update was about %d days ago (checked against file date on the server)"
+msgstr "La última actualización de la base de datos Maxmind fue hace %d días (chequeado contra el archivo en el servidor)"
+
+#: classes/geoipupdate.php:236
+#, php-format
+msgid "You updated to the current GeoLiteCity database on %s (%d days ago)"
+msgstr "Te actualizaste a la version actual de la base GeoLiteCity en %s (hace %d días)"
+
+#: classes/geoipupdate.php:237
+msgid "No new updates are available today."
+msgstr "No hay nuevas actualizaciones hoy."
+
+#: classes/geoipupdate.php:248
+msgid "PHP Memory Limit is unknown, increase is not available."
+msgstr "El límite de memoria PHP es desconocido, el incremento no está disponible."
+
+#: classes/geoipupdate.php:252
+#, php-format
+msgid "PHP Memory Limit is %1$s, temporarily increasing to %2$s "
+msgstr "El límite de memoria PHP es %1$s, incrementandola temporalmente a %2$s"
+
+#: classes/geoipupdate.php:256
+msgid "completed."
+msgstr "completado."
+
+#: classes/geoipupdate.php:258
+msgid "failed."
+msgstr "falló."
+
+#: classes/geoipupdate.php:263
+#, php-format
+msgid "PHP Memory Limit is %s, increasing is not needed."
+msgstr "El límite de memoria PHP es %s, el incremento no es necesario."
+
+#: classes/migrationsettings.php:40
+msgid "Save settings (does not start migration)"
+msgstr "Guardar settings (no inicia la migración)"
+
+#: classes/migrationsettings.php:45
+msgid "IMPORTANT:"
+msgstr "IMPORTANTE:"
+
+#: classes/migrationsettings.php:46
+msgid "The migration will erase the data StatComm table before proceed"
+msgstr "La migración borrará los datos de la tabla Statcomm antes de proceder"
+
+#: classes/migrationsettings.php:47
+msgid "1-We recommend you deactivate the older plugin before start migration"
+msgstr "1-Recomendamos que desactives el plugin antiguo antes de iniciar la migración"
+
+#: classes/migrationsettings.php:48
+msgid "2-Select the options that fit your needs and press Save settings"
+msgstr "2-Seleccione las opciones que coincidan con lo que quieres y luego pulsa Guardar Settings"
+
+#: classes/migrationsettings.php:49
+msgid "3-To start migration press the button above (button enabled if Statpress table is present)"
+msgstr "3-Para empezar la migración , pulsa el botón más arriba (el botón estará habilitados solo si existe una tabla Statpress en la base de datos)"
+
+#: classes/migrationsettings.php:53
+msgid "START MIGRATION"
+msgstr "EMPEZAR MIGRACIÓN"
+
+#: classes/migrationsettings.php:58
+msgid "MIGRATION DISABLED!"
+msgstr "MIGRACIÓN DESHABILITADA!"
+
+#: classes/migrationsettings.php:111
+#, fuzzy
+msgid "StatComm Migration Settings Options"
+msgstr "<h2>Opciones de StatComm</h2>"
+
+#: classes/migrationsettings.php:115
+msgid "Keep only user information (suppress spiders)"
+msgstr "Mantener solamente la información del usuario (suprimir datos de spiders)"
+
+#: classes/migrationsettings.php:118
+msgid "Suppress records before...(yyyymmdd format)"
+msgstr "Suprimir registros previos a... (formato aaaammdd)"
+
+#: classes/migrationsettings.php:139
+#, fuzzy
+msgid "StatPress table present: "
+msgstr "Tamaño de tabla de datos StatPress"
+
+#: classes/migrationsettings.php:147
+#, fuzzy
+msgid "No StatPress table (!!!)"
+msgstr "Tamaño de tabla de datos StatPress"
+
+#: classes/migrationsettings.php:152
+msgid "This server has set_time_limit disabled or we found an error"
+msgstr "Este servidor tiene la variable set_time_limit deshabilitada o encontramos un error"
+
+#: classes/migrationsettings.php:153
+#: classes/migrationsettings.php:161
+msgid "Please check this problem with the administrator. "
+msgstr "Por favor verifique este problema con el administrador del sitio."
+
+#: classes/migrationsettings.php:154
+msgid "The migration will be disabled until the problem is cleared. "
+msgstr "La migración será deshabilitada hasta que el problema esté resuelto."
+
+#: classes/migrationsettings.php:160
+msgid "This server has Safe Mode settings enabled"
+msgstr "Este servidor tiene los settings Safe Mode habilitados"
+
+#: classes/migrationsettings.php:162
+msgid "The migration is unable to continue since it can't set time limit for the process. "
+msgstr "La migración no puede continuar debido a que no puede establecer un tiempo límite al proceso."
+
+#: classes/migrationsettings.php:163
+msgid "Please check  http://www.php.net/manual/en/function.set-time-limit.php for more information. "
+msgstr "Por favor vea  http://www.php.net/manual/en/function.set-time-limit.php por más información"
+
+#: classes/migrationtable.php:48
+msgid "Starting migration process..."
+msgstr "Comenzando proceso de migración..."
+
+#: classes/migrationtable.php:52
+msgid "The Statpress table isn't there, aborting..."
+msgstr "No se encuentra la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:59
+msgid "Missing fields process aborted"
+msgstr "No se encuentran algunos campos, proceso abortado"
+
+#: classes/migrationtable.php:72
+#, fuzzy
+msgid "Current settings:"
+msgstr "Version de la base de datos de Agente de Usuario"
+
+#: classes/migrationtable.php:73
+#, php-format
+msgid "Filter Spiders: %s"
+msgstr "Filtros Spiders: %s"
+
+#: classes/migrationtable.php:76
+#, php-format
+msgid "Cutting date: %s"
+msgstr "Fecha de corte: %s"
+
+#: classes/migrationtable.php:89
+#, php-format
+msgid "Initializing migration: %d records, %d iterations"
+msgstr "Inicializando migración: %d registros, %d iteraciones"
+
+#: classes/migrationtable.php:90
+msgid "Clearing destination table..."
+msgstr "Limpiando la tabla destino..."
+
+#: classes/migrationtable.php:92
+msgid "Done. Starting migration..."
+msgstr "Terminad. Comenzando migración..."
+
+#: classes/migrationtable.php:126
+#, php-format
+msgid "Processing %d...(%d%%) (from %d)"
+msgstr "Procesando %d...(%d%%) (de %d)"
+
+#: classes/migrationtable.php:230
+#, php-format
+msgid "Average: %d rec/sec | Time elapsed: %s"
+msgstr "Promedio: %d registros/sec | Tiempo transcurrido: %s"
+
+#: classes/migrationtable.php:235
+msgid "Migration completed!!!"
+msgstr "Migración completada!!!"
+
+#: classes/migrationtable.php:236
+msgid "Migration resume:"
+msgstr "Resumen de la migración:"
+
+#: classes/migrationtable.php:239
+#, php-format
+msgid "Final total time:%s , %d records processed, %d migrated "
+msgstr "Tiempo total final: %s, %d registros procesados, %d migrados"
+
+#: classes/migrationtable.php:243
+#, php-format
+msgid "%d spider records, skipped (about %d %% of total) "
+msgstr "%d registros spider, ignorados( aprox. %d %% del total)"
+
+#: classes/migrationtable.php:257
+#, php-format
+msgid "%d records skipped due incorrect ip"
+msgstr "%d registros ignorados debido a una ip incorrecta"
+
+#: classes/migrationtable.php:265
+#, php-format
+msgid "%d records skipped due incorrect timestamp"
+msgstr "%d registros ignorados debido a una marca de tiempo incorrecta"
+
+#: classes/migrationtable.php:273
+#, php-format
+msgid "%d records skipped due database errors"
+msgstr "%d registros ignorados debido a errores en la base de datos"
+
+#: classes/migrationtable.php:280
+msgid "No errors found."
+msgstr "No se encontraron errores."
+
+#: classes/migrationtable.php:295
+msgid "Go to Migration Options and start over"
+msgstr "Ir a las Opciones de Migración y comenzar nuevamente"
+
+#: classes/migrationtable.php:369
+msgid "Field Ip is missing in Statpress table, aborting..."
+msgstr "Campo IP no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:375
+msgid "Field Urlrequested is missing in Statpress table, aborting..."
+msgstr "Campo Urlrequested no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:381
+msgid "Field Agent is missing in Statpress table, aborting..."
+msgstr "Campo agente no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:387
+msgid "Field Referrer is missing in Statpress table, aborting..."
+msgstr "Campo Referrer no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:393
+msgid "Field Search is missing in Statpress table, aborting..."
+msgstr "Campo Search no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:399
+msgid "Field Timestamp is missing in Statpress table, aborting..."
+msgstr "Campo Timestamp no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/migrationtable.php:405
+msgid "Field User is missing in Statpress table, aborting..."
+msgstr "Campo User no se encuentra en la tabla Statpress, abortando..."
+
+#: classes/mysql.php:318
+msgid "Error when creating table. StatComm is unable to continue:"
+msgstr "Error al crear la tabla. Statcomm no puede continuar:"
+
+#: classes/mysql.php:328
+#, php-format
+msgid "StatComm was unable to create the table <b>%s</b> for saving data.<br/>Check if current database user has enough privileges to do so.<br/>Click back in your browser to go the options settings."
+msgstr "Statcom no pudo crear la table <b>%s</b> para guardar los datos.<br/>Verifique si el usuario de la base de datos tiene suficientes privilegios para realizar la operación.<br/>Pulse el botón retroceder en el navegador para ir a las opciones."
+
+#: classes/settings.php:98
+msgid "Only Admins can Save Settings"
+msgstr "Solo Admins pueden Guardar Settings"
+
+#: classes/settings.php:147
+#, fuzzy
+msgid "StatComm Settings Options"
+msgstr "<h2>Opciones de StatComm</h2>"
+
+#: classes/settings.php:152
+#, fuzzy
+msgid "Also collect data about logged users"
+msgstr "Registrar también datos de usuarios autenticados."
+
+#: classes/settings.php:157
+msgid "Do not collect spiders visits"
+msgstr "No registrar datos de rastreadores"
+
+#: classes/settings.php:162
+msgid "Automatically delete visits older than"
+msgstr "Automáticamente borrar las visitas anteriores al"
+
+#: classes/settings.php:167
+#, fuzzy
+msgid "Automatically delete spiders older than"
+msgstr "Borrar automáticamente visitas de rastreadores más antiguos que"
+
+#: classes/settings.php:172
+msgid "Days in Overview graph"
+msgstr "Días en el gráfico del Sumario"
+
+#: classes/settings.php:177
+msgid "Min. allowed access"
+msgstr "Acceso mínimo permitido"
+
+#: classes/settings.php:182
+msgid "How many days to spy back"
+msgstr "Cuantos días a espiar hacia atrás"
+
+#: classes/settings.php:187
+msgid "How many result in the spy list"
+msgstr "Cuantos resultados en la lista de espía"
+
+#: classes/settings.php:192
+msgid "Display error counter in graphic view(in red)"
+msgstr "Desplegar contador de errores en la vista gráfica (en rojo)"
+
+#: classes/settings.php:209
+msgid "<h2>StatComm Settings Options</h2>"
+msgstr "<h2>Opciones de StatComm</h2>"
+
+#: classes/settings.php:216
+#, fuzzy
+msgid "Check for disabling User Agent String Database"
+msgstr "Chequear para habilitar el servicio de bajada de la base de datos de Agente de Usuario"
+
+#: classes/settings.php:221
+msgid "Check for disabling Maxmind"
+msgstr "Check para deshabilitar Maxmind"
+
+#: classes/settings.php:229
+msgid "Also delete Statcomm table when uninstall"
+msgstr "Borrar la tabla Statcomm cuando se desinstale el plugin"
+
+#: classes/settings.php:260
+#, fuzzy
+msgid "StatComm Subplugins Options"
+msgstr "<h2>Opciones de StatComm</h2>"
+
+#: classes/settings.php:271
+msgid "Network Administrator should control Advanced Settings from the Network console"
+msgstr "El Administrador de la Red del Sitio debería controlar los Settings Avanzados desde la consola de Red de Sitios"
+
+#: classes/settings.php:276
+#: classes/settings.php:389
+msgid "This is a Multisite Wordpress installation."
+msgstr "Esta es una instalación Wordpress Multisite"
+
+#: classes/settings.php:277
+#: classes/settings.php:390
+msgid "Advanced options is only available for Network Administrators on Multisite"
+msgstr "Opciones Avanzadas están solamente disponibles para los Administradores de Red de Sitios."
+
+#: classes/settings.php:284
+msgid "Advanced Options is only available for Administrators"
+msgstr "Las Opciones Avanzadas solo están disponibles para los Administradores"
+
+#: classes/settings.php:304
+msgid "Component Checking"
+msgstr "Chequeo de componentes"
+
+#: classes/settings.php:305
+msgid "Status"
+msgstr "Estado"
+
+#: classes/settings.php:326
+msgid "Checking if ZipArchive class is available (used for unpackage database)"
+msgstr "Chequeando si la clase ZipArchive esta disponible (usado para desempaquetar la base de datos)"
+
+#: classes/settings.php:329
+msgid "Checking if folder def is writable (used for save UAS database)"
+msgstr "Chequeando si la carpeta def es de escritura (usado para salvar la base de datos UAS)"
+
+#: classes/settings.php:333
+msgid "Current User Agent String DB version"
+msgstr "Version de la base de datos de Agente de Usuario"
+
+#: classes/settings.php:338
+msgid "User Agent String database disabled. Activate it on Advanced Tab"
+msgstr "La base de datos de Agentes de Usuario está deshabilitada. Activela en la pestaña Avanzado"
+
+#: classes/settings.php:342
+msgid "Cache.ini or Uasdata.ini not found or not readable. Try installing UAS in Advanced Options"
+msgstr "Archivos Cache.ini or Uasdata.ini no encontrados o error de lectura. Intente nuevamente instalando UAS (Cadena de Agente de Usuario) en Opciones Avanzadas."
+
+#: classes/settings.php:350
+msgid "Un classified error. Call de programmer!"
+msgstr "Error sin clasificar. Llamen al programador!"
+
+#: classes/settings.php:353
+msgid "Checking if multibyte string extension is installed (mb_internal_encoding)"
+msgstr "Verificando si las extensiones string multibyte están instaladas (mb_internal_encoding)"
+
+#: classes/settings.php:356
+msgid "Is safe to use Maxmind database"
+msgstr "Es seguro usar la Base de Datos Maxmind"
+
+#: classes/settings.php:360
+msgid "Please install Multibyte String Extension Module on Apache Server"
+msgstr "Por favor instala el Módulo de Extension de cadenas Multibyte en Apache Server (Multibyte String Extension Module)"
+
+#: classes/settings.php:361
+msgid "Check this link to see what is all about:"
+msgstr "Verifique este link para ver de que se trata todo esto:"
+
+#: classes/settings.php:363
+msgid "It is NOT safe using Maxmind database in the current Apache configuration! (you will have errors)"
+msgstr "NO es seguro usar la base de datos Maxmind en la configuración de Apache actual! ( tendrá errores)"
+
+#: classes/settings.php:383
+msgid "Network Administrator should control Subplugins from the Network console"
+msgstr "El Administrador de Red de Sitios debería controla los Subplugins desde la consola de Administrador de Red de Sitios"
+
+#: classes/settings.php:398
+msgid "Subplugins are only available for Administrators"
+msgstr "Los Subplugins solo son disponibles para los Administradores"
+
+#: classes/settings.php:484
+msgid "Need help about roles?"
+msgstr "¿Necesita ayuda acerca de los roles?"
+
+#: classes/settings.php:501
+#, fuzzy
+msgid "  Maxmind database installed and ready. "
+msgstr " Base de datos Maxmind instalada y pronta para usarse."
+
+#: classes/settings.php:507
+msgid "  You need to install Maxmind database to get started."
+msgstr " Necesitará instalar la base de datos Maxmind para comenzar."
+
+#: classes/settings.php:513
+msgid "Maxmind database disabled. Columns [Flag], [Region] and [City] will be excluded from reports."
+msgstr "Base de datos Maxmind deshabilitada. Columnas [Flag],[Region] y [Ciudad]  serán excluidas del reporte."
+
+#: classes/settings.php:518
+#, fuzzy
+msgid " Unable to open Maxmind database(corrupted?)."
+msgstr " Necesitará instalar la base de datos Maxmind para comenzar."
+
+#: classes/settings.php:524
+msgid " Unable to open Maxmind database(incorrect version?)."
+msgstr "Imposible abrir la base Maxmind (versión incorrecta?)"
+
+#: classes/settings.php:530
+msgid " Unexpected error from geoLocationEnabled. Contact with the programmer!!!"
+msgstr "Error inesperado desde geoLocationEnabled. Contacte con el programador!!!"
+
+#: classes/settings.php:545
+#, fuzzy
+msgid "Click to start downloading"
+msgstr "Click aquí para comenzar la baja"
+
+#: classes/settings.php:550
+#: classes/settings.php:679
+#, fuzzy
+msgid "(Download only available for Administrators.)"
+msgstr "Los Subplugins solo son disponibles para los Administradores"
+
+#: classes/settings.php:562
+msgid "2 days (default)"
+msgstr "2 días (valor por defecto)"
+
+#: classes/settings.php:563
+#, fuzzy
+msgid "1 week"
+msgstr "semana"
+
+#: classes/settings.php:564
+#, fuzzy
+msgid "1 month"
+msgstr "mes"
+
+#: classes/settings.php:565
+msgid "1 year (are you sure?)"
+msgstr "1 año (está seguro?)"
+
+#: classes/settings.php:575
+msgid " Spy Tool:This setting defines how many days go back in the past looking for activity user."
+msgstr "Herramienta Espía: este setting permite definir cuantos días retroceder en el pasado para buscar una actividad de un usuario."
+
+#: classes/settings.php:581
+msgid "5 results (default)"
+msgstr "5 resultados (valor por defecto)"
+
+#: classes/settings.php:582
+#, fuzzy
+msgid "10 results"
+msgstr "Resultados"
+
+#: classes/settings.php:583
+#, fuzzy
+msgid "15 results"
+msgstr "Resultados"
+
+#: classes/settings.php:584
+#, fuzzy
+msgid "20 results"
+msgstr "Resultados"
+
+#: classes/settings.php:594
+msgid " Spy Tool:How many activity results when looking back for a user."
+msgstr "Herramienta Espía: definir cuantos resultados máximos mostrar al buscar un usuario."
+
+#: classes/settings.php:631
+msgid " UAS database disabled. Columns [Operative System], [Browser Engine] and [Browser Version] will be excluded from reports. "
+msgstr "La Base UAS está deshabilitada. Las columnas [Operative System], [Browser Engine] y [Browser Version] serán exluidas de los reportes."
+
+#: classes/settings.php:634
+#, fuzzy
+msgid "  You need to install User Agent String database."
+msgstr " Necesitará instalar la base de datos Maxmind para comenzar."
+
+#: classes/settings.php:647
+#, php-format
+msgid "There was an error when checking if updated: %s"
+msgstr "Hubo un error cuando se verificp la actualización: %s"
+
+#: classes/settings.php:658
+#, fuzzy
+msgid "  UAS database installed and ready. "
+msgstr " Base de datos Maxmind instalada y pronta para usarse."
+
+#: classes/settings.php:662
+msgid "Unknown error. Contact with the programmer!!!"
+msgstr "Error desconocido. Conctactese con el programador!!!"
+
+#: classes/settings.php:674
+msgid "Click here to install"
+msgstr "Click aquí para instalar"
+
+#: classes/settingsnetwork.php:34
+msgid "SC Multisite"
+msgstr "SC Multisitio"
+
+#: classes/settingsnetwork.php:82
+msgid "Settings Saved"
+msgstr "Settings Guardados"
+
+#: classes/settingsnetwork.php:90
+#, fuzzy
+msgid "Check to disable User Agent database"
+msgstr "Chequear para habilitar el servicio de bajada de la base de datos de Agente de Usuario"
+
+#: classes/settingsnetwork.php:99
+#, fuzzy
+msgid "Check to disable Maxmind database"
+msgstr "Chequear para habilitar el servicio de Geolocalización de Maxmind"
+
+#: classes/settingsnetwork.php:106
+msgid "Delete Statcomm table and data when uninstall"
+msgstr "Borrar tabla y datos de Statcomm al desinstalar"
+
+#: classes/settingsnetwork.php:109
+#, fuzzy
+msgid "Save Changes"
+msgstr "Guardar opciones"
+
+#: classes/statcommspy.php:49
+#, fuzzy
+msgid "Maxmind database needs to enabled . Check the plugins options."
+msgstr "Esta característica requiere la base Maxmind habilitada para funcionar. Consultar las opciones del plugin."
+
+#: classes/statcommspy.php:53
+#, fuzzy
+msgid "Unable to open Maxmind database (corrupted?) . Check the plugins options."
+msgstr "Esta característica requiere la base Maxmind habilitada para funcionar. Consultar las opciones del plugin."
+
+#: classes/statcommspy.php:58
+#, fuzzy
+msgid "Unable to get Maxmind database version (corrupted?) . Check the plugins options."
+msgstr "Esta característica requiere la base Maxmind habilitada para funcionar. Consultar las opciones del plugin."
+
+#: classes/statcommspy.php:140
+msgid "more info"
+msgstr "más info"
+
+#: classes/statcommspy.php:144
+msgid " Operative System (family / type): "
+msgstr "Sistema Operativo (familia / tipo)"
+
+#: classes/statcommspy.php:145
+msgid " Browser (family / type): "
+msgstr "Navegador (familia / tipo)"
+
+#: classes/statcommspy.php:148
+#: classes/statcommspy.php:155
+msgid "Continent / Country / Region / City: "
+msgstr "Continente / País / Región / Ciudad:"
+
+#: classes/statcommspy.php:148
+#: classes/statcommspy.php:149
+#: classes/statcommspy.php:150
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: classes/statcommspy.php:150
+#: classes/statcommspy.php:157
+msgid "Latitude / Longitude : "
+msgstr "Latitiud / Longitud :"
+
+#: classes/statcommspy.php:159
+msgid "Host: "
+msgstr ""
+
+#: classes/statcommspy.php:160
+#, fuzzy
+msgid "Agent: "
+msgstr "Agente"
+
+#: classes/statcommspy.php:178
+#: classes/statcommspy.php:183
+#: classes/statcommspy.php:329
+msgid "arrived from"
+msgstr "llegado desde"
+
+#: classes/statcommspy.php:178
+#: classes/statcommspy.php:333
+msgid "searching"
+msgstr "buscando"
+
+#: classes/statcommspy.php:211
+#, fuzzy
+msgid "Maxmind database disabled. Check the plugins options to activate it."
+msgstr "Esta característica requiere la base Maxmind habilitada para funcionar. Consultar las opciones del plugin."
+
+#: classes/statcommspy.php:226
+#, php-format
+msgid "Error: no info for rec: %s"
+msgstr "Error: no hay información para el registro: %s"
+
+#: classes/statcommspy.php:268
+msgid "Not available (robot)"
+msgstr "No disponible (robot)"
+
+#: classes/statcommspy.php:273
+msgid "Other: libraries, WebKit, monitor network,etc. "
+msgstr "Otros: librerías, WebKit, monitoreo de red, etc."
+
+#: classes/statcommspy.php:278
+msgid "Feed Reader"
+msgstr "Lector de Novedades"
+
+#: classes/statcommspy.php:283
+#, php-format
+msgid "Feed Reader (%s)"
+msgstr "Lector de Novedades (%s)"
+
+#: classes/statcommspy.php:287
+msgid "OS & Browser: Not enough data"
+msgstr "SO y Navegador: sin información suficiente"
+
+#: classes/statcommspy.php:301
+#, php-format
+msgid "No other activity since last %s days<br/> (max.%s results) "
+msgstr "Sin otra actividad desde los últimos %s días<br/>(%s resultados max.)"
+
+#: classes/statcommspy.php:308
+#, php-format
+msgid "Recent Activity in the last %s days<br/> (%s max.results)"
+msgstr "Reciente actividad en los últimos %s días<br/>(%s resultados max.)"
+
+#: classes/statcommspy.php:383
+msgid "error returning tooltip format sc-tooltip.htm not found. Aborting..."
+msgstr "error retornando el formato del tooltip. Archivo sc-tooltip.htm no encontrado. Abortando..."
+
+#: classes/statcommspy.php:388
+msgid "Site News"
+msgstr "Novedades del Sitio"
+
+#: classes/statcommspy.php:389
+msgid "Latitude/Longitude"
+msgstr "Latitud/Longitud"
+
+#: classes/statcommspy.php:390
+#: classes/statcommspy.php:402
+msgid "Host:"
+msgstr ""
+
+#: classes/statcommspy.php:395
+msgid "No Data for geolocation"
+msgstr "No hay datos para la geolocalización"
+
+#: classes/subplugins.php:203
+#, php-format
+msgid "The plugin <code>%s</code> has been <strong>deactivated</strong> due to an error: %s"
+msgstr "El plugin <code>%s</code> ha sido <strong>desctivado</strong> debido a un error: %s"
+
+#: classes/subplugins.php:209
+msgid "You cannot delete a plugin while it is active on the main site."
+msgstr "No puede borrar un plugin mientras está activo en el sitio principal."
+
+#: classes/subplugins.php:211
+#, php-format
+msgid "The plugin generated %d characters of <strong>unexpected output</strong> during activation. If you notice &#8220;headers already sent&#8221; messages, problems with syndication feeds or other issues, try deactivating or removing this plugin."
+msgstr "El plugin generó %d caracteres de <strong>salida inesperada</strong> durante la activación. Si ve l mensaje &#8220;headers already sent&#8221;  , problemas con los feeds u otros, intente desactivar o remover este plugin."
+
+#: classes/subplugins.php:213
+msgid "Plugin could not be activated because it triggered a <strong>fatal error</strong>."
+msgstr "El plugin no pude ser activado debido a que dió un <strong>error fatal</strong"
+
+#: classes/subplugins.php:230
+#, php-format
+msgid "Subplugin could not be deleted due to an error: %s"
+msgstr "Subplugin no pudo borrarse debido a un error: %s"
+
+#: classes/subplugins.php:232
+msgid "The selected subplugins have been <strong>deleted</strong>."
+msgstr "Los subplugines seleccionados han sido <strong>borrados</strong>"
+
+#: classes/subplugins.php:235
+msgid "Subplugin <strong>activated</strong>."
+msgstr "Subplugin <strong>activado</strong>"
+
+#: classes/subplugins.php:237
+msgid "Selected subplugins <strong>activated</strong>."
+msgstr "Subplugines seleccionados <strong>activados</strong>"
+
+#: classes/subplugins.php:239
+msgid "Subplugin <strong>deactivated</strong>."
+msgstr "Subplugin <strong>descativado</strong>"
+
+#: classes/subplugins.php:241
+msgid "Selected subplugins <strong>deactivated</strong>."
+msgstr "Subplugines seleccionados <strong>desctivados</strong>"
+
+#: classes/subplugins.php:307
+msgid "The plugin generated unexpected output."
+msgstr "El plugin generó una salida inesperada."
+
+#: classes/subplugins.php:341
+msgid "One of the subplugins is invalid."
+msgstr "Uno de los subplugines es inválido."
+
+#: classes/subplugins.php:370
+msgid "Invalid plugin path."
+msgstr "Camino del plugin inválido."
+
+#: classes/subplugins.php:372
+msgid "Subplugin file does not exist."
+msgstr "El archivo del subplugin no existe."
+
+#: classes/subplugins.php:376
+msgid "The subplugin does not have a valid header."
+msgstr "El subplugin no tiene un cabezal válido."
+
+#: classes/templates.php:39
+#, php-format
+msgid "view %s missing"
+msgstr "Vista %s no se encuentra."
+
+#: classes/templates.php:224
+#, php-format
+msgid "class %s missing"
+msgstr "clase %s no se encuentra"
+
+#: classes/templates.php:229
+#, php-format
+msgid "couldn't find class inside file %s"
+msgstr "No se pudo encontrar una clase dentro de %s"
+
+#: classes/templates.php:296
+#, php-format
+msgid "template %s missing"
+msgstr "Plantilla %s no se encuentra"
+
+#: classes/uaparserupdate.php:35
+#, fuzzy
+msgid "<h2>User Agent String Database Download</h2>"
+msgstr "<h2>Bajar base de Geolocalización</h2>"
+
+#: classes/uaparserupdate.php:49
+#: classes/utilities.php:516
+#, fuzzy, php-format
+msgid "Client error when getting version(%d) - %s"
+msgstr "Error del cliente al recuperar el archiv:($code) - $errMsg"
+
+#: classes/uaparserupdate.php:50
+#: classes/utilities.php:517
+#, fuzzy, php-format
+msgid "Server error when getting version(%d) - %s"
+msgstr "Error en el servidor al recuperar el archivo: ($code) - $errMsg"
+
+#: classes/uaparserupdate.php:59
+#: classes/utilities.php:529
+msgid "New version found in server, starting download..."
+msgstr "Nueva versión encontrada en el server, comenzando la descarga..."
+
+#: classes/uaparserupdate.php:63
+#: classes/utilities.php:536
+msgid "You already have the last version. No need to update."
+msgstr "Ya tienes la última versión. No se necesita actualizar."
+
+#: classes/uaparserupdate.php:69
+msgid "UAS Cache file not present, starting download..."
+msgstr "Archivo de caché de UAS pesente, comenzando descarga..."
+
+#: classes/uaparserupdate.php:75
+msgid "UAS Parser database not present, starting download..."
+msgstr "Base de datos  UAS no se encuentra, comenzando descarga..."
+
+#: classes/uaparserupdate.php:105
+#, fuzzy
+msgid "UA Parser size is about 100 Kb."
+msgstr "La base de datos GeoliteCity mide alrededor de 10MB"
+
+#: classes/uaparserupdate.php:106
+msgid "This process should be very fast..."
+msgstr "Este proceso debería ser muy rápido."
+
+#: classes/uaparserupdate.php:115
+#, fuzzy, php-format
+msgid "Client error when retrieving zip file:(%d) - %s"
+msgstr "Error del cliente al recuperar el archiv:($code) - $errMsg"
+
+#: classes/uaparserupdate.php:132
+#, fuzzy
+msgid "Could not save Zip file or file not found. Permissions problems?"
+msgstr "No se pudo salvar el archivo gzip a disco o el archivo no se encuentra. Posible problema de permisos?"
+
+#: classes/uaparserupdate.php:153
+msgid "Error: File md5 mismatch when downloading. Abort process"
+msgstr "Error: código md5 no coincide con el archivo bajado. Proceso abortado"
+
+#: classes/uaparserupdate.php:164
+msgid "Error:Could not open zip file. Aborted."
+msgstr "Error: No se encuentra el archivo zip. Abortado."
+
+#: classes/uaparserupdate.php:180
+msgid "Error: failed to create uasdata.ini file. Permision problems?"
+msgstr "Error: error al crear el archivo usadata.ini. Problemas de permiso?"
+
+#: classes/uaparserupdate.php:189
+msgid "Warning:Impossible to delete Zip file: permision problems?"
+msgstr "Atención: Error al borrar el archivo Zip: problemas de permiso?"
+
+#: classes/uaparserupdate.php:204
+#, fuzzy, php-format
+msgid "Client error when retrieving version:(%d) - %s"
+msgstr "Error del cliente al recuperar el archiv:($code) - $errMsg"
+
+#: classes/uaparserupdate.php:205
+#, fuzzy, php-format
+msgid "Server error when retrieving version:(%d) - %s"
+msgstr "Error en el servidor al recuperar el archivo: ($code) - $errMsg"
+
+#: classes/utilities.php:96
+#: classes/utilities.php:118
+#: classes/utilities.php:125
+#: classes/utilities.php:147
+msgid "Page"
+msgstr "Página"
+
+#: classes/utilities.php:100
+#: classes/utilities.php:129
+msgid "Category"
+msgstr "Categoría"
+
+#: classes/utilities.php:104
+msgid "Calendar"
+msgstr "Calendario"
+
+#: classes/utilities.php:585
+#: classes/utilities.php:602
+msgid "Additional information:"
+msgstr "Información adicional:"
+
+#: classes/widget_print.php:15
+msgid "Allows to use dynamic variables in your HTML code"
+msgstr "Permitir el uso de variables dinámicas en su código HTML"
+
+#: classes/widget_print.php:63
+msgid "Your title here"
+msgstr "Su título aquí"
+
+#: classes/widget_print.php:64
+msgid "Visits today: %visits%"
+msgstr "Visitas hoy: %visits%"
+
+#: classes/widget_print.php:69
+msgid "Available variables"
+msgstr "Variables disponibles"
+
+#: classes/widget_print.php:71
+msgid "%browser% - Browser"
+msgstr "%browser% - Navegador"
+
+#: classes/widget_print.php:72
+msgid "%ip% - IP address"
+msgstr "%ip% - dirección IP"
+
+#: classes/widget_print.php:73
+msgid "%latesthits% - 10 latest hits"
+msgstr "%latesthits% - últimos 10 registros"
+
+#: classes/widget_print.php:74
+#, fuzzy
+msgid "%os% - Operative system"
+msgstr "Sistema operativo"
+
+#: classes/widget_print.php:75
+#, fuzzy
+msgid "%pagestoday% - Pageviews today"
+msgstr "Días más activos, en páginas vistas"
+
+#: classes/widget_print.php:76
+msgid "%pagesyesterday% - Pageviews yesterday"
+msgstr "%pagesyesterday% - Páginas vistas ayer"
+
+#: classes/widget_print.php:77
+msgid "%since% - Date of the first hit"
+msgstr "%since% - Fecha de la primer visita"
+
+#: classes/widget_print.php:78
+msgid "%thistotalpages% - All pageviews so far"
+msgstr "%thistotalpages% - Total de vistas de páginas hasta ahora"
+
+#: classes/widget_print.php:79
+msgid "%thistotalvisits% - This page, total visits"
+msgstr "%thistotalvisits% - Total de visitas en esta página"
+
+#: classes/widget_print.php:80
+msgid "%toppost% - The most viewed Post"
+msgstr "%toppost% - La entrada más vista"
+
+#: classes/widget_print.php:81
+msgid "%topbrowser% - The most used Browser"
+msgstr "%topbrowser% - El navegador más usado"
+
+#: classes/widget_print.php:82
+msgid "%topos% - The most used O.S."
+msgstr "%topos% - El sistema operativo más usado"
+
+#: classes/widget_print.php:83
+msgid "%totalvisits% - Total visits"
+msgstr "%totalvisits% - Visitas totales"
+
+#: classes/widget_print.php:84
+msgid "%usersonline% - Logged online visitors"
+msgstr "%usersonline% - Visitantes en línea logueados"
+
+#: classes/widget_print.php:85
+msgid "%visits% - Today visits"
+msgstr "%visits% - Visitas hoy"
+
+#: classes/widget_print.php:86
+msgid "%visitorsonline% - All online visitors"
+msgstr "%visitorsonline% - Total de visitantes en línea"
+
+#: classes/widget_print.php:91
+#: classes/widget_toppost.php:77
+msgid "Title:"
+msgstr "Título:"
+
+#: classes/widget_print.php:93
+#, fuzzy
+msgid "Body text:"
+msgstr "Cuerpo:"
+
+#: classes/widget_toppost.php:19
+msgid "Show Top Posts from your blog"
+msgstr "Mostrar las entrada más relevantes de su blog"
+
+#: classes/widget_toppost.php:69
+msgid "Your title here..."
+msgstr "Tu título aquí..."
+
+#: classes/widget_toppost.php:79
+#, fuzzy
+msgid "Limit results to:"
+msgstr "Limitar los resultados a"
+
+#: classes/widget_toppost.php:81
+msgid "Show Visitor Numbers:"
+msgstr "Mostrar cifras de visitantes:"
+
+#: classes/widget_toppost.php:112
+msgid "No results.</br>"
+msgstr "No hay resultados.</br>"
+
+#: classes/wpsubpluginslisttable.php:102
+msgid "No plugins found."
+msgstr "No se encuentran plugins."
+
+#: classes/wpsubpluginslisttable.php:104
+msgid "You do not appear to have any plugins available at this time."
+msgstr "No parece que tengas ningún plugin disponible en ese momento."
+
+#: classes/wpsubpluginslisttable.php:112
+msgid "Subplugin"
+msgstr ""
+
+#: classes/wpsubpluginslisttable.php:113
+msgid "Description"
+msgstr "Descripción"
+
+#: classes/wpsubpluginslisttable.php:156
+msgid "Network Activate"
+msgstr "Activación Red"
+
+#: classes/wpsubpluginslisttable.php:156
+#: classes/wpsubpluginslisttable.php:220
+msgid "Activate"
+msgstr "Activar"
+
+#: classes/wpsubpluginslisttable.php:159
+msgid "Network Deactivate"
+msgstr "Desactivación Red"
+
+#: classes/wpsubpluginslisttable.php:159
+#: classes/wpsubpluginslisttable.php:217
+msgid "Deactivate"
+msgstr "Desactivar"
+
+#: classes/wpsubpluginslisttable.php:232
+#, fuzzy
+msgid "Select"
+msgstr "seleccionado"
+
+#: classes/wpsubpluginslisttable.php:267
+#, fuzzy, php-format
+msgid "Version %s"
+msgstr "Version Nav."
+
+#: classes/wpsubpluginslisttable.php:272
+#, php-format
+msgid "By %s"
+msgstr "Por %s"
+
+#: classes/wpsubpluginslisttable.php:275
+msgid "Visit plugin site"
+msgstr "Visitar el sitio del plugin"
+
+#: mustache/classes/drawChart.php:5
+msgid "Graphic Chart"
+msgstr "Gráfico de Barras"
+
+#: mustache/classes/drawChart.php:13
+#: mustache/classes/drawChart.php:66
+msgid "visitors"
+msgstr "visitantes"
+
+#: mustache/classes/drawChart.php:14
+#: mustache/classes/drawChart.php:67
+msgid "pageviews"
+msgstr "Páginas vistas"
+
+#: mustache/classes/drawChart.php:15
+#: mustache/classes/drawChart.php:68
+msgid "spiders"
+msgstr "rastreadores"
+
+#: mustache/classes/drawChart.php:16
+#: mustache/classes/drawChart.php:69
+msgid "feeds"
+msgstr "feeds"
+
+#: mustache/classes/drawChart.php:17
+#: mustache/classes/drawChart.php:72
+msgid "errors"
+msgstr "errores"
+
+#: mustache/classes/exportData.php:5
+#, fuzzy
+msgid "Export stats to text file (csv)"
+msgstr "Exportar estadísticas a un archivo de texto"
+
+#: mustache/classes/exportData.php:6
+msgid "From"
+msgstr "Desde"
+
+#: mustache/classes/exportData.php:7
+msgid "To"
+msgstr "Al"
+
+#: mustache/classes/exportData.php:8
+msgid "YYYYMMDD"
+msgstr "AAAAMMDD"
+
+#: mustache/classes/exportData.php:9
+msgid "Fields delimiter"
+msgstr "Delimitador de campos"
+
+#: mustache/classes/footerMainPage.php:4
+msgid "Time summary"
+msgstr "Resumen de tiempos"
+
+#: mustache/classes/footerMainPage.php:7
+#: subplugins/error-report/classes/footerMainPage.php:10
+#, fuzzy
+msgid "Database Table size:"
+msgstr "Tamaño de tabla de datos StatPress"
+
+#: mustache/classes/footerMainPage.php:10
+#: subplugins/error-report/classes/footerMainPage.php:13
+msgid "Queries executed:"
+msgstr "Consultas ejecutadas:"
+
+#: mustache/classes/footerMainPage.php:15
+#: mustache/classes/footerMainPage.php:25
+#: mustache/classes/footerMainPage.php:53
+#: subplugins/error-report/classes/footerMainPage.php:18
+#: subplugins/error-report/classes/footerMainPage.php:28
+#: subplugins/error-report/classes/footerMainPage.php:56
+msgid "(not measured)"
+msgstr "(no medido)"
+
+#: mustache/classes/footerMainPage.php:20
+#: subplugins/error-report/classes/footerMainPage.php:23
+msgid "Queries cached:"
+msgstr "Consultas en caché:"
+
+#: mustache/classes/footerMainPage.php:30
+#: subplugins/error-report/classes/footerMainPage.php:33
+#, fuzzy
+msgid "RSS2 url:"
+msgstr "Enlace de RSS2"
+
+#: mustache/classes/footerMainPage.php:33
+#: subplugins/error-report/classes/footerMainPage.php:36
+#, fuzzy
+msgid "ATOM url:"
+msgstr "Enlace de Atom"
+
+#: mustache/classes/footerMainPage.php:36
+#: subplugins/error-report/classes/footerMainPage.php:39
+#, fuzzy
+msgid "RSS url:"
+msgstr "Enlace de RSS"
+
+#: mustache/classes/footerMainPage.php:39
+#: subplugins/error-report/classes/footerMainPage.php:42
+#, fuzzy
+msgid "Comment RSS2 url:"
+msgstr "Enlace de RSS2"
+
+#: mustache/classes/footerMainPage.php:42
+#: subplugins/error-report/classes/footerMainPage.php:45
+#, fuzzy
+msgid "Comment ATOM url:"
+msgstr "Enlace de Atom"
+
+#: mustache/classes/footerMainPage.php:45
+#: subplugins/error-report/classes/footerMainPage.php:48
+msgid "Process time:"
+msgstr "Tiempo de proceso:"
+
+#: mustache/classes/footerMainPage.php:46
+#: subplugins/error-report/classes/footerMainPage.php:49
+msgid "seconds"
+msgstr "segundos"
+
+#: mustache/classes/lastAgents.php:6
+msgid "Last agents"
+msgstr "Últimos agentes"
+
+#: mustache/classes/lastAgents.php:8
+#: mustache/classes/lastHits.php:12
+#: mustache/classes/lastPages.php:8
+#: mustache/classes/lastReferrers.php:8
+#: mustache/classes/lastSearchTerms.php:7
+#: subplugins/error-report/classes/errorDay.php:40
+msgid "Time"
+msgstr "Hora"
+
+#: mustache/classes/lastAgents.php:10
+#, fuzzy
+msgid "Agent Type"
+msgstr "Agente"
+
+#: mustache/classes/lastAgents.php:11
+#: mustache/classes/lastHits.php:19
+#: mustache/classes/lastPages.php:11
+#: subplugins/error-report/classes/errorDay.php:47
+msgid "OS"
+msgstr "S.O."
+
+#: mustache/classes/lastAgents.php:12
+#, fuzzy
+msgid "Browser/Engine"
+msgstr "Navegador"
+
+#: mustache/classes/lastAgents.php:13
+#: mustache/classes/lastPages.php:13
+msgid "Br.Version"
+msgstr "Version Nav."
+
+#: mustache/classes/lastHits.php:8
+#, fuzzy
+msgid "Last Hits"
+msgstr "Últimos accesos"
+
+#: mustache/classes/lastHits.php:9
+msgid "Last hits"
+msgstr "Últimos accesos"
+
+#: mustache/classes/lastHits.php:10
+msgid "(hover IP to get spy information)"
+msgstr "(pasar el mouse sobre el IP para obtener info espía)"
+
+#: mustache/classes/lastHits.php:14
+#: subplugins/error-report/classes/errorDay.php:42
+msgid "Flag"
+msgstr "Bandera"
+
+#: mustache/classes/lastHits.php:15
+#: subplugins/error-report/classes/errorDay.php:43
+msgid "Region"
+msgstr "Region"
+
+#: mustache/classes/lastHits.php:16
+#: subplugins/error-report/classes/errorDay.php:44
+msgid "City"
+msgstr "Ciudad"
+
+#: mustache/classes/lastHits.php:17
+#: subplugins/error-report/classes/errorDay.php:45
+msgid "Domain"
+msgstr "Dominio"
+
+#: mustache/classes/lastHits.php:20
+#: subplugins/error-report/classes/errorDay.php:48
+#, fuzzy
+msgid "Browser<br/>Engine"
+msgstr "Navegador/<br/>Motor"
+
+#: mustache/classes/lastHits.php:21
+#: subplugins/error-report/classes/errorDay.php:49
+msgid "Version<br/>Number"
+msgstr "Version<br/>Numero"
+
+#: mustache/classes/lastHits.php:22
+#: subplugins/error-report/classes/errorDay.php:50
+msgid "Feed"
+msgstr "Feed"
+
+#: mustache/classes/lastPages.php:6
+msgid "Last pages"
+msgstr "Últimas páginas"
+
+#: mustache/classes/lastReferrers.php:6
+msgid "Last referrers"
+msgstr "Últimas procedencias"
+
+#: mustache/classes/lastReferrers.php:10
+#: mustache/classes/lastSearchTerms.php:10
+msgid "Result"
+msgstr "Resultado"
+
+#: mustache/classes/lastSearchTerms.php:4
+#, fuzzy
+msgid "Last Search Terms"
+msgstr "Últimos términos buscados"
+
+#: mustache/classes/lastSearchTerms.php:8
+msgid "Terms"
+msgstr "Términos"
+
+#: mustache/classes/lastSearchTerms.php:9
+msgid "Engine"
+msgstr "Motor"
+
+#: mustache/classes/statsModule.php:9
+msgid "Statistics Module"
+msgstr "Módulo de Estadísticas"
+
+#: mustache/classes/tableOverview.php:74
+msgid "Overview"
+msgstr "Sumario"
+
+#: mustache/classes/tableOverview.php:76
+msgid "Total"
+msgstr "Total"
+
+#: mustache/classes/tableOverview.php:77
+msgid "Last month"
+msgstr "Mes anterior"
+
+#: mustache/classes/tableOverview.php:79
+msgid "This month"
+msgstr "Este mes"
+
+#: mustache/classes/tableOverview.php:81
+#, fuzzy
+msgid "Target this month"
+msgstr "Este mes"
+
+#: mustache/classes/tableOverview.php:83
+msgid "Yesterday"
+msgstr "Ayer"
+
+#: mustache/classes/tableOverview.php:85
+msgid "Today"
+msgstr "Hoy"
+
+#: mustache/classes/tableOverview.php:89
+msgid "Visitors"
+msgstr "Visitantes"
+
+#: mustache/classes/tableOverview.php:101
+msgid "Pageviews"
+msgstr "Páginas vistas"
+
+#: mustache/classes/tableOverview.php:184
+#, fuzzy, php-format
+msgid "Check %s to enable Maxmind database"
+msgstr "Chequear para habilitar el servicio de Geolocalización de Maxmind"
+
+#: mustache/classes/tableOverview.php:188
+#, php-format
+msgid "Error opening Maxmind database. Check %s to fix"
+msgstr "Erro al abrir la base de datos Maxmind. Chequee %s para resolverlo"
+
+#: mustache/classes/tableOverview.php:192
+#, php-format
+msgid "Unable to get Maxmind database version. (database corrupted?). Check %s to fix"
+msgstr "Imposible de obtener la version de base de datos de Maxmind. (base corrupta?). Chequee %s para resolverlo."
+
+#: mustache/classes/tableOverview.php:200
+msgid "Maxmind database currently disabled. Check with Network Administrator to enable."
+msgstr "Base Maxmind desahbilitada. Chequee con el Administrador de la Red de sitios para habilitarlo."
+
+#: subplugins/error-report/error_report.php:39
+#: subplugins/error-report/error_report.php:40
+msgid "Error Report"
+msgstr "Reporte de Errores"
+
+#: subplugins/error-report/classes/errorDay.php:10
+msgid "Eror Report"
+msgstr "Reporte de Errores"
+
+#: subplugins/error-report/classes/errorDay.php:24
+msgid "Type a date see an error report (YYYYMMDD)"
+msgstr "Escriba una fecha para ver el reporte de errores (YYYYMMDD)"
+
+#: subplugins/error-report/classes/errorDay.php:25
+msgid "Get Report"
+msgstr "Obtener Reporte"
+
+#: subplugins/error-report/classes/errorDay.php:35
+#, php-format
+msgid "Last Errors Report on date %s"
+msgstr "Ultimo Reporte de Errores en fecha %s"
+
+#: subplugins/error-report/classes/footerMainPage.php:7
+msgid "Summary data"
+msgstr "Resumen de datos"
+
+#: subplugins/error-report/classes/statsModule.php:8
+#, fuzzy
+msgid "Statistics"
+msgstr "Estado"
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:63
+msgid "Shortcodes"
+msgstr ""
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:63
+msgid "Shortcodes Help"
+msgstr "Ayuda de Shortcodes"
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:112
+msgid "Error: fieldname attribute empty. Use [sc_field fieldname='fieldname']"
+msgstr "Error: atributo fieldname vacío. Usar [sc_fieldname='fieldname']"
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:117
+msgid "Error; current User not found"
+msgstr "Error: Usuario actual no encontrado"
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:260
+msgid "Error: fieldname or values empty. Use [sc_operator  fieldname='(field name)' operator='(valid operator)' values='(separated comma values)']"
+msgstr "Error: atributo fieldname o values vacío. Usar [sc_operator fieldname='(field name)' operator='(operador válido)' values='(valores separados por coma)']"
+
+#: subplugins/sc-shortcodes/sc-shortcodes.php:267
+msgid "Error: invalid operator. Options available for operation operator='' or operator='not'"
+msgstr "Error: operador inválido. Opciones disponibles para el atributo operator='' o operator='not'"
+
+#~ msgid "Check if you need to update (it will start automatically)"
+#~ msgstr "Chequear si necesita actualizar (comenzará automáticamente)"
+
+#~ msgid "Click to proceed (it will start automatically)"
+#~ msgstr "Click aqui para comenzar (se inicia automáticamente)"
+
+#~ msgid "A new version of UAS database is available. Click here to start"
+#~ msgstr ""
+#~ "Una nueva versión de la base UAS está disponible. Click aquí para comenzar"
+
+#~ msgid "Target"
+#~ msgstr "Cálculo"
+
+#~ msgid "Last spiders"
+#~ msgstr "Últimos rastreadores"
+
+#~ msgid "StatPress current time"
+#~ msgstr "Hora actual de StatPress"
+
+#~ msgid "COMMENT RSS2 url"
+#~ msgstr "Enlace de comentarios por RSS2"
+
+#~ msgid "COMMENT ATOM url"
+#~ msgstr "Enlace de comentarios por Atom"
+
+#~ msgid "User-Agent-String DB download refresh period"
+#~ msgstr "Período de refresco de descarga de la base de Agente de Usuario"
+
+#~ msgid "Current User Agent String DB Download Service is"
+#~ msgstr "El servicio de base de datos de Agente de Usuario es"
+
+#~ msgid "Statcomm will update User Agent String DB in"
+#~ msgstr "StatComm actualizará la base de Agentes de Usuario"
+
+#~ msgid "Saved"
+#~ msgstr "Guardado"
+
+#~ msgid "Never delete!"
+#~ msgstr "¡Nunca!"
+
+#~ msgid "months"
+#~ msgstr "meses"
+
+#~ msgid "year"
+#~ msgstr "año"
+
+#~ msgid "page viewed"
+#~ msgstr "página vista"
+
+#~ msgid "URL"
+#~ msgstr "Enlace"
+
+#~ msgid "What"
+#~ msgstr "Cuál"
+
+#~ msgid "done"
+#~ msgstr "listo"
+
+#~ msgid "Updated"
+#~ msgstr "Actualizado"
+
+#~ msgid "StatPressUpdate"
+#~ msgstr "Actualizar BD de StatPress"
+
+#~ msgid "day"
+#~ msgstr "día"
+
+#~ msgid "Minimum capability to view stats"
+#~ msgstr "Capacidades mínimas para ver estadísticas"
+
+#~ msgid "Threat"
+#~ msgstr "Peligrosidad"
+
+#~ msgid "Updating table struct"
+#~ msgstr "Actualizando la estructura de la tabla de datos"
+
+#~ msgid "Updating Feeds"
+#~ msgstr "Actualizando los feeds"
+
+#~ msgid "Updating OS"
+#~ msgstr "Actualizando la lista de S.O."
+
+#~ msgid "Updating Browsers"
+#~ msgstr "Actualizando lista de navegadores"
+
+#~ msgid "Updating Spiders"
+#~ msgstr "Actualizando lista de rastreadores"
+
+#~ msgid "Updating Search engines"
+#~ msgstr "Actualizando lista de motores de búsqueda"
+
+#~ msgid "null-ed"
+#~ msgstr "reiniciado"
+
+#~ msgid "Title"
+#~ msgstr "Título"

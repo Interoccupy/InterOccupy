@@ -54,10 +54,18 @@ class ub_Admin_Footer_Text {
 
 	function __construct() {
 
+		add_action('init', array(&$this, 'initialise_plugin') );
+
+	}
+
+	function initialise_plugin() {
+
 		add_action( 'ultimatebranding_settings_menu_footer', array(&$this, 'output_admin_options') );
 		add_filter( 'ultimatebranding_settings_menu_footer_process', array(&$this, 'update_admin_options'), 10, 1 );
 
-		add_filter( 'admin_footer_text', array( &$this, 'output' ), 99, 1 );
+		// remove all the remaining filters for the admin footer so that they don't mess the footer up
+		remove_all_filters( 'admin_footer_text' );
+		add_filter( 'admin_footer_text', array( &$this, 'output' ), 1, 1 );
 
 		add_filter( 'update_footer' , array( &$this, 'blank_version' ), 99 );
 

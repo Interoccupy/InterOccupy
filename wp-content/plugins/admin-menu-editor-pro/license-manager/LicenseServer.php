@@ -7,16 +7,28 @@ class Wslm_LicenseServer {
 	private $get = array();
 	private $post = array();
 
-	public function __construct($tablePrefix = null) {
-		$this->wpdb = $GLOBALS['wpdb'];
-		$this->tablePrefix = ($tablePrefix !== null) ? $tablePrefix : $this->wpdb->prefix;
+	/** @var Wslm_Database */
+	private $db;
+
+	public function __construct($tablePrefix = null, $database = null) {
+		$this->db = $database;
+
+		$this->tablePrefix = $tablePrefix;
+		if ( isset($GLOBALS['wpdb']) ) {
+			$this->wpdb = $GLOBALS['wpdb'];
+		}
+		if ( !isset($this->tablePrefix) ) {
+			$this->tablePrefix = isset($this->wpdb) ? $this->wpdb->prefix : 'wp_';
+		}
 		$this->get = $_GET;
 		$this->post = $_POST;
 
-		add_action('init', array($this, 'addRewriteRules'));
-		add_filter('query_vars', array($this, 'addQueryVars'));
+		if ( function_exists('add_action') ) {
+			add_action('init', array($this, 'addRewriteRules'));
+			add_filter('query_vars', array($this, 'addQueryVars'));
 
-		add_action('template_redirect', array($this, 'dispatchRequest'), 5);
+			add_action('template_redirect', array($this, 'dispatchRequest'), 5);
+		}
 	}
 
 	/**
@@ -252,26 +264,23 @@ class Wslm_LicenseServer {
 	 */
 	public function loadLicense($licenseKey, $token = null) {
 		if ( !empty($token) ) {
-			$query = $this->wpdb->prepare(
-				"SELECT licenses.*, tokens.site_url
+			$query = "SELECT licenses.*, tokens.site_url
 				 FROM
 				 	`{$this->tablePrefix}licenses` AS licenses
 				 	JOIN `{$this->tablePrefix}tokens` AS tokens
 				 	ON licenses.license_id = tokens.license_id
-				 WHERE tokens.token = %s",
-				$token
-			);
+				 WHERE tokens.token = ?";
+			$params = array($token);
 		} else if ( !empty($licenseKey) ) {
-			$query = $this->wpdb->prepare(
+			$query =
 				"SELECT licenses.* FROM `{$this->tablePrefix}licenses` AS licenses
-				 WHERE license_key = %s",
-				$licenseKey
-			);
+				 WHERE license_key = ?";
+			$params = array($licenseKey);
 		} else {
 			throw new InvalidArgumentException('You must specify a license key or a site token.');
 		}
 
-		$license = $this->wpdb->get_row($query, ARRAY_A);
+		$license = $this->db->getRow($query, $params);
 		if ( !empty($license) ) {
 			//Also include the list of sites associated with this license.
 			$license['sites'] = $this->loadLicenseSites($license['license_id']);
@@ -283,12 +292,12 @@ class Wslm_LicenseServer {
 	}
 
 	protected function loadLicenseSites($licenseId) {
-		$licensedSites = $this->wpdb->get_results($this->wpdb->prepare(
+		$licensedSites = $this->db->getResults(
 			"SELECT site_url, token, issued_on
 			 FROM {$this->tablePrefix}tokens
-			 WHERE license_id = %s",
-			$licenseId
-		), ARRAY_A);
+			 WHERE license_id = ?",
+			array($licenseId)
+		);
 		return $licensedSites;
 	}
 
@@ -318,7 +327,9 @@ class Wslm_LicenseServer {
 				'sites' => false,
 			));
 		}
-		$visibleFields = apply_filters('wslm_api_visible_license_fields', $visibleFields);
+		if ( function_exists('apply_filters') ) {
+			$visibleFields = apply_filters('wslm_api_visible_license_fields', $visibleFields);
+		}
 		$data = array_intersect_key($data, array_filter($visibleFields));
 		return $data;
 	}
@@ -495,7 +506,7 @@ class Wslm_LicenseServer {
 	}
 
 	private function sanitizeSiteUrl($url) {
-		return untrailingslashit($url);
+		return rtrim($url, '/');
 	}
 
 	/**

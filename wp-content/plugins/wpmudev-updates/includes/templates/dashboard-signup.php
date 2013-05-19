@@ -1,6 +1,6 @@
 <?php
 global $current_user;
-$default_username = ($current_user->user_login != 'admin') ? $current_user->user_login : str_replace(' ', '_', sanitize_user($current_user->display_name, true));
+$default_username = ($current_user->user_login != 'admin') ? $current_user->user_login : str_replace(' ', '_', sanitize_user($current_user->display_name, true));	   				 				 	
 if ($default_username == 'admin')
 	$default_username == '';
 ?>
@@ -50,11 +50,11 @@ if ($default_username == 'admin')
 						</div>
 					</li>
 				</ol>
-				
+
 			</fieldset>
 		</form>
 		<form action="<?php echo $this->server_url . '?action=get_apikey'; ?>" method="post" id="api-login" class="clearfix"<?php echo (isset($_GET['api_error']) || isset($_GET['clear_key']) || (isset($key_valid) && !$key_valid)) ? '' : ' style="display:none;"'; ?>>
-			
+
 			<fieldset>
 				<legend>
 					<?php _e('Login to WPMU DEV', 'wpmudev') ?><br />

@@ -3,7 +3,7 @@
 Plugin Name: Sharebar
 Plugin URI: http://devgrow.com/sharebar-wordpress-plugin/
 Description: Adds a dynamic bar with sharing icons (Facebook, Twitter, etc.) that changes based on browser size and page location.  More info and demo at: <a href="http://devgrow.com/sharebar-wordpress-plugin/">Sharebar Plugin Home</a>
-Version: 1.2.4
+Version: 1.2.5
 Author: Monjurul Dolon
 Author URI: http://mdolon.com/
 License: GPL2
@@ -64,7 +64,7 @@ function sharebar_install(){
 		add_option('sharebar_auto_posts', 1);
 		add_option('sharebar_auto_pages', 1);
 		add_option('sharebar_horizontal', 1);
-		add_option('sharebar_credit', 1);
+		add_option('sharebar_credit', 0);
 		add_option('sharebar_minwidth','1000');
 		add_option('sharebar_position','left');
 		add_option('sharebar_leftoffset','20');
@@ -109,7 +109,7 @@ function sharebar($print = true){
 	if(empty($sharebar_hide)) {
 		$credit = get_option('sharebar_credit');
 		$str = '<ul id="sharebar" style="background:#'.$sbg.';border-color:#'.$sborder.';">';
-		$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."sharebar WHERE enabled=1 ORDER BY position, id ASC")); $str .= "\n";
+		$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."sharebar WHERE enabled=1 ORDER BY position, id ASC", null)); $str .= "\n";
 		foreach($results as $result){ $str .= '<li>'.sharebar_filter($result->big).'</li>'; }
 		if($credit) $str .= '<li class="credit"><a href="http://devgrow.com/sharebar" target="_blank">Sharebar</a></li>';
 		$str .= '</ul>';
@@ -121,7 +121,7 @@ function sharebar_horizontal($print = true){
 	if(get_option('sharebar_horizontal')){
 		global $wpdb;
 		$str = '<ul id="sharebarx">';
-		$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."sharebar WHERE enabled=1 ORDER BY position, id ASC")); $str .= "\n";
+		$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."sharebar WHERE enabled=1 ORDER BY position, id ASC", null)); $str .= "\n";
 		foreach($results as $result) { $str .= '<li>'.sharebar_filter($result->small).'</li>'; }
 		$str .= '</ul>';
 		if($print) echo $str; else return $str;

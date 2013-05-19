@@ -1,5 +1,20 @@
  jQuery(document).ready(function($) {
-	
+
+    // Topic title length checking
+	$("body")
+		.on("blur", "#topic", function () {
+			var $title = $("#topic"),
+				title = $title.length ? $title.val() : false
+			;
+			if ($title.length && title.length < 30) {
+				$("#error-short_title").show();
+			}
+		})
+		.on("focus", "#topic", function () {
+			$("#error-short_title").hide();
+		})
+	;
+
 	$('#qa-submit').click(function() {
 		$('#qa-form').submit();
 		return false;

@@ -77,14 +77,14 @@ class PluginUpdateChecker_1_3 {
 
 		add_filter('plugin_row_meta', array($this, 'addCheckForUpdatesLink'), 10, 4);
 		add_action('admin_init', array($this, 'handleManualCheck'));
-		add_action('admin_notices', array($this, 'displayManualCheckResult'));
+		add_action('all_admin_notices', array($this, 'displayManualCheckResult'));
 		
 		//Set up the periodic update checks
 		$this->cronHook = 'check_plugin_updates-' . $this->slug;
 		if ( $this->checkPeriod > 0 ){
 			
 			//Trigger the check via Cron
-			add_filter('cron_schedules', array($this, '_addCustomSchedule'));
+			add_filter('cron_schedules', array($this, '_addCustomSchedule'), 20);
 			if ( !wp_next_scheduled($this->cronHook) && !defined('WP_INSTALLING') ) {
 				$scheduleName = 'every' . $this->checkPeriod . 'hours';
 				wp_schedule_event(time(), $scheduleName, $this->cronHook);
@@ -118,7 +118,7 @@ class PluginUpdateChecker_1_3 {
 				'interval' => $this->checkPeriod * 3600, 
 				'display' => sprintf('Every %d hours', $this->checkPeriod),
 			);
-		}		
+		}
 		return $schedules;
 	}
 
@@ -193,12 +193,12 @@ class PluginUpdateChecker_1_3 {
 		$pluginInfo = apply_filters('puc_request_info_result-'.$this->slug, $pluginInfo, $result);
 		return $pluginInfo;
 	}
-	
+
 	/**
 	 * Retrieve the latest update (if any) from the configured API endpoint.
-	 * 
+	 *
 	 * @uses PluginUpdateChecker::requestInfo()
-	 * 
+	 *
 	 * @return PluginUpdate An instance of PluginUpdate, or NULL when no updates are available.
 	 */
 	public function requestUpdate(){
@@ -237,11 +237,11 @@ class PluginUpdateChecker_1_3 {
 			return null;
 		}
 	}
-	
+
 	/**
-	 * Check for plugin updates. 
+	 * Check for plugin updates.
 	 * The results are stored in the DB option specified in $optionName.
-	 * 
+	 *
 	 * @return PluginUpdate|null
 	 */
 	public function checkForUpdates(){
@@ -285,12 +285,12 @@ class PluginUpdateChecker_1_3 {
 			return;
 		}
 		$state = $this->getUpdateState();
-		
+
 		$shouldCheck =
 			empty($state) ||
-			!isset($state->lastCheck) || 
+			!isset($state->lastCheck) ||
 			( (time() - $state->lastCheck) >= $this->checkPeriod*3600 );
-		
+
 		if ( $shouldCheck ){
 			$this->checkForUpdates();
 		}
@@ -424,22 +424,23 @@ class PluginUpdateChecker_1_3 {
 	 * @param array $pluginMeta Array of meta links.
 	 * @param string $pluginFile
 	 * @param array|null $pluginData Currently ignored.
-	 * @param string|null $status Currently ignored/
+	 * @param string|null $status Currently ignored.
 	 * @return array
 	 */
 	public function addCheckForUpdatesLink($pluginMeta, $pluginFile, $pluginData = null, $status = null) {
 		if ( $pluginFile == $this->pluginFile && current_user_can('update_plugins') ) {
-			$linkText = apply_filters('puc_manual_check_link-' . $this->slug, 'Check for updates');
 			$linkUrl = wp_nonce_url(
 				add_query_arg(
 					array(
 						'puc_check_for_updates' => 1,
 						'puc_slug' => $this->slug,
 					),
-					admin_url('plugins.php')
+					is_network_admin() ? network_admin_url('plugins.php') : admin_url('plugins.php')
 				),
 				'puc_check_for_updates'
 			);
+
+			$linkText = apply_filters('puc_manual_check_link-' . $this->slug, 'Check for updates');
 			if ( !empty($linkText) ) {
 				$pluginMeta[] = sprintf('<a href="%s">%s</a>', esc_attr($linkUrl), $linkText);
 			}
@@ -468,7 +469,7 @@ class PluginUpdateChecker_1_3 {
 					     'puc_update_check_result' => $status,
 					     'puc_slug' => $this->slug,
 					),
-					admin_url('plugins.php')
+					is_network_admin() ? network_admin_url('plugins.php') : admin_url('plugins.php')
 			));
 		}
 	}

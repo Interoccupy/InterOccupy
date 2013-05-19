@@ -20,12 +20,16 @@
 }
 
 /* strings translation table */
-.stringstranslations .column-name {
+#string-translation .search-box {
+	margin: 16px 0 8px 0;
+}
+
+.stringstranslations .column-name, .stringstranslations .column-context {
 	width: 10%;
 }
 
 .stringstranslations .column-string {
-	width: 36%;
+	width: 33%;
 }
 
 .translation label {
@@ -38,7 +42,18 @@
 	width: 72%;
 }
 
-/* language columns in edit.php and edit-tags.php */ 
+/* settings */
+.pll_inline_block {
+	margin: 0;
+}
+
+.pll_inline_block li {
+	display: inline-block;
+	margin: 0;
+	width: 250px;
+}
+
+/* language columns in edit.php and edit-tags.php */
 th[class*='column-language_'] {
 	width: 2em;
 }

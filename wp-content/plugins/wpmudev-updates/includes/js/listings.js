@@ -154,6 +154,7 @@ var devlistings = {
 	"filter_projects": function () {
 		var text = $("#filter_projects").val();
 		var $root = devlistings.get_root();
+		if (!text.length) return $root.find("li").removeClass("search-hidden");
 		$root
 			.find("li").addClass("search-hidden").end()
 			.find("li:CONTAINS('" + text + "')").removeClass("search-hidden")
@@ -386,7 +387,7 @@ var devlistings = {
 			i;
 
 		for (i = 0; i < tipsl; i++) {
-			jQuery(tips[i]).live('mouseenter mouseleave', function() {
+			jQuery(document).on('mouseenter mouseleave', tips[i], function() {
 				jQuery(this).has('section').toggleClass('tooltipHover');
 			});
 		}
@@ -420,11 +421,11 @@ $(document).ready(function() {
   devlistings.handleHover();
 	devlistings.update_results_count();
 	
-  jQuery('a.close-plugin-details').live('click', function(){
-  	jQuery('div.listing-details-wrapper').slideUp(300, 'swing');
+  $(document).on('click', 'a.close-plugin-details', function(){
+  	$('div.listing-details-wrapper').slideUp(300, 'swing');
   	return false;
   });
-  jQuery('div.listing-details-wrapper').hide();
+  $('div.listing-details-wrapper').hide();
   	
   // Project details
 	$('div.listings').on('click', 'ul > li > div.listing' , devlistings.project_details);
@@ -465,19 +466,18 @@ $(document).ready(function() {
 			}
 		});
 		$("#ds-container-filter_projects + .search-btn").on('click', devlistings.filter_projects);
-		$(".ds-result-item").live('click', function () {
+		$(document).on('click', ".ds-result-item", function () {
 			setTimeout(devlistings.filter_projects, 200);
 		});
 	}
 
-	jQuery('div.overlay-details a.symbol')
-	  .live('click', function(){
-	  	jQuery('div.listing-details-overlay').fadeOut(300, 'swing');
-	  	$(window).unbind('resize', devlistings.max_screenshot_height_adjust);
-	  	return false;
-	  });
+	$(document).on('click', 'div.overlay-details a.symbol', function(){
+		jQuery('div.listing-details-overlay').fadeOut(300, 'swing');
+		$(window).unbind('resize', devlistings.max_screenshot_height_adjust);
+		return false;
+	});
 
-	$('.listing-details-wrapper div.listing-screens > ul').live('click', 'li', function (e) {
+	$(document).on('click', '.listing-details-wrapper div.listing-screens > ul', 'li', function (e) {
 		var $me = $(e.target).is("li") ? $(e.target) : $(e.target).parents('li');
 		var $img = $me.find('img');
 		$(".listing-details-wrapper .listing-details-overlay .screenshot-container img").attr("src", $img.attr("src"));

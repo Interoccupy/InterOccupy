@@ -1,21 +1,33 @@
 === Types - Custom Fields and Custom Post Types Management ===
 Contributors: brucepearson, AmirHelzer, jozik, mihaimihai
 Donate link: http://wp-types.com
-Tags: CMS, custom field, custom fields, custom post type, custom post types, post, post type, post types, cck, taxonomy, fields, types, relationships, WPML
+Tags: CMS, custom field, custom fields, custom post type, custom post types, post, post type, post types, cck, taxonomy, fields
 License: GPLv2
 Requires at least: 3.1
-Tested up to: 3.4.1
-Stable tag: 1.1.3
+Tested up to: 3.5.1
+Stable tag: 1.2.2
 
 The complete and reliable plugin for managing custom post types, custom taxonomy and custom fields.
 
 == Description ==
 
-Types makes it easy to customize the WordPress admin. Define your own content using **custom post types** and **custom taxonomy**. Redesign editing screens using **custom fields**.
-
-The integration between custom post types, taxonomy and fields lets you do things that no other custom-fields plugin can do.
+Types let's you customize the WordPress admin by adding content types, custom fields and taxonomy. You will be able to craft the WordPress admin and turn it into your very own content management system.
 
 [vimeo http://vimeo.com/43104695]
+
+= POWERFUL PHP API, SIMPLE GUI FOR NON-CODERS =
+If you're an experienced PHP developer, you'll appreciate Types comprehensive [PHP API](http://wp-types.com/documentation/functions/) and [documentation](http://wp-types.com/documentation/user-guides/).
+
+Types and the other [Toolset](http://wp-types.com) plugins let you build complete sites without coding.
+
+* **[Views](http://wp-types.com/home/views-create-elegant-displays-for-your-content/)** - a powerful content display engine
+* **[CRED](http://wp-types.com/home/cred/)** - front-end form builder for content creation and editing
+* **[Access](http://wp-types.com/home/types-access/)** - roles and access control management
+
+The [Toolset](http://wp-types.com) package will let you build complete WordPress sites right from within the admin dashboard, without any PHP.
+
+= RELIABLE SUPPORT =
+To get support for Types, please join our [technical support forum](http://wp-types.com/forums/). You will receive support directly from our developers, helping you deliver great sites on time and correctly.
 
 = CUSTOM FIELDS =
 
@@ -40,29 +52,25 @@ Types includes support for a wide list of custom fields.
 
 Types custom fields use the standard WordPress post-meta table, making it cross-compatible with any theme or plugin. Additionally, all fields can be **repeating fields**.
 
-Types includes a complete [API for displaying custom fields with PHP](http://wp-types.com/documentation/functions/). It also integrates with [Views](http://wp-types.com/home/views-create-elegant-displays-for-your-content/), for fast and easy display of custom content.
-
 = CUSTOM POST TYPES AND TAXONOMY =
 
 Types lets you easily setup custom post types and taxonomy. You can create new post types in seconds and use the advanced settings to customize every aspect.
 
-* Quick setup mode
 * Full control over every feature
 * Associate taxonomy with custom post types
-* Define parent-child relationships between different post types
-* Edit child items within parent editor (field tables)
+* Integrated control over custom fields display for different post types
 
-= BUILT FOR STABILITY =
+= BUILD RELATIONAL SITES =
 
-Types is part of a family of plugins, developed and maintained by [OnTheGoSystems](http://www.onthegosystems.com). Our plugins power over 100,000 commercial sites, using WordPress as a complete CMS. While we love features, we know that stability, performance, usability and security are critical. All our plugins go through comprehensive testing, QA and security analysis before every release.
-
-= RELIABLE SUPPORT =
-
-When you need help, we're here for you. We have a dedicated team of expert supporters, who can help with anything from a simple how-to advice to complex problem solving. Depending on your needs, you can get free community support, or dedicated high-availability commercial support. See for yourself in our [support forum](http://wp-types.com/forums/).
+Types lets you define parent / child relationship between different post types. You'll easily setup one-to-many and many-to-many relationships and build powerful sites.
 
 = MULTILINGUAL READY =
 
 Types is the only custom fields and post types plugin that's built multilingual-ready. It plays perfectly with [WPML](http://wpml.org). You'll be able to translate everything, including texts and labels in the WordPress admin and user-content for front-page.
+
+= BUILT FOR STABILITY =
+
+Types is part of a family of plugins, including WPML and Toolset, developed and maintained by [OnTheGoSystems](http://www.onthegosystems.com). Our plugins power over 100,000 commercial sites, using WordPress as a complete CMS. While we love features, we know that stability, performance, usability and security are critical. All our plugins go through comprehensive testing, QA and security analysis before every release.
 
 == Installation ==
 
@@ -87,7 +95,7 @@ We're sorry, but we don't know of any third option which is both free and requir
 
 Sure you can! Types, by itself, replaces several other plugins that define custom types and fields. We believe that it does it much better, but it's up to you to decide.
 
-If you also buy Views, you'll have a complete solution for both **defining** and **displaying** custom data. You can achieve everything that Views does if you're fluent in PHP and know WordPress API. When you buy Views, you're also supporting Types development, but we're not looking for donations. You should consider Views for its value and nothing else.
+If you also buy Views, with Toolset, you'll have a complete solution for both **defining** and **displaying** custom data. You can achieve everything that Views does if you're fluent in PHP and know WordPress API. When you buy Views, you're also supporting Types development, but we're not looking for donations. You should consider Views for its value and nothing else.
 
 = I am already a ninje developer, do I really need Views? =
 
@@ -128,54 +136,84 @@ Additionally, Types is the only plugin that lets you define parent/child relatio
 
 == Changelog ==
 
-= 0.9 =
-* First release
+= 1.2.2 =
+* Add full support for Module Manager plugin
 
-= 0.9.1 =
-* Added Embedded mode
-* Allows to manage existing custom fields with Types
-* Added a .po file for translating Types interface
+= 1.2.1.2 =
+* Fix security exploit
 
-= 0.9.2 =
-* Added WYSIWYG custom fields
-* Improved the usability for setting up custom taxonomies
-* Date fields use the date format specified by WordPress
-* Fixed a few bugs for WordPress 3.3
-* Checks that fields cannot be created twice
-* Checks that only local images are resized
-* Added bulk-delete for custom fields
-* Fixed a few issues with WPML support
+= 1.2.1.1 =
+* Fixed problem with some dates showing as a time stamp
+* Fixed number field so it excepts 0 (zero)
+* Fixed raw="true" mode so it doesn't process shortcodes
+* Fixed translations missing in some languages
+* Fixed wrong language being displayed for missing translations
+* Fixed repeater fields and conditional display issues
 
-= 0.9.3 =
-* Added an import screen from Advanced Custom Fields
-* Added an import screen from Custom Posts UI
-* Added support for non-English character in custom field names
-* Eliminated messages about how to insert custom fields in PHP
-* Check if fields already exist with the same name before creating them
-* Improved compatibility with WPML
+= 1.2.1 =
+* Fixed compatibility with ACF, Events Calendar and a number of other plugins due to removed actions
+* Fixed a problem with WooCommerce Extensions, due to too late initialization
+* Fixed translations
+* Fixed a problem with stypes_child_posts function on updates
+* Fixed a problem with Types API for field render
+* Fixed a problem with conditional fields and wpv_condition
+* Fixed a bug with repeating fields in translated content
+* Fixed a problem with many-to-many relationship
+* Fixed a bug with fields inserted into the wrond WYSIWYG field
 
-= 0.9.4 =
-* Added an option to display custom field groups on specific templates only
-* Fixed a number of bugs with Javascript and with Windows servers
+= 1.2 =
+* Added allowing ordering of repeater fields
+* Added allow duplicate repeater fields
+* Added support for translating Custom Post Type slugs
+* Added control of the number of children displayed in the Fields table
+* Added optional hour and minutes to the Date field
+* Added check to make sure the single and plural names of a Custom Post Type are different
+* Fix handling of required conditional fields
+* Remove use of mb_ereg and mb_string functions
+* Fix JavaScript escaping
+* Fix rendering of shortcodes inside types shortcode
+* Fix Open_basedir restriction
+* Fix AJAX popup CSS and JS
+* Fix translation of "Add another field" and "Delete field" buttons
+* Fix exporting and importing of Types Taxonomy
+* Fix exporting and importing of conditional settings for groups
 
-= 0.9.4.1 =
-* Fixed a problem adding custom fields to a group on some servers
-* Fixed so that standard tags and categories work again with custom post types
-* Fixed custom field groups not being shown for some content templates
+= 1.1.3.4 =
+* Fix adding child posts for WordPress 3.5
 
-= 0.9.4.2 =
-* Fixes a few bugs.
+= 1.1.3.2 =
+* Fix 'em' tags in radio.php and select.php
+* Added support for localized custom post slugs via WPML
 
-= 0.9.5 =
-* Added support for parent/child post relationship between different types
-* Added Field Tables, for bulk editing child fields from the parent editor
-* Streamlined the field insert GUI
+= 1.1.3.1 =
+* Fix saving fields in WP 3.5
+* Fixed a bug displaying Types credit footer when not asked to do so
 
-= 0.9.5.1 =
-* Fixed a last-minute bug with post relationship
+= 1.1.3 =
+* Add support for resizing remote images
+* Fix long and short date formats
+* Fixed many small bugs and glitches
+* Sync with Views 1.1.3
 
-= 0.9.5.4 =
-* Fixed a javascript bug on group edit pages
+= 1.0.4 =
+* Some fixes for textarea rendering without automatic paragraph insertion
+* Some fixes for WPML compatibility
+* Support for Views 1.1.1
+
+= 1.0.3 =
+* Fixes for repeating fields
+
+= 1.0.2 =
+* Improved WPML support with repeating fields
+* Fixed problems with decimal repeating fields
+* Post relationship meta box goes through standard WordPress filters
+* Fixed field display conditions for date fields
+* Fixed field count when adding or deleting fields
+* Stopped saving child posts when saving the parent, to avoid conflicts with other plugins
+* Checkboxes can save '0' for empty fields
+
+= 1.0.1 =
+* Fixes a number of small bugs, related with JS interaction with other plugins
 
 = 1.0 =
 * Added an option to make fields repeatable
@@ -187,31 +225,54 @@ Additionally, Types is the only plugin that lets you define parent/child relatio
 * Added translations for Spanish, French, German, Portuguese, Italian and Dutch
 * Fixed many small bugs and glitches
 
-= 1.0.1 =
-* Fixes a number of small bugs, related with JS interaction with other plugins
+= 0.9.5.4 =
+* Fixed a javascript bug on group edit pages
 
-= 1.0.2 =
-* Improved WPML support with repeating fields
-* Fixed problems with decimal repeating fields
-* Post relationship meta box goes through standard WordPress filters
-* Fixed field display conditions for date fields
-* Fixed field count when adding or deleting fields
-* Stopped saving child posts when saving the parent, to avoid conflicts with other plugins
-* Checkboxes can save '0' for empty fields
+= 0.9.5.1 =
+* Fixed a last-minute bug with post relationship
 
-= 1.0.3 =
-* Fixes for repeating fields
+= 0.9.5 =
+* Added support for parent/child post relationship between different types
+* Added Field Tables, for bulk editing child fields from the parent editor
+* Streamlined the field insert GUI
 
-= 1.0.4 =
-* Some fixes for textarea rendering without automatic paragraph insertion
-* Some fixes for WPML compatibility
-* Support for Views 1.1.1
+= 0.9.4.2 =
+* Fixes a few bugs.
 
-= 1.1.3 =
-* Add support for resizing remote images
-* Fix long and short date formats
-* Fixed many small bugs and glitches
-* Sync with Views 1.1.3
+= 0.9.4.1 =
+* Fixed a problem adding custom fields to a group on some servers
+* Fixed so that standard tags and categories work again with custom post types
+* Fixed custom field groups not being shown for some content templates
+
+= 0.9.4 =
+* Added an option to display custom field groups on specific templates only
+* Fixed a number of bugs with Javascript and with Windows servers
+
+= 0.9.3 =
+* Added an import screen from Advanced Custom Fields
+* Added an import screen from Custom Posts UI
+* Added support for non-English character in custom field names
+* Eliminated messages about how to insert custom fields in PHP
+* Check if fields already exist with the same name before creating them
+* Improved compatibility with WPML
+
+= 0.9.2 =
+* Added WYSIWYG custom fields
+* Improved the usability for setting up custom taxonomies
+* Date fields use the date format specified by WordPress
+* Fixed a few bugs for WordPress 3.3
+* Checks that fields cannot be created twice
+* Checks that only local images are resized
+* Added bulk-delete for custom fields
+* Fixed a few issues with WPML support
+
+= 0.9.1 =
+* Added Embedded mode
+* Allows to manage existing custom fields with Types
+* Added a .po file for translating Types interface
+
+= 0.9 =
+* First release
 
 == Upgrade Notice ==
 
@@ -250,3 +311,21 @@ Better support for multilingual sites with repeating fields
 
 = 1.1.3 =
 Includes support for resizing remote images
+
+= 1.1.3.1 =
+Fix for WP 3.5
+
+= 1.1.3.2 =
+You can have localized slugs for custom post types
+
+= 1.1.3.4 =
+Fix adding child posts for WordPress 3.5
+
+= 1.2 =
+Drag and Drop ordering of repeating fields
+
+= 1.2.1 =
+Just bug fixes. Usermeta fields are coming in Types 1.3!
+
+= 1.2.2 =
+Full support for Module Manager added

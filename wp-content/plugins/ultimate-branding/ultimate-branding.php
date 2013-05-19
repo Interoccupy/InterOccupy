@@ -4,7 +4,7 @@ Plugin Name: Ultimate Branding
 Plugin URI: http://premium.wpmudev.org/project/white-label-branding
 Description: A complete white-label and branding solution for multisite. Login images, favicons, remove WordPress links and branding, and much more.
 Author: Barry (Incsub), Andrew Billits, Ulrich Sossou, Ve Bailovity (Incsub)
-Version: 1.1.5
+Version: 1.1.6
 Author URI: http://premium.wpmudev.org/
 Text_domain: ub
 WDP ID: 9135

@@ -25,6 +25,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 function ub_wdcab_add_to_admin_bar () {
+
+	global $wp_admin_bar;
+
 	$opts = ub_get_option('wdcab');
 	if (!@$opts['enabled']) return false;
 	if (!@$opts['title']) return false;
@@ -39,14 +42,12 @@ function ub_wdcab_add_to_admin_bar () {
 	if (in_array($link, $allowed)) $link = $link();
 	else $link = esc_url($link);
 
-	global $wp_admin_bar;
-
-	if(isset($link['title_link_target']) && !empty($link['title_link_target'])) {
+	if(isset($opts['title_link_target']) && !empty($opts['title_link_target'])) {
 		$wp_admin_bar->add_menu(array(
 			'id' => 'wdcab_root',
 			'title' => stripslashes($title),
 			'href' => $link,
-			'meta' => array( 'target' => $link['title_link_target'] ),
+			'meta' => array( 'target' => $opts['title_link_target'] ),
 		));
 	} else {
 		$wp_admin_bar->add_menu(array(

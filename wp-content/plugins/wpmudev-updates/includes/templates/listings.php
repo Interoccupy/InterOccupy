@@ -15,7 +15,7 @@
 					</td>
 				<?php } ?>
 					<td width="25%">
-						<label><?php _e('Sort:', 'wpmudev'); ?> 
+						<label><?php _e('Sort:', 'wpmudev'); ?>
 						<select id="sort_projects">
 							<option value="released"><?php _e('Release date', 'wpmudev'); ?></option>
 							<option value="updated"><?php _e('Recently updated', 'wpmudev'); ?></option>
@@ -25,7 +25,7 @@
 						</select>
 						</label>
 					</td>
-					
+
 					<td width="25%">
 						<label><?php _e('Instant Search:', 'wpmudev'); ?>
 						<input type="text" id="filter_projects" placeholder="<?php _e('Search', 'wpmudev'); ?>" /><a href="#" id="clear_search" title="<?php _e('Clear Search', 'wpmudev'); ?>" class="search-btn"><i class="icon-remove-sign icon-large"></i></a>
@@ -52,13 +52,13 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 
 <div style="display:none" id="_installed-placeholder"><span href="#" class="wpmu-button icon installed-activated"><i class="icon-ok icon-large"></i><?php echo (is_multisite() || $page_type == 'theme' || defined('WPMUDEV_NO_AUTOACTIVATE')) ? __('INSTALLED', 'wpmudev') : __('INSTALLED & ACTIVATED', 'wpmudev'); ?></span></div>
 <div style="display:none" id="_install_error-placeholder">
-	<span href="#" class="wpmu-button error"> 
+	<span href="#" class="wpmu-button error">
 		<span class="tooltip">
 			<section>Error Details</section>
 			<i class='icon-question-sign'></i>
 		</span>
 		<i class="icon-warning-sign icon-large"></i><?php _e('ERROR', 'wpmudev'); ?>
-	</span> 
+	</span>
 </div>
 
 <?php if (!$this->_install_message_is_hidden()) { ?>
@@ -66,7 +66,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 		<a href="#" class="_install_setup-close"><i class='icon-remove'></i> <?php _e('close', 'wpmudev'); ?></a>
 		<div>
 		<p class="intro">
-			<?php _e("Hang on a minute... It looks like your WordPress site isn't configured to allow one-click installations of plugins and themes.", 'wpmudev'); ?>		
+			<?php _e("Hang on a minute... It looks like your WordPress site isn't configured to allow one-click installations of plugins and themes.", 'wpmudev'); ?>
 		</p>
 		<p>
 			<?php _e('You may still install this plugin using the manual process (by you entering your FTP credentials in the next step), or you can easily set up your site to do it automatically from now on.', 'wpmudev'); ?>
@@ -74,7 +74,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 		<br class="clear" />
 		</div>
 		<div>
-			<span class="target"><a href="#" class="wpmu-button icon"><i class="icon-download-alt icon-large"></i><?php _e('MANUAL INSTALL', 'wpmudev'); ?></a></span> 
+			<span class="target"><a href="#" class="wpmu-button icon"><i class="icon-download-alt icon-large"></i><?php _e('MANUAL INSTALL', 'wpmudev'); ?></a></span>
 			<a href="#" class="wpmu-button install_instructions"><i class="icon-question-sign icon-large"></i><?php _e('Setup one-click installation', 'wpmudev'); ?></a>
 		</div>
 		<label><input type="checkbox" id="_install_hide_msg" name="install_hide_msg" /> <?php _e('hide this message in future', 'wpmudev'); ?></label>
@@ -109,34 +109,34 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 			if ($project['requires'] == 'bp' && !defined( 'BP_VERSION' ))
 				$incompatible = __('Requires BuddyPress', 'wpmudev');
 			//skip lite products if full member
-			if (isset($data['membership']) && $data['membership'] == 'full' && $project['paid'] == 'lite') continue;
-			
+			if (isset($data['membership']) && $data['membership'] == 'full' && $project['paid'] == 'lite') continue;	   				 				 	
+
 			//installed?
 			$installed = (isset($local_projects[$project['id']])) ? true : false;
-			
+
 			$action_class = '';
-			if ('plugin' == $project['type']) {			
+			if ('plugin' == $project['type']) {
 				$action_class = $this->_can_auto_download_project($project['type'])
 					? (((is_multisite() && is_network_admin()) || defined('WPMUDEV_NO_AUTOACTIVATE')) ? 'install_plugin' : 'install_and_activate_plugin')
 					: ($this->_install_message_is_hidden() ? '' : 'install_setup')
 				;
 			} else {
-				$action_class = $this->_can_auto_download_project($project['type']) 
-					? 'install_theme' 
+				$action_class = $this->_can_auto_download_project($project['type'])
+					? 'install_theme'
 					: ($this->_install_message_is_hidden() ? '' : 'install_setup')
 				;
 			}
-			
+
 			$listing_class = '';
 			if ($installed) $listing_class .= ' installed';
 			if ($incompatible) $listing_class .= ' incompatible';
 			?>
-			<li class="listing-item<?php echo $listing_class; ?>" title="<?php _e('More Info &raquo;', 'wpmudev'); ?>" 
-				data-project_id="<?php echo $project['id']; ?>" 
-				data-released="<?php echo $project['released']; ?>" 
-				data-updated="<?php echo $project['updated']; ?>" 
-				data-downloads="<?php echo $project['downloads']; ?>" 
-				data-popularity="<?php echo $project['popularity']; ?>" 
+			<li class="listing-item<?php echo $listing_class; ?>" title="<?php _e('More Info &raquo;', 'wpmudev'); ?>"
+				data-project_id="<?php echo $project['id']; ?>"
+				data-released="<?php echo $project['released']; ?>"
+				data-updated="<?php echo $project['updated']; ?>"
+				data-downloads="<?php echo $project['downloads']; ?>"
+				data-popularity="<?php echo $project['popularity']; ?>"
 				data-paid="<?php echo esc_attr($project['paid']); ?>"
 			>
 				<div class="listing">
@@ -145,9 +145,9 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 					<p><?php echo substr($project['short_description'], 0, 120); ?>&hellip;  <a href="<?php echo $project['url']; ?>"><?php _e('Learn more', 'wpmudev'); ?></a></p>
 					<span class="full-excerpt" style="display:none;"><?php echo esc_attr($project['short_description']); ?></span>
 					<span class="project_tags" style="display:none">
-					<?php 
+					<?php
 						$project_tags = array();
-						foreach ($tags as $tag) { 
+						foreach ($tags as $tag) {
 							if (in_array($project['id'], $tag['pids'])) $project_tags[] = $tag['name'];
 						}
 						if ($project_tags) echo join(', ', $project_tags);
@@ -181,7 +181,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 			<h1><?php _e('No Results', 'wpmudev'); ?></h1>
 			<p><?php _e('Please change or <a href="#" title="Clear Filters">clear</a> your search filters above', 'wpmudev'); ?></p>
 		</div>
-	</div>	
+	</div>
 </div>
 
 <div id="listing-details-container" class="listing-details-wrapper" style="display:none;">
@@ -218,7 +218,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 				<span><a class="close-plugin-details" href="#"><?php _e('close plugin info', 'wpmudev'); ?> <i class="icon-remove icon-large"></i></a></span>
 				<ul>
 					<li>
-						
+
 						<div></div>
 					</li>
 				</ul>

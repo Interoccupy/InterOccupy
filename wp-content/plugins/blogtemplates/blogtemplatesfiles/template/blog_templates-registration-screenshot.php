@@ -1,7 +1,7 @@
 <?php
 /**
- * Theme screenshot selection template. 
- * 
+ * Theme screenshot selection template.
+ *
  * Copy this file into your theme directory and edit away!
  * You can also use $templates array to iterate through your templates.
  */
@@ -10,11 +10,11 @@
 <div id="blog_template-selection">
 	<div class="blog_template-option">
 		<label for="blog_template"><?php _e('Select a template', 'blog_templates') ?></label>
-	<?php 
-	foreach ($templates as $tkey => $template) { 
+	<?php
+	foreach ($templates as $tkey => $template) {
 		switch_to_blog($template['blog_id']);
 		$img = untrailingslashit(dirname(get_stylesheet_uri())) . '/screenshot.png';
-		restore_current_blog();	
+		restore_current_blog();
 		$tplid = preg_replace('/[^a-z0-9]/i', '', strtolower($template['name'])) . "-{$tkey}";
 		$default = @$this->options['default'] == $tkey ? "blog_template-default_item" : "";
 	?>
@@ -52,7 +52,7 @@ $(".blog_template-item_selector").click(function () {
 		.addClass("blog_template-selected")
 		.find(":radio").attr("checked", true)
 	;
-	return false;	
+	return false;
 });
 if ($(".blog_template-item_selector.blog_template-default_item").length) $(".blog_template-item_selector.blog_template-default_item").trigger("click");
 });

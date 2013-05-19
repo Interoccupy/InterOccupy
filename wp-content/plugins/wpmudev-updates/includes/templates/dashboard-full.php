@@ -17,14 +17,14 @@
 						<h1><?php _e('Welcome', 'wpmudev'); ?> <strong><em><?php echo $profile['profile']['name']; ?></em></strong></h1>
 						<small><?php printf(__('member since %s', 'wpmudev'), date_i18n(get_option('date_format'), $profile['profile']['member_since'])); ?></small>
 						<h1 class="rep">
-							<strong><?php _e('Your reputation', 'wpmudev'); ?></strong> 
+							<strong><?php _e('Your reputation', 'wpmudev'); ?></strong>
 							<span class="tooltip"><i class="icon-question-sign"></i>
 							<section>
 								<?php _e('Participate in our community discussions and earn reputation points. 1000 points gets you a free lifetime WPMU DEV membership!', 'wpmudev'); ?>
 							</section>
 							</span>
 						</h1>
-						
+
 					<?php  if (isset($profile['reputation']['overall']) && isset($profile['reputation']['unique_users'])) { ?>
 						<span class="rep-points"><i><?php _e('You currently have ', 'wpmudev'); ?><span class="number-of-points"><?php echo number_format_i18n($profile['reputation']['overall']); ?></span><?php _e(' reputation points', 'wpmudev'); ?></i></span>
 						<br />
@@ -42,7 +42,7 @@
 						<?php } else if ($profile['reputation']['overall'] > 500) { ?>
 						<span class="profile-reputation-badge ul-500plus"><section><?php _e('Like some sort of WPMU DEV God', 'wpmudev'); ?></section></span>
 						<?php } ?>
-					
+
 						<!-- user help support level -->
 						<?php if ($profile['reputation']['unique_users'] > 0 && $profile['reputation']['unique_users'] < 5) { ?>
 						<span class="profile-reputation-badge us-5"><section><?php _e("I'm helpful", 'wpmudev'); ?>"</section></span>
@@ -54,11 +54,11 @@
 						<span class="profile-reputation-badge us-20plus"><section><?php _e('Mindblowingly helpful member', 'wpmudev'); ?></section></span>
 						<?php } ?>
 						<!-- end -->
-						
+
 						<?php if ($profile['reputation']['overall'] > 1000 && $profile['reputation']['unique_users'] >= 10) { ?>
 						<span class="profile-reputation-badge lifetime"><section><?php _e('Lifetime WPMU Dev member', 'wpmudev'); ?></section></span>
 						<?php } ?>
-						
+
 					<?php } ?>
 					</section>
 				</section>
@@ -71,7 +71,7 @@
 				</thead>
 				<tbody>
 					<?php $count = 1; if (isset($profile['reputation']['history'])) foreach ($profile['reputation']['history'] as $rep) { ?>
-					<tr> 
+					<tr>
 						<td align="center"><?php echo $rep['points'];?></td>
 						<td class="date"><?php echo date_i18n(get_option('date_format'), $rep['time']);?></td>
 						<td><a href="<?php echo $rep['from_user_url'];?>" target="_blank"><?php echo $rep['from_user'];?></a></td>
@@ -104,7 +104,7 @@
 	</section>
 
 	<!-- Bottom part of the dashboard -->
-	
+
 	<!-- 3 column section -->
 	<section id="main" role="main" class="wpmudev-dash">
 		<!-- VISUAL BACKDROP -->
@@ -131,7 +131,7 @@
 									<?php if ($thread['status'] == 'resolved') { ?>
 									<i class="icon-ok-sign icon-large resolved" title="<?php _e('Resolved', 'wpmudev'); ?>"></i>
 									<?php } else { ?>
-									
+
 									<?php } ?>
 									<a href="<?php echo $thread['link'];?>" target="_blank"><?php echo $thread['title'];?></a>
 								</li>
@@ -210,7 +210,7 @@
 							<ul class="hover-to-expand">
 								<?php
 								$data = $this->get_updates();
-								$local_projects = get_site_option('wdp_un_local_projects');
+								$local_projects = get_site_option('wdp_un_local_projects');	   				 				 	
 								if ( is_array( $data ) ) {
 									$list = $data['latest_themes'];
 									$projects = $data['projects'];
@@ -221,7 +221,7 @@
 												//skip if not given type
 												if ($projects[$item]['type'] != 'theme')
 													continue;
-											
+
 												?>
 												<!-- start project block -->
 												<li>

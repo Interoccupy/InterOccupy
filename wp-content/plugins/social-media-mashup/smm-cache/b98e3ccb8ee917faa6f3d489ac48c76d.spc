@@ -21,7 +21,7 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 		
 		
-	";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:3:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:21:"Occupy Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:34:"http://interoccupy.net/occupysandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:15:"InterOccupy Hub";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:13:"lastBuildDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 07 Feb 2013 23:20:16 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"language";a:1:{i:0;a:5:{s:4:"data";s:5:"en-US";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:9:"generator";a:1:{i:0;a:5:{s:4:"data";s:29:"http://wordpress.org/?v=3.4.2";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"item";a:10:{i:0;a:6:{s:4:"data";s:71:"
+	";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:3:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:21:"Occupy Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:34:"http://interoccupy.net/occupysandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:15:"InterOccupy Hub";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:13:"lastBuildDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sat, 27 Apr 2013 15:46:17 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"language";a:1:{i:0;a:5:{s:4:"data";s:5:"en-US";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:9:"generator";a:1:{i:0;a:5:{s:4:"data";s:29:"http://wordpress.org/?v=3.4.2";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"item";a:10:{i:0;a:6:{s:4:"data";s:56:"
 		
 		
 		
@@ -33,58 +33,35 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 		
 		
-		
-		
-		
-		
-		
 
 		
 		
 			
 			
 		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:89:"Occupy Sandy: Volunteer Opportunities AND Invite to Climate Change Rally in DC on 2/17/13";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:130:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-and-invite-to-climate-change-rally-in-dc-on-21713/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:139:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-and-invite-to-climate-change-rally-in-dc-on-21713/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 07 Feb 2013 16:12:51 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:11:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:6:"Action";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:9:"Bay Ridge";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:11:"Environment";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:17:"Respond & Rebuild";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:8;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:9;a:5:{s:4:"data";s:14:"Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:10;a:5:{s:4:"data";s:14:"Sheepshead Bay";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=19659";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:450:"Dear Occupy Sandy Network, On Sunday, February 17th, you are invited to the largest climate change rally ever in our nation’s capital.  Residents and volunteers from the Rockaways will be traveling to DC to take action to stop the Keystone &#8230; <a href="http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-and-invite-to-climate-change-rally-in-dc-on-21713/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:9296:"<p><strong>Dear Occupy Sandy Network,</strong></p>
-<p>On Sunday, February 17th, you are invited to the largest climate change rally ever in our nation’s capital.  Residents and volunteers from the Rockaways will be traveling to DC to take action to stop the Keystone XL tar sands pipeline. You can join them by signing up for a bus from your neighborhood. Bus lists can be found <a href="http://f17nycbusbrigade.wordpress.com/">f17nycbusbrigade.wordpress.com</a> and<a href="http://350orgnyc.eventbrite.com/">350orgnyc.eventbrite.com</a>.  Reduced fares and scholarships are available.</p>
-<p>When Sandy hit, you were there, working together to help our city survive floods, power outages and black mold.  The February 17 trip to DC will call out the source of this superstorm:  fossil fuels and climate change. Buses leave from throughout New York City at 7am, for the rally at noon.   Rockaway residents are invited on a special bus leaving from<a href="https://www.facebook.com/YANA113?fref=ts"> YANA.</a>  For more information about the bus from YANA, how to donate to help send this bus, or participation in the event, please contact Phoebe at<a href="mailto:OccupySandy@interoccupy.net">OccupySandy@interoccupy.net</a>.</p>
-<p>&nbsp;</p>
-<hr />
-<p><strong>Ways You Can Help Sandy Survivors From Home</strong></p>
-<p>Mold remediation is the big work of today!  Please donate to the Occupy Sandy Local Business Registry.  <a href="https://occupysandylocalregistry.com/store/products/category/tools/">Go shopping here for masks, tyvek suits, commercial dehumidifiers and power scrubbers!  </a></p>
-<p>Sandy Storyline is a participatory documentary about Hurricane Sandy and efforts to rebuild our neighborhoods.  To help with the project or share your story, please go to <a href="http://sandystoryline.com/">sandystoryline.com</a> or email <a href="mailto:sandystoryline@gmail.com">sandystoryline@gmail.com.</a></p>
-<p>&nbsp;</p>
-<hr />
-<p><strong>Ways to Help at Occupy Sandy Network Locations</strong></p>
-<p><strong><em>OCCUPY SANDY KITCHEN, BAY RIDGE, BROOKLYN </em></strong>  <br /><strong>Open 8am-6pm Daily</strong><br /><strong>Accessible by Subway </strong></p>
-<p>You will be chopping, slicing, and mixing!  Food Preparation, Coordination, Clean-Up.  Drivers needed with vehicles for deliveries.  The kitchen will be open for several more weeks and provides an important service to those throughout the network.  Food provides comfort, energy, and strengthens communities. Please stop by to help.  Help is especially needed in the afternoons.  The kitchen is located at St. John’s Church, 461 99th St, Bay Ridge, Brooklyn. Take the R train to 95th St. stop.  Walk south on 4th Ave, make a left on 99th street.  Contact <a href="mailto:sandybayridge@interoccupy.net">sandybayridge@interoccupy.net</a> and by leaving a voicemail at  347-465-7430.</p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong>YANA, ROCKAWAYS<br /></strong><strong>Tues.-Sun. 10am-4pm<br /></strong><strong>Travel by personal vehicle recommend, bus service also available, see below. </strong></p>
-<p>We are currently rebuilding YANA, so volunteers with construction experience or willing to do manual labor are in high demand. Carpenters, electricians and plumbers will make our day. You can also assist with muck-outs, winterizing, resident check-ins, case management and administrative data entry. Bring boots and warm clothes, we&#8217;ll provide the rest. Spanish speakers appreciated.Walk-ins are accepted but advance notice is preferable. Projects vary greatly on different days. YANA is located at 112-34 Rockaway Beach Boulevard Rockaway Park.  From the Rockaway Boulevard A station, regular limited-stop Q53 bus service operates to Rockaway Park-Beach 116 Street, as well as Q52 service to Arverne-Beach 69 Street.  Transportation info available here:  <a href="http://interoccupy.net/occupysandy/locations/rockaways/">http://interoccupy.net/occupysandy/locations/rockaways/</a>). For more information contact <a href="mailto:sandyrockaway@interoccupy.net">sandyrockaway@interoccupy.net</a>  or call 347-644-YANA (9262).   To donate go to <a href="http://www.bit.ly/restoretherock">www.bit.ly/restoretherock</a>.  </p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>SHEEPSHEAD BAY, BROOKLYN<br /></em></strong><strong>10am &#8211; 5pm, Daily <br /></strong><strong>Accessible by Subway or Bus </strong></p>
-<p>Muck-outs, debris removal from homes and yards, demolition, distribution of supplies to residents and resident, work orders or needs assessment in the trailer, on foot or phone. Languages: ***Russian***, Chinese (Cantonese or Mandarin), Korean, Urdu, Arabic, Spanish.  The site is located in a trailer near 3076 Emmons Avenue, near Brown Street, about a 12 minute walk from Sheepshead Bay stop on the B/Q or right across from to B4 bus stop. Please wear sturdy shoes and non-pristine dress.  Please sign up at<a href="http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy">http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy</a>, email<a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a>, or call 347-549-9708.  For groups of 5 or more you can also sign up through NY Cares by contacting<a href="mailto:maggie.bernhard@newyorkcares.org">maggie.bernhard@newyorkcares.org</a> for more information.   </p>
-<p>&nbsp;</p>
-<hr />
-<p><strong><em>RESPOND AND REBUILD, ROCKAWAYS</em></strong> <br /><strong>Weekends only, arrive by 9:30am<br /></strong><strong>Personal vehicle recommended.  </strong></p>
-<p>This weekend, Feb 9 and 10, a free van leaves from 520 Clinton St, Brooklyn, at 8am.  After this weekend R&amp;R will be providing shuttle service at 8:45pm and 9:15 pm from the Howard Beach A Train.  </p>
-<p>Help with mold remediation in the Rockaways.<strong> </strong>It&#8217;s tough, physical work, and we&#8217;ll provide you with all the safety gear and tools you&#8217;ll need.  Just bring a bag lunch and dress warm, with hard soled shoes. Volunteers must sign up in advance, arrive by 9:30am for a safety training, and stay all day.  Your commitment allows us keep our promises to residents who have often been wait-listed and let down by others throughout this process.  Teenagers 16+ are welcome to participate. (16 &amp; 17 yr olds must have a parental consent form signed) Pilgrim Church of Arverne, 7416 Beach Channel Drive. Registration is required by 5pm on the day prior to volunteering.  <strong>Sign up to volunteer is required at </strong><a href="http://respondandrebuild.org/"><strong>respondandrebuild.org</strong></a><strong>.</strong></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>SMALLWATER, ROCKAWAYS </em>  <br /></strong><strong>Open everyday except Mondays, 10am &#8211; 3:30pm<br /></strong><strong>Travel by personal vehicle recommend, bus service also available.</strong></p>
-<p>Muck-out as jobs come in, serving food, helping coordinating and cleaning up the site. </p>
-<p>Rockaway Beach, 183 beach 96th street. Driving is recommended &#8211; Cross Bay Bridge from Howard Beach to beach 94th Left on Shorefront Parkway Right on beach 96th.  No regular transportation is provided for volunteers.  (Accessible by public transportation via the A train and Q53 bus.) Contact Michelle Cortez,<a href="mailto:Volunteer@smallwater.org">Volunteer@smallwater.org</a>,  <a href="http://smallwater.org./">smallwater.org.</a></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>THE ACTION CENTER, ROCKAWAYS </em> <br /></strong><strong>Open 10am &#8211; 4pm Daily<br /></strong><strong>Travel by personal vehicle is recommended, some bus service available.</strong></p>
-<p>Volunteers will be performing supply intake &amp; distro activities, e.g. unloading supply trucks, unpacking boxes, organizing supply rooms, distributing supplies. Specific tasks, per day, vary. Drivers needed. Work gloves, boots and warm winter wear, strongly suggested for all volunteers.  The Action Center is located at 5710 Beach Channel Drive. Subway and bus service to the Rockaways is  limited. Contact Sam Doe (center director) and Nelson (site coordinator) are ground contacts for volunteers to connect with upon arrival at 718 869-0346 or <a href="mailto:adoe196701@aol.com">adoe196701@aol.com</a>.</p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>1128 OLYMPIA, STATEN ISLAND  <br /></em></strong><strong>Monday, Wednesday and Friday 11am-4pm<br /></strong><strong>Saturday and Sunday 10am &#8211; 4pm<br /></strong><strong>Personal vehicle recommended, all accessible by ferry/bus.</strong></p>
-<p>Staten Island needs help with muck-outs<strong>, </strong>canvassing, deliveries, and administration at hub. Note, the free store is closed. If you are driving, take the Verrazano bridge and exit at Hylan Blvd. Drive SW on Hylan, left on Greeley, left on Olympia. and the  hub is on the right. For more information Contact Goldi at <a href="mailto:Sandy1128Olympia@gmail.com">Sandy1128Olympia@gmail.com</a> or 347-201-0670.</p>
-<p>&nbsp;</p>
-<p><strong>For more information about getting involved with any of these projects, contact 347-770-4520 or </strong><a href="mailto:OccupySandyVolunteers@gmail.com">OccupySandyVolunteers@gmail.com</a><strong>.</strong></p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:135:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-and-invite-to-climate-change-rally-in-dc-on-21713/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"26";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:1;a:6:{s:4:"data";s:50:"
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:59:"Seeking Childcare Support for Rockaways Cooperative Project";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:103:"http://interoccupy.net/occupysandy/2013/04/seeking-childcare-support-for-rockaways-cooperative-project/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:112:"http://interoccupy.net/occupysandy/2013/04/seeking-childcare-support-for-rockaways-cooperative-project/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 12 Apr 2013 14:40:21 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:6:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:17:"Volunteer Request";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=29916";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:515:"Members of Occupy Sandy have partnered with the Working World to help low income Rockaways residents impacted by the storm set up worker owned cooperative businesses.  We are currently running a twelve week workshop series to help groups establish business plans that meet requirements for funding. Childcare is needed during workshop times.  <a href="http://interoccupy.net/occupysandy/2013/04/seeking-childcare-support-for-rockaways-cooperative-project/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:778:"<p>Members of Occupy Sandy have partnered with the Working World to help low income Rockaways residents impacted by the storm set up worker owned cooperative businesses.  We are currently running a twelve week workshop series to help groups establish business plans that meet requirements for funding.</p>
+<p>We are looking for individuals who would be willing to help with childcare during these workshops.  The workshops are on Sundays at 6pm in Far Rockaway.  It would be great if you could do it once, or many times.  </p>
+<p>We can help provide transportation, or cover gas money if you have your own car.  Dinner is provided.  Email <a href="mailto:tamarashap@gmail.com" target="_blank">tamarashap@gmail.com</a> if you are interested.</p>
+<p>Thanks!</p>
+<p>Tammy</p>
+";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:108:"http://interoccupy.net/occupysandy/2013/04/seeking-childcare-support-for-rockaways-cooperative-project/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"7";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:1;a:6:{s:4:"data";s:41:"
+		
+		
+		
+		
+		
+				
+
+		
+		
+			
+			
+		
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:62:"Rockaways Residents Respond to MoMA’s PS1 Design Competition";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:103:"http://interoccupy.net/occupysandy/2013/03/rockaways-residents-respond-to-momas-ps1-design-competition/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:112:"http://interoccupy.net/occupysandy/2013/03/rockaways-residents-respond-to-momas-ps1-design-competition/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 25 Mar 2013 20:34:19 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:1:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=27634";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:470:"Rockaways Residents tell MoMA to &#8220;Ask First&#8221; In mid-February, MoMA PS1 announced a &#8220;Call for Ideas&#8221; on how to create a sustainable waterfront in the Rockaways. Soliciting artists, architects, urban planners and designers to submit proposals, they organized a series &#8230; <a href="http://interoccupy.net/occupysandy/2013/03/rockaways-residents-respond-to-momas-ps1-design-competition/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"jennyaction";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:919:"
+<h3> <b>Rockaways Residents tell MoMA to &#8220;Ask First&#8221; </b> </h3>
+In mid-February, MoMA PS1 announced a &#8220;Call for Ideas&#8221; on how to create a sustainable waterfront in the Rockaways. Soliciting artists, architects, urban planners and designers to submit proposals, they organized a series of lectures, preesentations, and exhibits to highlight the submissions in a &#8220;Relief and Cultural Dome&#8221; in Rockaway Beach.
+<p> Josh Kogan, an artist and advocate, noticed the lack of community engagement in the process of developing proposals, and hit the ground in the Rockaways to ask how local residents felt about the rebuilding process. He compiled his interviews in a short video, &#8220;Ask First,&#8221; a powerful local response to MoMA PS1&#8242;s request for proposals.
+<p> <a href="http://interoccupy.net/blog/ask-first-a-competition-in-disconnect/"> Check out the Video, here! </a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:108:"http://interoccupy.net/occupysandy/2013/03/rockaways-residents-respond-to-momas-ps1-design-competition/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:44:"
 		
 		
 		
@@ -92,22 +69,33 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 				
 		
-		
-		
 
 		
 		
 			
 			
 		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:49:"Volunteers Needed on Monday 2/4 in Staten Island!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:91:"http://interoccupy.net/occupysandy/2013/02/volunteers-needed-on-monday-24-in-staten-island/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:100:"http://interoccupy.net/occupysandy/2013/02/volunteers-needed-on-monday-24-in-staten-island/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 01 Feb 2013 14:34:32 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:4:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:13:"Staten Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=18392";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:445:"Monday, February 4, 11-3pm  1128 Olympia, Staten Island  Volunteers need to bring a laptop RSVP to Karen at karen_jackson@projecthospitality.org Volunteers will be inputting data that was collected in a wide-spread canvass of the beaches impacted by super storm Sandy.  The &#8230; <a href="http://interoccupy.net/occupysandy/2013/02/volunteers-needed-on-monday-24-in-staten-island/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:1145:"<h2>Monday, February 4, 11-3pm </h2>
-<p><strong>1128 Olympia, Staten Island </strong><br /> <strong>Volunteers need to bring a laptop</strong></p>
-<p><strong>RSVP to Karen at</strong> <a href="mailto:karen_jackson@projecthospitality.org">karen_jackson@projecthospitality.org</a></p>
-<p>Volunteers will be inputting data that was collected in a wide-spread canvass of the beaches impacted by super storm Sandy.  The data collection project was a collaboration with the Occupy Sandy network. The compilation of this information is critical for identifying people who are still in immediate crisis (such as those living without heat).</p>
-<p>It will also help us make appropriate referrals for households that requested legal assistance, mold remediation, counseling services etc. This data will give us a sense of what people’s greatest needs are – and will allow us to request grassroots orgs, non-profit orgs, and local and state government to provide new services to meet these needs. This is a key piece in the relief effort.</p>
-<p>Your help is most appreciated!</p>
-<p>Thank you!<br /> Occupy Sandy and Project Hospitality</p>
-";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:96:"http://interoccupy.net/occupysandy/2013/02/volunteers-needed-on-monday-24-in-staten-island/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"31";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:59:"
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:56:"Occupy Sandy Party & Friends of Rockway Needs Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:98:"http://interoccupy.net/occupysandy/2013/03/occupy-sandy-party-friends-of-rockway-needs-volunteers/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:107:"http://interoccupy.net/occupysandy/2013/03/occupy-sandy-party-friends-of-rockway-needs-volunteers/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 24 Mar 2013 15:26:04 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=27417";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:427:"The Living Theatre is hosting an Occupy Sandy Party Wednesday, March 27th at 10PM Clemente Soto Velez Cultural Center 107 Suffolk Street New York, NY 10022 We&#8217;ll be collecting donations at the door to continue our long-term muck out, rebuilding, &#8230; <a href="http://interoccupy.net/occupysandy/2013/03/occupy-sandy-party-friends-of-rockway-needs-volunteers/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:3024:"<p>The Living Theatre is hosting an Occupy Sandy Party</p>
+<p>Wednesday, March 27th at 10PM</p>
+<p>Clemente Soto Velez Cultural Center<br /> 107 Suffolk Street<br /> New York, NY 10022</p>
+<p>We&#8217;ll be collecting donations at the door to continue our long-term muck out, rebuilding, and community-strengthening work in Sandy-affected areas. Plus, we&#8217;ll have some fun together in between the hard work!</p>
+<p>The Living Theatre is a 66-year old anarchist theatre collective that has among core principles equality, non-violence, consensus decision-making and yes, mutual aid.<br /> Both of us, Occupy Sandy and The Living Theatre, are working very hard to try and make this world a better place.</p>
+<p>It&#8217;s time to take a break and spend a fun evening together with like-minded people!</p>
+<p>The party starts at 10PM. There will be a bar with beer and wine but you are welcome to bring your own drinks!</p>
+<p>Entrance is FREE of charge but we will be collecting donations for Occupy Sandy at the door!</p>
+<p>There will be some surprise acts TBA!!!</p>
+<p>Also, the Living Theatre is performing HERE WE ARE, a play about consensus decision making, at 8PM in the same space. So if you haven&#8217;t seen it yet, here is your opportunity! Use the code Occupy Sandy when you get to the door and get your tickets at Pay-What-You-Can rate!</p>
+<p>Please join the <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=47148&amp;qid=1667613" target="_blank">Facebook event</a> to receive updates.</p>
+<p>The Living Theatre is looking forward to welcoming you at their new home for a glorious night!</p>
+<p>IF YOU&#8217;RE LOOKING TO PLUG BACK IN TO VOLUNTEERING, CHECK OUT <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=47149&amp;qid=1667613" target="_blank">OCCUPYSANDY.ORG</a> FOR UPDATES!</p>
+<hr />
+<p>Friends of Rockaway Needs Skilled/Unskilled Volunteers</p>
+<p>Monday 3/25 to &#8211; Friday 4/26 8am &#8211; 4pm<br /> 135-11 Cronston Ave. Rockaway Park, Queens, NY<br /> Contact: Aaron Dickerson<br /> <a href="mailto:aadickerson@gmail.com" target="_blank">aadickerson@gmail.com</a><br /> 574-226-8706</p>
+<p>Friends of Rockaway is gutting, providing mold assessments, mold remediation and rebuilding all for free. We are currently working with Americorps NCCC and United Way but have the capacity to do so much more if we can get the volunteers.</p>
+<p>Volunteers will be gutting, doing some basic sheetrock and insulation installation. Also looking for skilled volunteers with in carpentry and sheetrock installation and finishing skills. We can train anyone who is physically able.</p>
+<p>This volunteer opportunity is not appropriate for anyone under the age of 18, anyone with asthma or anyone who is unable to do moderate physical labor.</p>
+<p>We will provide gloves, masks, eye protection. Please wear warm clothing, jeans and long sleeves. Boots and warm gloves are highly recommended.</p>
+<p>Please bring a lunch.</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:103:"http://interoccupy.net/occupysandy/2013/03/occupy-sandy-party-friends-of-rockway-needs-volunteers/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"22";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:44:"
 		
 		
 		
@@ -115,206 +103,50 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 				
 		
-		
-		
-		
-		
-		
 
 		
 		
 			
 			
 		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:77:"Join Us for the People’s Recovery Summit – FREE – Fri 2/1 Thru Sun 2/3!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:107:"http://interoccupy.net/occupysandy/2013/01/join-us-for-the-peoples-recovery-summit-free-fri-21-thru-sun-23/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:116:"http://interoccupy.net/occupysandy/2013/01/join-us-for-the-peoples-recovery-summit-free-fri-21-thru-sun-23/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 31 Jan 2013 15:39:50 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:7:{i:0;a:5:{s:4:"data";s:12:"Announcement";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Clinton Hill";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:9:"Community";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:9:"Gathering";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=18147";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:457:"Over the past three months, we&#8217;ve seen people from all over the city and the country come together in response to Sandy. We turned entire churches into &#8220;holy warehouses&#8221; of donated items and distributed them to dozens of &#8220;hubs&#8221; all over the &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/join-us-for-the-peoples-recovery-summit-free-fri-21-thru-sun-23/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:2627:"<p>Over the past three months, we&#8217;ve seen people from all over the city and the country come together in response to Sandy. We turned entire churches into &#8220;holy warehouses&#8221; of donated items and distributed them to dozens of &#8220;hubs&#8221; all over the city, working shoulder-to-shoulder with community leaders and residents to care for the most vulnerable among us.</p>
-<p><strong>On Feb. 1st, 2nd, and 3rd we’re organizing the People&#8217;s Recovery Summit, a gathering of residents, volunteers, organizers, performers, and community leaders ready to strategize on the recovery effort. </strong></p>
-<p>We hope to springboard an equitable and sustainable rebuilding process with workshops, trainings, and discussions on grassroots organizing, economic justice, environmental sustainability and much, much more.  See our <a href="#summit-goals">Summit Goals</a> below.</p>
-<blockquote>
-<h2 style="margin-top: 0;">Event Information<strong><br /></strong></h2>
-<p>People&#8217;s Recovery Summit<br />Feb 1st &#8211; 3rd,  2013<br />9am &#8211; 7pm Daily</p>
-<h3>Free</h3>
-<ul>
-<li>Breakfast, Lunch and Dinner will be provided</li>
-<li>Nightly entertainment begins at 8pm</li>
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:112:"Occupy Sandy/Beacon High School Need Your Help Today 3/21 & Respond&Rebuild Announces T-Shirt Design Competition";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:151:"http://interoccupy.net/occupysandy/2013/03/occupy-sandybeacon-high-school-need-your-help-today-321-respondrebuild-announces-t-shirt-design-competition/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:160:"http://interoccupy.net/occupysandy/2013/03/occupy-sandybeacon-high-school-need-your-help-today-321-respondrebuild-announces-t-shirt-design-competition/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 21 Mar 2013 14:38:04 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=26940";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:491:"Occupy Sandy in conjunction with the Beacon High School completed a territory-wide canvass last Thursday and Friday.  Our people in Staten Island need help entering some of this data! What:  Data entry! Where:  Project Hospitality, 100 Park Ave, Staten Island &#8230; <a href="http://interoccupy.net/occupysandy/2013/03/occupy-sandybeacon-high-school-need-your-help-today-321-respondrebuild-announces-t-shirt-design-competition/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:3780:"<p>Occupy Sandy in conjunction with the Beacon High School completed a territory-wide canvass last Thursday and Friday.  Our people in Staten Island need help entering some of this data!<br /><br /><br />
+What:  Data entry!<br /><br />
+Where:  Project Hospitality, 100 Park Ave, Staten Island<br /><br />
+When:  Thursday March 21st, 3pm &#8211; 8pm<br /><br />
+Required:  A laptop or tablet<br /><br />
+Why:  Because you love helping people!<br /><br />
+Contact:  <a href="mailto:OccupySandyStatenIsland@gmail.com">OccupySandyStatenIsland@gmail.com </a><br /><br /><br />
+Sign up on our<a href="https://docs.google.com/spreadsheet/viewform?fromEmail=true&amp;formkey=dHdKbGNlOUI3VlhGTXhLdjczNHBCb1E6MQ"> Volunteer Form</a>! <br /><br /><br />
+Pizza will be served!<br /></p>
+<hr />
+<p> <a href="http://www.respondandrebuild.org/2013/03/14/announcing-our-t-shirt-design-competition-think-you-can/">Respond &amp; Rebuild announces a T-Shirt Design Competition! Think You Can?</a> </br></br>Respond &amp; Rebuild is a volunteer organization started in the wake of Sandy by a group of friends who volunteered together in Haiti. They provide a free service of mucking out, gutting out, removing mold and rebuilding homes of Rockaway residents affected by Hurricane Sandy.</br></br>  <a href="http://www.respondandrebuild.org/">www.respondandrebuild.org</a></br></br>Contest details:</p>
+<ul dir="ltr">
+<li>Can you hone your graphic design skills on a logo that makes mold removal as hip and cool as the Respond &amp; Rebuild staff makes mold removal?</li>
+<li>Can you design a rockin “Mold-Slayer” T-shirt?</li>
+<li>Can you make “Spore-Busting” the next big thing?</li>
+<li>Can you create a design that is as awesome as the feeling you get when you help clean an NYC family’s home of mold?</li>
+<li>Think You Can?</li>
+<li>Email us your design (find t-shirt templates<a href="http://www.adobe.com/cfusion/exchange/index.cfm?event=extensiondetail&amp;extid=1045478"> here</a>), and make sure you have “liked” our<a href="https://www.facebook.com/RespondRebuild"> facebook page</a>.</li>
+<li>Keep checking back and we will put your design on our Facebook page in our</li>
+<li>“T-Shirt Design Contest” album, then tell your friends to “like” us too so they can vote!</li>
+<li>The three designs with the most votes from our Facebook friends will be voted on by the Respond &amp; Rebuild Team and the winning design will become our first t-shirt!</li>
 </ul>
-</blockquote>
-<p>Church of St. Luke and St. Matthew<br />520 Clinton Avenue <br />(between Fulton Street and Atlantic Avenue)<br />TRAINS:  C and G trains or 15 min walk from Barclays Center (2,3,4,5,B,D,N,Q, and R trains)</p>
-<p>Visit our website for more information!  <a href="http://summit.peoplesrecovery.org/" target="_blank">http://summit.peoplesrecovery.org/</a> </p>
-<hr />
-<h2>People&#8217;s Recovery Summit Needs Volunteers</h2>
-<p>If you have any spare time at all, please <a href="https://docs.google.com/spreadsheet/viewform?formkey=dGFkMmZNUVFjQVkybFpRSHhENTVhN0E6MQ#gid=0">sign up on this form</a> to volunteer! </p>
-<hr />
-<h2 id="summit-goals">Our Summit Goals Are</h2>
-<ul>
-<li>Connect environmental + economic justice issues and concerns.</li>
-<li>Better understand what the City/State/Federal agencies are/aren&#8217;t doing, and what we need them to do. </li>
-<li>Present a “Recovery Statement”  for equitable/accountable development based on Human Rights and Environmental justice.</li>
-<li>Further develop a toolkit of best practices for organizers + affected residents.</li>
-<li>Debate the role and relationships of a social movement to community organizing and post disaster recovery.</li>
-</ul>
-<p>Together, we can restore power to the people and build back better!</p>
-<p>Solidarity,</p>
-<p>The Peoples Recovery Summit Planning Committee</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:112:"http://interoccupy.net/occupysandy/2013/01/join-us-for-the-peoples-recovery-summit-free-fri-21-thru-sun-23/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"24";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:47:"
-		
-		
-		
-		
-		
-				
-		
-		
-
-		
-		
-			
-			
-		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:47:"People’s Recovery Summit is Now Free for All!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:87:"http://interoccupy.net/occupysandy/2013/01/peoples-recovery-summit-is-now-free-for-all/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:96:"http://interoccupy.net/occupysandy/2013/01/peoples-recovery-summit-is-now-free-for-all/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 30 Jan 2013 18:06:44 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:12:"Announcement";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Clinton Hill";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=17914";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:394:"The People’s Recovery Summit will now be free of charge for all, in order to make the event as accessible to the public as possible. The planning committee is also working to ensure that residents from affected areas can attend &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/peoples-recovery-summit-is-now-free-for-all/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:3:"Pea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:899:"<p>The People’s Recovery Summit will now be free of charge for all, in order to make the event as accessible to the public as possible. The planning committee is also working to ensure that residents from affected areas can attend by coordinating free transportation, pre-Summit outreach to recovery hubs, and free child care at the event.</p>
-<p>To register for the event, visit <a href="http://summit.peoplesrecovery.org/" target="_blank">http://summit.peoplesrecovery.org/</a></p>
-<p>To help out, or get more information, please email us at summit@peoplesrecovery.org, or call 347-482-1232.</p>
-<p>Also, visit our <a href="https://www.facebook.com/notes/peoples-recovery/peoples-recovery-summit-faq/521127284586235" target="_blank">FAQ</a> here. And while you&#8217;re at it <a href="https://www.facebook.com/events/175356669254688/" target="_blank">RSVP</a> to the Summit on Facebook!</p>
-";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:92:"http://interoccupy.net/occupysandy/2013/01/peoples-recovery-summit-is-now-free-for-all/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:4;a:6:{s:4:"data";s:62:"
-		
-		
-		
-		
-		
-				
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
-			
-			
-		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:37:"Volunteer Opportunities as of 1/29/13";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:79:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-12913/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:88:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-12913/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 30 Jan 2013 15:42:22 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:8:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Bay Ridge";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:14:"Sheepshead Bay";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:13:"Staten Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=17889";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:418:"Three months after the storm, New Yorkers continue to rebuild. Volunteers in the occupy sandy network are working tirelessly during these cold months, preparing and serving thousands of hot meals a day, attacking mold, and finding ways to bring warmth wherever &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-12913/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:9613:"<p>Three months after the storm, New Yorkers continue to rebuild. Volunteers in the occupy sandy network are working tirelessly during these cold months, preparing and serving thousands of hot meals a day, attacking mold, and finding ways to bring warmth wherever possible.  </p>
-<p>Below you will find a list of ways to have their back, join their teams, and be a part of the big project of our city&#8217;s recovery.  Please notice that some locations take walk-ins, some need you to call ahead, and some have sign-up systems. For some you need a car or good amount of patience with the MTA. Others, like the Bay Ridge Kitchen or Sheepshead Bay are easy to get to by subway. Most of the sites also accept groups (over the age of 18) who can make arrangements in advance. There is also a need for skilled organizers, communications support and those who can make an ongoing commitment.  </p>
-<p>To find out more please call <a href="tel:347-770-4520">347-770-4520</a> or<a href="mailto:OccupySandyVolunteers@gmail.com">OccupySandyVolunteers@gmail.com</a>.   Thank you for your ongoing support!</p>
-<p>&nbsp;</p>
-<hr />
-<p><em><strong>YANA, ROCKAWAYS</strong></em></p>
-<p><strong>Location: </strong>112-34 Rockaway Beach Boulevard Rockaway Park. Directions: MTA service is available via the Q35 to Beach 116th st. This bus is located at Ave. H and Nostrand just outside the Flatbush ave. / Brooklyn College stop on the 2 or the 4. Exit the bus and walk South to Rockaway Beach Boulevard (towards the Ocean)and make a left (East). Yana will be on the Left just past B113. There is also an option of taking the A train to the Q53 Bus.</p>
-<p><strong>Schedule: </strong>Tues.-Sun. 10am-4pm<strong></strong></p>
-<p><strong>Tasks: </strong>Organizing donations, light hauling/lifting, muck-outs, resident check-ins, administrative, data entry. YANA is a community center that opened its doors two weeks before Superstorm Sandy devastated the region. Its intended purpose was to train workers and bring jobs to the Rockaways, with an emphasis on green technologies. With the support of countless dedicated volunteers and solar power provided by Greenpeace, it re-emerged after the storm as an important relief site and community hub.  </p>
-<p><strong>Contact: </strong><a href="mailto:113yana@gmail.com">113yana@gmail.com</a> or call 347-644-YANA (9262).  Walk-ins are accepted but advance notice is preferable. Projects vary greatly on different days. </p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>OCCUPY SANDY KITCHEN, BAY RIDGE, BROOKLYN</em></strong></p>
-<p><strong>Location: </strong>St. John’s Church, 461 99th St, Bay Ridge, Brooklyn, Take R train to 95th St. stop. Exit station and go to 99th st. Make a left on 99th street and go towards Fort Hamilton Parkway. Left side.</p>
-<p><strong>Schedule: </strong>7 days a week from 8am &#8211; 6pm. The last time to arrive is 5pm.</p>
-<p><strong>Tasks:</strong> Everyday we cut meat and veggie, cook meals, clean dishes, clean ice chests, organize fridges and supplies, pack meals for delivery, and clean-up for the day. Ideal number of volunteers is about 25 a day. If we get more volunteers, we can use them.</p>
-<p><strong>Site Contact(s): </strong>Tim, Dave, Kate, <a href="mailto:sandybayridge@interoccupy.net">sandybayridge@interoccupy.net</a> and by leaving a voicemail at  <a href="tel:347-465-7430">347-465-7430</a></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>SHEEPSHEAD BAY, BROOKLYN</em></strong></p>
-<p><strong>Location:</strong> trailer on Emmons Avenue near Brown Street. The approximate address is 3076 Emmons Avenue. We are about a 12 minute walk from Sheepshead Bay stop on the B/Q or right across from to B4 bus stop.Please wear sturdy shoes and non-pristine dress., B/Q sheepshead bay station and walk 15 minutes. </p>
-<p><strong>Schedule: </strong>7 Days a week, Arrive between 10am and 4pm (Site closes at 5)  </p>
-<p><strong>Tasks:</strong> Clean out and debris removal from homes and yards; demolition, floor and screw pulling, and muck outs; distribution of supplies to residents and resident needs assessment in the trailer; on foot or phone needs assessments; filling out work orders. We are also looking for production assistance and a sound engineer to collaborate with on a documentary project, one to two days a week. Languages: ***Russian***, Chinese (Cantonese or Mandarin), Korean, Urdu, Arabic, Spanish. For groups of 5 or more we recommend you go through NY Cares, contact <a href="mailto:maggie.bernhard@newyorkcares.org">maggie.bernhard@newyorkcares.org</a> for more information.</p>
-<p><strong>Site Contact(s): </strong> You can either sign up through this link so we can predict our volunteer load for the day <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35269&amp;qid=">http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy</a>or email us at <a href="tel:347-549-9708">347-549-9708</a> <a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a> Sheryl and Alex,<a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a>,  <a href="tel:347-549-9708">347-549-9708</a></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>THE ACTION CENTER, ROCKAWAYS</em></strong></p>
-<p><strong>Location: </strong>5710 Beach Channel Drive. Personal Vehicle Recommended. Subway service to Rockaways from outer areas, limited. Bus service in Rockaways, in service.</p>
-<p><strong>Schedule: </strong> 10 am &#8211; 4 pm daily</p>
-<p><strong>Tasks: </strong> Volunteers will be performing supply intake &amp; distro activities, e.g. unloading supply trucks, unpacking boxes, organizing supply rooms, distributing supplies. Specific tasks, per day, vary. Volunteers with vehicles and room for multiple passengers, ideal. Work gloves, boots and warm winter wear, strongly suggested for all volunteers. Up to 20 volunteers, daily.</p>
-<p><strong>Site contact: </strong>Sam Doe (center director) and Nelson (site coordinator) are ground contacts for volunteers to connect with upon arrival. <a href="tel:718%20869-0346">718 869-0346</a>,  <a href="mailto:adoe196701@aol.com">adoe196701@aol.com</a></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>1128 OLYMPIA, STATEN ISLAND</em></strong></p>
-<p><strong>Location: </strong>1128 Olympia Blvd, Staten Island, Verrazano to Hylan Blvd exit,  SW on Hylan until a left on Greeley, left on Olympia. hub on right.</p>
-<p><strong>Schedule:</strong> M W F:  11am &#8211; 4pm, Weekends: 10am-4pm (please arrive before 3pm).</p>
-<p><strong>Volunteer Tasks: </strong>Muck out work is continuous.  other work is special projects including canvassing, deliveries, administration at hub, organizing free store / stock. 10 volunteers needed during the week, 50 on weekends which is when we concentrate on our muck-out work.  we are starting to work by appointment, especially for muck-outs during the week.</p>
-<p><strong>Site Contact: </strong>Ilya, Goldi,  <a href="mailto:Sandy1128Olympia@gmail.com">Sandy1128Olympia@gmail.com</a>,  <a href="tel:347-201-0670">347-201-0670</a></p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>RESPOND AND REBUILD, ROCKAWAYS</em></strong></p>
-<p><strong>Location: </strong>Averne, (Rockaways), Pilgrim Church of Arverne, 7416 Beach Channel Drive. Preferred volunteers drive in their own vehicles. There is a 15 passenger van leaving from 520. Need more people on Sundays than Saturdays.   </p>
-<p><strong>Schedule: </strong> Weekends only in January 9am &#8211; 4pm.  **Volunteers cannot be accepted after 9:30 at Respond and Rebuild in the Rockaways***.</p>
-<p><strong>Tasks: </strong> Every Saturday and Sunday we&#8217;re sending teams out into the field to do mold remediation in residents&#8217; homes in the Rockaways&#8211;a necessary step before families can rebuild safely. It&#8217;s tough, physical work, and we&#8217;ll provide you with all the safety gear and tools you&#8217;ll need.  Volunteers must sign up in advance, arrive by 9:30am for a safety training, and stay all day.  Your commitment allows us keep our promises to residents who have often been wait-listed and let down by others throughout this process.</p>
-<p><strong>Site Contact(s): </strong>Andy, Shanna, Gabriel, <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35270&amp;qid=">RespondandRebuild.org</a>. &#8211;  Please Sign Up and schedule a date online.  Registration is required by 5pm on the day prior to volunteering.</p>
-<p>&nbsp;</p>
-<hr />
-<p> <strong><em>SMALLWATER, ROCKAWAYS</em></strong></p>
-<p><strong>Location:</strong> Rockaway Beach, 183 beach 96th street. Driving is recommended &#8211; Cross Bay Bridge from Howard Beach to beach 94th Left on Shorefront Parkway Right on beach 96th.  No regular transportation is provided for volunteers.  (It is possible to accessed by public transportation via the A train and Q53 bus.)</p>
-<p><strong>Schedule:</strong> 6 days/week &#8211; Closed Mondays.  Volunteers can arrive from 10am-2:30pm. (Site closes at 3:30). </p>
-<p><strong>Tasks:</strong> Muck-out (clean-out) as jobs come in, serving food, helping cleaning up the site. Ideal number of volunteers is 10, more can be taken if groups are scheduled.</p>
-<p><strong>Site Contact(s):</strong> Michelle Cortez, <a href="mailto:Volunteer@smallwater.org">Volunteer@smallwater.org</a>,<a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35271&amp;qid=">http://smallwater.org</a>.</p>
-<p><strong><em>Thank you for your support!</em></strong></p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:84:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-12913/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"34";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:5;a:6:{s:4:"data";s:62:"
-		
-		
-		
-		
-		
-				
-		
-		
-		
-		
-		
-		
-		
-
-		
-		
-			
-			
-		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:49:"Community Grant Rebuilding Program Deadline Feb 4";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:78:"http://interoccupy.net/occupysandy/2013/01/community-grant-rebuilding-program/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:87:"http://interoccupy.net/occupysandy/2013/01/community-grant-rebuilding-program/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 29 Jan 2013 21:12:46 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:8:{i:0;a:5:{s:4:"data";s:9:"Resources";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:8:"Canarsie";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Coney Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:7:"Funding";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:15:"Gerritsen Beach";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:6:"Grants";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:8:"Red Hook";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:14:"Sheepshead Bay";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=17631";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:417:"Proposals must be received by Monday, February 4, 2013 The focus of the second round of the Brooklyn Recovery Fund’s grant program is to support physical improvements to homes and buildings located in Brooklyn’s coastal communities. Funding will support the &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/community-grant-rebuilding-program/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:3:"Pea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:4562:"<h3>Proposals must be received by Monday, February 4, 2013</h3>
-<p>The focus of the second round of the Brooklyn Recovery Fund’s grant program is to support physical improvements to homes and buildings located in Brooklyn’s coastal communities.</p>
-<p>Funding will support the following recovery and rebuilding activities:</p>
-<ol>
-<li>Mold removal and remediation;</li>
-<li>Electrical, heating and systems repairs and replacement; and</li>
-<li>Structural repairs to 1-4 family homes, nonprofit facilities, or buildings used by small businesses.</li>
+<p>Guidelines</p>
+<ol dir="ltr">
+<li>Submissions will only be accepted from March 14, 2013 12:00 PM (EST) to April 1st, 2013 11:59 PM (EST).</li>
+<li>Email submissions to jason@respondandrebuild.org</li>
+<li>All entry emails should have the subject line “T-shirt Design Contest Submission – First Name, Last Name.”</li>
+<li>Submit one design per person. If you submit more than one, only your first submission in order of date and time will be considered.</li>
+<li>You must be at least 16 years of age to win.</li>
+<li>The Design must include “Respond &amp; Rebuild” in the logo somewhere in the design.</li>
+<li>Submit only original designs. These designs must not contain copyrighted material and they cannot have previously won any awards.</li>
+<li>Submit front t-shirt designs only. There should be no text or visuals on the back of the shirt.</li>
+<li>Attach entries as medium resolution JPEG or pdf files.</li>
+<li>Please be prepared to submit the original Illustrator or Adobe Photoshop file in the case your artwork is chosen.</li>
+<li>Any artwork and writing submitted will not be returned, and becomes property of Respond &amp; Rebuild.</li>
 </ol>
-<p>Priority will be given to proposals from community development and non-profit housing corporations and other qualified organizations with deep knowledge of and experience with mold removal, mold remediation, and housing and building repair/maintenance. We require partnerships between applicants and local service providers and organizations from each impacted community. Together the partnership should demonstrate an ability to provide an up to date community needs assessment about the status of building repair and a plan of action to help individuals, businesses, and institutions move from &#8220;rescue&#8221; to recovery and rebuilding. In Red Hook and Coney Island, we will require that all grantees work in partnership with the collaboratives that have been funded through BRF’s first round of recovery grants and will provide you with the information necessary to connect to these organizations.</p>
-<p><strong>All funding requests are due no later than Monday, February 4, 2013. We will make every effort to have all funding decisions made by Monday, February 11, 2013.</strong></p>
-<h2>Target Neighborhoods</h2>
-<p>Brooklyn coastal communities that experienced severe storm damage: Red Hook, the Coney Island peninsula, Sheepshead Bay, Canarsie, and Gerritsen Beach.</p>
-<h2>Grant Amounts</h2>
-<p>A limited number of grants are available, up to $200,000 per impacted community (Red Hook, the Coney Island peninsula, Sheepshead Bay, Canarsie, and Gerritsen Beach).</p>
-<h2>Eligibility</h2>
-<ul type="disc">
-<li>Community development and non-profit housing corporations and other qualified organizations who have established or can demonstrate an ability to establish close working relationships with local nonprofits serving communities or residents impacted by Super Storm Sandy.</li>
-</ul>
-<h2>Application Guidelines</h2>
-<ul type="disc">
-<li>Provide brief mission statement and history of your organization.</li>
-<li>What qualifications do you possess to address mold removal, mold remediation, and building repair/maintenance? How will you partner and coordinate with organizations physically located in the impacted community? If you already have an established relationship, who is your/are your partner(s) and what type of partnership currently exists?</li>
-<li>What nonprofits, government entities, and/or community groups have you been working with to address recovery and rebuilding needs?</li>
-<li>If you received prior funding from the BRF, how does this request complement your previous request?</li>
-<li>How will you define and measure the success of this project?</li>
-<li>Be sure that your application includes full contact information (address, telephone, email) for this request’s point person; also include the community where this work will take place.</li>
-<li>Only ONE grantee per impacted community will be selected.</li>
-<li>Please limit your request to no more than 3 pages; not including attachments.</li>
-<li>Required Documents:
-<ol>
-<li>Organization budget</li>
-<li>Project budget</li>
-<li>Most recent IRS 990 Form</li>
-<li>Most recent Financial Audit (note: if your organization uses a fiscal sponsor, please provide its audit and 990)</li>
-<li>Board of Directors</li>
-</ol>
-</li>
-</ul>
-<p>Submit via email or fax requested narrative and attachments by <strong>Monday, February 4, 2013</strong> to:</p>
-<ul style="list-style: none;">
-<li>Toya Willifordm Program Director</li>
-<li>Brooklyn Community Foundation</li>
-<li>45 Main Street, #409</li>
-<li>Brooklyn, NY 11201</li>
-<li><a href="mailto:spost@bcfny.org">twilliford@bcfny.org</a></li>
-<li>Fax: 718-722-5757</li>
-</ul>
-<p>Any questions please contact Toya Williford at 718.722.5352 or <a href="mailto:twilliford@bcfny.org">twilliford@bcfny.org</a>.</p>
-<p><a href="http://www.brooklyncommunityfoundation.org/brooklyn-recovery-fund/apply-funding" target="_blank">http://www.brooklyncommunityfoundation.org/brooklyn-recovery-fund/apply-funding</a></p>
-";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:83:"http://interoccupy.net/occupysandy/2013/01/community-grant-rebuilding-program/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"22";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:6;a:6:{s:4:"data";s:65:"
+<p>  NO ADDITIONAL MATERIALS (VIDEOS, SAMPLES, ETC) WILL BE ACCEPTED WITH YOUR SUBMISSION.</p>
+";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:156:"http://interoccupy.net/occupysandy/2013/03/occupy-sandybeacon-high-school-need-your-help-today-321-respondrebuild-announces-t-shirt-design-competition/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"6";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:4;a:6:{s:4:"data";s:50:"
 		
 		
 		
@@ -324,51 +156,25 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 		
 		
-		
-		
-		
-		
-		
 
 		
 		
 			
 			
 		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:34:"Community Mold Awareness Trainings";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:68:"http://interoccupy.net/occupysandy/2013/01/community-mold-awareness/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:77:"http://interoccupy.net/occupysandy/2013/01/community-mold-awareness/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 29 Jan 2013 19:45:00 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:9:{i:0;a:5:{s:4:"data";s:12:"Announcement";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:14:"Brighton Beach";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Coney Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:15:"Gerritsen Beach";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:4:"Mold";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:16:"Mold Remediation";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:8:"Rosedale";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:8;a:5:{s:4:"data";s:8:"Training";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=17597";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:413:"Free Trainings will be held throughout the city, see list below for the location nearest you. Understand the need for and when to use personal protective equipment and Recognize hazards (chemical, biological, physical, safety). Understand the proper sequence and safe &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/community-mold-awareness/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:3:"Pea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:3014:"<p>Free Trainings will be held throughout the city, see list below for the location nearest you.</p>
-<ul>
-<li>Understand the need for and when to use personal protective equipment and Recognize hazards (chemical, biological, physical, safety).</li>
-<li>Understand the proper sequence and safe methods of mucking out a water damaged unit and sanitization methods; demolition; and cleaning a water-damaged unit.</li>
-<li>How to do a final assessment and properly determine whether a project is complete.</li>
-</ul>
-<p>Following technologies will be addressed:</p>
-<ul>
-<li>Scraping mold growths,</li>
-<li>Wet methods,</li>
-<li>Use of polyethylene sheeting,</li>
-<li>Negative air units,</li>
-<li>Application of backpack HEPA vacs, and</li>
-<li>Dehumidifiers.</li>
-</ul>
-<p><strong>Arrive twenty minutes prior to training session for registration.</strong></p>
-<h2>Schedule</h2>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-far-rockaway/">January 29th – Far Rockaway</a></h3>
-<p>6pm-8pm<br /> Challenge Prep Academy<br /> 710 Hartman Lane<br /> Far Rockaway, NY 11691</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-brighton-beach/">January 31st – Brighton Beach</a></h3>
-<p>6:30 pm registration, 7-9 training<br />Shorefront Y<br /> 3300 Coney Island Ave  <br /> Brooklyn, NY 11235</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-gerritsen-beach/">February 2nd – Gerritsen Beach</a></h3>
-<p>10 am – 2 pm<br />Resurection Church Gym<br />2331 Gerritsen Avenue,<br />Brooklyn, NY 11229</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-coney-island-2/">February 5th– Coney Island</a></h3>
-<p>7pm-9pm<br /> Gospel Assembly Church<br /> 2828 Neptune Ave<br /> Brooklyn, NY 11224</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-rosedale/">February 9th – Rosedale</a></h3>
-<p>1-5pm<br /> St. Clare&#8217;s Parish<br /> 137-35 Brookville Blvd.<br /> Rosedale, NY 11422<br /> (in the annex)</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-gerritsen-beach-2/">February 13th – Gerritsen Beach</a></h3>
-<p>9 am &#8211; 11 am<br /> PS 277 in Gerritsen Beach.<br /> 2529 Gerritsen Avenue,<br /> Brooklyn, NY 11229</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-coney-island-3/">February 13th – Coney Island</a></h3>
-<p>1pm-3pm<br /> Jewish Community Council of Greater Coney Island, Inc.<br /> 3001 West 37th Street<br /> Brooklyn, NY  11224</p>
-<h3><a href="http://interoccupy.net/occupysandy/ai1ec_event/community-mold-awareness-training-rosedale-2/">February 16th – Rosedale</a></h3>
-<p>1-5pm<br /> St. Clare&#8217;s Parish<br /> 137-35 Brookville Blvd.<br /> Rosedale, NY 11422<br /> (in the annex)</p>
-";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:73:"http://interoccupy.net/occupysandy/2013/01/community-mold-awareness/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"31";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:7;a:6:{s:4:"data";s:68:"
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:58:"Help Us Make Sure Money Raised Goes to ALL Sandy Survivors";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:102:"http://interoccupy.net/occupysandy/2013/03/help-us-make-sure-money-raised-goes-to-all-sandy-survivors/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:111:"http://interoccupy.net/occupysandy/2013/03/help-us-make-sure-money-raised-goes-to-all-sandy-survivors/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 19 Mar 2013 17:47:51 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:4:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:14:"Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=26615";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:472:"Billions have been raised in the name of Sandy victims but the poorest, people of color in the Rockaways and some of the hardest hit are being denied those donations---including the recent denial of the Robin Hood Foundation’s Board of Directors to even entertain a proposal from the Action Center. <a href="http://interoccupy.net/occupysandy/2013/03/help-us-make-sure-money-raised-goes-to-all-sandy-survivors/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:2098:"<a href="http://interoccupy.net/occupysandy/2013/03/help-us-make-sure-money-raised-goes-to-all-sandy-survivors/mrpaurwvhvpyaty-172x172-square/" rel="attachment wp-att-26616"><img src="http://interoccupy.net/occupysandy/files/2013/03/MrPAurWvHvPyaty-172x172-square.jpg" alt="" title="MrPAurWvHvPyaty-172x172-square" width="172" height="172" class="alignright size-full wp-image-26616" /></a>Billions have been raised in the name of Sandy victims but the poorest, people of color in the Rockaways and some of the hardest hit are being denied those donations&#8212;including the recent denial of the Robin Hood Foundation’s Board of Directors to even entertain a proposal from the Action Center. 
+
+Following hurricane Sandy, the Action Center, a non-profit corporation that has served the Rockaway community for over 12 years morphed into a relief center that has worked tirelessly to serve the neediest—many residents living 200% below the poverty level that are now battling widespread mold growth and illness in the aftermath of Sandy.
+
+We seek your help today to ensure that the poorest Rockaway residents are not left behind like the victims of Hurricane Katrina.
+
+Let them know that they have not been forgotten: request an explanation in writing from the Robin Hood Board of Directors as to why funding was not even considered and send notice to the other groups who raised funding in the name of Sandy victims that you are watching to see that these funds are actually going to those who need it the most.
+
+Please <a href="http://www.change.org/petitions/robin-hood-foundation-s-board-of-directors-help-us-make-sure-money-raised-is-truly-going-to-all-sandy-victims-3" target="_blank">sign our petition</a> and spread the word to your press contacts &#8212; the public should be informed, and allowed to intervene on behalf of NYC residents in need.
+
+<a href="http://www.change.org/petitions/robin-hood-foundation-s-board-of-directors-help-us-make-sure-money-raised-is-truly-going-to-all-sandy-victims-3" target="_blank">Sign the Petition!</a> 
+
+Thank you for everything you do.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:107:"http://interoccupy.net/occupysandy/2013/03/help-us-make-sure-money-raised-goes-to-all-sandy-survivors/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"31";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:5;a:6:{s:4:"data";s:44:"
 		
 		
 		
@@ -376,166 +182,282 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"
 		
 				
 		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		
 		
 			
 			
 		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:34:"Volunteer Opportunities as of 1/24";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:77:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-124/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:86:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-124/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 25 Jan 2013 23:43:46 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:10:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Bay Ridge";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:10:"Greenpoint";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:17:"Respond & Rebuild";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:14:"Sheepshead Bay";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:8;a:5:{s:4:"data";s:13:"Staten Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:9;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=16756";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:456:"Hey Folks - Volunteer opportunities this week are at these locations. If you have questions please contact 347-770-4520 or OccupySandyVolunteers@gmail.com. Bay Ridge, Brooklyn Occupy Sandy Kitchen Location: St. John’s Church, 461 99th St, Bay Ridge, Brooklyn, Take R train to 95th St. stop. Exit &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-124/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:7698:"<p>Hey Folks -</p>
-<p>Volunteer opportunities this week are at these locations. If you have questions please contact <a href="tel:347-770-4520">347-770-4520</a><strong> </strong>or <a href="mailto:OccupySandyVolunteers@gmail.com">OccupySandyVolunteers@gmail.com</a>.</p>
-<hr />
-<h2>Bay Ridge, Brooklyn</h2>
-<h3>Occupy Sandy Kitchen</h3>
-<p><strong>Location: </strong>St. John’s Church, 461 99th St, Bay Ridge, Brooklyn, Take R train to 95th St. stop. Exit station and go to 99th st. Make a left on 99th street and go towards Fort Hamilton Parkway. Left side.</p>
-<p><strong>Schedule: </strong>7 days a week from 8am &#8211; 6pm. The last time to arrive is 5pm.</p>
-<p><strong>Tasks:</strong> Everyday we cut meat and veggie, cook meals, clean dishes, clean ice chests, organize fridges and supplies, pack meals for delivery, and clean-up for the day. Ideal number of volunteers is about 25 a day. If we get more volunteers, we can use them.</p>
-<p><strong>Site Contact(s): </strong>Tim, Dave, Kate, <a href="mailto:sandybayridge@interoccupy.net">sandybayridge@interoccupy.net</a> and by leaving a voice mail at <strong>347-465-7430.</strong></p>
-<hr />
-<h2>Sheepshead Bay, Brooklyn</h2>
-<p><strong>Location:</strong> Trailer on Emmons Avenue near Brown Street. The approximate address is 3076 Emmons Avenue. We are about a 12 minute walk from Sheepshead Bay stop on the B/Q or right across from to B4 bus stop.Please wear sturdy shoes and non-pristine dress. </p>
-<p><strong>Schedule: </strong>7 Days a week, Arrive between 10am and 4pm (Site closes at 5).  </p>
-<p><strong>Tasks:</strong> Clean out and debris removal from homes and yards; demolition, floor and screw pulling, and muck outs; distribution of supplies to residents and resident needs assessment in the trailer; on foot or phone needs assessments; filling out work orders. We are also looking for production assistance and a sound engineer to collaborate with on a documentary project, one to two days a week. Languages: ***Russian***, Chinese (Cantonese or Mandarin), Korean, Urdu, Arabic, Spanish. For groups of 5 or more we recommend you go through NY Cares, contact <a href="mailto:maggie.bernhard@newyorkcares.org">maggie.bernhard@newyorkcares.org</a> for more information.</p>
-<p><strong>Site Contact(s): </strong> Cheryl, Alex and Stacy: 347-549-9708. Please email us at<a href="http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy"> </a><a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a> or click on<a href="http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy"> http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy</a>.  Advanced sign up helps us plan our days.   </p>
-<hr />
-<h2>Rockaways</h2>
-<h3>Respond and Rebuild<strong> </strong></h3>
-<p><strong>Location: </strong>Averne, (Rockaways), Pilgrim Church of Arverne, 7416 Beach Channel Drive. Preferred volunteers drive in their own vehicles. There is a 15 passenger van leaving from 520. Need more people on Sundays than Saturdays.   </p>
-<p><strong>Schedule: Saturdays and Sundays</strong> 9am &#8211; 4pm.   <strong>Volunteers must sign up in advance, arrive by 9:30am for a safety training, and stay all day</strong> **Volunteers cannot be accepted after 9:30 at Respond and Rebuild in the Rockaways due to restraints on staff, transportation and safety concerns.</p>
-<p><strong>Tasks: </strong> Every Saturday and Sunday for the month of January we&#8217;re sending teams out into the field to do mold remediation in residents&#8217; homes in the Rockaways&#8211;a necessary step before families can rebuild safely. It&#8217;s tough, physical work, and we&#8217;ll provide you with all the safety gear and tools you&#8217;ll need. Your commitment allows us keep our promises to residents who have often been wait-listed and let down by others throughout this process.</p>
-<p><strong>Site Contact(s): </strong>Andy, Shanna, Gabriel, <a href="http://respondandrebuild.org/">RespondandRebuild.org</a>. &#8211;  Please Sign Up and schedule a date online.  Registration is required by 5pm on the day prior to volunteering.</p>
-<hr />
-<h3>Smallwater</h3>
-<p><strong>Location:</strong> Rockaway Beach, 183 beach 96th street. Driving is recommended &#8211; Cross Bay Bridge from Howard Beach to beach 94th Left on Shorefront Parkway Right on beach 96th.  No regular transportation is provided for volunteers (It is possible to accessed by public transportation via the A train and Q53 bus).</p>
-<p><strong>Schedule:</strong> 6 days/week &#8211; Closed Mondays.  Volunteers can arrive from 10am-2:30pm (Site closes at 3:30). </p>
-<p><strong>Tasks:</strong> Muck-out (clean-out) as jobs come in, serving food, helping cleaning up the site. Ideal number of volunteers is 10, more can be taken if groups are scheduled.</p>
-<p><strong>Site Contact(s):</strong> Michelle Cortez, <a href="mailto:Volunteer@smallwater.org">Volunteer@smallwater.org</a></p>
-<p><strong><a href="http://smallwater.org/">http://smallwater.org</a></strong></p>
-<hr />
-<h3>The Action Center</h3>
-<p><strong>Location: </strong>5710 Beach Channel Drive. Personal Vehicle Recommended. Subway service to Rockaways from outer areas, limited. Bus service in Rockaways, in service.</p>
-<p><strong>Schedule: </strong> 10 am &#8211; 4 pm daily</p>
-<p><strong>Tasks: </strong> Volunteers will be performing supply intake &amp; distro activities, e.g. unloading supply trucks, unpacking boxes, organizing supply rooms, distributing supplies. Specific tasks, per day, vary. Volunteers with vehicles and room for multiple passengers, ideal. Work gloves, boots and warm winter wear, strongly suggested for all volunteers. Up to 20 volunteers, daily.</p>
-<p><strong>Site contact: </strong>Sam Doe (center director) and Nelson (site coordinator) are ground contacts for volunteers to connect with upon arrival. <strong>718-869-0346</strong>,  <a href="mailto:adoe196701@aol.com">adoe196701@aol.com</a><strong>.</strong></p>
-<hr />
-<h2>Staten Island</h2>
-<h3>1128 Olympia<strong> </strong></h3>
-<p><strong>Location: </strong>1128 Olympia Blvd, Staten Island, Verrazano to Hylan Blvd exit,  SW on Hylan until a left on Greeley, left on Olympia. hub on right.</p>
-<p><strong>Schedule:</strong> M W F:  11am &#8211; 4pm, Weekends: 10am &#8211; 4pm, 3pm is too late!</p>
-<p><strong>Volunteer Tasks: </strong>Muck out work is continuous.  other work is special projects including canvassing, deliveries, administration at hub, organizing free store / stock. 10 volunteers needed during the week, 50 on weekends which is when we concentrate on our muck-out work.  we are starting to work by appointment, especially for muck-outs during the week.</p>
-<p><strong>Site Contact: </strong>Ilya, Goldi,  <a href="mailto:Sandy1128Olympia@gmail.com"><strong>Sandy1128Olympia@gmail.com</strong></a>, 347-201-0670.</p>
-<hr />
-<h2>Greenpoint, Brooklyn</h2>
-<h3>Occupy Sandy Communications and Meeting Space<strong> </strong></h3>
-<p><strong>Location: </strong>122 Java St., Near G stop at Greenpoint</p>
-<p><strong>Schedule:</strong> Open 10am &#8211; 6pm Monday &#8211; Saturday.</p>
-<p><strong>Tasks:</strong>  Help Occupy Sandy with Communications, Volunteer Organizing, Event planning and more. Please stop by or contact us for an appointment to meet with someone about getting more involved. </p>
-<p><strong>Site Contact: Call the Occupy Sandy volunteer hotline at 347-770-4520 </strong>or <a href="mailto:OccupySandyVolunteers@gmail.com">OccupySandyVolunteers@gmail.com</a> to make arrangement to help at 122 Java or find out more about other volunteer opportunities.</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:82:"http://interoccupy.net/occupysandy/2013/01/volunteer-opportunities-as-of-124/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"31";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:8;a:6:{s:4:"data";s:59:"
-		
-		
-		
-		
-		
-				
-		
-		
-		
-		
-		
-		
-
-		
-		
-			
-			
-		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:97:"Sandy Storyline Looking for Volunteer Coordinators, Front End Developers, Admin Help and Content!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:138:"http://interoccupy.net/occupysandy/2013/01/sandy-storyline-looking-for-volunteer-coordinators-front-end-developers-admin-help-and-content/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:147:"http://interoccupy.net/occupysandy/2013/01/sandy-storyline-looking-for-volunteer-coordinators-front-end-developers-admin-help-and-content/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 23 Jan 2013 04:33:24 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:7:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:15:"Hurricane Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:18:"Movement Logistics";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:14:"Movement Media";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:19:"Movement Technology";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=15958";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:464:"Do you have any photos or audio clips or stories about Occupy Sandy that you want to share? Visit Sandy Storyline and let your voice be heard! Sandy Storyline is a participatory documentary project about Hurricane Sandy and efforts to recover and &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/sandy-storyline-looking-for-volunteer-coordinators-front-end-developers-admin-help-and-content/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:5179:"<p>Do you have any photos or audio clips or stories about Occupy Sandy that you want to share? Visit <a href="http://sandystoryline.com/">Sandy Storyline</a> and let your voice be heard!</p>
-<p>Sandy Storyline is a participatory documentary project about Hurricane Sandy and efforts to recover and rebuild our neighborhoods.  Read on for other ways you can get involved!</p>
-<hr />
-<h2>Sandy Storyline </h2>
-<ul>
-<li>Any Affected Area in New York or New Jersey </li>
-<li>Monday &#8211; Sunday </li>
-<li>Flexible Time / Few Days Per Week Minimum</li>
-<li>Email: <a href="mailto:info@sandystoryline.com">info@sandystoryline.com</a></li>
-</ul>
-<h3>Seeking: Volunteer Regional Storytelling Coordinators </h3>
-<p>Sandy StoryLine (<a href="http://www.sandystoryline.com/">www.sandystoryline.com</a>) is looking for volunteer regional storytelling coordinators. Coordinators collaborate with local organizers to identify people in affected areas who would like to share their stories, experience and visions for the future. </p>
-<p>The goal is to work in closer relationship to the organizing to fill the huge gaps in the mainstream media&#8217;s reporting so we can continue to amplify what&#8217;s happening in affected neighborhoods.</p>
-<p>The regional storytelling coordinators would have to be available a few days a week.  Join us in exposing and voicing these important stories.   </p>
-<p>This is a super flexible and fun volunteer opportunity.</p>
-<p>This opp is great for any folks who are self-starters love meeting new people.Telling the untold stories of this diaster is critical to how we support communities advocating for equitable rebuilding. Bring a notebook and pen, warm and comfortable clothes and your people skills. </p>
-<hr />
-<h3>122 Java Street, Greenpoint Brooklyn</h3>
-<ul>
-<li>Monday &#8211; Sunday </li>
-<li>Flexible Time / Few Days Per Week Minimum</li>
-<li>Email: <a href="mailto:info@sandystoryline.com">web@sandystoryline.com</a></li>
-</ul>
-<p>Looking for a Front-end Developer for Hurricane Sandy Storytelling Project  t<a href="http://www.sandystoryline.com/">www.sandystoryline.com</a></p>
-<p>Sandy Storyline is building a narrative of the storm and its aftermath, told through the experiences of community members and volunteers.</p>
-<p>It includes three channels of participation to ensure that a multiplicity of voices and perspectives are represented in the documentary.</p>
-<ul>
-<li>Anyone can record their story by simply calling a toll-free number, sending a text or picture message, or submitting a story on <a href="http://sandystoryline.com/">sandystoryline.com</a>.<br /> </li>
-<li>A growing group of media contributors are gathering people’s stories using audio interviews, photography and video.<br /> </li>
-<li>Sandy StoryLine conducts participatory workshops for community and youth groups to help build the knowledge and tools to create media for community power, cultural expression, and leadership development.</li>
-</ul>
-<p>A main distribution outlet for Sandy Storyline is our web platform, <a href="http://sandystoryline.com/">sandystoryline.com</a>. </p>
-<p>We&#8217;re in immediate need of a front-end developer to join Sandy Storyline. We put up a very rapid first build, just to get the growing collection of stories up, but want to make a truly interactive place on the web for sharing stories about Sandy.  We hope to bring dignity to the people who have been affected, and create a storytelling platform that can be used for long term advocacy efforts around rebuilding. Bring your ideas!  </p>
-<p>The developer should feel comfortable handing different media types, and working in CSS, JavaScript, and HTML 5. Features may include creative applications of playlists, story sorting, and viewing.</p>
-<p>We are volunteer-powered at the moment but this is a creative, collaborative project with lots of potential. We are looking for developers who can help with the beta phase as well as for the long term vision of creating a space for telling the stories of Hurricane Sandy.</p>
-<p>If interested, please contact <a href="mailto:web@sandystoryline.com">web@sandystoryline.com</a>.</p>
-<hr />
-<h3>Work Remotely</h3>
-<ul>
-<li>Monday &#8211; Sunday </li>
-<li>Flexible Time / Few Days Per Week Minimum</li>
-<li>Email: <a href="mailto:info@sandystoryline.com">info@sandystoryline.com</a></li>
-</ul>
-<p>We need volunteers who can help with our social media, online communications, and general outreach. You can work remotely. We have weekly meetings that alternate between stories/content one week and coordination/productions the next week. Meetings are in the evening on weekdays.</p>
-<p>This is a perfect job for someone who has a full time job but still wants to help out. </p>
-<p>Job would include helping draft and send weekly HTML emails about the latest stories. Helping coordinate updating our (forthcoming) blog, announcing all of our 100 stories on social media, as well as helping spread the word far and wide about all these stories you can&#8217;t hear anywhere else.</p>
-<p>Help us amplify the real stories of what&#8217;s happening!</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:143:"http://interoccupy.net/occupysandy/2013/01/sandy-storyline-looking-for-volunteer-coordinators-front-end-developers-admin-help-and-content/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:9;a:6:{s:4:"data";s:59:"
-		
-		
-		
-		
-		
-				
-		
-		
-		
-		
-		
-		
-
-		
-		
-			
-			
-		
-		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:44:"Respond & Rebuild: Weekend Volunteers Needed";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:85:"http://interoccupy.net/occupysandy/2013/01/respond-rebuild-weekend-volunteers-needed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:94:"http://interoccupy.net/occupysandy/2013/01/respond-rebuild-weekend-volunteers-needed/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 23 Jan 2013 04:23:59 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:7:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:12:"Far Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:4:"Mold";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:16:"Mold Remediation";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:8:"Rockaway";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=15955";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:455:"Almost three months after Hurricane Sandy, thousands of New Yorkers are still living with black mold.  Respond &#38; Rebuild helps Rockaway residents get past a huge obstacle to rebuilding: mold remediation. It&#8217;s a tedious job and it&#8217;s important that it&#8217;s done well, and &#8230; <a href="http://interoccupy.net/occupysandy/2013/01/respond-rebuild-weekend-volunteers-needed/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:3072:"<table cellspacing="0" cellpadding="0">
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:62:"Artists & Builders Needed to Build Rockaway Memorial Sculpture";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:104:"http://interoccupy.net/occupysandy/2013/03/artists-builders-needed-to-build-rockaway-memorial-sculpture/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:113:"http://interoccupy.net/occupysandy/2013/03/artists-builders-needed-to-build-rockaway-memorial-sculpture/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 11 Mar 2013 15:00:33 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=25205";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:426:"&#160; Greetings!  I am an artist, organizer, and life-long New Yorker and I have been developing a project to build a collaborative memorial sculpture made from salvaged materials in the Rockaways. It will have a permanent home in a community &#8230; <a href="http://interoccupy.net/occupysandy/2013/03/artists-builders-needed-to-build-rockaway-memorial-sculpture/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:2759:"<table id="bodyContent">
 <tbody>
 <tr>
-<td valign="middle">
-<p>Almost three months after Hurricane Sandy, thousands of New Yorkers are still living with black mold.  Respond &amp; Rebuild helps Rockaway residents get past a huge obstacle to rebuilding: <strong>mold remediation</strong>. It&#8217;s a tedious job and it&#8217;s important that it&#8217;s done well, and you can do it! </p>
-<p>Sign up for a day of mold remediation at <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35165&amp;qid=1168078">respondandrebuild.org</a>.  <strong>Jobs are lined up in advance and take place during weekends only. Advanced sign up is required by 5pm the day before your volunteer day.</strong>  You can catch a ride out to the Rockaways by meeting at 520 Clinton Avenue at 8am on Saturdays and Sundays. Signing up is easy at on our website.</p>
-<p><strong>Respond &amp; Rebuild is a full-day of relief work. Volunteers need to arrive on time and stay all day. Our last safety training begins promptly at 9:30 AM.  </strong></p>
-<p>Your commitment to this work makes it possible for us to keep our appointments with families who have often been wait-listed, stood up by contractors, screwed over by insurance companies. When you arrive on time and work hard all day, you are helping us keep our promises to people who have already dealt with more crap than they deserve.  </p>
-<p><strong>The following types of help are needed:</strong></p>
-<p><strong>No Experience Necessary</strong>. No special skill are needed except the desire to do a long hard day of  physical labor. We&#8217;ll provide mold remediation orientation, safety gear and safety training, and we&#8217;ll have an experienced supervisor on site to oversee a job well done.</p>
-<p><strong>Those of you with special skills</strong>. you&#8217;re an electrician or a plumber or a genius of another sort, let us know. We often have residents in our queue who need that work, and can likely set something up, dependent on residents&#8217; availability. However, if we haven&#8217;t made special appointments beforehand, we won&#8217;t have special jobs like these in our schedule. Don&#8217;t worry, there&#8217;s always next time!</p>
-<p><strong>Make an ongoing commitment</strong>. If you want to develop your mold attack skills, practice, and supervise a site in the future, this is the job for you.  Please let us know!</p>
-<p>Sign up at  <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35165&amp;qid=1168078">respondandrebuild.org</a>.  Also follow us on F<a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35166&amp;qid=1168078">acebook</a>.  For more information about other types of volunteer relief work, please see <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35167&amp;qid=1168078">occupysandy.com </a>or email <a href="mailto:occupysandyvolunteers@gmail.com">occupysandyvolunteers@gmail.com</a>.</p>
+<td id="bodyStyle">
+<p>&nbsp;</p>
+<p><a href="http://interoccupy.net/occupysandy/2013/03/artists-builders-needed-to-build-rockaway-memorial-sculpture/sculptureposter4small/" rel="attachment wp-att-25206"><img src="http://interoccupy.net/occupysandy/files/2013/03/sculptureposter4small-165x300.jpg" alt="" title="sculptureposter4small" width="165" height="300" class="alignright size-medium wp-image-25206" style="float:right;" /></a></p>
+<p>Greetings! </p>
+<p>I am an artist, organizer, and life-long New Yorker and I have been developing a project to build a collaborative memorial sculpture made from salvaged materials in the Rockaways.</p>
+<p>It will have a permanent home in a community garden on Beach 59th Street.</p>
+<p><strong>The unveiling ceremony will take place on Saturday, May 4th</strong>, a block away from the garden on the waterfront. The event will take place right after the Rockaway Waterfront Alliance&#8217;s 7th Annual Earth Day Festival.</p>
+<p>A number of local groups are supporting the project, and there will be a substantial amount of youth involvement through schools and community programs. Some students will be creating art objects that will be incorporated into the sculpture, and youth will also be invited to participate in build days and perform at the unveiling ceremony.</p>
+<p><strong>We need skilled carpenters, builders, and artists. </strong><strong>Please email <a href="mailto:sandysculpturenyc@gmail.com">sandysculpturenyc@gmail.com</a> </strong><strong>if you are interested in being a volunteer builder!</strong></p>
+<p>We are looking for community-minded builders and also people willing to lend battery operated tools during the project. No tools will be left overnight and we do not have access to electricity unless someone donates a portable generator.</p>
+<p>Volunteers should be enthusiastic about working with local residents.  People who can drive and/or have access to a vehicle will also be helpful. Bilingual speakers are a plus.</p>
+<p>Finally, anyone who wants to donate to this project should feel welcome! I&#8217;d be happy to mail you a color poster of the attached image as a reward for your donation.</p>
+<p><strong>Please email <a href="mailto:sandysculpturenyc@gmail.com">sandysculpturenyc@gmail.com</a> </strong><strong>with any questions!</strong></p>
+<p>Sandy left a destructive mark on the landscape of the Rockaways, but this project is an opportunity to facilitate community involvement in creating an artwork signifying an affirmative vision for years to come. Come be a part of it!</p>
+<p>&nbsp;</p>
+<p>Deep thanks,</p>
+<p>Sarah Quinter</p>
+<p>community artist &amp; organizer</p>
 </td>
 </tr>
 </tbody>
-</table>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:90:"http://interoccupy.net/occupysandy/2013/01/respond-rebuild-weekend-volunteers-needed/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}s:27:"http://www.w3.org/2005/Atom";a:1:{s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:1:{s:0:"";a:3:{s:4:"href";s:40:"http://interoccupy.net/occupysandy/feed/";s:3:"rel";s:4:"self";s:4:"type";s:19:"application/rss+xml";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:44:"http://purl.org/rss/1.0/modules/syndication/";a:2:{s:12:"updatePeriod";a:1:{i:0;a:5:{s:4:"data";s:6:"hourly";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:15:"updateFrequency";a:1:{i:0;a:5:{s:4:"data";s:1:"1";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:18:{s:6:"server";s:22:"Apache/2.2.16 (Debian)";s:12:"x-powered-by";s:21:"PHP/5.3.3-7+squeeze14";s:10:"set-cookie";s:44:"PHPSESSID=vdtjts8b7qi9c3a6sd06voo4i3; path=/";s:7:"expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"cache-control";s:62:"no-store, no-cache, must-revalidate, post-check=0, pre-check=0";s:6:"pragma";s:8:"no-cache";s:10:"x-pingback";s:45:"http://interoccupy.net/occupysandy/xmlrpc.php";s:13:"last-modified";s:29:"Thu, 07 Feb 2013 23:20:16 GMT";s:4:"etag";s:32:"c32a218ba8fa5f9f56b54b80e4a76cc4";s:4:"vary";s:15:"Accept-Encoding";s:16:"content-encoding";s:4:"gzip";s:12:"content-type";s:23:"text/xml; charset=UTF-8";s:14:"content-length";s:5:"16024";s:4:"date";s:29:"Thu, 07 Feb 2013 23:22:10 GMT";s:9:"x-varnish";s:9:"280881993";s:3:"age";s:1:"0";s:3:"via";s:11:"1.1 varnish";s:10:"connection";s:10:"keep-alive";}s:5:"build";s:14:"20111015034325";}
+</table>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:109:"http://interoccupy.net/occupysandy/2013/03/artists-builders-needed-to-build-rockaway-memorial-sculpture/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"32";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:6;a:6:{s:4:"data";s:44:"
+		
+		
+		
+		
+		
+				
+		
+
+		
+		
+			
+			
+		
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:50:"Still Occupying Sandy: Updates and Volunteer Needs";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:93:"http://interoccupy.net/occupysandy/2013/02/still-occupying-sandy-updates-and-volunteer-needs/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:102:"http://interoccupy.net/occupysandy/2013/02/still-occupying-sandy-updates-and-volunteer-needs/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 28 Feb 2013 15:49:53 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=25202";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:423:"Last week Occupy Sandy volunteers and Rockaways residents represented their communities and made their voices heard by traveling by bus to the largest climate change rally ever in our nation’s capital. Those who were harmed by Sandy know that climate &#8230; <a href="http://interoccupy.net/occupysandy/2013/02/still-occupying-sandy-updates-and-volunteer-needs/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:14195:"<p>Last week Occupy Sandy volunteers and Rockaways residents represented their communities and made their voices heard by traveling by bus to the largest climate change rally ever in our nation’s capital. Those who were harmed by Sandy know that climate change is real and action must be taken stop the burning of fossil fuels. Thank you to everyone who helped encourage and support this trip, including those from <a href="https://www.facebook.com/YANA113">YANA</a>and the <a href="https://www.facebook.com/RockawayTaskForce">Rockaway Youth Task Force</a>.</p>
+<p><img src="http://crm.interoccupy.net/sites/default/files/civicrm/persist/contribute/images/RockawaystoDCgroupshot.jpg" alt="" /></p>
+<p>Meanwhile, back in New York, there are big changes with our Occupy Sandy network. The warehouse in Coney Island is up and running, and there is a new location in Staten Island.</p>
+<p>We are saying a sad farewell the the Bay Ridge Kitchen as they prepare for their closing this Friday. Please stop by to help tomorrow, February 28 and Friday, March 1. The food has been delicious and has sustained our community over these past few months.</p>
+<p><a href="https://www.facebook.com/OccupySandyBayRidgeKitchen">Please go to their facebook page</a><a href="https://www.facebook.com/OccupySandyBayRidgeKitchen"> and leave a thank you message</a></p>
+<p>Please pick a location below to contact and discuss further ways to help over the next few weeks:</p>
+<p>&nbsp;</p>
+<div align="center"><a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#staten">Staten Island</a>   |   <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#warehouse">Occupy Sandy Warehouse</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#redhook">Red Hook</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#yana">YANA</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#kitchen">Occupy Sandy Kitcen</a>  |  <br /><a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#sheeps">Sheepshead Bay</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#randr">Respond &amp; Rebuild</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#smallwater">Smallwater</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#action">The Action Center</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#911">Heart 911</a>  |  <br /><a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#story">Sandy Storyline</a>  |  <a href="http://crm.interoccupy.net/civicrm/mailing/report?reset=1&amp;html=1&amp;mid=257#legal">OS Legal</a></div>
+<p><br /> </p>
+<hr />
+<p><strong><a name="staten"></a>STATEN ISLAND<br />For more information Contact Goldi at <a href="mailto:OccupySandyStatenIsland@gmail.com">OccupySandyStatenIsland@gmail.com</a><br />or 347-201-0670.<br />Weekend hours: 10am &#8211; 4pm.<br />All other times by appointment, please call or email us!<br />551 Midland Avenue, Staten Island<br />Directions: </strong>Verrazano Bridge to Hylan Blvd exit, SW on Hylan until a left on Midland, continue 1 mile until 551 on corner of Freeborn St.<br /><br />Muck out work is continuous. Other work is for special projects including canvassing, deliveries, data entry, and phone banking. 10 volunteers needed during the week, 50 or more on weekends which is when we concentrate on our muck-out work. To volunteer during the week, please call or email us. NO DROP OFF DONATIONS!</p>
+<p>&nbsp;</p>
+<hr />
+<p><strong><a name="warehouse"></a>OCCUPY SANDY WAREHOUSE<br />Contact <a href="mailto:childswarehouse@gmail.com">childswarehouse@gmail.com</a> to make an appointment and get directions.<br />Delivery Drivers<br />Tuesdays and Thursdays, 9:30am-5pm</strong><br /><br />Are you a New Yorker with a drivers license? If you like driving large vehicles, even trucks on occasion, this is the place for you. Drivers are needed Tuesdays and Thursdays and we are hoping to find a few people who can make a commitment to come back regularly on one or both of those days weekly. We have a 15 passenger van that you will be using to make deliveries of supplies to and from the warehouse. Transportation to the warehouse will be available from Clinton Hill at 9:30am (for Coney start time of 11am). Contact Lev at <a href="mailto:childswarehouse@gmail.com">childswarehouse@gmail.com</a>. (There are no children in the warehouse, it’s just the name of the building).</p>
+<p>&nbsp;</p>
+<hr />
+<p><br /><strong><a name="redhook"></a>RED HOOK<br />Contact Shawn Carrié, <a href="mailto:shawn@redhookcoalition.org">shawn@redhookcoalition.org</a>.<br />Open 12 Noon Daily<br />Accessible by bus and multiple Subway trains!<br />360 Van Brunt Street in Red Hook</strong><br /><br />Walk-ins are welcome and volunteers are needed daily for canvassing, demolition, computer work, legal, repair work. Wishlist: people with construction skills, computer skills and laptops and smart phones. Take the B61 bus toward Red Hook from either the A/C/F/R/2/3/4/5 trains from Downtown Brooklyn, or the D/N/R/F/G trains from 9th Street.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="yana"></a>YANA (You Are Never Alone)<br />Please contact Sofia at <a href="mailto:sandyrockaway@interoccupy.net">sandyrockaway@interoccupy.net</a> or call 347-644-YANA (9262).<br />Tues.-Sun. 10am-5pm (hours vary, please confirm)<br />Travel by personal vehicle recommended, bus and ferry service also available, see below.<br />112-22 Rockaway Beach Boulevard Rockaway Park</strong><br /><br />We are currently rebuilding YANA, so volunteers with construction experience or willing to do manual labor are in high demand. Wishlist: carpenters, builders, licensed electricians and plumbers. You can also assist with muck-outs, winterizing, resident check-ins, neighborhood clean-up, case management and administrative data entry. Projects vary greatly on different days. In addition, there are also opportunities for volunteering remotely doing research, resident advocacy, and data management. Bring boots and warm clothes, we’ll provide the rest. Spanish speakers appreciated. Walk-ins are accepted but advance notice is preferable. From the Rockaway Boulevard A station, regular limited-stop Q53 bus service operates to Rockaway Park-Beach 116 Street, as well as Q52 service to Arverne-Beach 69 Street. Transportation info available <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35571&amp;qid=1334549">here</a>.  <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35572&amp;qid=1334549">Click here to donate</a>. For volunteers interested in construction work or material donations, contact Aaron at <a href="mailto:aadickerson@gmail.com">aadickerson@gmail.com</a> or 347-831-5973<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="kitchen"></a>OCCUPY SANDY KITCHEN, BAY RIDGE<br />Contact by email <a href="mailto:sandybayridge@interoccupy.net">sandybayridge@interoccupy.net</a> or by leaving a voicemail at 347-465-7430.<br />The kitchen will be closing. Friday, March 1st is our last day.<br />Daily, 9am &#8211; 6pm. Stay any length of time.<br />The last time to arrive is 5 p.m.<br />St. John’s Church, 461 99th St, Bay Ridge, Brooklyn.<br />Take the R train to 95th St. stop. Walk south on 4th Ave, make a left on 99th street. </strong><br /><br />Consistent healthy food food brings people together and gives stability when times are uncertain. Stop by to help on our last days, tomorrow, Thursday or Friday. Help prep food, cook, drive deliveries, clean, and help manage the operation (Lead Cooks and Floor Managers needed!) Walk-ins are welcome, groups by appointment, and we take all ages.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="sheeps"></a>SHEEPSHEAD BAY<br /><a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a>, or call 347-549-9708.<br />10am – 5pm, Daily<br />Accessible by Subway or Bus<br />Trailer at Emmons Avenue and Brown St., a 12 minute walk from Sheepshead Bay stop on the B/Q or right across from to B4 bus stop.</strong><br /><br />Sheepshead needs volunteers to help with mold remediation, prepping homes for mold remediation, debris removal, canvassing, community gardens work, and people interested in staffing the trailer. Supplies needed: contractor bags, tyvek suits, goggles, work gloves, nitrile gloves, wire brushes, 1 quart plastic spray bottles, cordless tools, 6 millimeter plastic sheeting, duct tape, heirloom seeds, a high capacity printer, canned goods, utensils, cups.  Languages: ***Russian***, Chinese (Cantonese or Mandarin), Korean, Urdu, Arabic, Spanish. Please wear sturdy shoes and clothes you can get dirty.  <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35570&amp;qid=1334549">Please sign up here</a>.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="randr"></a>RESPOND AND REBUILD<br />Sign up to volunteer is required at <a href="http://www.respondandrebuild.org/">respondandrebuild.org</a><br />Arrive by 9:30am, Open most days (register for exact dates).<br />Pilgrim Church of Arverne, 74-16 Beach Channel Drive.</strong><br /><br />New Transportation Info! During the week, please find your way to the bast by public transportation. On weekends, R&amp;R is now providing shuttle service promptly at 9am from the Howard Beach A Train, at 103rd St. &amp; 159th Ave. Make a difference in the lives of a Rockaway family by removing mold from their home. We provide free mold removal to those affected by the storm. Many of our clients are elderly, can not afford to have it done, and are overwhelmed by the aftereffects of the storm. They need YOUR help! It’s tough, physical work, and we’ll provide you with all the safety gear and tools you’ll need. Just bring a bag lunch and dress warmly, with hard-soled shoes.  **Volunteers must sign up in advance, arrive by 9:30 am for a safety training, and stay all day. ** Your commitment allows us keep our promises to residents who have often been wait-listed and let down by others throughout this process. Teenagers 16+ are welcome to participate. (16 &amp; 17 yr olds must have a parental consent form signed). Registration for all R&amp;R volunteers is required by 5pm on the day prior to volunteering.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="smallwater"></a>SMALLWATER<br />Contact Michelle Cortez: <a href="mailto:Volunteer@smallwater.org">Volunteer@smallwater.org</a><br />Open everyday except Mondays, 10am – 3:30pm<br />Travel by personal vehicle recommend, bus service also available.<br />Rockaway Beach, 183 Beach 96th street</strong><br /><br />Help with muck-out as jobs come in, serving food, coordinating and cleaning up the site. Driving &#8211; Cross Bay Bridge from Howard Beach to beach 94th Left on Shorefront Parkway Right on beach 96th. Accessible by public transportation via the A train and Q53 bus. For more information on this site see <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35574&amp;qid=1334549">smallwater.org</a>.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="action"></a>THE ACTION CENTER<br />Contact Aria at 718 869-0346, <a href="mailto:adoe196701@aol.com">adoe196701@aol.com</a><br />Open 10am – 4pm Daily<br />Travel by personal vehicle is recommended, some bus service available.<br />5710 Beach Channel Drive</strong><br /><br />Volunteers will be performing supply intake &amp; distro activities, e.g. unloading supply trucks, unpacking boxes, organizing supply rooms, distributing supplies. Specific tasks, per day, vary. Drivers needed. Work gloves, boots and warm winter wear, strongly suggested for all volunteers.<br /> </p>
+<hr />
+<p><br /><br /><strong>HEART 911<br />Gerritsen Beach, Brooklyn at Devon St. and Gerritsen Ave.<br />Every Monday through Saturday, beginning at 8 a.m. </strong><br /><br />Local 79, along with other Building Trades Unions, will be asking any interested volunteers to join HEART 911 in finishing up houses in Gerritsen Beach, Bklyn that have already received “Rapid Repair” work. We will be sheetrocking and insulating the homes of Hurricane Sandy victims. We need laborers, carpenters, and other skilled workers. Contact Dennis Lee (347)712-1684<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="story"></a>SANDY STORYLINE<br />Weekly meeting, Monday 7pm<br />122 Java St., Greenpoint, Brooklyn (Near Greenpoint G)</strong><br /><br />We are connecting with educators, media makers, storytellers, and activists all over the city and Northern New Jersey. Storytelling is a powerful and important part of building power and spreading awareness. We are looking for people to help on our education team, our exhibition team, and media makers to collect stories and present them both online and offline. With billions of dollars in funding coming to NYC, Sandy Storyline is a platform to share personal stories and insights and help influence the impact of the recovery funding. It is best to call or email to tell us what you are interested in and we will connect you with the right people: <a href="mailto:info@sandystoryline.com">info@sandystoryline.com</a>,<a href="http://www.sandystoryline.com/">www.sandystoryline.com</a>.<br /> </p>
+<hr />
+<p><br /><br /><strong><a name="legal"></a>OS LEGAL</strong><br /><br />The OS Legal team is made up of committed volunteers who organize together to provide both direct service and legal information to Sandy survivors. We are on the front lines of the fight for an equitable and fair recovery process. Please contact OS Legal if you have experience or interest in legal issues: <a href="mailto:occupysandylegal@gmail.com">occupysandylegal@gmail.com</a>.</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:98:"http://interoccupy.net/occupysandy/2013/02/still-occupying-sandy-updates-and-volunteer-needs/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:7;a:6:{s:4:"data";s:56:"
+		
+		
+		
+		
+		
+				
+		
+		
+		
+		
+		
+
+		
+		
+			
+			
+		
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:65:"Occupy Sandy Data Project on International Open Data Day – 2/23";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:104:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-data-project-on-international-open-data-day-223/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:113:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-data-project-on-international-open-data-day-223/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 21 Feb 2013 16:12:38 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:6:{i:0;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:19:"Movement Technology";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:14:"Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:10:"Volunteers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=22123";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:503:"Join Occupy Sandy to collect, digitize and pre-process data that includes canvasing forms, Amazon registry records, and more.   At the end of the day, we’ll apply for an Open Data Commons Open Database License (ODbL) so that Occupy Sandy data can be used to inform civil action, community initiatives and research more broadly. <a href="http://interoccupy.net/occupysandy/2013/02/occupy-sandy-data-project-on-international-open-data-day-223/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:2063:"  	
+  <strong><p>What better way could there be to spend a Saturday afternoon?  Help promote open knowledge by assisting with the preparation of an Occupy Sandy open data release on <a href=http://opendataday.org/> International Open Data Day</a>, Feb 23.</p></strong>
+
+  <p>We’ll be joining-up with Occupy Sandy to collect, digitize and pre-process data that includes canvasing forms, Amazon registry records, and more.   At the end of the day, we’ll apply for an <a href=http://opendatacommons.org/licenses/odbl/>Open Data Commons Open Database License (ODbL)</a> so that Occupy Sandy data can be used to inform civil action, community initiatives and research more broadly.</p>
+
+  <p>The following week, on Friday March 1st and Saturday March 2nd, is the <a href==http://occupydatanyc.org/2013/01/20/occupydata-hackathon-returns-to-nyc1-2-march/>Occupy Data Hackathon</a>.  There, we’ll be using the data to help assess the breadth and depth of the Occupy Sandy relief effort, and the extent of unmet needs in neighborhoods devastated by Sandy.</p>
+
+  <p>In addition to data analysis and visualization, the’ll be other opportunities to work with the data, and other data sets to work with at the hackathon too.</p>
+
+  <p>Group will be meeting at the CUNY Graduate Center on 365 Fifth Ave, room 5409 from 12-6PM.  The building is diagonally across from the NE corner of the ESB.</p>
+
+  <p>All skill levels are welcome, and informal training will be available for anyone looking to jump in and help.</p>
+
+   <p>Please <a href=https://docs.google.com/forms/d/1jMnqB69nKA-JXtovNgy7ZEf9NTHmWKw5z1qffERkP-A/viewform>register here</a> so we can put your name on the visitor list.</p>
+
+>>> Email <a href="mailto:drew@nycga.net" target="_blank">drew@nycga.net</a> with any questions. <<<
+
+  <p>Lunch and snacks provided!</p>
+
+  <p>Event is sponsored by <a href=http://opencuny.info/>OpenCUNY</a>, <a href=http://justpublics365.commons.gc.cuny.edu/>JustPublics@365</a> and the <a href=http://cunydsc.org/>Doctoral Students’ Council</a></p>
+";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:109:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-data-project-on-international-open-data-day-223/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"12";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:8;a:6:{s:4:"data";s:68:"
+		
+		
+		
+		
+		
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+			
+			
+		
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:51:"Occupy Sandy: Volunteer Opportunities as of 2/15/13";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:92:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-as-of-21513/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:101:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-as-of-21513/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 15 Feb 2013 17:36:52 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:10:{i:0;a:5:{s:4:"data";s:9:"Volunteer";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:9:"Bay Ridge";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:8:"Brooklyn";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:15:"Hurricane Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:6:"Queens";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:9:"Rockaways";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:14:"Sandy Recovery";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:8;a:5:{s:4:"data";s:14:"Sheepshead Bay";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:9;a:5:{s:4:"data";s:13:"Staten Island";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=21041";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:396:"In the parts of our city where Sandy flooded homes and businesses, residents and volunteers are hard at work in a race to obliterate mold before the spring. There is more. Occupy Sandy coordinators are stepping up again with a &#8230; <a href="http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-as-of-21513/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:11645:"<p>In the parts of our city where Sandy flooded homes and businesses, residents and volunteers are hard at work in a race to obliterate mold before the spring.</p>
+<p>There is more.</p>
+<p>Occupy Sandy coordinators are stepping up again with a new warehouse, continuing to provide over 2000 meals a day, and giving legal assistance. The best way for you to be a part of these efforts is to look at the list below and contact one of the sites or projects below.</p>
+<p>For more info about all sites and to sign up GROUPS please call 347-770-4520 or <a href="mailto:occupysandyvolunteers@gmail.com">occupysandyvolunteers@gmail.com</a>.</p>
+<p>In this email you will find:</p>
+<ol class="counter">
+<li><a href="#CIWarehouse">NEW! Occupy Sandy Warehouse in Coney Island</a>: Volunteer by appointment only to remediate mold TOMORROW or sign up to be a recurring Delivery Drivers.</li>
+<li><a href="#BayRidge">Occupy Sandy Bay Ridge Kitchen</a>: Help prepare food this weekend and every day until the end of the month: Be a food prepper, driver, lead cook or floor manager.</li>
+<li><a href="#SandyLegal">Occupy Sandy Legal:</a> Fight for justice alongside a legal team that believes a better world is possible.</li>
+<li><a href="#Storyline">Sandy Storyline Project</a>: Use your technical and/or creative skills to find and share new stories of survival and resilience.</li>
+<li><a href="#Bklyn">Brooklyn Relief Sites</a> at Red Hook and Sheepshead Bay: Help is needed and these sites are accessible by subway.</li>
+<li><a href="#Rockaways">Rockaways</a> Relief Sites at YANA, Respond and Rebuild, The action Center, Smallwater.</li>
+<li><a href="#SI">Staten Island</a>  at 1128 Olympia St.</li>
+</ol>
+<p>Visit inspiring communities and join them in equitable and sustainable rebuilding.</p>
+<hr />
+<a name="BayRidge"></a></p>
+<h2>Occupy Sandy Kitchen, Bay Ridge</h2>
+<ul>
+<li>Daily, 9am &#8211; 6pm. Stay any length of time.</li>
+<li>St. John’s Church, 461 99th St, Bay Ridge, Brooklyn.</li>
+<li>Take the R train to 95th St. stop. Walk south on 4th Ave, make a left on 99th Street.</li>
+</ul>
+<p>Consistent healthy food food brings people together and gives stability when times are uncertain. Next week, we will be transitioning out of the space. This kitchen is wrapping things up soon (stay tuned for details) but for the next few weeks needs YOU to prep food, cook, drive deliveries, clean, and help manage the operation (Lead Cooks and Floor Managers needed!) Walk-ins are welcome, groups by appointment, and we take all ages.</p>
+<p>Contact by email <a href="mailto:sandybayridge@interoccupy.net">sandybayridge@interoccupy.net</a> or by leaving a voicemail at 347-465-7430.</p>
+<hr />
+<a name="CIWarehouse"></a></p>
+<h2>Occupy Sandy Warehouse</h2>
+<p>Contact <a href="mailto:childswarehouse@gmail.com">childswarehouse@gmail.com</a> to make an appointment and get directions.</p>
+<h3>Day of Mold Remediation</h3>
+<ul>
+<li>Saturday, 9:15am &#8211; 5pm</li>
+</ul>
+<p>Responsible, hard workers need to help us prepare our own space with a little mold remediation on the second floor. Get a ride from 520 Clinton Ave (between Atlantic and Fulton, near the C train). Also option of meeting in Coney Island.</p>
+<h3>Delivery Drivers</h3>
+<ul>
+<li>Tuesdays and Thursdays, 9:30am-5pm</li>
+</ul>
+<p>Are you a New Yorker with a drivers license? If you like driving large vehicles, even trucks on occasion, this is the place for you. Drivers are needed Tuesdays and Thursdays and we are hoping to find a few people who can make a commitment to come back regularly on one or both of those days weekly. We have a 15 passenger van that you will be using to make deliveries of supplies to and from the warehouse. Transportation to the warehouse will be available from Clinton Hill at 9:30am (for Coney start time of 11am). Contact Lev at <a href="mailto:childswarehouse@gmail.com">childswarehouse@gmail.com</a>. (There are no children in the warehouse, it’s just the name of the building).</p>
+<hr />
+<a name="SandyLegal"></a></p>
+<h2>OS Legal</h2>
+<p>The OS Legal team is made up of committed volunteers who organize together to provide both direct service and legal information to Sandy survivors. We are on the front lines of the fight for an equitable and fair recovery process. Please contact OS Legal if you have experience or interest in legal issues: <a href="mailto:occupysandylegal@gmail.com">occupysandylegal@gmail.com</a>.</p>
+<hr />
+<a name="Storyline"></a></p>
+<h2>Sandy Storyline</h2>
+<p>Weekly meeting, Monday 7pm at 122 Java St., Greenpoint, Brooklyn (Near Greenpoint G)</p>
+<p>We are connect with educators, media makers, storytellers, and activists all over the city and Northern New Jersey. Storytelling is a powerful and important part of building power and spreading awareness. We are looking for people to help on our education team, our exhibition team, and media makers to collect stories and present them both online and offline. With billions of dollars in funding coming to NYC, Sandy Storyline is a platform to share personal stories and insights and help influence the impact of the recovery funding.</p>
+<p>It is best to call or email to tell us what you are interested in and we will connect you with the right people: <a href="mailto:info@sandystoryline.com">info@sandystoryline.com</a>, <a href="http://www.sandystoryline.com">www.sandystoryline.com</a>.</p>
+<hr />
+<a name="Bklyn"></a></p>
+<h2>Brooklyn</h2>
+<h3>Red Hook</h3>
+<p>Open 12 Noon Daily<br /> Accessible by bus and multiple Subway trains!<br /> 360 Van Brunt Street in Red Hook.</p>
+<p>Walk-ins are welcome and volunteers are needed daily for canvassing, demolition, computer work, legal, repair work. Wishlist: people with construction skills, computer skills and laptops and smart phones. Take the B61 bus toward Red Hook from either the A/C/F/R/2/3/4/5 trains from Downtown Brooklyn, or the D/N/R/F/G trains from 9th Street. Contact Shawn Carrié, <a href="mailto:shawn@redhookcoalition.org">shawn@redhookcoalition.org</a>.</p>
+<h3>Sheepshead Bay</h3>
+<p>10am – 5pm, Daily<br /> Accessible by Subway or Bus<br /> Trailer on the corner of Emmons Avenue at Brown St., 12 minute walk from Sheepshead Bay stop on the B/Q or right across from to B4 bus stop.</p>
+<p>Sheepshead Bay still needs volunteers to help residents clean out and remove debris from homes and yards, do demolition and muck outs, distribute supplies to residents, work in our community garden and our new trailer, do on-site needs assessments, and assist with filling out work orders. We have a particularly high need for Russian and Chinese speakers. Please wear sturdy shoes and clothes, as you can get dirty.</p>
+<p>Please sign up <a href="http://www.signupgenius.com/go/70A0C49ACAB28A75-occupy">here</a>.  email:  <a href="mailto:sheepsheadbayrecovers@gmail.com">sheepsheadbayrecovers@gmail.com</a>, or call 347-549-9708.</p>
+<hr />
+<a name="Rockaways"></a></p>
+<h2>Rockaways</h2>
+<h3>YANA (You Are Never Alone)</h3>
+<ul>
+<li>Tues.-Sun. 10am-5pm</li>
+<li>Travel by personal vehicle recommended, bus and ferry service also available, see below.</li>
+<li>112-34 Rockaway Beach Boulevard Rockaway Park</li>
+</ul>
+<p>We are currently rebuilding YANA, so volunteers with construction experience or willing to do manual labor are in high demand. Wishlist: carpenters, builders, electricians and plumbers. You can also assist with muck-outs, winterizing, resident check-ins, neighborhood clean-up, case management and administrative data entry. Bring boots and warm clothes, we’ll provide the rest. Spanish speakers appreciated. Walk-ins are accepted but advance notice is preferable.</p>
+<p>Projects vary greatly on different days. From the Rockaway Boulevard A station, regular limited-stop Q53 bus service operates to Rockaway Park-Beach 116 Street, as well as Q52 service to Arverne-Beach 69 Street.</p>
+<p>Transportation info available <a href="http://interoccupy.net/occupysandy/locations/rockaways/">here</a>. For more information contact <a href="mailto:sandyrockaway@interoccupy.net">sandyrockaway@interoccupy.net</a> or call 347-644-YANA (9262).</p>
+<p><a href="http://www.bit.ly/restoretherock">Click here to donate</a>. For volunteers interested in construction work or material donations, contact Aaron at <a href="mailto:aadickerson@gmail.com">aadickerson@gmail.com</a> or 347-831-5973</p>
+<h3>Respond and Rebuild</h3>
+<ul>
+<li>Sign up to volunteer is required at <a href="http://www.respondandrebuild.org">respondandrebuild.org</a></li>
+<li>Arrive by 9:30am, Open most days (register for exact dates).</li>
+<li>Pilgrim Church of Arverne, 74-16 Beach Channel Drive.</li>
+<li>(NEW TRANSPORTATION INFO!) R&amp;R is now providing shuttle service promptly at 8:45pm and 9:15 pm from the Howard</li>
+<li>Beach A Train, at 103rd St. &amp; 159th Ave.</li>
+</ul>
+<p>Help with mold remediation in the Rockaways. It’s tough, physical work, and we’ll provide you with all the safety gear and tools you’ll need. Just bring a bag lunch and dress warm, with hard-soled shoes. **Volunteers must sign up in advance, arrive by 9:30am for a safety training, and stay all day. ** Your commitment allows us keep our promises to residents who have often been wait-listed and let down by others throughout this process. Teenagers 16+ are welcome to participate. (16 &amp; 17 yr olds must have a parental consent form signed). Registration for all R&amp;R volunteers is required by 5pm on the day prior to volunteering.</p>
+<h3>Smallwater</h3>
+<ul>
+<li>Open everyday except Mondays, 10am – 3:30pm</li>
+<li>Travel by personal vehicle recommend, bus service also available.</li>
+<li>Rockaway Beach, 183 Beach 96th street</li>
+</ul>
+<p>Help with muck-out as jobs come in, serving food, coordinating and cleaning up the site.</p>
+<p>Driving &#8211; Cross Bay Bridge from Howard Beach to beach 94th Left on Shorefront Parkway Right on beach 96th. Accessible by public transportation via the A train and Q53 bus.</p>
+<p>Contact Michelle Cortez: <a href="mailto:Volunteer@smallwater.org">Volunteer@smallwater.org</a>, and for more information on this site see <a href="http://www.smallwater.org">smallwater.org</a>.</p>
+<h3>The Action Center</h3>
+<ul>
+<li>Open 10am – 4pm Daily</li>
+<li>Travel by personal vehicle is recommended, some bus service available.</li>
+<li>5710 Beach Channel Drive</li>
+</ul>
+<p>Volunteers will be performing supply intake &amp; distro activities, e.g. unloading supply trucks, unpacking boxes, organizing supply rooms, distributing supplies. Specific tasks, per day, vary. Drivers needed. Work gloves, boots and warm winter wear, strongly suggested for all volunteers. Sam Doe (center director) and Nelson (site coordinator) are ground contacts for volunteers to connect with upon arrival. Contacts: 718 869-0346 or <a href="mailto:adoe196701@aol.com">adoe196701@aol.com</a>.</p>
+<p><a name="SI"></a></p>
+<h2>Staten Island</h2>
+<ul>
+<li>1128 Olympia</li>
+<li>Monday and Friday 11am-4pm</li>
+<li>Saturday and Sunday 10am – 4pm</li>
+<li>(Closed Tues &#8211; Thurs)</li>
+</ul>
+<p>Personal vehicle recommended, all accessible by ferry/bus. Staten Island needs help with muck-outs, canvassing, deliveries, and administration at hub. Note, the free store is closed. If you are driving, take the Verrazano bridge and exit at Hylan Blvd. Drive SW on Hylan, left on Greeley, left on Olympia. and the hub is on the right. For more information Contact Goldi at <a href="mailto:Sandy1128Olympia@gmail.com">Sandy1128Olympia@gmail.com</a> or 347-201-0670.<br />  </p>
+";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:97:"http://interoccupy.net/occupysandy/2013/02/occupy-sandy-volunteer-opportunities-as-of-21513/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"22";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:9;a:6:{s:4:"data";s:62:"
+		
+		
+		
+		
+		
+				
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+			
+			
+		
+		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:5:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:25:"From the Rockaways to DC!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:68:"http://interoccupy.net/occupysandy/2013/02/from-the-rockaways-to-dc/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:77:"http://interoccupy.net/occupysandy/2013/02/from-the-rockaways-to-dc/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 13 Feb 2013 18:55:18 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:8:{i:0;a:5:{s:4:"data";s:12:"Announcement";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:7:"Updates";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:6:"Action";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:14:"Climate Change";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:11:"Environment";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:10:"Government";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:6;a:5:{s:4:"data";s:15:"Hurricane Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:7;a:5:{s:4:"data";s:12:"Occupy Sandy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:43:"http://interoccupy.net/occupysandy/?p=20687";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:408:"After hurricane Sandy, New Yorkers came together to occupy the biggest climate change disaster to ever hit our city. This Sunday, February 17th, Americans across the country are coming together in Washington, DC for the biggest climate change rally ever. There, &#8230; <a href="http://interoccupy.net/occupysandy/2013/02/from-the-rockaways-to-dc/">Continue reading <span class="meta-nav">&#8594;</span></a>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"andrea";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:40:"http://purl.org/rss/1.0/modules/content/";a:1:{s:7:"encoded";a:1:{i:0;a:5:{s:4:"data";s:3056:"<p>After hurricane Sandy, New Yorkers came together to occupy the biggest climate change disaster to ever hit our city.</p>
+<p>This Sunday, February 17th, Americans across the country are coming together in Washington, DC for the biggest climate change rally ever.</p>
+<p>There, we will call out the cause of Sandy: The fossil fuel industry, projects like the Keystone XL Tar Sands Pipeline, and the 1%’s control of global environmental policies.</p>
+<p>In NYC? Hop on one of the buses throughout New York City and be a part of history. Buses will be leaving from various locations in New York City</p>
+<h2>Bus Information</h2>
+<h3><a href="http://f17nycbusbrigade.wordpress.com" target="_blank">Multiple Bus Locations in NYC</a></h3>
+<p>Departing 7am from multiple locations: <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35468&amp;qid=1305484" target="_blank">http://f17nycbusbrigade.wordpress.com</a>.</p>
+<p><em>Reduced fares and scholarships are available on the various buses.</em></p>
+<h3>Rockaway Bus Information &#8211; Free Buses From YANA</h3>
+<p>Our friends at <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35469&amp;qid=1305484" target="_blank">YANA (You Are Never Alone)</a>, an Occupy Sandy hurricane relief hub,  have organized a bus from the Rockaways because they want to make absolutely sure that the voice of Sandy survivors and relief volunteers is heard on February 17th. They will be meeting up in DC with<a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35470&amp;qid=1305484" target="_blank"> 350.org</a> and a myriad of other groups.</p>
+<p>Buses will be departing at 7am from YANA, <a href="http://maps.google.com/maps?q=112-34+Rockaway+Beach+Boulevard,+at+Beach+113th+Street&amp;hl=en&amp;sll=40.697488,-73.979681&amp;sspn=0.624708,1.415863&amp;hnear=Rockaway+Beach+Blvd+%26+Beach+113th+St,+Queens,+New+York+11694&amp;t=m&amp;z=16" target="_blank">112-34 Rockaway Beach Boulevard, at Beach 113th Street</a>.</p>
+<p>Sign up and further information: <a href="mailto:occupysandy@interoccupy.net">occupysandy@interoccupy.net</a></p>
+<p>YANA is an inspiring example of community coming together after a climate change disaster to rebuild collaboratively and sustainably.  After you sign up to join them in DC, <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35471&amp;qid=1305484" target="_blank"> please consider donating to help them get to DC this weekend</a>, and take a look at this short film project about Sandy survivors and volunteers at <a href="http://crm.interoccupy.net/sites/all/modules/civicrm/extern/url.php?u=35472&amp;qid=1305484" target="_blank">www.rockaway113.com</a>.</p>
+<p>Can’t make it to DC person? Support the <a href="http://twitter.com/#ForwardOnClimate" target="_blank">#ForwardOnClimate</a> rally in social media.</p>
+<p>Let’s make sure the voices of Sandy Survivors and Occupy Sandy relief volunteers are heard beyond any shadow of a doubt.</p>";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:73:"http://interoccupy.net/occupysandy/2013/02/from-the-rockaways-to-dc/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"45";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}s:27:"http://www.w3.org/2005/Atom";a:1:{s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:1:{s:0:"";a:3:{s:4:"href";s:40:"http://interoccupy.net/occupysandy/feed/";s:3:"rel";s:4:"self";s:4:"type";s:19:"application/rss+xml";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:44:"http://purl.org/rss/1.0/modules/syndication/";a:2:{s:12:"updatePeriod";a:1:{i:0;a:5:{s:4:"data";s:6:"hourly";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:15:"updateFrequency";a:1:{i:0;a:5:{s:4:"data";s:1:"1";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:18:{s:6:"server";s:22:"Apache/2.2.16 (Debian)";s:12:"x-powered-by";s:21:"PHP/5.3.3-7+squeeze15";s:10:"set-cookie";s:44:"PHPSESSID=fo5o4nd54pmb3uq0eo1mf9d2k7; path=/";s:7:"expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"cache-control";s:62:"no-store, no-cache, must-revalidate, post-check=0, pre-check=0";s:6:"pragma";s:8:"no-cache";s:10:"x-pingback";s:45:"http://interoccupy.net/occupysandy/xmlrpc.php";s:13:"last-modified";s:29:"Sat, 27 Apr 2013 15:46:17 GMT";s:4:"etag";s:32:"a8bb2a3de340804eb23e0dc319bd5a3e";s:4:"vary";s:26:"User-Agent,Accept-Encoding";s:16:"content-encoding";s:4:"gzip";s:12:"content-type";s:23:"text/xml; charset=UTF-8";s:14:"content-length";s:5:"16405";s:4:"date";s:29:"Sat, 27 Apr 2013 17:56:49 GMT";s:9:"x-varnish";s:9:"883918253";s:3:"age";s:1:"0";s:3:"via";s:11:"1.1 varnish";s:10:"connection";s:10:"keep-alive";}s:5:"build";s:14:"20111015034325";}

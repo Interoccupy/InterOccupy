@@ -3,8 +3,11 @@ Authors: Ivan Shaovchev, Ulrich Sossou, Andrew Billits, Andrey Shipilov (Incsub)
 
 == Changelog ==
 
+= 1.2.0.0 =
+* SQL query improvements
+
 = 1.1.9.1 =
-* Blog Directory - Multi Site Privacy compatibility improvements 
+* Blog Directory - Multi Site Privacy compatibility improvements
 
 = 1.1.9 =
 * Blog search algorithm improvements
@@ -55,7 +58,7 @@ Authors: Ivan Shaovchev, Ulrich Sossou, Andrew Billits, Andrey Shipilov (Incsub)
 * Fixed nav menu item broken with some themes and when the default slug is different from blog
 * Fixed bug with search and pagination
 * Fixed php errors
-* Fixed blogs directory page title remains 'Blogs' even if the user enter a different title in the admin
+* Fixed blogs directory page title remains 'Blogs' even if the user enter a different title in the admin	   				 	 	 		
 
 = 1.0.7 =
 *  Better compatibility with directory installs.
@@ -81,4 +84,5 @@ Authors: Ivan Shaovchev, Ulrich Sossou, Andrew Billits, Andrey Shipilov (Incsub)
 = 1.0.0 =
 * Initial Release
 
-18246-1339102856-ai
+
+18246-1367277975-au

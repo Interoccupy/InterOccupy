@@ -16,10 +16,10 @@
 			</ol>
 		</section>
 	</section>
-	
+
 <?php } ?>
 
-<?php if ($disabled) { ?> 
+<?php if ($disabled) { ?>
 
 	<section id="support-disabled">
 		<section class="contents clearfix">
@@ -30,9 +30,9 @@
 					<a class="btn" href="<?php echo apply_filters('wpmudev_join_url', 'http://premium.wpmudev.org/join/'); ?>">
 						<button class="wpmu-button"><?php _e('Find out more &raquo;', 'wpmudev') ?></button>
 					</a>
-					<?php if (!$this->get_apikey()) { ?> 
+					<?php if (!$this->get_apikey()) { ?>
 					<p class="support-already-member"><a href="admin.php?page=wpmudev&clear_key=1"><?php _e('Already a member?', 'wpmudev') ?></a></p>
-					<?php } ?> 
+					<?php } ?>
 				</section>
 			</section>
 		</section>
@@ -66,7 +66,7 @@
 				<p><?php _e("Thanks for contacting Support, we'll get back to you as soon as possible.", 'wpmudev'); ?></p>
 				<p><a href="#" target="_blank"><?php _e('You can view or add to your support request here &raquo;', 'wpmudev'); ?></a></p>
 			</div>
-			
+
 			<form id="qa-form" method="post" enctype="multipart/form-data" action="">
 				<fieldset>
 					<legend>
@@ -82,15 +82,19 @@
 						?>
 							<div class="error fade"><p><?php printf(__('Only the admin user "%s" has access to WPMU DEV support.', 'wpmudev'), $user_info->display_name); ?></p></div>
 						<?php } ?>
-					
-						<div id="error_topic" style="1display:none;" class="error fade">
+
+						<div id="error_topic" style="display:none;" class="error fade">
 							<p><i class="icon-warning-sign icon-large"></i> <?php _e('Please enter your question title.', 'wpmudev'); ?></p>
 						</div>
 						<div id="error_ajax" style="display:none;" class="error fade">
 							<p><i class="icon-warning-sign icon-large"></i> <?php _e('There was a problem posting your support question:', 'wpmudev'); ?></p>
 						</div>
+						<div id="error-short_title" style="display:none">
+							<i class="icon-warning-sign"></i>
+							<span><?php _e('Sorry, please add a bit more detail to your question or subject - we require this so that we can offer the best possible support and member experience.', 'wpmudev'); ?></span>
+						</div>
 						<li>
-							<div class="wrap"><label for="topic"><?php _e('What\'s your question or topic?<br /> Be specific please :)', 'wpmudev') ?></label></div>
+							<div class="wrap"><label for="topic"><?php _e('Ask a question - the more detail the better', 'wpmudev') ?></label></div>
 							<input type="text" name="topic" id="topic" />
 						</li>
 						<div id="error_project" style="display:none;" class="error fade"><p><i class="icon-warning-sign icon-large"></i> <?php _e('Please select what you need support for.', 'wpmudev'); ?></p></div>
@@ -106,7 +110,7 @@
 								foreach ($projects as $pid => $project) {
 									if (isset($data['projects'][$pid])) {
 										if ($data['projects'][$pid]['type'] == 'plugin')
-											$plugins .= '<option value="'.$pid.'"'.$disabled.'>'.esc_attr($data['projects'][$pid]['name'])."</option>\n";
+											$plugins .= '<option value="'.$pid.'"'.$disabled.'>'.esc_attr($data['projects'][$pid]['name'])."</option>\n";	   				 				 	
 										else if ($data['projects'][$pid]['type'] == 'theme')
 											$themes .= '<option value="'.$pid.'"'.$disabled.'>'.esc_attr($data['projects'][$pid]['name'])."</option>\n";
 									}
@@ -127,7 +131,7 @@
 								</optgroup>
 							</select>
 						</li>
-						
+
 						<div id="error_content" style="display:none;" class="error fade"><p><i class="icon-warning-sign icon-large"></i> <?php _e('Please enter your support question.', 'wpmudev'); ?></p></div>
 						<li>
 							<div class="wrap"><label for="post_content"><?php _e('Ok, go for it...', 'wpmudev') ?></label></div>
@@ -139,7 +143,7 @@
 						<li>
 							<div class="wrap"><label for="notify-me"><?php _e("Notify me of responses via email", 'wpmudev') ?></label></div>
 							<input type="checkbox" id="notify-me" checked="checked" value="1" name="stt_checkbox"<?php echo $disabled; ?> />
-							
+
 							<?php if ($disabled) { ?>
 								<a class="wpmu-button icon"><i class="icon-play-circle icon-large"></i><?php _e("Post your question", 'wpmudev') ?></a>
 							<?php } else { ?>
@@ -149,7 +153,7 @@
 						</li>
 					</ol>
 				</fieldset>
-				
+
 			<input type="hidden" value="1" id="forum_id" name="forum_id">
 			</form>
 			<img src="<?php echo $spinner; ?>" width="1" height="1" /><!-- preload -->
@@ -166,8 +170,8 @@
 								<?php if ($thread['status'] == 'resolved') { ?>
 								<i class="icon-ok-sign icon-large resolved" title="<?php _e('Resolved', 'wpmudev'); ?>"></i>
 								<?php } else { ?>
-								
-								<?php } ?> 
+
+								<?php } ?>
 								<a href="<?php echo $thread['link'];?>" target="_blank"><?php echo $thread['title'];?></a>
 							</li>
 						<?php } else { ?>

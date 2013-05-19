@@ -4,7 +4,7 @@ Plugin Name: Polylang Auto Translation
 Plugin URI: http://moutons.ch
 Description: Add auto-translation functionality to the Polylang plugin.
 Text Domain: polylangat
-Version: 0.2
+Version: 0.2.1
 Author: El Khalifa Karim
 Author URI: http://moutons.ch
 License: GPL2

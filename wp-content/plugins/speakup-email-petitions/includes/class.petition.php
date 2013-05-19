@@ -21,6 +21,7 @@ class dk_speakup_Petition
 	public $sends_email = 1;
 	public $twitter_message;
 	public $requires_confirmation = 0;
+	public $return_url;
 	public $displays_custom_field = 0;
 	public $custom_field_label;
 	public $displays_optin = 0;
@@ -94,6 +95,7 @@ class dk_speakup_Petition
 			'sends_email'           => $this->sends_email,
 			'twitter_message'       => $this->twitter_message,
 			'requires_confirmation' => $this->requires_confirmation,
+			'return_url'            => $this->return_url,
 			'displays_custom_field' => $this->displays_custom_field,
 			'custom_field_label'    => $this->custom_field_label,
 			'displays_optin'        => $this->displays_optin,
@@ -136,7 +138,7 @@ class dk_speakup_Petition
 	/**
 	 * Breaks expiration date into year, month, day, hour, and minute components
 	 *
-	 * @return array with keys: year, month, day, hour, and minute
+	 * @return (array) with keys: year, month, day, hour, and minute
 	 */
 	public function get_expiration_date_components()
 	{
@@ -165,7 +167,7 @@ class dk_speakup_Petition
 	}
 
 	/**
-	 * Poppulates the parameters of this object with posted form values
+	 * Poppulates the properties of this object with posted form values
 	 */
 	public function poppulate_from_post()
 	{
@@ -208,6 +210,9 @@ class dk_speakup_Petition
 		// Petition Options Box
 		if ( isset( $_POST['requires_confirmation'] ) ) {
 			$this->requires_confirmation = 1;
+		}
+		if ( isset( $_POST['return_url'] ) ) {
+			$this->return_url = $_POST['return_url'];
 		}
 		if ( isset( $_POST['is_editable'] ) ) {
 			$this->is_editable = 1;
@@ -263,7 +268,7 @@ class dk_speakup_Petition
 	 * Retrieves a list of petitions to populate select box navigation
 	 * Only queries the info needed to populate select box at head of Signatures view
 	 *
-	 * @return object query results
+	 * @return (object) query results
 	 */
 	public function quicklist()
 	{
@@ -279,10 +284,10 @@ class dk_speakup_Petition
 	}
 
 	/**
-	 * Reads a petition record from the database
+	 * Reads a petition record and it's signature count from the database
 	 * 
-	 * @param int $id value of the petition's 'id' field in the database
-	 * @return true if query returns a result, false if no results found
+	 * @param (int) $id value of the petition's 'id' field in the database
+	 * @return (bool) true if query returns a result, false if no results found
 	 */
 	public function retrieve( $id )
 	{
@@ -298,15 +303,20 @@ class dk_speakup_Petition
 			GROUP BY $db_petitions.id
 		";
 		$petition = $wpdb->get_row( $wpdb->prepare( $sql, $id ) );
-
-		$this->_poppulate_from_query( $petition );
-		return true;
+		
+		if ( count( $petition ) > 0 ) {
+			$this->_poppulate_from_query( $petition );
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
 	 * Updates an existing petition record in the database
 	 * 
-	 * @param int $id value of the petition's 'id' field in the database
+	 * @param (int) $id value of the petition's 'id' field in the database
 	 */
 	public function update( $id )
 	{
@@ -325,6 +335,7 @@ class dk_speakup_Petition
 			 'sends_email'           => $this->sends_email,
 			 'twitter_message'       => $this->twitter_message,
 			 'requires_confirmation' => $this->requires_confirmation,
+			 'return_url'            => $this->return_url,
 			 'displays_optin'        => $this->displays_optin,
 			 'optin_label'           => $this->optin_label,
 			 'displays_custom_field' => $this->displays_custom_field,
@@ -343,7 +354,7 @@ class dk_speakup_Petition
 	/**
 	 * Poppulates the parameters of this object with values from the database 
 	 * 
-	 * @param object $petition database query results
+	 * @param (object) $petition database query results
 	 */
 	private function _poppulate_from_query( $petition )
 	{
@@ -361,6 +372,7 @@ class dk_speakup_Petition
 		$this->sends_email           = $petition->sends_email;
 		$this->twitter_message       = $petition->twitter_message;
 		$this->requires_confirmation = $petition->requires_confirmation;
+		$this->return_url            = $petition->return_url;
 		$this->displays_custom_field = $petition->displays_custom_field;
 		$this->custom_field_label    = $petition->custom_field_label;
 		$this->displays_optin        = $petition->displays_optin;

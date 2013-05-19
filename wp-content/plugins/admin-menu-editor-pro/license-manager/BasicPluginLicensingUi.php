@@ -13,6 +13,9 @@ class Wslm_BasicPluginLicensingUI {
 	private $triedLicense = null;
 	private $currentTab = 'current-license';
 
+	/** @var bool Whether to display the site token (if any) in the licensing window. */
+	protected $tokenDisplayEnabled = false;
+
 	public function __construct(Wslm_LicenseManagerClient $licenseManager, $pluginFile) {
 		$this->licenseManager = $licenseManager;
 		$this->pluginFile = $pluginFile;
@@ -60,8 +63,13 @@ class Wslm_BasicPluginLicensingUI {
 	}
 
 	private function getLicensingPageUrl() {
-		$url = add_query_arg('action', $this->getAjaxActionName(), admin_url('admin-ajax.php'));
-		$url = wp_nonce_url($url, 'show_license'); //Assumes the default license action = "show_license".
+		$url = add_query_arg(
+			array(
+		        'action'   => $this->getAjaxActionName(),
+		        '_wpnonce' => wp_create_nonce('show_license'), //Assumes the default license action = "show_license".
+			),
+			admin_url('admin-ajax.php')
+		);
 		return $url;
 	}
 
@@ -195,7 +203,8 @@ class Wslm_BasicPluginLicensingUI {
 			$this->printLicenseDetails(
 				'Valid License',
 				'This site is currently licensed and qualifies for automatic upgrades &amp; support for this product.
-				If you no longer wish to use this product on this site you can remove the license.'
+				If you no longer wish to use this product on this site you can remove the license.',
+				$currentLicense
 			)
 			?>
 			<form method="post" action="<?php echo esc_attr($this->getLicensingPageUrl()); ?>">
@@ -220,14 +229,20 @@ class Wslm_BasicPluginLicensingUI {
 			} else {
 				$this->printLicenseDetails(
 					'Invalid license (' . htmlentities($currentLicense->getStatus()) . ')',
-					'The current license is not valid. Please enter a valid license key below.'
+					'The current license is not valid. Please enter a valid license key below.',
+					$currentLicense
 				);
 				$this->printLicenseKeyForm();
 			}
 		}
 	}
 
-	private function printLicenseDetails($status, $message = '') {
+	/**
+	 * @param string $status
+	 * @param string $message
+	 * @param Wslm_ProductLicense $currentLicense
+	 */
+	private function printLicenseDetails($status, $message = '', $currentLicense = null) {
 		$currentKey = $this->licenseManager->getLicenseKey();
 		$currentToken = $this->licenseManager->getSiteToken();
 		?>
@@ -241,9 +256,21 @@ class Wslm_BasicPluginLicensingUI {
 		if ( !empty($currentKey) ) {
 			?><p><label>License key:</label> <?php echo htmlentities($currentKey); ?></p><?php
 		}
-		if ( !empty($currentToken) ) {
+		if ( !empty($currentToken) && $this->tokenDisplayEnabled ) {
 			?><p><label>Site token:</label> <?php echo htmlentities($currentToken); ?></p><?php
 		}
+
+		$expiresOn = isset($currentLicense) ? $currentLicense->get('expires_on') : null;
+		if ( $expiresOn ) {
+			$formattedDate = date_i18n(get_option('date_format'), strtotime($expiresOn));
+			?><p>
+				<label>Expires:</label>
+				<span title="<?php echo esc_attr($expiresOn); ?>"><?php echo $formattedDate ?></span>
+			  </p>
+			<?php
+		}
+
+		do_action('wslm_license_ui_details-' . $this->slug, $currentKey, $currentToken);
 
 		if ( !empty($message) ) {
 			echo '<p>', $message, '</p>';
@@ -370,7 +397,7 @@ class Wslm_BasicPluginLicensingUI {
 				do_action('admin_head');
 			?>
 		</head>
-		<body class="wp-admin iframe no-js" id="licensing-information">
+		<body class="wp-admin wp-core-ui iframe no-js" id="licensing-information">
 		<script type="text/javascript">
 		//<![CDATA[
 		(function(){

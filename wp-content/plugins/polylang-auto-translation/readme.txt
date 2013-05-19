@@ -3,8 +3,8 @@ Contributors: kabushi
 Donate link: http://moutons.ch/
 Tags: multilingual support
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tested up to: 3.5.1
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ This section describes how to install the plugin and get it working.
 
 e.g.
 
-1. Upload `polylangat` directory to the `/wp-content/plugins/` directory
+1. Upload `polylang-auto-translation` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
@@ -32,6 +32,9 @@ You will found some notice on http://moutons.ch in a few times.
 2. The Polylang Auto-Translation Plugin in the Strings Translation panel of Polylang.
 
 == Changelog ==
+
+= 0.2.1
+* Correcting some few bugs which break the myMemory translation service
 
 = 0.2 =
 * Now you can choose between Google Translation and myMemory translate services

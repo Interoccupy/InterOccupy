@@ -3,17 +3,17 @@ $data = $this->get_updates();
 
 if (!empty($_POST) && $this->allowed_user()) {
 	if ( $data['membership'] == 'full' ) { //free member
-		update_site_option('wdp_un_hide_upgrades', $_POST['hide_upgrades']);
+		update_site_option('wdp_un_hide_upgrades', $_POST['hide_upgrades']);	   				 				 	
 		update_site_option('wdp_un_hide_notices', $_POST['hide_notices']);
 		update_site_option('wdp_un_hide_releases', $_POST['hide_releases']);
 	} else if ( is_numeric( $data['membership'] ) ) { //single
 		update_site_option('wdp_un_hide_upgrades', $_POST['hide_upgrades']);
 	}
-	
+
 	//limit to whoever saves the settings
 	if ($this->get_apikey())
 		update_site_option('wdp_un_limit_to_user', $current_user->ID);
-		
+
 	?><div class="updated fade"><p><?php _e('Settings Saved!', 'wpmudev'); ?></p></div><?php
 }
 
@@ -41,15 +41,9 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 
 <form action="" method="post">
 <div class="section-contents" id="settings">
-	
+
 	<?php if (isset($profile['profile']) && $this->get_apikey() && !defined( 'WPMUDEV_APIKEY') && $this->allowed_user()) { ?>
-	<h2><?php _e('Your Membership Details', 'wpmudev') ?>
-		<span class="tooltip"><i class="icon-question-sign icon-large"></i>
-			<section>
-				<?php _e('If you need to hide this information, place this line in your wp-config.php file:', 'wpmudev'); ?><br /><code>define('WPMUDEV_APIKEY', '<?php echo $this->get_apikey(); ?>');</code>
-			</section>
-		</span>
-	</h2>
+	<h2><?php _e('Your Membership Details', 'wpmudev') ?></h2>
 	<div id="membership-details">
 		<h3><?php _e('Your WPMU DEV API Key', 'wpmudev') ?></h3>
 		<span class="description">
@@ -64,7 +58,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 	</div>
 	<div class="clear"></div>
 	<?php } ?>
-	
+
 	<?php if ( !$this->get_apikey() ) { ?>
 	<h3><?php _e('Please create a free account to get an API key and enable settings:', 'wpmudev') ?>
 		<small>
@@ -72,7 +66,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 		</small>
 	</h3>
 	<?php } ?>
-	
+
 	<h2><?php _e('Admin Notices', 'wpmudev') ?></h2>
 	<div class="inside">
 		<span class="description"><?php _e('Notices are only displayed to site Administrators (Super-Admins in Multisite installs). Full & current WPMU DEV members can permanently disable all admin notices, though individual notices can always be dismissed by any admin.', 'wpmudev') ?></span>
@@ -133,7 +127,7 @@ if ( $this->get_apikey() && ($data['membership'] == 'full' || is_numeric($data['
 	</div>
 
 </div>
-		
+
 </div>
 </form>
 </div>

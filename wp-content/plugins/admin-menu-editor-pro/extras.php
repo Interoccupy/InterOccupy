@@ -111,6 +111,7 @@ class wsMenuEditorExtras {
 		//License management
 		add_filter('wslm_license_ui_title-admin-menu-editor-pro', array($this, 'license_ui_title'));
 		add_action('wslm_license_ui_logo-admin-menu-editor-pro', array($this, 'license_ui_logo'));
+		add_action('wslm_license_ui_details-admin-menu-editor-pro', array($this, 'license_ui_upgrade_link'), 10, 2);
 	}
 	
   /**
@@ -211,7 +212,7 @@ class wsMenuEditorExtras {
 		?>
 		<script type="text/javascript">
 		(function($){
-			$('#adminmenu span.ws-new-window-please, #ozhmenu span.ws-new-window-please').each(function(index){
+			$('#adminmenu span.ws-new-window-please, #ozhmenu span.ws-new-window-please').each(function(){
 				var marker = $(this);
 				//Add target="_blank" to the enclosing link
 				marker.parents('a').first().attr('target', '_blank');
@@ -223,7 +224,7 @@ class wsMenuEditorExtras {
 			
 			<?php if ( !empty($this->ozhs_new_window_menus) ): ?>
 			
-			$('<?php echo implode(', ', $this->ozhs_new_window_menus); ?>').each(function(index){
+			$('<?php echo implode(', ', $this->ozhs_new_window_menus); ?>').each(function(){
 				//Add target="_blank" to the link
 				$(this).find('a').attr('target', '_blank');
 			});
@@ -353,7 +354,7 @@ class wsMenuEditorExtras {
 			frame.height( footer.offset().top - frame.offset().top - footer.outerHeight() );
 		}
 		
-		jQuery(function($){
+		jQuery(function(){
 			wsResizeFrame();
 			setTimeout(wsResizeFrame, 1000);
 		});
@@ -565,7 +566,7 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 			
 			$file_data = $_FILES['menu'];
 			if ( filesize($file_data['tmp_name']) > $this->export_settings['max_file_size'] ){
-				echo '<textarea cols="50" rows="5">', $wp_menu_editor->json_encode(array('error' => "File too big")), '</textarea>';
+				$this->output_for_jquery_form( $wp_menu_editor->json_encode(array('error' => "File too big")) );
 				die();
 			}
 
@@ -577,14 +578,14 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 				//This is an exported menu in the old format.
 				$data = $wp_menu_editor->json_decode($file_contents, true);
 				if ( !(isset($data['menu']) && is_array($data['menu'])) ) {
-					echo '<textarea cols="50" rows="5">', $wp_menu_editor->json_encode(array('error' => "Unknown or corrupted file format")), '</textarea>';
+					$this->output_for_jquery_form( $wp_menu_editor->json_encode(array('error' => "Unknown or corrupted file format")) );
 					die();
 				}
 
 				try {
 					$menu = ameMenu::load_array($data['menu']);
 				} catch (InvalidMenuException $ex) {
-					echo '<textarea cols="50" rows="5">', $wp_menu_editor->json_encode(array('error' => $ex->getMessage())), '</textarea>';
+					$this->output_for_jquery_form( $wp_menu_editor->json_encode(array('error' => $ex->getMessage())) );
 					die();
 				}
 
@@ -595,14 +596,14 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 					try {
 						$menu = ameMenu::load_json($file_contents);
 					} catch (InvalidMenuException $ex) {
-						echo '<textarea cols="50" rows="5">', $wp_menu_editor->json_encode(array('error' => $ex->getMessage())), '</textarea>';
+						$this->output_for_jquery_form( $wp_menu_editor->json_encode(array('error' => $ex->getMessage())) );
 						die();
 					}
 
 				} else {
 
 					//This is an unknown file.
-					echo '<textarea cols="50" rows="5">', $wp_menu_editor->json_encode(array('error' => "Unknown file format")), '</textarea>';
+					$this->output_for_jquery_form($wp_menu_editor->json_encode(array('error' => "Unknown file format")));
 					die();
 
 				}
@@ -612,7 +613,28 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 			$menu['tree'] = $wp_menu_editor->menu_merge($menu['tree']);
 
 			//Everything looks okay, send back the menu data
-			die ( '<textarea>' . (ameMenu::to_json($menu)) . '</textarea>' );
+			$this->output_for_jquery_form( ameMenu::to_json($menu) );
+			die ();
+		}
+	}
+
+	/**
+	 * Utility method that outputs data in a format suitable to the jQuery Form plugin.
+	 *
+	 * Specifically, the docs recommend enclosing JSON data in a <textarea> element if
+	 * the request was not sent by XMLHttpRequest. This is because the plugin uses IFrames
+	 * in older browsers, which supposedly causes problems with JSON responses.
+	 *
+	 * @param string $string
+	 */
+	private function output_for_jquery_form($string) {
+		$xhr = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
+		if (!$xhr) {
+			echo '<textarea>';
+		}
+		echo $string;
+		if (!$xhr) {
+			echo '</textarea>';
 		}
 	}
 	
@@ -950,9 +972,32 @@ wsEditorData.importMenuNonce = "<?php echo esc_js(wp_create_nonce('import_custom
 
 	function license_ui_logo() {
 		printf(
-			'<p style="text-align: center; margin: 30px 0;"><img src="%s"></p>',
+			'<p style="text-align: center; margin: 30px 0;"><img src="%s" alt="Logo"></p>',
 			esc_attr(plugins_url('images/logo-medium.png', __FILE__))
 		);
+	}
+
+	public function license_ui_upgrade_link($currentKey = null, $currentToken = null) {
+		if ( empty($currentKey) && empty($currentToken) ) {
+			return;
+		}
+
+		$upgradeLink = 'http://adminmenueditor.com/upgrade-license/';
+		if ( !empty($currentKey) ) {
+			$upgradeLink = add_query_arg('license_key', $currentKey, $upgradeLink);
+		}
+		$externalIcon = plugins_url('/images/external.png', $this->wp_menu_editor->plugin_file);
+		?><p>
+			<label>Actions:</label>
+			<a href="<?php echo esc_attr($upgradeLink); ?>"
+			   rel="external"
+			   target="_blank"
+			   title="Opens in a new window"
+			>
+				Upgrade or renew license
+				<img src="<?php echo esc_attr($externalIcon); ?>" alt="External link icon" width="10" height="10">
+			</a>
+		</p><?php
 	}
 
 	/**
@@ -980,7 +1025,7 @@ if ( isset($wp_menu_editor) && !defined('WP_UNINSTALL_PLUGIN') ) {
 if ( !defined('IS_DEMO_MODE') && !defined('IS_MASTER_MODE') ) {
 
 //Load the custom update checker (requires PHP 5)
-if ( (version_compare(PHP_VERSION, '5.0.0', '>=')) && (is_admin() || (defined('DOING_CRON') && constant('DOING_CRON'))) && isset($wp_menu_editor) ){
+if ( (version_compare(PHP_VERSION, '5.0.0', '>=')) && isset($wp_menu_editor) ){
 	require 'plugin-updates/plugin-update-checker.php';
 	$ameProUpdateChecker = PucFactory::buildUpdateChecker(
 		'http://adminmenueditor.com/?get_metadata_for=admin-menu-editor-pro',
@@ -1010,3 +1055,5 @@ if ( isset($wp_menu_editor) ) {
 }
 
 }
+
+//require 'admin-bar-editor/load.php';

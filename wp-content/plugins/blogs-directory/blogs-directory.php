@@ -5,7 +5,7 @@ Plugin URI: http://premium.wpmudev.org/project/blogs-directory
 Description: This plugin provides a paginated, fully search-able, avatar inclusive, automatic and rather good looking directory of all of the blogs on your WordPress Multisite or BuddyPress installation.
 Author: Ivan Shaovchev, Ulrich Sossou, Andrew Billits, Andrey Shipilov (Incsub), S H Mohanjith (Incsub)
 Author URI: http://premium.wpmudev.org
-Version: 1.1.9.1
+Version: 1.2.0.0
 Network: true
 WDP ID: 101
 */
@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 if (defined('BLOGS_DIRECTORY_SLUG')) {
 	$blogs_directory_base = BLOGS_DIRECTORY_SLUG;
 } else {
-	$blogs_directory_base = 'hub-directory'; //domain.tld/BASE/ Ex: domain.tld/user/
+	$blogs_directory_base = 'blogs'; //domain.tld/BASE/ Ex: domain.tld/user/
 }
 
 load_plugin_textdomain( 'blogs-directory', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -104,7 +104,7 @@ function blogs_directory_page_setup() {
 	if ( get_site_option('blogs_directory_page_setup') != 'complete'.$blogs_directory_base && is_super_admin() ) {
 		$page_count = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->posts . " WHERE post_name = '" . $blogs_directory_base . "' AND post_type = 'page'");
 		if ( $page_count < 1 ) {
-			$wpdb->query( "INSERT INTO " . $wpdb->posts . " ( post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_status, comment_status, ping_status, post_password, post_name, to_ping, pinged, post_modified, post_modified_gmt, post_content_filtered, post_parent, guid, menu_order, post_type, post_mime_type, comment_count ) VALUES ( '" . $user_ID . "', '" . current_time( 'mysql' ) . "', '" . current_time( 'mysql' ) . "', '', '" . __('Sites') . "', '', 'publish', 'closed', 'closed', '', '" . $blogs_directory_base . "', '', '', '" . current_time( 'mysql' ) . "', '" . current_time( 'mysql' ) . "', '', 0, '', 0, 'page', '', 0 )" );
+			$wpdb->query( "INSERT INTO " . $wpdb->posts . " ( post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_status, comment_status, ping_status, post_password, post_name, to_ping, pinged, post_modified, post_modified_gmt, post_content_filtered, post_parent, guid, menu_order, post_type, post_mime_type, comment_count ) VALUES ( '" . $user_ID . "', '" . current_time( 'mysql' ) . "', '" . current_time( 'mysql' ) . "', '', '" . __('Sites') . "', '', 'publish', 'closed', 'closed', '', '" . $blogs_directory_base . "', '', '', '" . current_time( 'mysql' ) . "', '" . current_time( 'mysql' ) . "', '', 0, '', 0, 'page', '', 0 )" );	   				 	 	 		
 		}
 		update_site_option('blogs_directory_page_setup', 'complete'.$blogs_directory_base);
 	}
@@ -355,16 +355,19 @@ function blogs_directory_output($content) {
 		$blogs_directory_title_blogs_page           = get_site_option('blogs_directory_title_blogs_page');
 		$blogs_directory_show_description           = get_site_option('blogs_directory_show_description');
 		$blogs_directory_hide_blogs 		    = get_site_option( 'blogs_directory_hide_blogs');
-		
+
 		if ( $blogs_directory['page_type'] == 'landing' ) {
 			$search_form_content = blogs_directory_search_form_output('', $blogs_directory['phrase']);
 			$navigation_content = blogs_directory_landing_navigation_output('', $blogs_directory_per_page, $blogs_directory['page']);
-			//EDITS BEGIN
-			//$content .= $search_form_content;
-			//$content .= '<br />';
+			$content .= $search_form_content;
+			$content .= '<br />';
+			$content .= $navigation_content;
 			$content .= '<div style="float:left; width:100%">';
-			$content .= '<h1>' . $blogs_directory_title_blogs_page . '</h1>';
 			$content .= '<table border="0" border="0" cellpadding="2px" cellspacing="2px" width="100%" bgcolor="" class="blogs_directory_table">';
+				$content .= '<tr>';
+					$content .= '<th style="background-color:' . $blogs_directory_background_color . '; border-bottom-style:solid; border-bottom-color:' . $blogs_directory_border_color . '; border-bottom-width:1px; font-size:12px;" width="10%"> </th>';
+					$content .= '<th style="background-color:' . $blogs_directory_background_color . '; border-bottom-style:solid; border-bottom-color:' . $blogs_directory_border_color . '; border-bottom-width:1px; font-size:12px;" width="90%"><center><strong>' .  $blogs_directory_title_blogs_page . '</strong></center></th>';
+				$content .= '</tr>';
 				//=================================//
 				$avatar_default = get_option('avatar_default');
 				$tic_toc = 'toc';
@@ -468,9 +471,9 @@ function blogs_directory_output($content) {
 		$query .= " ORDER BY last_updated DESC";
 	    }
             $temp_blogs = $wpdb->get_results( $query, ARRAY_A );
-	    
+
 	    $blogs = array();
-	    
+
             //search by
             if ( !empty( $temp_blogs ) ) {
                 foreach ( $temp_blogs as $blog ) {
@@ -478,19 +481,22 @@ function blogs_directory_output($content) {
                     //Hide some blogs
                     if ( blogs_directory_hide_some_blogs( $blog['blog_id'] ) )
                         continue;
-		
+
                     if ( $current_site->id != $blog['blog_id'] ) {
 			$search_arr = explode( ' ', $blogs_directory['phrase'] );
-			
-			$query      = "SELECT option_name FROM {$wpdb->base_prefix}{$blog['blog_id']}_options WHERE option_name IN ('blogname', 'blogdescription') AND option_value LIKE '%".join("%' AND option_value LIKE '%", $search_arr)."%'; ";
+
+			$query      = "SELECT option_name FROM {$wpdb->base_prefix}{$blog['blog_id']}_options WHERE option_name IN ('blogname', 'blogdescription')";
+			for ($i=0; $i<count($search_arr); $i++) {
+				$query .= $wpdb->prepare( " AND option_value LIKE '%%%s%%'", $search_arr[$i]);
+			}
 			$found_words = $wpdb->get_results( $query, ARRAY_A );
-			
+
 			if (count($found_words) == 0)
 				continue;
-			
+
                         $found_word_name = 0;
 			$found_word_description = 0;
-			
+
 			foreach ($found_words as $found_word) {
 				if ($found_word['option_name'] == 'blogname') {
 					$found_word_name++;
@@ -498,11 +504,11 @@ function blogs_directory_output($content) {
 					$found_word_description++;
 				}
 			}
-			
+
                         $blogname           = get_blog_option( $blog['blog_id'], 'blogname', $blog['domain'] . $blog['path'] );
                         $blogdescription    = get_blog_option( $blog['blog_id'], 'blogdescription', $blog['domain'] . $blog['path'] );
                         $percent            = $found_word_name + $found_word_description;
-			
+
                         if ( 0 < $percent ) {
                             $blog['blogname']           = $blogname;
                             $blog['blogdescription']    = $blogdescription;
@@ -518,7 +524,7 @@ function blogs_directory_output($content) {
                         if( $a["percent"] == $b["percent"] ) return 0;
                         return ( $a["percent"] > $b["percent"] ) ? -1 : 1;
                     ');
-		    
+
                     usort( $blogs, $fn );
                 }
             }
@@ -533,8 +539,11 @@ function blogs_directory_output($content) {
 				}
 				$navigation_content = blogs_directory_search_navigation_output('', $blogs_directory_per_page, $blogs_directory['page'], $blogs_directory['phrase'], $next);
 			}
-			//$content .= $search_form_content;
-			//$content .= '<br />';
+			$content .= $search_form_content;
+			$content .= '<br />';
+			if ( !empty( $blogs ) ) {
+				$content .= $navigation_content;
+			}
 			$content .= '<div style="float:left; width:100%">';
 			$content .= '<table border="0" border="0" cellpadding="2px" cellspacing="2px" width="100%" bgcolor="" class="blogs_directory_search_table">';
 				$content .= '<tr>';
@@ -614,9 +623,9 @@ function blogs_directory_search_form_output($content, $phrase) {
 function blogs_directory_search_navigation_output($content, $per_page, $page, $phrase, $next){
 	global $wpdb, $current_site, $blogs_directory_base;
 	if ( is_subdomain_install() ) {
-		$blog_count = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE ( domain LIKE '%" . $phrase . "%' ) AND spam != 1 AND deleted != 1 AND blog_id != 1");
+		$blog_count = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE ( domain LIKE '%%%s%%' ) AND spam != 1 AND deleted != 1 AND blog_id != 1", $phrase) );
 	} else {
-		$blog_count = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE ( path LIKE '%" . $phrase . "%' ) AND spam != 1 AND deleted != 1 AND blog_id != 1");
+		$blog_count = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE ( path LIKE '%%%s%%' ) AND spam != 1 AND deleted != 1 AND blog_id != 1", $phrase) );
 	}
 	$blog_count = apply_filters( 'blogs_directory_blogs_count', $blog_count - 1 );
 
@@ -669,7 +678,14 @@ function blogs_directory_search_navigation_output($content, $per_page, $page, $p
 
 function blogs_directory_landing_navigation_output($content, $per_page, $page){
 	global $wpdb, $current_site, $blogs_directory_base;
-	$blog_count = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE spam != 1 AND deleted != 1 AND blog_id != 1");
+
+	$blogs_directory_hide_blogs = get_site_option( 'blogs_directory_hide_blogs');
+
+	$query = "SELECT COUNT(*) FROM " . $wpdb->base_prefix . "blogs WHERE spam = 0 AND deleted = 0 AND archived = '0' AND blog_id != 1";
+	if ( isset( $blogs_directory_hide_blogs['private'] ) && 1 == $blogs_directory_hide_blogs['private'] ) {
+		$query .= " AND public = 1";
+	}
+	$blog_count = $wpdb->get_var($query);
 	$blog_count = apply_filters( 'blogs_directory_blogs_count', $blog_count );
 
 	//generate page div

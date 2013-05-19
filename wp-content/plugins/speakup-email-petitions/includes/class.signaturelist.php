@@ -45,11 +45,11 @@ class dk_speakup_Signaturelist
 			$display_custom   = ( in_array( 'sig_custom', $columns ) ) ? 1 : 0;
 			$display_date     = ( in_array( 'sig_date', $columns ) ) ? 1 : 0;
 
-			if ( $context !== 'ajax' ) { // only include on initial page load
+			if ( $context !== 'ajax' ) { // only include on initial page load (not when paging)
 				$signatures_list = '
 					<!-- signaturelist -->
-					<h3 class="dk-speakup-signaturelist_header">' . $options['signaturelist_header'] . '</h3>
-					<table class="dk-speakup-signaturelist dk-speakup-signaturelist-' . $id . '">';
+					<table class="dk-speakup-signaturelist dk-speakup-signaturelist-' . $id . '">
+						<caption>' . $options['signaturelist_header'] . '</caption>';
 			}
 
 			$row_count = 0;

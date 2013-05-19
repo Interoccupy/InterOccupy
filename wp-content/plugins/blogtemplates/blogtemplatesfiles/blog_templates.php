@@ -52,8 +52,8 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.0
         */
         function blog_templates() {
-			$this->__construct();
-		}
+            $this->__construct();
+        }
 
         /**
         * PHP 5 Constructor
@@ -61,7 +61,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.0
         */
         function __construct() {
-			global $wp_version;
+            global $wp_version;
 
             if ( defined( 'WPMU_PLUGIN_DIR' ) && strpos( __FILE__, WPMU_PLUGIN_DIR ) === false ) {
                 $this->thispluginpath = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
@@ -79,16 +79,16 @@ if ( ! class_exists( 'blog_templates' ) ) {
             $this->get_options();
 
 
-			// Add the super admin page
-			if( version_compare( $wp_version , '3.0.9', '>' ) ) {
-				add_action( 'network_admin_menu', array($this, 'network_admin_page' ) );
-			} else {
-				add_action( 'admin_menu', array($this, 'pre_3_1_network_admin_page' ) );
-			}
+            // Add the super admin page
+            if( version_compare( $wp_version , '3.0.9', '>' ) ) {
+                add_action( 'network_admin_menu', array($this, 'network_admin_page' ) );
+            } else {
+                add_action( 'admin_menu', array($this, 'pre_3_1_network_admin_page' ) );
+            }
 
-			// Admin notices and data processing
-			add_action( 'network_admin_notices', array($this, 'admin_options_page_posted' ) );
-			add_action( 'admin_notices', array($this, 'admin_options_page_posted' ) );
+            // Admin notices and data processing
+            add_action( 'network_admin_notices', array($this, 'admin_options_page_posted' ) );
+            add_action( 'admin_notices', array($this, 'admin_options_page_posted' ) );
 
             // Actions
             $action_order = defined('NBT_APPLY_TEMPLATE_ACTION_ORDER') && NBT_APPLY_TEMPLATE_ACTION_ORDER ? NBT_APPLY_TEMPLATE_ACTION_ORDER : 9999;
@@ -104,13 +104,13 @@ if ( ! class_exists( 'blog_templates' ) ) {
             add_filter( 'manage_multi_domains_columns', array($this, 'manage_multi_domains_columns' ) ); // add column to multi domain table
             add_action( 'manage_multi_domains_custom_column', array($this, 'manage_multi_domains_custom_column' ), 10, 2 ); // populate blog template column in multi domain table
             add_action( 'blogs_directory_blogs_list', array($this, 'blogs_directory_blogs_list' ) );
-			
-			// Signup: WordPress			
-			add_action('signup_blogform', array($this, 'registration_template_selection'));
-			add_filter('add_signup_meta', array($this, 'registration_template_selection_add_meta'));
-			// Signup: BuddyPress
-			add_action('bp_after_blog_details_fields', array($this, 'registration_template_selection'));
-			add_filter('bp_signup_usermeta', array($this, 'registration_template_selection_add_meta'));
+
+            // Signup: WordPress
+            add_action('signup_blogform', array($this, 'registration_template_selection'));
+            add_filter('add_signup_meta', array($this, 'registration_template_selection_add_meta'));
+            // Signup: BuddyPress
+            add_action('bp_after_blog_details_fields', array($this, 'registration_template_selection'));
+            add_filter('bp_signup_usermeta', array($this, 'registration_template_selection_add_meta'));
         }
 
         /**
@@ -119,16 +119,18 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.0
         */
         function get_template_dropdown( $tag_name, $include_none ) {
+
             $templates = array();
             foreach ($this->options['templates'] as $key=>$template) {
                 $templates[$key] = $template['name'];
             }
 
+
             if ($templates != array()) {
                 echo "<select name=\"$tag_name\">";
                 echo ($include_none ? "<option value=\"none\">None</option>" : '');
                 foreach ($templates as $key=>$value) {
-                    echo "<option value=\"$key\">$value</option>";
+                    echo "<option value=\"$key\">" . esc_attr( $value ) . "</option>";
                 }
                 echo '</select>';
             }
@@ -141,9 +143,8 @@ if ( ! class_exists( 'blog_templates' ) ) {
         */
         function add_template_dd() {
             global $pagenow;
-
-			if( ! in_array( $pagenow, array( 'ms-sites.php', 'site-new.php' ) ) || isset( $_GET['action'] ) && 'editblog' == $_GET['action'] )
-				return;
+            if( ! in_array( $pagenow, array( 'ms-sites.php', 'site-new.php' ) ) || isset( $_GET['action'] ) && 'editblog' == $_GET['action'] )
+                return;
 
             ?>
             <script type="text/javascript">
@@ -158,6 +159,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
             <?php
         }
 
+
         /**
         * Checks for a template to use, and if it exists, copies the templated settings to the new blog
         *
@@ -169,47 +171,50 @@ if ( ! class_exists( 'blog_templates' ) ) {
         function set_blog_defaults( $blog_id, $user_id, $_passed_domain=false, $_passed_path=false, $_passed_site_id=false, $_passed_meta=false ) {
             global $wpdb, $multi_dm;
 
-			/* Start special Multi-Domain feature */
+            /* Start special Multi-Domain feature */
             if( !empty( $multi_dm ) ) {
-				$bloginfo = get_blog_details( (int) $blog_id, false );
-				foreach( $multi_dm->domains as $multi_domain ) {
-					if( strpos( $bloginfo->domain, $multi_domain['domain_name'] ) ) {
-						if( isset( $multi_domain['blog_template'] ) && !empty( $this->options['templates'][$multi_domain['blog_template']] ) )
-							$default = $this->options['templates'][$multi_domain['blog_template']];
-					}
-				}
-			}
-			/* End special Multi-Domain feature */
+                $bloginfo = get_blog_details( (int) $blog_id, false );
+                foreach( $multi_dm->domains as $multi_domain ) {
+                    if( strpos( $bloginfo->domain, $multi_domain['domain_name'] ) ) {
+                        if( isset( $multi_domain['blog_template'] ) && !empty( $this->options['templates'][$multi_domain['blog_template']] ) )
+                            $default = $this->options['templates'][$multi_domain['blog_template']];
+                    }
+                }
+            }
+            /* End special Multi-Domain feature */
 
             if( empty( $default ) && isset( $this->options['default'] ) && is_numeric( $this->options['default'] ) ) { // select global default
-				$default = isset($this->options['templates'][$this->options['default']]) 
+                $default = isset($this->options['templates'][$this->options['default']])
                     ? $this->options['templates'][$this->options['default']]
                     : false
                 ;
-			}
+            }
 
 
             $template = '';
-			// Check $_POST first for passed template and use that, if present.
-			// Otherwise, check passed meta from blog signup.
-			// Lastly, apply the default.
+            // Check $_POST first for passed template and use that, if present.
+            // Otherwise, check passed meta from blog signup.
+            // Lastly, apply the default.
             if ( isset( $_POST['blog_template'] ) && is_numeric( $_POST['blog_template'] ) ) { //If they've chosen a template, use that. For some reason, when PHP gets 0 as a posted var, it doesn't recognize it as is_numeric, so test for that specifically
-				$template = $this->options['templates'][$_POST['blog_template']];
-			} else if ($_passed_meta && isset($_passed_meta['blog_template']) && is_numeric($_passed_meta['blog_template'])) { // Do we have a template in meta?
-				$template = $this->options['templates'][$_passed_meta['blog_template']]; // Why, yes. Yes, we do. Use that. 
+                $template = $this->options['templates'][$_POST['blog_template']];
+            } else if ($_passed_meta && isset($_passed_meta['blog_template']) && is_numeric($_passed_meta['blog_template'])) { // Do we have a template in meta?
+                $template = $this->options['templates'][$_passed_meta['blog_template']]; // Why, yes. Yes, we do. Use that.
             } else if ( $default ) { //If they haven't chosen a template, use the default if it exists
                 $template = $default;
             }
             $template = apply_filters('blog_templates-blog_template', $template, $blog_id, $user_id, $this);
 
             if (!$template || 'none' == $template)
-				return; //No template, lets leave
+                return; //No template, lets leave
 
             //Begin the transaction
             $wpdb->query("BEGIN;");
 
-
             switch_to_blog($blog_id); //Switch to the blog that was just created
+
+            // Attachments URL for the new blog
+            $new_content_url = get_bloginfo('wpurl');
+
 
             //Get the prefixes, so we don't have to worry about regex, or changes to WP's naming conventions
             $new_prefix = $wpdb->prefix;
@@ -218,8 +223,15 @@ if ( ! class_exists( 'blog_templates' ) ) {
             switch_to_blog($template['blog_id']);
             $template_prefix = $wpdb->prefix;
 
+            // Attachments URL for the template blogç
+            $template_attachments = get_posts( array( 'post_type' => 'attachment' ) );
+            $template_content_url = get_bloginfo('wpurl');
+
             //Now, go back to the new blog that was just created
             restore_current_blog();
+
+            // In case we are not copying posts, we'll have to reset the terms count to 0
+            $copying_posts = in_array( 'posts', $template['to_copy'] );
 
             foreach ( $template['to_copy'] as $value ) {
                 switch ( $value ) {
@@ -232,6 +244,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
                         $wpdb->query("DELETE FROM $wpdb->options WHERE $exclude_settings");
 
                         if (!$wpdb->last_error) { //No error. Good! Now copy over the old settings
+
                             //Switch to the template blog, then grab the settings/plugins/templates values from the template blog
                             switch_to_blog($template['blog_id']);
 
@@ -251,26 +264,28 @@ if ( ! class_exists( 'blog_templates' ) ) {
 
                                 // Add further processing for options row
                                 $row = apply_filters('blog_templates-copy-options_row', $row, $template, $blog_id, $user_id);
+
                                 if (!$row) continue; // Prevent empty row insertion
 
                                 //Insert the row
                                 $wpdb->insert($wpdb->options,(array) $row);
+
                                 //Check for errors
                                 if (!empty($wpdb->last_error)) {
-									$error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %s - The template was not applied. (New Blog Templates - While inserting templated settings)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
-									$wpdb->query("ROLLBACK;");
+                                    $error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %s - The template was not applied. (New Blog Templates - While inserting templated settings)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
+                                    $wpdb->query("ROLLBACK;");
 
-									//We've rolled it back and thrown an error, we're done here
-									restore_current_blog();
-									wp_die($error);
+                                    //We've rolled it back and thrown an error, we're done here
+                                    restore_current_blog();
+                                    wp_die($error);
                                 }
                             }
                             do_action('blog_templates-copy-options', $template);
                         } else {
-							$error = '<div id="message" class="error"><p>' . sprintf( __( 'Deletion Error: %s - The template was not applied. (New Blog Templates - While removing auto-generated settings)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
-							$wpdb->query("ROLLBACK;");
-							restore_current_blog(); //Switch back to our current blog
-							wp_die($error);
+                            $error = '<div id="message" class="error"><p>' . sprintf( __( 'Deletion Error: %s - The template was not applied. (New Blog Templates - While removing auto-generated settings)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
+                            $wpdb->query("ROLLBACK;");
+                            restore_current_blog(); //Switch back to our current blog
+                            wp_die($error);
                         }
                     break;
                     case 'posts':
@@ -281,6 +296,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
                         $this->clear_table($wpdb->postmeta);
                         $this->copy_table($template['blog_id'],"postmeta");
                         do_action('blog_templates-copy-postmeta', $template, $blog_id, $user_id);
+
                     break;
                     case 'terms':
                         $this->clear_table($wpdb->links);
@@ -298,6 +314,12 @@ if ( ! class_exists( 'blog_templates' ) ) {
                         $this->clear_table($wpdb->term_taxonomy);
                         $this->copy_table($template['blog_id'],"term_taxonomy");
                         do_action('blog_templates-copy-term_taxonomy', $template, $blog_id, $user_id);
+
+                        if ( ! $copying_posts ) {
+                            // The new blog will not have any post
+                            // So we have to set the terms count to 0
+                            $this->reset_terms_counts( $template['blog_id'] );
+                        }
                     break;
                     case 'users':
                         //Copy over the users to this blog
@@ -347,49 +369,63 @@ if ( ! class_exists( 'blog_templates' ) ) {
                         }
                         do_action('blog_templates-copy-users', $template, $blog_id, $user_id);
                     break;
+                    case 'menus':
+                        $this->copy_menu( $template['blog_id'], $blog_id );
+                    break;
                     case 'files':
                         global $wp_filesystem;
 
-						$dir_to_copy = $this->_get_files_fs_path($template['blog_id']); //ABSPATH . 'wp-content/blogs.dir/' . $template['blog_id'] . '/files';
+                        $dir_to_copy = $this->_get_files_fs_path($template['blog_id']); //ABSPATH . 'wp-content/blogs.dir/' . $template['blog_id'] . '/files';
                         $dir_to_copy = apply_filters('blog_templates-copy-source_directory', $dir_to_copy, $template, $blog_id, $user_id);
-                        
-                        $dir_to_copy_into = $this->_get_files_fs_path($blog_id); //ABSPATH .'wp-content/blogs.dir/' . $blog_id . '/files';
+
+                        if (defined('NBT_LEGACY_PATH_RESOLUTION') && NBT_LEGACY_PATH_RESOLUTION) {
+                            switch_to_blog( $blog_id );
+                            $dir_to_copy_into = WP_CONTENT_DIR . '/blogs.dir/' . $blog_id . '/files/';
+                            restore_current_blog();
+                        }
+                        else {
+                            $dir_to_copy_into = $this->_get_files_fs_path($blog_id); //ABSPATH .'wp-content/blogs.dir/' . $blog_id . '/files';
+                        }
                         $dir_to_copy_into = apply_filters('blog_templates-copy-target_directory', $dir_to_copy_into, $template, $blog_id, $user_id);
 
-						if ( is_dir( $dir_to_copy ) ) {
+                        if ( is_dir( $dir_to_copy ) ) {
+                            $result = wp_mkdir_p( $dir_to_copy_into );
+                            if ($result) {
 
-							if ( wp_mkdir_p( $dir_to_copy_into ) ) {
+                                include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+                                include_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
 
-								require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-								require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+                                if ( is_object( $wp_filesystem ) )
+                                    $orig_filesystem = wp_clone( $wp_filesystem );
+                                else
+                                    $orig_filesystem = $wp_filesystem;
 
-								if( isset( $wp_filesystem ) )
-									$orig_filesystem = wp_clone( $wp_filesystem );
-								$wp_filesystem = new WP_Filesystem_Direct( false );
+                                $wp_filesystem = new WP_Filesystem_Direct( false );
 
-								if ( ! defined('FS_CHMOD_DIR') )
-									define('FS_CHMOD_DIR', 0755 );
-								if ( ! defined('FS_CHMOD_FILE') )
-									define('FS_CHMOD_FILE', 0644 );
+                                if ( ! defined('FS_CHMOD_DIR') )
+                                    define('FS_CHMOD_DIR', 0755 );
+                                if ( ! defined('FS_CHMOD_FILE') )
+                                    define('FS_CHMOD_FILE', 0644 );
 
-								copy_dir( $dir_to_copy, $dir_to_copy_into );
+                                $result = copy_dir( $dir_to_copy, $dir_to_copy_into );
 
-								unset( $wp_filesystem );
-								if( isset( $orig_filesystem ) )
-									$wp_filesystem = wp_clone( $orig_filesystem );
+                                unset( $wp_filesystem );
 
-								if ( @file_exists( $dir_to_copy_into . '/sitemap.xml' ) )
-									@unlink( $dir_to_copy_into . '/sitemap.xml' );
+                                if ( is_object( $orig_filesystem ) )
+                                    $wp_filesystem = wp_clone( $orig_filesystem );
+                                else
+                                    $wp_filesystem = $orig_filesystem;
 
-							} else {
+                                if ( @file_exists( $dir_to_copy_into . '/sitemap.xml' ) )
+                                    @unlink( $dir_to_copy_into . '/sitemap.xml' );
+                            } else {
+                                $error = '<div id="message" class="error"><p>' . sprintf( __( 'File System Error: Unable to create directory %s. (New Blog Templates - While copying files)', $this->localization_domain ), $dir_to_copy_into ) . '</p></div>';
+                                $wpdb->query( 'ROLLBACK;' );
+                                restore_current_blog();
+                                wp_die( $error );
 
-								$error = '<div id="message" class="error"><p>' . sprintf( __( 'File System Error: Unable to create directory %s. (New Blog Templates - While copying files)', $this->localization_domain ), $dir_to_copy_into ) . '</p></div>';
-								$wpdb->query( 'ROLLBACK;' );
-								restore_current_blog();
-								wp_die( $error );
-
-							}
-						}
+                            }
+                        }
                     break;
                 }
             }
@@ -411,26 +447,26 @@ if ( ! class_exists( 'blog_templates' ) ) {
                     } else { //The table's not present, add it and copy the data from the old one
                         //echo ('table doesn\'t exist<br/>');
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-						// Changed
-						if (class_exists("m_wpdb")) {
-							$conns = $wpdb->dbh_connections;
-							//$multi_db = $conns['global']['name'] . '.';
-							unset($conns['global']);
-							$current = current($conns);
-							$current_db = $current['name'] . '.';
-							$add_table = explode('.', $add);
-							$add_table = $add_table[1];
-						} else {
-							$multi_db = $current_db = '';
-							$add_table = $add;
-						}
+                        // Changed
+                        if (class_exists("m_wpdb")) {
+                            $conns = $wpdb->dbh_connections;
+                            //$multi_db = $conns['global']['name'] . '.';
+                            unset($conns['global']);
+                            $current = current($conns);
+                            $current_db = $current['name'] . '.';
+                            $add_table = explode('.', $add);
+                            $add_table = $add_table[1];
+                        } else {
+                            $multi_db = $current_db = '';
+                            $add_table = $add;
+                        }
                         $wpdb->query("CREATE TABLE IF NOT EXISTS {$current_db}" . str_replace($template_prefix,$new_prefix,$add_table) . " LIKE {$add}");
                         $wpdb->query("INSERT {$current_db}" . str_replace($template_prefix,$new_prefix,$add_table) . " SELECT * FROM {$add}");
-						// End changed
+                        // End changed
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
                         if (!empty($wpdb->last_error)) {
-							$error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %s - The template was not applied. (New Blog Templates - With CREATE TABLE query for Additional Tables)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
+                            $error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %s - The template was not applied. (New Blog Templates - With CREATE TABLE query for Additional Tables)', $this->localization_domain ), $wpdb->last_error ) . '</p></div>';
                             $wpdb->query("ROLLBACK;");
 
                             //We've rolled it back and thrown an error, we're done here
@@ -440,14 +476,37 @@ if ( ! class_exists( 'blog_templates' ) ) {
                     }
                 }
             }
-
             //error_log('Finished Successfully');
-
             $wpdb->query("COMMIT;"); //If we get here, everything's fine. Commit the transaction
+
+            // We need now to change the attachments URLs
+            $attachment_guids = array();
+            foreach ( $template_attachments as $attachment ) {
+                $new_url = str_replace(
+                    $template_content_url,
+                    $new_content_url,
+                    dirname($attachment->guid)
+                );
+                $new_url = str_replace(
+                    'sites/' . $template['blog_id'],
+                    'sites/' . $blog_id,
+                    $new_url
+                );
+
+                // We get an array with key = old_url and value = new_url
+                $attachment_guids[ dirname( $attachment->guid ) ] = $new_url;
+            }
+
+            $this->set_attachments_urls( $attachment_guids );
+
+            // Now we need to update the blog status because of a conflict with Multisite Privacy Plugin
+            if ( isset( $template['copy_status'] ) && $template['copy_status'] &&  is_plugin_active( 'sitewide-privacy-options/sitewide-privacy-options.php' ) )
+                update_blog_status( $blog_id, 'public', get_blog_status( $template['blog_id'], 'public' ) );
 
             do_action("blog_templates-copy-after_copying", $template, $blog_id, $user_id);
 
             restore_current_blog(); //Switch back to our current blog
+
         }
 
         /**
@@ -499,8 +558,8 @@ if ( ! class_exists( 'blog_templates' ) ) {
         */
         function copy_table( $templated_blog_id, $table ) {
             global $wpdb;
-			
-			do_action('blog_templates-copying_table', $table, $templated_blog_id);
+
+            do_action('blog_templates-copying_table', $table, $templated_blog_id);
 
             //Switch to the template blog, then grab the values
             switch_to_blog($templated_blog_id);
@@ -518,14 +577,14 @@ if ( ! class_exists( 'blog_templates' ) ) {
                     if (in_array($key,$to_remove))
                         unset($row[$key]);
                 }
-				
-				$process = apply_filters('blog_templates-process_row', $row, $table, $templated_blog_id);
-				if (!$process) continue; 
+
+                $process = apply_filters('blog_templates-process_row', $row, $table, $templated_blog_id);
+                if (!$process) continue;
 
                 //$wpdb->insert($wpdb->$table, $row);
                 $wpdb->insert($wpdb->$table, $process);
                 if (!empty($wpdb->last_error)) {
-					$error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %1$s - The template was not applied. (New Blog Templates - While copying %2$s)', $this->localization_domain ), $wpdb->last_error, $table ) . '</p></div>';
+                    $error = '<div id="message" class="error"><p>' . sprintf( __( 'Insertion Error: %1$s - The template was not applied. (New Blog Templates - While copying %2$s)', $this->localization_domain ), $wpdb->last_error, $table ) . '</p></div>';
                     $wpdb->query("ROLLBACK;");
 
                     //We've rolled it back and thrown an error, we're done here
@@ -534,6 +593,75 @@ if ( ! class_exists( 'blog_templates' ) ) {
                 }
             }
         }
+
+
+         /**
+         * Copy the templated menu and locations
+         *
+         * @since 1.6.6
+         *
+         * @param int $templated_blog_id The ID of the blog to copy
+         * @param int $new_blog_id The ID of the new blog
+         *
+         */
+        function copy_menu( $templated_blog_id, $new_blog_id ) {
+            global $wpdb;
+
+            do_action( 'blog_templates-copying_menu', $templated_blog_id, $new_blog_id);
+
+            switch_to_blog( $templated_blog_id );
+            $templated_posts_table = $wpdb->posts;
+            $templated_postmeta_table = $wpdb->postmeta;
+            $templated_term_relationships_table = $wpdb->term_relationships;
+
+            $menu_locations = get_nav_menu_locations();
+            restore_current_blog();
+
+            switch_to_blog( $new_blog_id );
+            $new_posts_table = $wpdb->posts;
+            $new_postmeta_table = $wpdb->postmeta;
+            $new_term_relationships_table = $wpdb->term_relationships;
+
+            $new_blog_locations = $menu_locations;
+
+            restore_current_blog();
+
+            $menus = $wpdb->get_col(
+                "SELECT ID FROM $templated_posts_table
+                WHERE post_type = 'nav_menu_item'"
+            );
+
+            if ( ! empty( $menus ) ) {
+
+                // Duplicating the menu locations
+                set_theme_mod( 'nav_menu_locations', $new_blog_locations );
+
+                // Duplicating every menu item
+                // We cannot use nav-menu functions as we need
+                // to keep all the old IDs
+                $menus = '(' . implode( ',', $menus ) . ')';
+                $wpdb->query(
+                    "INSERT IGNORE INTO $new_posts_table
+                    SELECT * FROM $templated_posts_table
+                    WHERE ID IN $menus"
+                );
+
+                $wpdb->query(
+                    "INSERT IGNORE INTO $new_postmeta_table
+                    SELECT * FROM $templated_postmeta_table
+                    WHERE post_id IN $menus"
+                );
+
+                $wpdb->query(
+                    "INSERT IGNORE INTO $new_term_relationships_table
+                    SELECT * FROM $templated_term_relationships_table
+                    WHERE object_id IN $menus"
+                );
+
+
+            }
+        }
+
 
         /**
         * Deletes everything from a table
@@ -551,11 +679,35 @@ if ( ! class_exists( 'blog_templates' ) ) {
             $wpdb->query("DELETE FROM $table");
 
             if ($wpdb->last_error) { //No error. Good! Now copy over the terms from the templated blog
-				$error = '<div id="message" class="error"><p>' . sprintf( __( 'Deletion Error: %1$s - The template was not applied. (New Blog Templates - While clearing %2$s)', $this->localization_domain ), $wpdb->last_error, $table ) . '</p></div>';
+                $error = '<div id="message" class="error"><p>' . sprintf( __( 'Deletion Error: %1$s - The template was not applied. (New Blog Templates - While clearing %2$s)', $this->localization_domain ), $wpdb->last_error, $table ) . '</p></div>';
                 $wpdb->query("ROLLBACK;");
                 restore_current_blog(); //Switch back to our current blog
                 wp_die($error);
             }
+        }
+
+
+        /**
+         * Changes the base URL for all attachments
+         *
+         * @since 1.6.5
+         */
+        function set_attachments_urls( $attachment_guids ) {
+            global $wpdb;
+
+            $queries = array();
+            foreach ( $attachment_guids as $old_guid => $new_guid ) {
+                $queries[] = $wpdb->prepare( "UPDATE $wpdb->posts SET guid = REPLACE( guid, '%s', '%s' ) WHERE post_type = 'attachment'",
+                    $old_guid,
+                    $new_guid
+                );
+            }
+
+            if ( count( $queries ) > 0 ) {
+                $queries = implode( ';', $queries );
+                $wpdb -> query( $queries );
+            }
+
         }
 
         /**
@@ -587,7 +739,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.2.1
         */
         function network_admin_page() {
-			add_submenu_page( 'settings.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
+            add_submenu_page( 'settings.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
         }
 
         /**
@@ -597,9 +749,9 @@ if ( ! class_exists( 'blog_templates' ) ) {
         */
         function pre_3_1_network_admin_page() {
             if ( get_bloginfo('version') >= 3 )
-				add_submenu_page( 'ms-admin.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
+                add_submenu_page( 'ms-admin.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
             else
-				add_submenu_page( 'wpmu-admin.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
+                add_submenu_page( 'wpmu-admin.php', __( 'Blog Templates', $this->localization_domain ), __( 'Blog Templates', $this->localization_domain ), 'administrator', basename(__FILE__), array($this,'admin_options_page'));
             add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'filter_plugin_actions' ) );
         }
 
@@ -611,7 +763,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.0
         */
         function filter_plugin_actions( $links ) {
-			$wp_version;
+            $wp_version;
 
             if ( version_compare( $wp_version , '3.0.9', '>' ) )
                 $settings_link = '<a href="' . network_admin_url( 'settings.php?page=' . basename(__FILE__) ) . '">' . __( 'Settings', $this->localization_domain ) . '</a>';
@@ -649,7 +801,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
         */
         function admin_options_page_posted() {
             if ( !isset( $_GET['page'] ) || $_GET['page'] !== 'blog_templates.php' )
-				return;
+                return;
 
             unset( $this->options['templates'][''] ); //Delete the [] item, this will fix corrupted data
 
@@ -657,35 +809,37 @@ if ( ! class_exists( 'blog_templates' ) ) {
 
             if( !empty( $_POST['save_updated_template'] ) ) {
                 if (! wp_verify_nonce($_POST['_wpnonce'], 'blog_templates-update-options') )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
                 $this->options['templates'][$t]['name'] = stripslashes($_POST['template_name']);
                 $this->options['templates'][$t]['description'] = stripslashes(strip_tags($_POST['template_description']));
-                $this->options['templates'][$t]['to_copy'] = (array)$_POST['to_copy'];
+                $this->options['templates'][$t]['to_copy'] = isset( $_POST['to_copy'] ) ? (array)$_POST['to_copy'] : array();
                 $this->options['templates'][$t]['additional_tables'] = isset( $_POST['additional_template_tables'] ) ? $_POST['additional_template_tables'] : array();
+                $this->options['templates'][$t]['copy_status'] = isset( $_POST['copy_status'] ) ? true : false;
 
                 $this->save_admin_options();
 
                 echo '<div class="updated fade"><p>Success! Your changes were sucessfully saved!</p></div>';
             } elseif( !empty( $_POST['save_new_template'] ) ) {
                 if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'blog_templates-update-options' ) )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
 
                 if ( ! get_blog_details( (int) $_POST['copy_blog_id'] ) )
-					die( __( 'Whoops! The blog ID you posted is incorrect. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! The blog ID you posted is incorrect. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
 
                 $this->options['templates'][] = array(
-					'name' => (!empty($_POST['template_name']) ? stripslashes( $_POST['template_name'] ) : ''),
-					'description' => (!empty($_POST['template_description']) ? stripslashes(strip_tags($_POST['template_description'])) : ''),
-					'blog_id' => (int)$_POST['copy_blog_id'],
-					'to_copy' => (!empty($_POST['to_copy']) ? (array)$_POST['to_copy'] : array())
-				);
+                    'name' => (!empty($_POST['template_name']) ? stripslashes( $_POST['template_name'] ) : ''),
+                    'description' => (!empty($_POST['template_description']) ? stripslashes(strip_tags($_POST['template_description'])) : ''),
+                    'blog_id' => (int)$_POST['copy_blog_id'],
+                    'to_copy' => (!empty($_POST['to_copy']) ? (array)$_POST['to_copy'] : array()),
+                    'copy_status' => isset( $_POST['copy_status'] ) ? true : false
+                );
 
                 $this->save_admin_options();
 
                 echo '<div class="updated fade"><p>' . __( 'Success! Your changes were sucessfully saved!', $this->localization_domain ) . '</p></div>';
             } elseif( isset( $_POST['remove_default'] ) ) {
                 if ( ! wp_verify_nonce($_POST['_wpnonce'], 'blog_templates-update-options') )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
                 unset($this->options['default']);
 
                 $this->save_admin_options();
@@ -699,7 +853,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
                 echo '<div class="updated fade"><p>' . __( 'Success! The default option was successfully turned off.', $this->localization_domain ) . '</p></div>';
             } elseif ( isset( $_GET['default'] ) && is_numeric( $_GET['default'] ) ) {
                 if (! wp_verify_nonce($_GET['_wpnonce'], 'blog_templates-make_default') )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
 
                 $this->options['default'] = (int)$_GET['default'];
 
@@ -708,18 +862,18 @@ if ( ! class_exists( 'blog_templates' ) ) {
                 echo '<div class="updated fade"><p>' . __( 'Success! The default template was sucessfully updated.', $this->localization_domain ) . '</p></div>';
             } elseif ( isset( $_GET['d'] ) && is_numeric( $_GET['d'] ) ) {
                 if (! wp_verify_nonce($_GET['_wpnonce'], 'blog_templates-delete_template') )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
                 unset($this->options['templates'][$_GET['d']]);
 
                 $this->save_admin_options();
 
                 echo '<div class="updated fade"><p>' . __( 'Success! The template was sucessfully deleted.', $this->localization_domain ) . '</p></div>';
             } else if (isset($_POST['save_options'])) {
-            	if (! wp_verify_nonce($_POST['_wpnonce'], 'blog_templates-update-options') )
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
-				$this->options['show-registration-templates'] = isset($_POST['show-registration-templates']) ? (int)$_POST['show-registration-templates'] : 0;
-				$this->options['registration-templates-appearance'] = isset($_POST['registration-templates-appearance']) ? $_POST['registration-templates-appearance'] : '';
-				$this->save_admin_options(); 
+                if (! wp_verify_nonce($_POST['_wpnonce'], 'blog_templates-update-options') )
+                    die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again. (Generated by New Blog Templates)', $this->localization_domain ) );
+                $this->options['show-registration-templates'] = isset($_POST['show-registration-templates']) ? (int)$_POST['show-registration-templates'] : 0;
+                $this->options['registration-templates-appearance'] = isset($_POST['registration-templates-appearance']) ? $_POST['registration-templates-appearance'] : '';
+                $this->save_admin_options();
             }
         }
 
@@ -733,6 +887,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
 
             global $pagenow;
             $url = $pagenow . '?page=blog_templates.php';
+
 ?>
 
 <div class="wrap">
@@ -777,20 +932,34 @@ if ( ! class_exists( 'blog_templates' ) ) {
                 <tr valign="top">
                     <th width="33%"><?php _e( 'What To Copy To New Blog?', $this->localization_domain ); ?></th>
                     <td>
-						<?php
-						$options_to_copy = array(
-							'settings' => __( 'Wordpress Settings, Current Theme, and Active Plugins', $this->localization_domain ),
-							'posts'    => __( 'Posts and Pages', $this->localization_domain ),
-							'terms'    => __( 'Categories, Tags, and Links', $this->localization_domain ),
-							'users'    => __( 'Users', $this->localization_domain ),
-							'files'    => __( 'Files', $this->localization_domain )
-						);
-						foreach ( $options_to_copy as $key => $value ) {
-							echo "<span style='padding-right: 10px;'><input type='checkbox' name='to_copy[]' id='nbt-{$key}' value='$key'>&nbsp;<label for='nbt-{$key}'>$value</label></span><br/>";
-						}
-						?>
+                        <?php
+                        $options_to_copy = array(
+                            'settings' => __( 'Wordpress Settings, Current Theme, and Active Plugins', $this->localization_domain ),
+                            'posts'    => __( 'Posts and Pages', $this->localization_domain ),
+                            'terms'    => __( 'Categories, Tags, and Links', $this->localization_domain ),
+                            'users'    => __( 'Users', $this->localization_domain ),
+                            'menus'    => __( 'Menus', $this->localization_domain ),
+                            'files'    => __( 'Files', $this->localization_domain )
+
+                        );
+                        foreach ( $options_to_copy as $key => $value ) {
+                            echo "<span style='padding-right: 10px;'><input type='checkbox' name='to_copy[]' id='nbt-{$key}' value='$key'>&nbsp;<label for='nbt-{$key}'>$value</label></span><br/>";
+                        }
+                        ?>
                     </td>
                 </tr>
+                <?php if ( is_plugin_active( 'sitewide-privacy-options/sitewide-privacy-options.php' ) ): ?>
+                    <tr valign="top">
+                        <th width="33%"><?php _e( 'Copy Status?', $this->localization_domain ); ?></th>
+                        <td>
+                            <?php $checked = ( empty( $template['copy_status'] ) ) ? '' : 'checked'; ?>
+                            <span style='padding-right: 10px;'>
+                                <input type='checkbox' name='copy_status' id='nbt-copy-status' <?php echo $checked; ?>>
+                                &nbsp;<label for='nbt-copy-status'><?php _e( 'Check if you want also to copy the blog status (Public or not)', $this->localization_domain ); ?></label>
+                            </span><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
                     <th><?php _e('Advanced', $this->localization_domain); ?></th>
                     <td><?php _e('After you add this template, an advanced options area will show up on the edit screen (Click on the template name when it appears in the list above). In that advanced area, you can choose to add full tables to the template, in case you\'re using a plugin that creates its own database tables. Note that this is not required for new Blog Templates to work', $this->localization_domain); ?></td>
@@ -800,69 +969,69 @@ if ( ! class_exists( 'blog_templates' ) ) {
                     <p><?php printf( __( 'This means that if you would like to create a dedicated template blog for this template, please <a href="%1$s">create a new blog</a> and then visit this page to create the template.',$this->localization_domain ), '<a href="' . ( get_bloginfo('version') >= 3 ) ? network_admin_url('site-new.php') : admin_url('wpmu-blogs.php') . '">'); ?></p>
 
             <p><div class="submit"><input type="submit" name="save_new_template" class="button-primary" value="Create Blog Template!" /></div></p>
-            
+
             <h2><?php _e('Options', $this->localization_domain); ?></h2>
             <p>
-            	<label for="show-registration-templates">
-            		<?php _e('Show templates selection on registration:', $this->localization_domain); ?>
-            		<input type="checkbox"
-            			<?php echo (
-            				!empty($this->options['show-registration-templates']) ? 'checked="checked"' : ''
-            			); ?>
-            			name="show-registration-templates" id="show-registration-templates" value="1" 
-            		/>
-            	</label>
+                <label for="show-registration-templates">
+                    <?php _e('Show templates selection on registration:', $this->localization_domain); ?>
+                    <input type="checkbox"
+                        <?php echo (
+                            !empty($this->options['show-registration-templates']) ? 'checked="checked"' : ''
+                        ); ?>
+                        name="show-registration-templates" id="show-registration-templates" value="1"
+                    />
+                </label>
             </p>
             <p>
-            	<?php _e('Selecting this option will allow your new users to choose between templates when they sign up for a site.', $this->localization_domain); ?>
+                <?php _e('Selecting this option will allow your new users to choose between templates when they sign up for a site.', $this->localization_domain); ?>
             </p>
             <?php $appearance_template = $this->_get_config_option('registration-templates-appearance'); ?>
             <p>
-            	<label for="registration-templates-appearance-select">
-            		<input type="radio"
-            			<?php echo (
-            				empty($appearance_template) ? 'checked="checked"' : ''
-            			); ?>
-            			name="registration-templates-appearance" id="registration-templates-appearance-select" value="" 
-            		/>
-            		<?php _e('As simple selection box', $this->localization_domain); ?>
-            	</label>
+                <label for="registration-templates-appearance-select">
+                    <input type="radio"
+                        <?php echo (
+                            empty($appearance_template) ? 'checked="checked"' : ''
+                        ); ?>
+                        name="registration-templates-appearance" id="registration-templates-appearance-select" value=""
+                    />
+                    <?php _e('As simple selection box', $this->localization_domain); ?>
+                </label>
             </p>
             <p>
-            	<label for="registration-templates-appearance-description">
-            		<input type="radio"
-            			<?php echo (
-            				'description' == $appearance_template ? 'checked="checked"' : ''
-            			); ?>
-            			name="registration-templates-appearance" id="registration-templates-appearance-description" value="description" 
-            		/>
-            		<?php _e('As radio-box selection with descriptions', $this->localization_domain); ?>
-            	</label>
+                <label for="registration-templates-appearance-description">
+                    <input type="radio"
+                        <?php echo (
+                            'description' == $appearance_template ? 'checked="checked"' : ''
+                        ); ?>
+                        name="registration-templates-appearance" id="registration-templates-appearance-description" value="description"
+                    />
+                    <?php _e('As radio-box selection with descriptions', $this->localization_domain); ?>
+                </label>
             </p>
             <p>
-            	<label for="registration-templates-appearance-screenshot">
-            		<input type="radio"
-            			<?php echo (
-            				'screenshot' == $appearance_template ? 'checked="checked"' : ''
-            			); ?>
-            			name="registration-templates-appearance" id="registration-templates-appearance-screenshot" value="screenshot" 
-            		/>
-            		<?php _e('As theme screenshot selection', $this->localization_domain); ?>
-            	</label>
+                <label for="registration-templates-appearance-screenshot">
+                    <input type="radio"
+                        <?php echo (
+                            'screenshot' == $appearance_template ? 'checked="checked"' : ''
+                        ); ?>
+                        name="registration-templates-appearance" id="registration-templates-appearance-screenshot" value="screenshot"
+                    />
+                    <?php _e('As theme screenshot selection', $this->localization_domain); ?>
+                </label>
             </p>
             <p>
-            	<label for="registration-templates-appearance-screenshot_plus">
-            		<input type="radio"
-            			<?php echo (
-            				'screenshot_plus' == $appearance_template ? 'checked="checked"' : ''
-            			); ?>
-            			name="registration-templates-appearance" id="registration-templates-appearance-screenshot_plus" value="screenshot_plus" 
-            		/>
-            		<?php _e('As theme screenshot selection with titles and description', $this->localization_domain); ?>
-            	</label>
+                <label for="registration-templates-appearance-screenshot_plus">
+                    <input type="radio"
+                        <?php echo (
+                            'screenshot_plus' == $appearance_template ? 'checked="checked"' : ''
+                        ); ?>
+                        name="registration-templates-appearance" id="registration-templates-appearance-screenshot_plus" value="screenshot_plus"
+                    />
+                    <?php _e('As theme screenshot selection with titles and description', $this->localization_domain); ?>
+                </label>
             </p>
             <p><div class="submit"><input type="submit" name="save_options" class="button-primary" value="<?php esc_attr_e(__('Save Options', $this->localization_domain));?>" /></div></p>
-            
+
             <h2><?php _e('Default Template',$this->localization_domain); ?></h2>
             <p><?php _e('You can set one of your templates to be the default template. The default template gets automatically applied to any new blog creation, whether it\'s through Wordpress, BuddyPress, or another plugin, as long as they use the internal Wordpress blog creation function. That means if you choose to use a default template, any new blog created will automatically use that template - including blogs that users set up themselves!',$this->localization_domain); ?></p>
             <p><?php _e('If you\'ve set a blog as a default blog (if you did, one of the blogs above will say <b>(Default)</b> under the Actions column) and you no longer want to use a default template, simply click the button below to remove the default option. You can always make another template default later by clicking one of the [Make Default] links above. Note: Clicking this button will not delete any templates, it simply turns off the default feature until you choose another default template.',$this->localization_domain); ?></p>
@@ -887,21 +1056,35 @@ if ( ! class_exists( 'blog_templates' ) ) {
                 <tr valign="top">
                     <th width="33%"><?php _e( 'What To Copy To New Blog?', $this->localization_domain ); ?></th>
                     <td>
-						<?php
-						$options_to_copy = array(
-							'settings' => __( 'Wordpress Settings, Current Theme, and Active Plugins', $this->localization_domain ),
-							'posts'    => __( 'Posts and Pages', $this->localization_domain ),
-							'terms'    => __( 'Categories, Tags, and Links', $this->localization_domain ),
-							'users'    => __( 'Users', $this->localization_domain ),
-							'files'    => __( 'Files', $this->localization_domain )
-						);
-						foreach ( $options_to_copy as $key => $value ) {
-							$checked = in_array( $key, $template['to_copy'] ) ? ' checked="checked"' : '';
-							echo "<span style='padding-right: 10px;'><input type='checkbox' name='to_copy[]' id='nbt-{$key}' value='$key'$checked>&nbsp;<label for='nbt-{$key}'>$value</label></span><br/>";
-						}
-						?>
+                        <?php
+                        $options_to_copy = array(
+                            'settings' => __( 'Wordpress Settings, Current Theme, and Active Plugins', $this->localization_domain ),
+                            'posts'    => __( 'Posts and Pages', $this->localization_domain ),
+                            'terms'    => __( 'Categories, Tags, and Links', $this->localization_domain ),
+                            'users'    => __( 'Users', $this->localization_domain ),
+                            'menus'    => __( 'Menus', $this->localization_domain ),
+                            'files'    => __( 'Files', $this->localization_domain )
+
+                        );
+                        foreach ( $options_to_copy as $key => $value ) {
+                            $checked = in_array( $key, $template['to_copy'] ) ? ' checked="checked"' : '';
+                            echo "<span style='padding-right: 10px;'><input type='checkbox' name='to_copy[]' id='nbt-{$key}' value='$key'$checked>&nbsp;<label for='nbt-{$key}'>$value</label></span><br/>";
+                        }
+                        ?>
                     </td>
                 </tr>
+                <?php if ( is_plugin_active( 'sitewide-privacy-options/sitewide-privacy-options.php' ) ): ?>
+                    <tr valign="top">
+                        <th width="33%"><?php _e( 'Copy Status?', $this->localization_domain ); ?></th>
+                        <td>
+                            <?php $checked = ( empty( $template['copy_status'] ) ) ? '' : 'checked'; ?>
+                            <span style='padding-right: 10px;'>
+                                <input type='checkbox' name='copy_status' id='nbt-copy-status' <?php echo $checked; ?>>
+                                &nbsp;<label for='nbt-copy-status'><?php _e( 'Check if you want also to copy the blog status (Public or not)', $this->localization_domain ); ?></label>
+                            </span><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </table>
             <p><div class="submit"><input type="submit" name="save_updated_template" value="<?php _e('Save', $this->localization_domain); ?> &raquo;" class="button-primary" /></div></p>
             <h2><?php _e('Advanced Options',$this->localization_domain); ?></h2>
@@ -921,23 +1104,32 @@ if ( ! class_exists( 'blog_templates' ) ) {
                             //Grab all non-core tables and display them as options
 
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-							// Changed
-							$pfx = class_exists("m_wpdb") ? $wpdb->prefix : str_replace('_','\_',$wpdb->prefix);
+                            // Changed
+                            $pfx = class_exists("m_wpdb") ? $wpdb->prefix : str_replace('_','\_',$wpdb->prefix);
+
+
                             //$results = $wpdb->get_results("SHOW TABLES LIKE '" . str_replace('_','\_',$wpdb->prefix) . "%'", ARRAY_N);
                             $results = $wpdb->get_results("SHOW TABLES LIKE '{$pfx}%'", ARRAY_N);
 
                             if (!empty($results)) {
+
                                 foreach($results as $result) {
                                     if (!in_array(str_replace($wpdb->prefix,'',$result['0']),$wpdb->tables)) {
 
-										if (class_exists("m_wpdb")) {
-											$db = $wpdb->analyze_query("SHOW TABLES LIKE '{$pfx}%'");
-											$dataset = $db['dataset'];
-											$current_db = $wpdb->dbh_connections[$dataset];
-											$val = $current_db['name'] . '.' . $result[0];
-										} else {
-											$val =  $result[0];
-										}
+                                        if (class_exists("m_wpdb")) {
+                                            $db = $wpdb->analyze_query("SHOW TABLES LIKE '{$pfx}%'");
+                                            $dataset = $db['dataset'];
+                                            $current_db = $wpdb->dbh_connections[$dataset];
+                                            $val = $current_db['name'] . '.' . $result[0];
+                                        } else {
+                                            $val =  $result[0];
+                                        }
+                                        if ( stripslashes_deep( $pfx ) == $wpdb->base_prefix ) {
+                                            // If we are on the main blog, we'll have to avoid those tables from other blogs
+                                            $pattern = '/^' . stripslashes_deep( $pfx ) . '[0-9]/';
+                                            if ( preg_match( $pattern, $result[0] ) )
+                                                continue;
+                                        }
                                         //echo "<input type='checkbox' name='additional_template_tables[]' value='$result[0]'";
                                         echo "<input type='checkbox' name='additional_template_tables[]' value='{$val}'";
                                         if ( isset( $template['additional_tables'] ) && is_array( $template['additional_tables'] ) )
@@ -950,7 +1142,7 @@ if ( ! class_exists( 'blog_templates' ) ) {
                             } else {
                                 _e('There are no additional tables to display for this blog',$this->localization_domain);
                             }
-							// End changed
+                            // End changed
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
                             restore_current_blog();
                         ?>
@@ -969,26 +1161,26 @@ if ( ! class_exists( 'blog_templates' ) ) {
         * @since 1.2
         */
         function multi_domain_form_field( $domain = '' ) {
-			if( count( $this->options['templates'] ) <= 1 ) // don't display field if there is only one template or none
-				return false;
-			?>
-			<tr>
-				<th scope="row"><label for="blog_template"><?php _e( 'Default Blog Template', $this->localization_domain ) ?>:</label></th>
-				<td>
-					<select id="blog_template" name="blog_template">
-						<option value="">Default</option>
-						<?php
-						foreach( $this->options['templates'] as $key => $blog_template ) {
-							$selected = isset( $domain['blog_template'] ) ? selected( $key, $domain['blog_template'], false ) : '';
-							echo "<option value='$key'$selected>$blog_template[name]</option>";
-						}
-						?>
-					</select><br />
-					<span class="description"><?php _e( 'Default Blog Template used for this domain.', $this->localization_domain ) ?></span>
-				</td>
-			</tr>
-			<?php
-		}
+            if( count( $this->options['templates'] ) <= 1 ) // don't display field if there is only one template or none
+                return false;
+            ?>
+            <tr>
+                <th scope="row"><label for="blog_template"><?php _e( 'Default Blog Template', $this->localization_domain ) ?>:</label></th>
+                <td>
+                    <select id="blog_template" name="blog_template">
+                        <option value="">Default</option>
+                        <?php
+                        foreach( $this->options['templates'] as $key => $blog_template ) {
+                            $selected = isset( $domain['blog_template'] ) ? selected( $key, $domain['blog_template'], false ) : '';
+                            echo "<option value='$key'$selected>$blog_template[name]</option>";
+                        }
+                        ?>
+                    </select><br />
+                    <span class="description"><?php _e( 'Default Blog Template used for this domain.', $this->localization_domain ) ?></span>
+                </td>
+            </tr>
+            <?php
+        }
 
         private function _get_config_option ($key, $default=false) {
             if (empty($this->options)) return $default;
@@ -1003,12 +1195,11 @@ if ( ! class_exists( 'blog_templates' ) ) {
          */
         private function _get_files_fs_path ($blog_id) {
             if (!is_numeric($blog_id)) return false;
-            if (defined('NBT_LEGACY_PATH_RESOLUTION') && NBT_LEGACY_PATH_RESOLUTION) return ABSPATH .'wp-content/blogs.dir/' . $blog_id . '/files';
             switch_to_blog($blog_id);
             $info = wp_upload_dir();
             restore_current_blog();
-            return !empty($info['basedir']) 
-                ? $info['basedir'] 
+            return !empty($info['basedir'])
+                ? $info['basedir']
                 : false
             ;
         }
@@ -1018,93 +1209,104 @@ if ( ! class_exists( 'blog_templates' ) ) {
         *
         * @since 1.2
         */
-		function multi_domain_update_domain( $current_domain, $domain ) {
-			$current_domain['blog_template'] = isset( $domain['blog_template'] ) ? $domain['blog_template'] : '';
+        function multi_domain_update_domain( $current_domain, $domain ) {
+            $current_domain['blog_template'] = isset( $domain['blog_template'] ) ? $domain['blog_template'] : '';
 
-			return $current_domain;
-		}
+            return $current_domain;
+        }
 
         /**
         * Adds Blog Template column to Multi-Domains table
         *
         * @since 1.2
         */
-		function manage_multi_domains_columns( $columns ) {
-			$columns['blog_template'] = __( 'Blog Template', $this->localization_domain );
-			return $columns;
-		}
+        function manage_multi_domains_columns( $columns ) {
+            $columns['blog_template'] = __( 'Blog Template', $this->localization_domain );
+            return $columns;
+        }
 
         /**
         * Display content of the Blog Template column in the Multi-Domains table
         *
         * @since 1.2
         */
-		function manage_multi_domains_custom_column( $column_name, $domain ) {
-			if( 'blog_template' == $column_name ) {
-				if( !isset( $domain['blog_template'] ) ) {
-					echo 'Default';
-				} elseif( !is_numeric( $domain['blog_template'] ) ) {
-					echo 'Default';
-				} else {
-					$key = $domain['blog_template'];
-					echo $this->options['templates'][$key]['name'];
-				}
-			}
-		}
+        function manage_multi_domains_custom_column( $column_name, $domain ) {
+            if( 'blog_template' == $column_name ) {
+                if( !isset( $domain['blog_template'] ) ) {
+                    echo 'Default';
+                } elseif( !is_numeric( $domain['blog_template'] ) ) {
+                    echo 'Default';
+                } else {
+                    $key = $domain['blog_template'];
+                    echo $this->options['templates'][$key]['name'];
+                }
+            }
+        }
 
         /**
-		 * Exclude blog templates from Blogs Directory list
+         * Exclude blog templates from Blogs Directory list
          **/
-		function blogs_directory_blogs_list( $blogs ) {
-			$blog_templates = $this->options;
-			$blog_templates_ids = array();
-			foreach ( $blog_templates['templates'] as $template ) {
-				$blog_templates_ids[] = $template['blog_id'];
-			}
+        function blogs_directory_blogs_list( $blogs ) {
+            $blog_templates = $this->options;
+            $blog_templates_ids = array();
+            foreach ( $blog_templates['templates'] as $template ) {
+                $blog_templates_ids[] = $template['blog_id'];
+            }
 
-			foreach ( $blogs as $key => $blog ) {
-				if ( in_array( $blog['blog_id'], $blog_templates_ids ) )
-					unset( $blogs[$key] );
-			}
+            foreach ( $blogs as $key => $blog ) {
+                if ( in_array( $blog['blog_id'], $blog_templates_ids ) )
+                    unset( $blogs[$key] );
+            }
 
-			return $blogs;
-		}
+            return $blogs;
+        }
 
         /**
-		 * Exclude blog templates from Blogs Directory count
+         * Exclude blog templates from Blogs Directory count
          **/
-		function blogs_directory_blogs_count( $count ) {
-			return $count - count( $this->options );
-		}
-		
-		/**
-		 * Shows template selection on registration.
-		 */
-		function registration_template_selection () {
-			if (!$this->options['show-registration-templates']) return false;
-			// Setup vars
-			$templates = $this->options['templates'];
-			
-			$tpl_file_suffix = $this->options['registration-templates-appearance'] ? '-' . $this->options['registration-templates-appearance'] : '';
-			$tpl_file = "blog_templates-registration{$tpl_file_suffix}.php";
-			
-			// Setup theme file
-			$theme_file = locate_template(array($tpl_file));
-			$theme_file = $theme_file ? $theme_file : $this->thispluginpath . 'template/' . $tpl_file;
-			if (!file_exists($theme_file)) return false;
-			
-			// Do the thing
-			@include $theme_file;
-		}
-		
-		/**
-		 * Store selected template in blog meta on signup.
-		 */
-		function registration_template_selection_add_meta ($meta) {
-			$meta = $meta ? $meta : array();
-			$meta['blog_template'] = @$_POST['blog_template'];
-			return $meta;
-		}
+        function blogs_directory_blogs_count( $count ) {
+            return $count - count( $this->options );
+        }
+
+        /**
+         * Shows template selection on registration.
+         */
+        function registration_template_selection () {
+            if (!$this->options['show-registration-templates']) return false;
+            // Setup vars
+            $templates = $this->options['templates'];
+
+            $tpl_file_suffix = $this->options['registration-templates-appearance'] ? '-' . $this->options['registration-templates-appearance'] : '';
+            $tpl_file = "blog_templates-registration{$tpl_file_suffix}.php";
+
+            // Setup theme file
+            $theme_file = locate_template(array($tpl_file));
+            $theme_file = $theme_file ? $theme_file : $this->thispluginpath . 'template/' . $tpl_file;
+            if (!file_exists($theme_file)) return false;
+
+            // Do the thing
+            @include $theme_file;
+        }
+
+        /**
+         * Store selected template in blog meta on signup.
+         */
+        function registration_template_selection_add_meta ($meta) {
+            $meta = $meta ? $meta : array();
+            $meta['blog_template'] = @$_POST['blog_template'];
+            return $meta;
+        }
+
+        /**
+         * Reset the terms counts to 0
+         *
+         * @param Integer $blog_id
+         */
+        function reset_terms_counts( $blog_id ) {
+
+            global $wpdb;
+            $result = $wpdb->query( "UPDATE $wpdb->term_taxonomy SET count = 0" );
+        }
 
     } // End Class
 
