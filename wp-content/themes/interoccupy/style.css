@@ -13,6 +13,10 @@ Yellow: #FFCE00
 Blue: #335D99
 
 */
+.main-nav li a:hover
+{
+    color: #fff;
+}
 ul.sub-menu li a
 {
     color:#000;
