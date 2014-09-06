@@ -2,7 +2,6 @@ demo
 *.DS_Store
 user-feedback/
 wp-includes
-wp-includes/*
 .htaccess*
 *~
 phpinfo.php
@@ -21,6 +20,6 @@ wp-content/themes/*
 wp-content/themes-ai1ec/
 wp-content/themes-ai1ec/*
 !wp-content/themes/handy
+!wp-content/themes/interoccupy
 sftp-config*
 wp-admin
-wp-admin/*
