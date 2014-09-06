@@ -1,1 +1,0 @@
-timely.define(["ai1ec_config"],function(e){var t=e.gmaps_language,n="async!http://maps.google.com/maps/api/js?sensor=false&language="+t;return function(e){timely.require([n],e)}});
