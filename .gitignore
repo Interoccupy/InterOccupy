@@ -1,13 +1,14 @@
 demo
+.sass-cache
 *.DS_Store
-user-feedback/
+user-feedback
 wp-includes
 .htaccess*
 *~
 phpinfo.php
 splash.gif
 test.php
-upload/
+upload
 wp-config-old.php
 wp-config.php
 wp-content/uploads
@@ -23,3 +24,6 @@ wp-content/themes-ai1ec/*
 !wp-content/themes/interoccupy
 sftp-config*
 wp-admin
+*/config.rb
+!wp-content/themes/handy/*
+!wp-content/themes/interoccupy/*
